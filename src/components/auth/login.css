@@ -1,0 +1,119 @@
+/* login.css */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: var(--bg-dark);
+  overflow: hidden;
+  padding: 20px;
+}
+
+/* Glass Panel Specifics */
+.glass-panel {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-strength));
+  -webkit-backdrop-filter: blur(var(--blur-strength));
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.login-title {
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+}
+
+/* Custom Input Icons Layout */
+.input-group-custom {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  color: var(--text-muted);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.input-group-custom .custom-input {
+  padding-left: 45px !important; /* Make room for the icon */
+}
+
+/* Links and Alerts */
+.forgot-link,
+.auth-nav-link {
+  color: var(--primary-glow);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: var(--transition-speed);
+}
+
+.forgot-link:hover,
+.auth-nav-link:hover {
+  filter: brightness(1.2);
+  text-decoration: underline;
+}
+
+.custom-alert {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* Background Animated Blobs */
+.bg-glow-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.blob-purple {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: var(--secondary-glow);
+  filter: blur(100px);
+  border-radius: 50%;
+  top: -100px;
+  left: -50px;
+  opacity: 0.3;
+}
+
+.blob-blue {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: var(--primary-glow);
+  filter: blur(120px);
+  border-radius: 50%;
+  bottom: -150px;
+  right: -100px;
+  opacity: 0.3;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+  .glass-panel {
+    padding: 30px 20px;
+    border-radius: 20px;
+  }
+}

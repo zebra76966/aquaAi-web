@@ -1,0 +1,106 @@
+/* Variables.css */
+/* :root {
+ 
+  --primary-glow: #6366f1;
+  --secondary-glow: #a855f7;
+  --bg-dark: #0f172a;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+
+ 
+  --blur-strength: 12px;
+  --transition-speed: 0.3s;
+} */
+
+/* variable.css */
+:root {
+  /* Your Custom Names */
+  --primary-glow: #6366f1;
+  --secondary-glow: #a855f7;
+  --bg-dark: #0f172a;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+
+  /* Overriding Bootstrap's Internal Variables */
+  --bs-body-bg: var(--bg-dark);
+  --bs-body-color: var(--text-main);
+  --bs-primary: var(--primary-glow);
+  --bs-emphasis-color: var(--text-main);
+  --bs-secondary-color: var(--text-muted);
+
+  /* Link Overrides */
+  --bs-link-color: var(--primary-glow);
+  --bs-link-hover-color: var(--secondary-glow);
+
+  /* Effects */
+  --blur-strength: 12px;
+  --transition-speed: 0.3s;
+}
+
+/* Force Global Body Background */
+body {
+  background-color: var(--bg-dark) !important;
+  color: var(--text-main) !important;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-strength));
+  -webkit-backdrop-filter: blur(var(--blur-strength));
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Add this to your variable.css / master.css */
+.custom-input {
+  background-color: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  color: var(--text-main) !important;
+  backdrop-filter: blur(5px);
+}
+
+.custom-input::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 0.7;
+}
+
+/* This fixes the white background Bootstrap adds on focus */
+.custom-input:focus {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25) !important;
+  border-color: var(--primary-glow) !important;
+}
+
+.custom-input:focus {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border-color: var(--primary-glow) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+}
+
+.glow-button {
+  background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.glow-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -10px var(--primary-glow);
+}

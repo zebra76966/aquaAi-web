@@ -1,0 +1,121 @@
+/* register.css */
+
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: var(--bg-dark);
+  overflow: hidden;
+  padding: 40px 20px; /* More padding for longer forms */
+}
+
+.register-title {
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+}
+
+/* Share the same Glass Panel style from login or define specifically */
+.glass-panel {
+  width: 100%;
+  max-width: 460px; /* Slightly wider for the register form */
+  padding: 40px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-strength));
+  -webkit-backdrop-filter: blur(var(--blur-strength));
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+/* Icon & Input Styling (consistent with Login) */
+.input-group-custom {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  color: var(--text-muted);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.input-group-custom .custom-input {
+  padding-left: 45px !important;
+}
+
+/* Alert Styling */
+.custom-alert {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.alert-success-glass {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  color: #86efac;
+}
+
+.auth-nav-link {
+  color: var(--primary-glow);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition-speed);
+}
+
+.auth-nav-link:hover {
+  filter: brightness(1.2);
+  text-decoration: underline;
+}
+
+/* Unique Background Blobs for Register */
+.bg-glow-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.blob-purple-top {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: var(--secondary-glow);
+  filter: blur(130px);
+  border-radius: 50%;
+  top: -200px;
+  right: -100px;
+  opacity: 0.25;
+}
+
+.blob-blue-bottom {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: var(--primary-glow);
+  filter: blur(150px);
+  border-radius: 50%;
+  bottom: -250px;
+  left: -150px;
+  opacity: 0.25;
+}
+
+@media (max-width: 480px) {
+  .glass-panel {
+    padding: 30px 20px;
+  }
+}
