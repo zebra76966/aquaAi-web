@@ -145,6 +145,73 @@ export default function Plans() {
         </div>
 
         <Row className="justify-content-center align-items-stretch g-4">
+          {/* --- Static Free Tier Card --- */}
+          {(() => {
+            const isFreeActive = mySubscription?.plan?.key === "free";
+            return (
+              <Col lg={4} md={6}>
+                <motion.div className={`premium-card free-card`} whileHover={{ scale: 1.02 }}>
+                  {isFreeActive && <div className="active-tag">CURRENT PLAN</div>}
+
+                  <div className="card-inner-header">
+                    <div className="icon-circle free-icon-circle">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 13A6 6 0 1 1 8 2a6 6 0 0 1 0 12z" />
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                      </svg>
+                    </div>
+                    <div className="name-box">
+                      <h2 className="plan-display-name">Free</h2>
+                      <p className="plan-subtitle">Get Started</p>
+                    </div>
+                  </div>
+
+                  <div className="price-box">
+                    <div className="d-flex align-items-end gap-1">
+                      <span className="unit">£</span>
+                      <span className="big-price">0</span>
+                      <span className="cycle">/mo</span>
+                    </div>
+                    <div style={{ height: "20px" }} />
+                  </div>
+
+                  <div className="feature-grid mt-4">
+                    <div className="feat-item">
+                      <FaCheckCircle className="feat-icon" /> 1 Tank at a time
+                    </div>
+                    <div className="feat-item feat-item-limited">
+                      <FaCheckCircle className="feat-icon" /> Limited AI Queries
+                    </div>
+                    <div className="feat-item feat-item-limited">
+                      <FaCheckCircle className="feat-icon" /> Basic Habitat Tracking
+                    </div>
+                    <div className="feat-item feat-item-limited">
+                      <FaCheckCircle className="feat-icon" /> No Disease Detection
+                    </div>
+                    <div className="feat-item feat-item-limited">
+                      <FaCheckCircle className="feat-icon" /> No Advanced Analytics
+                    </div>
+                  </div>
+
+                  <div className="card-footer mt-auto">
+                    {isFreeActive ? (
+                      <a href="aqua://" className="action-btn btn btn-neon w-100 d-flex align-items-center justify-content-center" style={{ textDecoration: "none" }}>
+                        Continue with Free
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" className="ms-2">
+                          <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                        </svg>
+                      </a>
+                    ) : (
+                      <Button className="action-btn btn-disabled w-100" disabled>
+                        Free Tier
+                      </Button>
+                    )}
+                  </div>
+                </motion.div>
+              </Col>
+            );
+          })()}
+
           {planDiscounts.map((discountPlan) => {
             const basePlanInfo = plans.find((p) => p.key === discountPlan.plan);
             const checkType = isYearly ? "yearly" : "monthly";
@@ -236,11 +303,20 @@ export default function Plans() {
 
         {/* --- Skip / Logout Actions --- */}
         <motion.div className="text-center mt-5 d-flex flex-column align-items-center gap-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
-          <Link to="/dashboard" className="skip-link">
+          {/* <Link to="/dashboard" className="skip-link">
             No thanks, skip for now <FaArrowRight className="ms-1" size={12} />
-          </Link>
+          </Link> */}
+
+          <div className="mb-3">
+            <a href="aqua://" className="back-to-app-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" className="me-2">
+                <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+              </svg>
+              Back to App
+            </a>
+          </div>
           <button
-            className="btn-danger btn"
+            className="btn btn-danger"
             onClick={() => {
               logout();
               window.location.href = "/login";

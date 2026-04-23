@@ -364,3 +364,27 @@
 .logout-link:hover {
   color: rgba(239, 68, 68, 0.75);
 }
+
+/* ─── Free Tier Card ─────────────────────────────────────────────── */
+.free-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.free-icon-circle {
+  background: rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  color: #94a3b8;
+}
+
+.feat-item-limited {
+  opacity: 0.4;
+  text-decoration: line-through;
+  text-decoration-color: rgba(255, 255, 255, 0.2);
+}
