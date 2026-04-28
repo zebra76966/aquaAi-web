@@ -47,12 +47,19 @@ body {
   color: var(--text-main) !important;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
 body {
   background-color: var(--bg-dark);
   color: var(--text-main);
-  font-family: "Inter", sans-serif;
+  font-family: "DM Sans", sans-serif;
   margin: 0;
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Cabinet Grotesk", sans-serif;
+  letter-spacing: -0.5px;
 }
 
 .glass-card {

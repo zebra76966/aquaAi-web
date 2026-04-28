@@ -14,6 +14,7 @@ import Dashboard from "./components/dashboard";
 import Tanks from "./components/tanks";
 import PaymentSuccess from "./components/auth/PaymentSuccess";
 import PaymentFail from "./components/auth/PaymentFail";
+import BreederApply from "./components/breeder/BreederApply";
 
 function App() {
   return (
@@ -35,6 +36,9 @@ function App() {
 
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/tanks" element={<Tanks />} />
+
+          {/* Breeder application — token passed via ?token=xxx query param */}
+          <Route path="/breeder" element={<BreederApply />} />
 
           <Route path="*" element={<Navigate to="/register" replace />} />
         </Routes>
