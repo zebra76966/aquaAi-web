@@ -18,6 +18,7 @@ import {
   FaShieldAlt,
   FaLeaf,
 } from "react-icons/fa";
+import { RiArrowLeftLine } from "react-icons/ri";
 import { baseUrl } from "../auth/config";
 import "./BreederApply.css";
 import ThemeToggle from "../ThemeToggle";
@@ -25,26 +26,43 @@ import ThemeToggle from "../ThemeToggle";
 const SPECIES_CATEGORIES = [
   { key: "freshwater_fish", label: "Freshwater", icon: "🌿" },
   { key: "marine_fish", label: "Saltwater", icon: "🌊" },
-  { key: "pond_fish", label: "Pond Fish", icon: "🏞️" },
+  { key: "pond_fish", label: "Pond", icon: "🏞️" },
   { key: "marine_invertebrate", label: "Invertebrates", icon: "🦀" },
 ];
 
-const StepIndicator = ({ current, total }) => (
-  <div className="breeder-steps">
-    {Array.from({ length: total }).map((_, i) => (
-      <div key={i} className={`step-dot ${i < current ? "done" : i === current ? "active" : ""}`}>
-        {i < current ? <FaCheckCircle size={10} /> : i + 1}
+const STEPS_META = [
+  { title: "Business Info", subtitle: "Tell us about your operation", icon: FaBuilding },
+  { title: "Online Presence", subtitle: "Where can customers find you?", icon: FaGlobe },
+  { title: "Species & Expertise", subtitle: "What do you breed?", icon: FaFish },
+  { title: "Review & Submit", subtitle: "Confirm your application", icon: FaShieldAlt },
+];
+
+/* ── Mobile step header ───────────────────────────── */
+const MobileStepHeader = ({ step, total, onBack }) => (
+  <div className="br-mobile-header">
+    <button className="br-mobile-back" onClick={onBack} disabled={step === 0}>
+      <RiArrowLeftLine size={18} />
+    </button>
+    <div className="br-mobile-progress-wrap">
+      <div className="br-mobile-step-label">
+        Step {step + 1} of {total}
       </div>
-    ))}
-    <div className="step-track">
-      <div className="step-fill" style={{ width: `${(current / (total - 1)) * 100}%` }} />
+      <div className="br-mobile-bar-track">
+        <motion.div className="br-mobile-bar-fill" initial={false} animate={{ width: `${((step + 1) / total) * 100}%` }} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }} />
+      </div>
+    </div>
+    <div className="br-mobile-dots">
+      {Array.from({ length: total }).map((_, i) => (
+        <div key={i} className={`br-mobile-dot ${i === step ? "active" : i < step ? "done" : ""}`} />
+      ))}
     </div>
   </div>
 );
 
-const FieldGroup = ({ icon: Icon, children }) => (
-  <div className="field-group">
-    <span className="field-icon">
+/* ── Field wrapper with icon ──────────────────────── */
+const Field = ({ icon: Icon, children, isTextarea }) => (
+  <div className={`br-field ${isTextarea ? "br-field-textarea" : ""}`}>
+    <span className="br-field-icon">
       <Icon />
     </span>
     {children}
@@ -52,7 +70,6 @@ const FieldGroup = ({ icon: Icon, children }) => (
 );
 
 export default function BreederApply() {
-  // Extract token from URL query param: /breeder?token=xxx
   const params = new URLSearchParams(window.location.search);
   const token = params.get("token") || "";
 
@@ -61,7 +78,7 @@ export default function BreederApply() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
-  // Form fields
+  /* Form fields */
   const [companyName, setCompanyName] = useState("");
   const [bio, setBio] = useState("");
   const [website, setWebsite] = useState("");
@@ -75,7 +92,7 @@ export default function BreederApply() {
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [agreeGuidelines, setAgreeGuidelines] = useState(false);
 
-  // Species
+  /* Species */
   const [speciesList, setSpeciesList] = useState([]);
   const [selectedSpecies, setSelectedSpecies] = useState([]);
   const [activeCategory, setActiveCategory] = useState("freshwater_fish");
@@ -94,7 +111,7 @@ export default function BreederApply() {
       const json = await res.json();
       setSpeciesList(json.data || []);
     } catch {
-      // silently fail
+      /* silent */
     } finally {
       setLoadingSpecies(false);
     }
@@ -106,9 +123,7 @@ export default function BreederApply() {
 
   useEffect(() => {
     const handler = (e) => {
-      if (searchRef.current && !searchRef.current.contains(e.target)) {
-        setDropdownOpen(false);
-      }
+      if (searchRef.current && !searchRef.current.contains(e.target)) setDropdownOpen(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -126,12 +141,11 @@ export default function BreederApply() {
     setSearchQuery("");
     setDropdownOpen(false);
   };
-
   const removeSpecies = (id) => setSelectedSpecies((prev) => prev.filter((s) => s.id !== id));
 
   const validateStep = () => {
-    if (step === 0 && (!companyName || !bio)) {
-      setError("Please fill in Company Name and Bio.");
+    if (step === 0 && (!companyName.trim() || !bio.trim())) {
+      setError("Please fill in your Company Name and Bio.");
       return false;
     }
     if (step === 2 && selectedSpecies.length === 0) {
@@ -149,7 +163,6 @@ export default function BreederApply() {
   const handleNext = () => {
     if (validateStep()) setStep((s) => Math.min(s + 1, 3));
   };
-
   const handleBack = () => {
     setError("");
     setStep((s) => Math.max(s - 1, 0));
@@ -178,21 +191,17 @@ export default function BreederApply() {
         agree_terms: true,
         agree_guidelines: true,
       };
-
       const res = await fetch(`${baseUrl}/breeders/apply/`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(payload),
       });
-
       const json = await res.json();
       if (!res.ok) {
         setError(json.message || "Submission failed. Please try again.");
         return;
       }
-
       setSuccess(true);
-      // Redirect back to native app after 2.5s
       setTimeout(() => {
         window.location.href = "aquaProviders://";
       }, 2500);
@@ -203,311 +212,315 @@ export default function BreederApply() {
     }
   };
 
-  // if (!token) {
-  //   return (
-  //     <div className="breeder-page">
-  //       <div className="breeder-bg">
-  //         <div className="blob-1" /><div className="blob-2" /><div className="blob-3" />
-  //       </div>
-  //       <div className="breeder-error-state">
-  //         <div className="error-icon">⚠️</div>
-  //         <h2>Access Denied</h2>
-  //         <p>No authentication token found. Please open this page from the AquaAI app.</p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  if (!token) {
+    return (
+      <div className="br-page ">
+        <div className="br-bg">
+          <div className="br-blob-a" />
+          <div className="br-blob-b" />
+          <div className="br-blob-c" />
+        </div>
+        <div className="breeder-error-state">
+          <div className="error-icon">⚠️</div>
+          <h2>Access Denied</h2>
+          <p>No authentication token found. Please open this page from the AquaAI app.</p>
+        </div>
+      </div>
+    );
+  }
 
   if (success) {
     return (
-      <div className="breeder-page">
-        <div className="breeder-bg">
-          <div className="blob-1" />
-          <div className="blob-2" />
-          <div className="blob-3" />
+      <div className="br-page">
+        <div className="br-bg">
+          <div className="br-blob br-blob-a" />
+          <div className="br-blob br-blob-b" />
         </div>
-        <motion.div className="success-panel" initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 200 }}>
-          <div className="success-ring">
-            <FaCheckCircle size={48} color="#4ade80" />
+        <motion.div className="br-success" initial={{ scale: 0.85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 200 }}>
+          <div className="br-success-ring">
+            <FaCheckCircle size={44} />
           </div>
           <h2>Application Submitted!</h2>
           <p>Your breeder profile is under review. We'll notify you once approved.</p>
-          <p className="redirect-hint">Returning you to the AquaAI app…</p>
-          <div className="success-loader">
-            <div className="success-bar" />
+          <p className="br-redirect-hint">Returning you to the AquaAI app…</p>
+          <div className="br-success-bar-wrap">
+            <div className="br-success-bar" />
           </div>
         </motion.div>
       </div>
     );
   }
 
-  const STEPS = [
-    {
-      title: "Business Info",
-      subtitle: "Tell us about your breeding operation",
-      icon: <FaBuilding />,
-      content: (
-        <motion.div key="step0" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.3 }}>
-          <FieldGroup icon={FaBuilding}>
-            <input className="breeder-input" placeholder="Company / Breeder Name *" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
-          </FieldGroup>
-          <div className="field-group textarea-group">
-            <span className="field-icon textarea-icon">
-              <FaLeaf />
+  /* ── Step content ─────────────────────────────────── */
+  const stepContent = [
+    /* Step 0 — Business Info */
+    <motion.div key="s0" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} transition={{ duration: 0.25 }}>
+      <Field icon={FaBuilding}>
+        <input className="br-input" placeholder="Company / Breeder Name *" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
+      </Field>
+      <Field icon={FaLeaf} isTextarea>
+        <textarea className="br-input br-textarea" placeholder="Describe your breeding operation, experience, and passion… *" value={bio} onChange={(e) => setBio(e.target.value)} rows={5} />
+      </Field>
+    </motion.div>,
+
+    /* Step 1 — Online Presence */
+    <motion.div key="s1" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} transition={{ duration: 0.25 }}>
+      <Field icon={FaGlobe}>
+        <input className="br-input" placeholder="Website URL" value={website} onChange={(e) => setWebsite(e.target.value)} />
+      </Field>
+      <Field icon={FaInstagram}>
+        <input className="br-input" placeholder="Instagram handle" value={instagram} onChange={(e) => setInstagram(e.target.value)} />
+      </Field>
+      <Field icon={FaFacebook}>
+        <input className="br-input" placeholder="Facebook page URL" value={facebook} onChange={(e) => setFacebook(e.target.value)} />
+      </Field>
+      <Field icon={FaPhone}>
+        <input className="br-input" placeholder="Business Phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
+      </Field>
+      <Field icon={FaMapMarkerAlt}>
+        <input className="br-input" placeholder="Business Address" value={address} onChange={(e) => setAddress(e.target.value)} />
+      </Field>
+    </motion.div>,
+
+    /* Step 2 — Species & Expertise */
+    <motion.div key="s2" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} transition={{ duration: 0.25 }}>
+      <Field icon={FaStar}>
+        <input className="br-input" placeholder="Years of Experience" type="number" min="0" value={years} onChange={(e) => setYears(e.target.value)} />
+      </Field>
+      <Field icon={FaLeaf}>
+        <input className="br-input" placeholder="Breeding Focus (e.g. Rare Discus)" value={focus} onChange={(e) => setFocus(e.target.value)} />
+      </Field>
+      <Field icon={FaCertificate}>
+        <input className="br-input" placeholder="Certifications (comma separated)" value={certifications} onChange={(e) => setCertifications(e.target.value)} />
+      </Field>
+
+      <div className="br-species-section">
+        <p className="br-section-label">Species You Breed *</p>
+
+        {/* Category tabs */}
+        <div className="br-cat-pills">
+          {SPECIES_CATEGORIES.map((c) => (
+            <button
+              key={c.key}
+              className={`br-cat-pill ${activeCategory === c.key ? "active" : ""}`}
+              onClick={() => {
+                setActiveCategory(c.key);
+                setSearchQuery("");
+                setDropdownOpen(false);
+              }}
+            >
+              <span>{c.icon}</span>
+              {c.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Search */}
+        <div className="br-species-search" ref={searchRef}>
+          <div className="br-field">
+            <span className="br-field-icon">
+              <FaSearch />
             </span>
-            <textarea
-              className="breeder-input breeder-textarea"
-              placeholder="Describe your breeding operation, experience, and passion… *"
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              rows={5}
+            <input
+              className="br-input"
+              placeholder="Search species…"
+              value={searchQuery}
+              onFocus={() => setDropdownOpen(true)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setDropdownOpen(true);
+              }}
             />
           </div>
-        </motion.div>
-      ),
-    },
-    {
-      title: "Online Presence",
-      subtitle: "Where can customers find you?",
-      icon: <FaGlobe />,
-      content: (
-        <motion.div key="step1" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.3 }}>
-          <FieldGroup icon={FaGlobe}>
-            <input className="breeder-input" placeholder="Website URL" value={website} onChange={(e) => setWebsite(e.target.value)} />
-          </FieldGroup>
-          <FieldGroup icon={FaInstagram}>
-            <input className="breeder-input" placeholder="Instagram handle" value={instagram} onChange={(e) => setInstagram(e.target.value)} />
-          </FieldGroup>
-          <FieldGroup icon={FaFacebook}>
-            <input className="breeder-input" placeholder="Facebook page URL" value={facebook} onChange={(e) => setFacebook(e.target.value)} />
-          </FieldGroup>
-          <FieldGroup icon={FaPhone}>
-            <input className="breeder-input" placeholder="Business Phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-          </FieldGroup>
-          <FieldGroup icon={FaMapMarkerAlt}>
-            <input className="breeder-input" placeholder="Business Address" value={address} onChange={(e) => setAddress(e.target.value)} />
-          </FieldGroup>
-        </motion.div>
-      ),
-    },
-    {
-      title: "Species & Expertise",
-      subtitle: "What do you breed?",
-      icon: <FaFish />,
-      content: (
-        <motion.div key="step2" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.3 }}>
-          <div className="expertise-row">
-            <FieldGroup icon={FaStar}>
-              <input className="breeder-input" placeholder="Years of Experience" type="number" value={years} onChange={(e) => setYears(e.target.value)} />
-            </FieldGroup>
-            <FieldGroup icon={FaLeaf}>
-              <input className="breeder-input" placeholder="Breeding Focus (e.g. Rare Discus)" value={focus} onChange={(e) => setFocus(e.target.value)} />
-            </FieldGroup>
-            <FieldGroup icon={FaCertificate}>
-              <input className="breeder-input" placeholder="Certifications (comma separated)" value={certifications} onChange={(e) => setCertifications(e.target.value)} />
-            </FieldGroup>
-          </div>
-
-          <div className="species-section">
-            <p className="species-label">Species You Breed *</p>
-            <div className="category-pills">
-              {SPECIES_CATEGORIES.map((c) => (
-                <button
-                  key={c.key}
-                  className={`cat-pill ${activeCategory === c.key ? "active" : ""}`}
-                  onClick={() => {
-                    setActiveCategory(c.key);
-                    setSearchQuery("");
-                    setDropdownOpen(false);
-                  }}
-                >
-                  <span>{c.icon}</span> {c.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="species-search-wrap" ref={searchRef}>
-              <FieldGroup icon={FaSearch}>
-                <input
-                  className="breeder-input"
-                  placeholder="Search species…"
-                  value={searchQuery}
-                  onFocus={() => setDropdownOpen(true)}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    setDropdownOpen(true);
-                  }}
-                />
-              </FieldGroup>
-
-              <AnimatePresence>
-                {dropdownOpen && (
-                  <motion.div className="species-dropdown" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}>
-                    {loadingSpecies ? (
-                      <div className="dropdown-loader">
-                        <Spinner animation="border" size="sm" style={{ color: "#6366f1" }} />
+          <AnimatePresence>
+            {dropdownOpen && (
+              <motion.div className="br-dropdown" initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.15 }}>
+                {loadingSpecies ? (
+                  <div className="br-dropdown-state">
+                    <Spinner size="sm" animation="border" />
+                  </div>
+                ) : filteredList.length === 0 ? (
+                  <div className="br-dropdown-state">No species found</div>
+                ) : (
+                  filteredList.slice(0, 12).map((item) => (
+                    <div key={item.id} className="br-dropdown-row" onClick={() => addSpecies(item)}>
+                      <FaFish className="br-dropdown-icon" />
+                      <div>
+                        <div className="br-dropdown-name">{item.name}</div>
+                        <div className="br-dropdown-sci">{item.scientific_name}</div>
                       </div>
-                    ) : filteredList.length === 0 ? (
-                      <div className="dropdown-empty">No species found</div>
-                    ) : (
-                      filteredList.slice(0, 12).map((item) => (
-                        <div key={item.id} className="dropdown-row" onClick={() => addSpecies(item)}>
-                          <FaFish className="dropdown-fish-icon" />
-                          <div>
-                            <div className="dropdown-name">{item.name}</div>
-                            <div className="dropdown-scientific">{item.scientific_name}</div>
-                          </div>
-                        </div>
-                      ))
-                    )}
-                  </motion.div>
+                      {selectedSpecies.find((s) => s.id === item.id) && <FaCheckCircle size={12} className="br-dropdown-check" />}
+                    </div>
+                  ))
                 )}
-              </AnimatePresence>
-            </div>
-
-            {selectedSpecies.length > 0 && (
-              <div className="species-chips">
-                {selectedSpecies.map((s) => (
-                  <motion.div key={s.id} className="species-chip" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 300 }}>
-                    <FaFish size={10} />
-                    <span>{s.name}</span>
-                    <button onClick={() => removeSpecies(s.id)}>
-                      <FaTimes size={10} />
-                    </button>
-                  </motion.div>
-                ))}
-              </div>
+              </motion.div>
             )}
-          </div>
-        </motion.div>
-      ),
-    },
-    {
-      title: "Review & Submit",
-      subtitle: "Confirm your application",
-      icon: <FaShieldAlt />,
-      content: (
-        <motion.div key="step3" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.3 }}>
-          <div className="review-card">
-            <div className="review-row">
-              <span>Company</span>
-              <strong>{companyName || "—"}</strong>
-            </div>
-            <div className="review-row">
-              <span>Species Selected</span>
-              <strong>{selectedSpecies.length} species</strong>
-            </div>
-            <div className="review-row">
-              <span>Experience</span>
-              <strong>{years ? `${years} years` : "—"}</strong>
-            </div>
-            <div className="review-row">
-              <span>Focus</span>
-              <strong>{focus || "—"}</strong>
-            </div>
-            {website && (
-              <div className="review-row">
-                <span>Website</span>
-                <strong>{website}</strong>
-              </div>
-            )}
-          </div>
+          </AnimatePresence>
+        </div>
 
-          <div className="agree-row" onClick={() => setAgreeTerms((v) => !v)}>
-            <div className={`agree-box ${agreeTerms ? "checked" : ""}`}>{agreeTerms && <FaCheckCircle size={14} />}</div>
-            <p>
-              I agree to the{" "}
-              <a href="/terms" target="_blank" rel="noreferrer">
-                Terms of Service
-              </a>
-            </p>
-          </div>
-
-          <div className="agree-row" onClick={() => setAgreeGuidelines((v) => !v)}>
-            <div className={`agree-box ${agreeGuidelines ? "checked" : ""}`}>{agreeGuidelines && <FaCheckCircle size={14} />}</div>
-            <p>
-              I agree to the{" "}
-              <a href="/guidelines" target="_blank" rel="noreferrer">
-                Breeder Community Guidelines
-              </a>
-            </p>
-          </div>
-        </motion.div>
-      ),
-    },
-  ];
-
-  const currentStep = STEPS[step];
-
-  return (
-    <div className="breeder-page">
-      <div className="breeder-bg">
-        <div className="blob-1" />
-        <div className="blob-2" />
-        <div className="blob-3" />
-      </div>
-
-      <div style={{position:"fixed",top:16,right:16,zIndex:100}}><ThemeToggle /></div>
-      <div className="breeder-layout">
-        {/* Sidebar */}
-        <motion.div className="breeder-sidebar" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
-          <div className="sidebar-logo">
-            <div className="logo-mark">🐠</div>
-            <div>
-              <div className="logo-name">AquaAI</div>
-              <div className="logo-sub">Breeder Program</div>
-            </div>
-          </div>
-
-          <div className="sidebar-steps">
-            {STEPS.map((s, i) => (
-              <div key={i} className={`sidebar-step ${i === step ? "active" : i < step ? "done" : ""}`}>
-                <div className="sidebar-step-icon">{i < step ? <FaCheckCircle /> : s.icon}</div>
-                <div className="sidebar-step-text">
-                  <div className="sidebar-step-label">{s.title}</div>
-                  {i === step && <div className="sidebar-step-sub">{s.subtitle}</div>}
-                </div>
-                {i < STEPS.length - 1 && <div className="sidebar-connector" />}
-              </div>
+        {/* Selected chips */}
+        {selectedSpecies.length > 0 && (
+          <div className="br-chips">
+            {selectedSpecies.map((s) => (
+              <motion.div key={s.id} className="br-chip" initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 400, damping: 20 }}>
+                <FaFish size={10} />
+                <span>{s.name}</span>
+                <button onClick={() => removeSpecies(s.id)} aria-label={`Remove ${s.name}`}>
+                  <FaTimes size={9} />
+                </button>
+              </motion.div>
             ))}
           </div>
+        )}
+      </div>
+    </motion.div>,
 
-          <div className="sidebar-footer">
+    /* Step 3 — Review & Submit */
+    <motion.div key="s3" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} transition={{ duration: 0.25 }}>
+      <div className="br-review-card">
+        {[
+          ["Company", companyName || "—"],
+          ["Species Selected", `${selectedSpecies.length} species`],
+          ["Experience", years ? `${years} years` : "—"],
+          ["Breeding Focus", focus || "—"],
+          website && ["Website", website],
+        ]
+          .filter(Boolean)
+          .map(([label, value]) => (
+            <div key={label} className="br-review-row">
+              <span className="br-review-label">{label}</span>
+              <span className="br-review-value">{value}</span>
+            </div>
+          ))}
+      </div>
+
+      <div className="br-selected-species-preview">
+        {selectedSpecies.slice(0, 6).map((s) => (
+          <span key={s.id} className="br-chip">
+            <FaFish size={10} />
+            {s.name}
+          </span>
+        ))}
+        {selectedSpecies.length > 6 && <span className="br-chip br-chip-more">+{selectedSpecies.length - 6} more</span>}
+      </div>
+
+      <div className="br-agree" onClick={() => setAgreeTerms((v) => !v)}>
+        <div className={`br-agree-box ${agreeTerms ? "checked" : ""}`}>{agreeTerms && <FaCheckCircle size={13} />}</div>
+        <p>
+          I agree to the{" "}
+          <a href="/terms" target="_blank" rel="noreferrer">
+            Terms of Service
+          </a>
+        </p>
+      </div>
+      <div className="br-agree" onClick={() => setAgreeGuidelines((v) => !v)}>
+        <div className={`br-agree-box ${agreeGuidelines ? "checked" : ""}`}>{agreeGuidelines && <FaCheckCircle size={13} />}</div>
+        <p>
+          I agree to the{" "}
+          <a href="/guidelines" target="_blank" rel="noreferrer">
+            Breeder Community Guidelines
+          </a>
+        </p>
+      </div>
+    </motion.div>,
+  ];
+
+  const curMeta = STEPS_META[step];
+  const StepIcon = curMeta.icon;
+
+  return (
+    <div className="br-page">
+      {/* BG */}
+      <div className="br-bg">
+        <div className="br-blob br-blob-a" />
+        <div className="br-blob br-blob-b" />
+        <div className="br-grid" />
+      </div>
+
+      {/* Theme toggle fixed top-right */}
+      <div className="br-theme-btn">
+        <ThemeToggle />
+      </div>
+
+      {/* ── Desktop layout ─────────────────────────── */}
+      <div className="br-layout">
+        {/* Sidebar (desktop only) */}
+        <motion.aside className="br-sidebar" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }}>
+          <div className="br-logo">
+            <div className="br-logo-icon">🐠</div>
+            <div>
+              <div className="br-logo-name">AquaAI</div>
+              <div className="br-logo-sub">Breeder Program</div>
+            </div>
+          </div>
+
+          <nav className="br-steps-nav">
+            {STEPS_META.map((s, i) => {
+              const Icon = s.icon;
+              const state = i < step ? "done" : i === step ? "active" : "idle";
+              return (
+                <div key={i} className={`br-step-item ${state}`}>
+                  <div className="br-step-bullet">{state === "done" ? <FaCheckCircle size={13} /> : <Icon size={13} />}</div>
+                  <div className="br-step-text">
+                    <div className="br-step-name">{s.title}</div>
+                    {state === "active" && <div className="br-step-hint">{s.subtitle}</div>}
+                  </div>
+                  {i < STEPS_META.length - 1 && <div className="br-step-line" />}
+                </div>
+              );
+            })}
+          </nav>
+
+          <div className="br-sidebar-footer">
             <FaShieldAlt />
-            <span>Your data is encrypted & secure</span>
+            <span>256-bit encrypted · GDPR compliant</span>
           </div>
-        </motion.div>
+        </motion.aside>
 
-        {/* Main form panel */}
-        <motion.div className="breeder-panel" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
-          <div className="panel-header">
-            <StepIndicator current={step} total={STEPS.length} />
-            <h2 className="panel-title">{currentStep.title}</h2>
-            <p className="panel-subtitle">{currentStep.subtitle}</p>
+        {/* Main panel */}
+        <motion.div className="br-panel" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}>
+          {/* Mobile step header */}
+          <MobileStepHeader step={step} total={STEPS_META.length} onBack={handleBack} />
+
+          {/* Desktop panel header */}
+          <div className="br-panel-head">
+            <div className="br-panel-icon">
+              <StepIcon size={18} />
+            </div>
+            <div>
+              <h2 className="br-panel-title">{curMeta.title}</h2>
+              <p className="br-panel-sub">{curMeta.subtitle}</p>
+            </div>
           </div>
 
-          <div className="panel-body">
-            <AnimatePresence mode="wait">{currentStep.content}</AnimatePresence>
+          {/* Step content */}
+          <div className="br-panel-body">
+            <AnimatePresence mode="wait">{stepContent[step]}</AnimatePresence>
           </div>
 
-          {error && (
-            <motion.div className="breeder-error" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}>
-              ⚠️ {error}
-            </motion.div>
-          )}
+          {/* Error */}
+          <AnimatePresence>
+            {error && (
+              <motion.div className="br-error" initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                ⚠️ {error}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-          <div className="panel-actions">
+          {/* Actions */}
+          <div className="br-actions">
             {step > 0 && (
-              <button className="btn-back" onClick={handleBack}>
-                ← Back
+              <button className="br-btn-back" onClick={handleBack}>
+                <RiArrowLeftLine size={15} /> Back
               </button>
             )}
-            {step < STEPS.length - 1 ? (
-              <button className="btn-next" onClick={handleNext}>
+            <div style={{ flex: 1 }} />
+            {step < STEPS_META.length - 1 ? (
+              <button className="br-btn-next" onClick={handleNext}>
                 Continue <FaChevronRight size={12} />
               </button>
             ) : (
-              <button className="btn-submit" onClick={handleSubmit} disabled={submitting}>
+              <button className="br-btn-submit" onClick={handleSubmit} disabled={submitting}>
                 {submitting ? <Spinner size="sm" animation="border" /> : "Submit Application"}
               </button>
             )}
