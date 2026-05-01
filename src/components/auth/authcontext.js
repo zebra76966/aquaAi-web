@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect, useCallback } from "react";
 import { baseUrl } from "./config";
-// Note: Ensure this path is correct for your web project structure
 import { fetchAndSetRealtimeAuth } from "./supabase/supabase";
 
 export const AuthContext = createContext();
@@ -10,28 +9,24 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [activeTankId, setActiveTankId] = useState(null);
 
-  /* Permissions & Profile */
+  const [roles, setRoles] = useState([]);
+
   const [tier, setTier] = useState(null);
   const [permissions, setPermissions] = useState(null);
   const [permissionsLoading, setPermissionsLoading] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
 
-  /* ---------------------------------- */
-  /* Fetch User Permissions */
-  /* ---------------------------------- */
+  const isAdmin = roles.includes("admin");
+
   const fetchUserPermissions = useCallback(async (accessToken) => {
     if (!accessToken) return;
     try {
       setPermissionsLoading(true);
       const res = await fetch(`${baseUrl}/user/me/permissions/`, {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
+        headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
       });
       const json = await res.json();
-
       if (json?.data) {
         setTier(json.data.tier);
         setPermissions(json.data.features);
@@ -44,17 +39,11 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  /* ---------------------------------- */
-  /* Fetch User Profile */
-  /* ---------------------------------- */
   const fetchUserProfile = useCallback(async (accessToken) => {
     try {
       const res = await fetch(`${baseUrl}/user/profile/`, {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
+        headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
       });
       if (!res.ok) return;
       const json = await res.json();
@@ -65,17 +54,16 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  /* ---------------------------------- */
-  /* Load Session on App Start */
-  /* ---------------------------------- */
   useEffect(() => {
     const loadSession = async () => {
       try {
         const storedToken = localStorage.getItem("authToken");
         const storedPermissions = localStorage.getItem("userPermissions");
         const storedTankId = localStorage.getItem("activeTankId");
+        const storedRoles = localStorage.getItem("userRoles");
 
         if (storedTankId) setActiveTankId(storedTankId);
+        if (storedRoles) setRoles(JSON.parse(storedRoles));
 
         if (storedToken) {
           setToken(storedToken);
@@ -99,15 +87,15 @@ export const AuthProvider = ({ children }) => {
     loadSession();
   }, [fetchUserPermissions, fetchUserProfile]);
 
-  /* ---------------------------------- */
-  /* Auth Actions */
-  /* ---------------------------------- */
-  const login = async (newToken) => {
-    setToken(newToken);
-    localStorage.setItem("authToken", newToken);
-    fetchUserPermissions(newToken);
-    fetchUserProfile(newToken);
-    await fetchAndSetRealtimeAuth(newToken);
+  // login now accepts roles array from the API response
+  const login = async (accessToken, incomingRoles = []) => {
+    setToken(accessToken);
+    setRoles(incomingRoles);
+    localStorage.setItem("authToken", accessToken);
+    localStorage.setItem("userRoles", JSON.stringify(incomingRoles));
+    fetchUserPermissions(accessToken);
+    fetchUserProfile(accessToken);
+    await fetchAndSetRealtimeAuth(accessToken);
   };
 
   const logout = () => {
@@ -116,10 +104,11 @@ export const AuthProvider = ({ children }) => {
     setPermissions(null);
     setActiveTankId(null);
     setUserProfile(null);
-
+    setRoles([]);
     localStorage.removeItem("authToken");
     localStorage.removeItem("userPermissions");
     localStorage.removeItem("activeTankId");
+    localStorage.removeItem("userRoles");
   };
 
   const activateTank = (tankId) => {
@@ -135,16 +124,10 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        token,
-        loading,
-        login,
-        logout,
-        activeTankId,
-        activateTank,
-        clearActiveTank,
-        tier,
-        permissions,
-        permissionsLoading,
+        token, loading, login, logout,
+        roles, isAdmin,
+        activeTankId, activateTank, clearActiveTank,
+        tier, permissions, permissionsLoading,
         userProfile,
         refreshPermissions: () => fetchUserPermissions(token),
       }}

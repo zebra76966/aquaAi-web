@@ -806,3 +806,17 @@
     transform: translateY(0);
   }
 }
+
+/* ── Theme-aware dashboard ─── */
+[data-theme="light"] .dashboard-page,
+[data-theme="light"] .tasks-container {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+[data-theme="light"] .task-card-premium-horiz,
+[data-theme="light"] .glass-card {
+  background: white !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}

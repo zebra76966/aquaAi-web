@@ -1,11 +1,13 @@
 import React, { useState, useContext } from "react";
-import { Form, Button, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { motion } from "framer-motion";
-import { FaUser, FaEnvelope, FaLock, FaIdBadge, FaHandsHelping } from "react-icons/fa";
+import { FiUser, FiMail, FiLock, FiArrowRight, FiAlertCircle, FiCheckCircle, FiGift } from "react-icons/fi";
+import { RiBubbleChartLine } from "react-icons/ri";
 import "./register.css";
 import { baseUrl } from "./config";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./authcontext";
+import ThemeToggle from "../ThemeToggle";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -13,10 +15,10 @@ export default function Register() {
   const [formData, setFormData] = useState({ username: "", email: "", name: "", password: "", referral_code: "" });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [focused, setFocused] = useState("");
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,121 +29,120 @@ export default function Register() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
       const data = await res.json();
       if (res.ok) {
-        setMessage("Account created! Signing you in...");
-
-        // Auto-login: use the token returned from registration
-        // If the API returns an access token directly, use it; otherwise login with credentials
+        setSuccess(true);
+        setMessage("Account created!");
         if (data.access) {
-          await login(data.access);
+          await login(data.access, data.roles || []);
           navigate("/plans");
         } else {
-          // Fallback: log in with credentials to get a token
           try {
-            const loginRes = await fetch(`${baseUrl}/user/login/`, {
+            const lr = await fetch(`${baseUrl}/user/login/`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ username: formData.username, password: formData.password }),
             });
-            const loginData = await loginRes.json();
-            if (loginRes.ok && loginData.access) {
-              await login(loginData.access);
+            const ld = await lr.json();
+            if (lr.ok && ld.access) {
+              await login(ld.access, ld.roles || []);
               navigate("/plans");
-            } else {
-              // Login failed but registration succeeded — redirect to login
-              setTimeout(() => navigate("/login"), 1500);
-            }
+            } else setTimeout(() => navigate("/login"), 1500);
           } catch {
             setTimeout(() => navigate("/login"), 1500);
           }
         }
       } else {
-        console.log(data);
-        setMessage(`Registration failed. ${data?.message}.`);
+        setMessage(data?.message || "Registration failed.");
       }
-    } catch (err) {
+    } catch {
       setMessage("Network error. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
+  const fields = [
+    { name: "name", type: "text", placeholder: "Full Name", icon: <FiUser /> },
+    { name: "username", type: "text", placeholder: "Username", icon: <FiUser /> },
+    { name: "email", type: "email", placeholder: "Email Address", icon: <FiMail /> },
+    { name: "password", type: "password", placeholder: "Password", icon: <FiLock /> },
+    { name: "referral_code", type: "text", placeholder: "Referral Code (optional)", icon: <FiGift /> },
+  ];
+
   return (
-    <div className="register-page">
-      {/* Dynamic Background Blobs */}
-      <div className="bg-glow-container">
-        <div className="blob-purple-top"></div>
-        <div className="blob-blue-bottom"></div>
+    <div className="auth-page">
+      <div className="auth-bg">
+        <div className="auth-orb orb-a" />
+        <div className="auth-orb orb-b" />
+        <div className="auth-grid" />
       </div>
 
-      <motion.div className="glass-panel" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <div className="text-center mb-4">
-          <h2 className="register-title fw-bold">Create Account</h2>
-          <p className="text-muted small">Join our community today</p>
+      <div className="auth-topbar">
+        <div className="auth-logo-small">
+          <RiBubbleChartLine size={20} />
+          <span>AquaAI</span>
         </div>
+        <ThemeToggle />
+      </div>
 
-        {message && <div className={`custom-alert mb-3 ${message.includes("Success") ? "alert-success-glass" : ""}`}>{message}</div>}
-
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3">
-            <div className="input-group-custom">
-              <span className="input-icon">
-                <FaIdBadge />
-              </span>
-              <Form.Control type="text" name="name" placeholder="Full Name" className="custom-input" onChange={handleChange} required />
+      <div className="auth-center">
+        <motion.div className="auth-card" initial={{ opacity: 0, y: 32, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}>
+          <div className="auth-card-header">
+            <div className="auth-icon-wrap" style={{ background: "linear-gradient(135deg, #7c3aed, #14b8a6)" }}>
+              <RiBubbleChartLine size={26} />
             </div>
-          </Form.Group>
+            <h1 className="auth-title">Create account</h1>
+            <p className="auth-subtitle">Join the AquaAI community today</p>
+          </div>
 
-          <Form.Group className="mb-3">
-            <div className="input-group-custom">
-              <span className="input-icon">
-                <FaUser />
-              </span>
-              <Form.Control type="text" name="username" placeholder="Username" className="custom-input" onChange={handleChange} required />
-            </div>
-          </Form.Group>
+          {message && (
+            <motion.div className={success ? "auth-success" : "auth-error"} initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}>
+              {success ? <FiCheckCircle size={15} /> : <FiAlertCircle size={15} />}
+              <span>{message}</span>
+            </motion.div>
+          )}
 
-          <Form.Group className="mb-3">
-            <div className="input-group-custom">
-              <span className="input-icon">
-                <FaEnvelope />
-              </span>
-              <Form.Control type="email" name="email" placeholder="Email Address" className="custom-input" onChange={handleChange} required />
-            </div>
-          </Form.Group>
+          <form onSubmit={handleSubmit} className="auth-form">
+            {fields.map(({ name, type, placeholder, icon }) => (
+              <div key={name} className={`auth-field ${focused === name ? "focused" : ""}`}>
+                <span className="auth-field-icon">{icon}</span>
+                <input
+                  type={type}
+                  name={name}
+                  placeholder={placeholder}
+                  value={formData[name]}
+                  onChange={handleChange}
+                  onFocus={() => setFocused(name)}
+                  onBlur={() => setFocused("")}
+                  required={name !== "referral_code"}
+                  autoComplete={name}
+                />
+              </div>
+            ))}
 
-          <Form.Group className="mb-4">
-            <div className="input-group-custom">
-              <span className="input-icon">
-                <FaLock />
-              </span>
-              <Form.Control type="password" name="password" placeholder="Password" className="custom-input" onChange={handleChange} required />
-            </div>
-          </Form.Group>
+            <button type="submit" className="auth-submit-btn" disabled={loading} style={{ marginTop: 8 }}>
+              {loading ? (
+                <Spinner size="sm" animation="border" />
+              ) : (
+                <>
+                  <span>Create Account</span>
+                  <FiArrowRight size={16} />
+                </>
+              )}
+            </button>
+          </form>
 
-          <Form.Group className="mb-4">
-            <div className="input-group-custom">
-              <span className="input-icon">
-                <FaHandsHelping />
-              </span>
-              <Form.Control type="text" name="referral_code" placeholder="Referral Code" className="custom-input" onChange={handleChange} />
-            </div>
-          </Form.Group>
+          <p className="auth-switch">
+            Already have an account? <a href="/login">Sign in</a>
+          </p>
+        </motion.div>
 
-          <Button type="submit" className="glow-button w-100 py-2" disabled={loading}>
-            {loading ? <Spinner size="sm" animation="border" /> : "Register Now"}
-          </Button>
-        </Form>
-
-        <p className="text-center mt-4 mb-0 text-muted small">
-          Already have an account?{" "}
-          <a href="/login" className="auth-nav-link">
-            Sign In
-          </a>
-        </p>
-      </motion.div>
+        {/* <motion.div className="auth-trust-badge" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
+          <span className="trust-dot" />
+          <span>256-bit encrypted · GDPR compliant</span>
+        </motion.div> */}
+      </div>
     </div>
   );
 }

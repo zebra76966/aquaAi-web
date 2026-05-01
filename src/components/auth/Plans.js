@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { Container, Row, Col, Button, Spinner, Alert } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaCheckCircle, FaGem, FaCrown, FaStar, FaTags, FaHistory, FaInfoCircle, FaArrowRight } from "react-icons/fa";
-import { Link } from "react-router-dom"; // Added for navigation
+import { Link } from "react-router-dom";
+import ThemeToggle from "../ThemeToggle";
 import { AuthContext } from "./authcontext";
 import { baseUrl } from "./config";
 import "./plans.css";
@@ -117,6 +118,7 @@ export default function Plans() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             {/* Back to App Button */}
             <div className="mb-3">
+              <div style={{display:"flex",justifyContent:"flex-end",marginBottom:8}}><ThemeToggle /></div>
               <a href="aqua://" className="back-to-app-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" className="me-2">
                   <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />

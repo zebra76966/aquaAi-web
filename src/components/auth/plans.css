@@ -388,3 +388,23 @@
   text-decoration: line-through;
   text-decoration-color: rgba(255, 255, 255, 0.2);
 }
+
+/* ── Theme-aware plans overrides ─── */
+.plans-page {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+.plan-card {
+  background: var(--bg-2) !important;
+  border-color: var(--border) !important;
+  color: var(--text) !important;
+}
+
+.plan-card-featured {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 1px var(--accent), var(--shadow-md) !important;
+}
+
+[data-theme="light"] .plans-page { background: var(--bg) !important; }
+[data-theme="light"] .plan-card { background: white !important; }

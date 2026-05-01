@@ -715,3 +715,32 @@
   .category-pills { gap: 6px; }
   .cat-pill { font-size: 11px; padding: 5px 10px; }
 }
+
+/* ── Theme-aware overrides ─── */
+[data-theme="light"] .breeder-page { background: var(--bg); }
+[data-theme="light"] .breeder-sidebar {
+  background: white;
+  border-color: var(--border);
+}
+[data-theme="light"] .breeder-panel {
+  background: white;
+  border-color: var(--border);
+  box-shadow: var(--shadow-md);
+}
+[data-theme="light"] .breeder-input {
+  background: var(--bg-2);
+  border-color: var(--border);
+  color: var(--text);
+}
+[data-theme="light"] .breeder-input::placeholder { color: var(--text-3); }
+[data-theme="light"] .cat-pill { color: var(--text-2); background: var(--bg-2); border-color: var(--border); }
+[data-theme="light"] .cat-pill.active { background: var(--accent); color: white; }
+[data-theme="light"] .species-dropdown { background: white; border-color: var(--border); box-shadow: var(--shadow-md); }
+[data-theme="light"] .dropdown-name { color: var(--text); }
+[data-theme="light"] .panel-title { color: var(--text); }
+[data-theme="light"] .panel-subtitle { color: var(--text-2); }
+[data-theme="light"] .review-card { background: var(--bg-2); border-color: var(--border); }
+[data-theme="light"] .review-row span { color: var(--text-2); }
+[data-theme="light"] .review-row strong { color: var(--text); }
+[data-theme="light"] .species-chip { background: rgba(79,70,229,0.08); border-color: rgba(79,70,229,0.2); color: var(--accent); }
+[data-theme="light"] .blob-1, [data-theme="light"] .blob-2, [data-theme="light"] .blob-3 { opacity: 0.2; }

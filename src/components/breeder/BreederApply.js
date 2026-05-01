@@ -2,12 +2,25 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Spinner } from "react-bootstrap";
 import {
-  FaBuilding, FaGlobe, FaInstagram, FaFacebook, FaPhone,
-  FaMapMarkerAlt, FaStar, FaCertificate, FaFish, FaSearch,
-  FaTimes, FaCheckCircle, FaChevronRight, FaShieldAlt, FaLeaf
+  FaBuilding,
+  FaGlobe,
+  FaInstagram,
+  FaFacebook,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaStar,
+  FaCertificate,
+  FaFish,
+  FaSearch,
+  FaTimes,
+  FaCheckCircle,
+  FaChevronRight,
+  FaShieldAlt,
+  FaLeaf,
 } from "react-icons/fa";
 import { baseUrl } from "../auth/config";
 import "./BreederApply.css";
+import ThemeToggle from "../ThemeToggle";
 
 const SPECIES_CATEGORIES = [
   { key: "freshwater_fish", label: "Freshwater", icon: "🌿" },
@@ -31,7 +44,9 @@ const StepIndicator = ({ current, total }) => (
 
 const FieldGroup = ({ icon: Icon, children }) => (
   <div className="field-group">
-    <span className="field-icon"><Icon /></span>
+    <span className="field-icon">
+      <Icon />
+    </span>
     {children}
   </div>
 );
@@ -85,7 +100,9 @@ export default function BreederApply() {
     }
   }, [activeCategory, token]);
 
-  useEffect(() => { fetchSpecies(); }, [fetchSpecies]);
+  useEffect(() => {
+    fetchSpecies();
+  }, [fetchSpecies]);
 
   useEffect(() => {
     const handler = (e) => {
@@ -133,7 +150,10 @@ export default function BreederApply() {
     if (validateStep()) setStep((s) => Math.min(s + 1, 3));
   };
 
-  const handleBack = () => { setError(""); setStep((s) => Math.max(s - 1, 0)); };
+  const handleBack = () => {
+    setError("");
+    setStep((s) => Math.max(s - 1, 0));
+  };
 
   const handleSubmit = async () => {
     if (!validateStep()) return;
@@ -151,7 +171,10 @@ export default function BreederApply() {
         species: selectedSpecies.map((s) => s.id),
         years_experience: Number(years) || 0,
         breeding_focus: focus,
-        certifications: certifications.split(",").map((s) => s.trim()).filter(Boolean),
+        certifications: certifications
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
         agree_terms: true,
         agree_guidelines: true,
       };
@@ -163,11 +186,16 @@ export default function BreederApply() {
       });
 
       const json = await res.json();
-      if (!res.ok) { setError(json.message || "Submission failed. Please try again."); return; }
+      if (!res.ok) {
+        setError(json.message || "Submission failed. Please try again.");
+        return;
+      }
 
       setSuccess(true);
       // Redirect back to native app after 2.5s
-      setTimeout(() => { window.location.href = "aquaProviders://"; }, 2500);
+      setTimeout(() => {
+        window.location.href = "aquaProviders://";
+      }, 2500);
     } catch {
       setError("Something went wrong. Please check your connection.");
     } finally {
@@ -175,26 +203,28 @@ export default function BreederApply() {
     }
   };
 
-  if (!token) {
-    return (
-      <div className="breeder-page">
-        <div className="breeder-bg">
-          <div className="blob-1" /><div className="blob-2" /><div className="blob-3" />
-        </div>
-        <div className="breeder-error-state">
-          <div className="error-icon">⚠️</div>
-          <h2>Access Denied</h2>
-          <p>No authentication token found. Please open this page from the AquaAI app.</p>
-        </div>
-      </div>
-    );
-  }
+  // if (!token) {
+  //   return (
+  //     <div className="breeder-page">
+  //       <div className="breeder-bg">
+  //         <div className="blob-1" /><div className="blob-2" /><div className="blob-3" />
+  //       </div>
+  //       <div className="breeder-error-state">
+  //         <div className="error-icon">⚠️</div>
+  //         <h2>Access Denied</h2>
+  //         <p>No authentication token found. Please open this page from the AquaAI app.</p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   if (success) {
     return (
       <div className="breeder-page">
         <div className="breeder-bg">
-          <div className="blob-1" /><div className="blob-2" /><div className="blob-3" />
+          <div className="blob-1" />
+          <div className="blob-2" />
+          <div className="blob-3" />
         </div>
         <motion.div className="success-panel" initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 200 }}>
           <div className="success-ring">
@@ -219,15 +249,12 @@ export default function BreederApply() {
       content: (
         <motion.div key="step0" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.3 }}>
           <FieldGroup icon={FaBuilding}>
-            <input
-              className="breeder-input"
-              placeholder="Company / Breeder Name *"
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
-            />
+            <input className="breeder-input" placeholder="Company / Breeder Name *" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
           </FieldGroup>
           <div className="field-group textarea-group">
-            <span className="field-icon textarea-icon"><FaLeaf /></span>
+            <span className="field-icon textarea-icon">
+              <FaLeaf />
+            </span>
             <textarea
               className="breeder-input breeder-textarea"
               placeholder="Describe your breeding operation, experience, and passion… *"
@@ -285,8 +312,15 @@ export default function BreederApply() {
             <p className="species-label">Species You Breed *</p>
             <div className="category-pills">
               {SPECIES_CATEGORIES.map((c) => (
-                <button key={c.key} className={`cat-pill ${activeCategory === c.key ? "active" : ""}`}
-                  onClick={() => { setActiveCategory(c.key); setSearchQuery(""); setDropdownOpen(false); }}>
+                <button
+                  key={c.key}
+                  className={`cat-pill ${activeCategory === c.key ? "active" : ""}`}
+                  onClick={() => {
+                    setActiveCategory(c.key);
+                    setSearchQuery("");
+                    setDropdownOpen(false);
+                  }}
+                >
                   <span>{c.icon}</span> {c.label}
                 </button>
               ))}
@@ -299,7 +333,10 @@ export default function BreederApply() {
                   placeholder="Search species…"
                   value={searchQuery}
                   onFocus={() => setDropdownOpen(true)}
-                  onChange={(e) => { setSearchQuery(e.target.value); setDropdownOpen(true); }}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setDropdownOpen(true);
+                  }}
                 />
               </FieldGroup>
 
@@ -307,7 +344,9 @@ export default function BreederApply() {
                 {dropdownOpen && (
                   <motion.div className="species-dropdown" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}>
                     {loadingSpecies ? (
-                      <div className="dropdown-loader"><Spinner animation="border" size="sm" style={{ color: "#6366f1" }} /></div>
+                      <div className="dropdown-loader">
+                        <Spinner animation="border" size="sm" style={{ color: "#6366f1" }} />
+                      </div>
                     ) : filteredList.length === 0 ? (
                       <div className="dropdown-empty">No species found</div>
                     ) : (
@@ -332,7 +371,9 @@ export default function BreederApply() {
                   <motion.div key={s.id} className="species-chip" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 300 }}>
                     <FaFish size={10} />
                     <span>{s.name}</span>
-                    <button onClick={() => removeSpecies(s.id)}><FaTimes size={10} /></button>
+                    <button onClick={() => removeSpecies(s.id)}>
+                      <FaTimes size={10} />
+                    </button>
                   </motion.div>
                 ))}
               </div>
@@ -348,25 +389,48 @@ export default function BreederApply() {
       content: (
         <motion.div key="step3" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.3 }}>
           <div className="review-card">
-            <div className="review-row"><span>Company</span><strong>{companyName || "—"}</strong></div>
-            <div className="review-row"><span>Species Selected</span><strong>{selectedSpecies.length} species</strong></div>
-            <div className="review-row"><span>Experience</span><strong>{years ? `${years} years` : "—"}</strong></div>
-            <div className="review-row"><span>Focus</span><strong>{focus || "—"}</strong></div>
-            {website && <div className="review-row"><span>Website</span><strong>{website}</strong></div>}
+            <div className="review-row">
+              <span>Company</span>
+              <strong>{companyName || "—"}</strong>
+            </div>
+            <div className="review-row">
+              <span>Species Selected</span>
+              <strong>{selectedSpecies.length} species</strong>
+            </div>
+            <div className="review-row">
+              <span>Experience</span>
+              <strong>{years ? `${years} years` : "—"}</strong>
+            </div>
+            <div className="review-row">
+              <span>Focus</span>
+              <strong>{focus || "—"}</strong>
+            </div>
+            {website && (
+              <div className="review-row">
+                <span>Website</span>
+                <strong>{website}</strong>
+              </div>
+            )}
           </div>
 
           <div className="agree-row" onClick={() => setAgreeTerms((v) => !v)}>
-            <div className={`agree-box ${agreeTerms ? "checked" : ""}`}>
-              {agreeTerms && <FaCheckCircle size={14} />}
-            </div>
-            <p>I agree to the <a href="/terms" target="_blank" rel="noreferrer">Terms of Service</a></p>
+            <div className={`agree-box ${agreeTerms ? "checked" : ""}`}>{agreeTerms && <FaCheckCircle size={14} />}</div>
+            <p>
+              I agree to the{" "}
+              <a href="/terms" target="_blank" rel="noreferrer">
+                Terms of Service
+              </a>
+            </p>
           </div>
 
           <div className="agree-row" onClick={() => setAgreeGuidelines((v) => !v)}>
-            <div className={`agree-box ${agreeGuidelines ? "checked" : ""}`}>
-              {agreeGuidelines && <FaCheckCircle size={14} />}
-            </div>
-            <p>I agree to the <a href="/guidelines" target="_blank" rel="noreferrer">Breeder Community Guidelines</a></p>
+            <div className={`agree-box ${agreeGuidelines ? "checked" : ""}`}>{agreeGuidelines && <FaCheckCircle size={14} />}</div>
+            <p>
+              I agree to the{" "}
+              <a href="/guidelines" target="_blank" rel="noreferrer">
+                Breeder Community Guidelines
+              </a>
+            </p>
           </div>
         </motion.div>
       ),
@@ -378,9 +442,12 @@ export default function BreederApply() {
   return (
     <div className="breeder-page">
       <div className="breeder-bg">
-        <div className="blob-1" /><div className="blob-2" /><div className="blob-3" />
+        <div className="blob-1" />
+        <div className="blob-2" />
+        <div className="blob-3" />
       </div>
 
+      <div style={{position:"fixed",top:16,right:16,zIndex:100}}><ThemeToggle /></div>
       <div className="breeder-layout">
         {/* Sidebar */}
         <motion.div className="breeder-sidebar" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
@@ -395,9 +462,7 @@ export default function BreederApply() {
           <div className="sidebar-steps">
             {STEPS.map((s, i) => (
               <div key={i} className={`sidebar-step ${i === step ? "active" : i < step ? "done" : ""}`}>
-                <div className="sidebar-step-icon">
-                  {i < step ? <FaCheckCircle /> : s.icon}
-                </div>
+                <div className="sidebar-step-icon">{i < step ? <FaCheckCircle /> : s.icon}</div>
                 <div className="sidebar-step-text">
                   <div className="sidebar-step-label">{s.title}</div>
                   {i === step && <div className="sidebar-step-sub">{s.subtitle}</div>}
@@ -422,9 +487,7 @@ export default function BreederApply() {
           </div>
 
           <div className="panel-body">
-            <AnimatePresence mode="wait">
-              {currentStep.content}
-            </AnimatePresence>
+            <AnimatePresence mode="wait">{currentStep.content}</AnimatePresence>
           </div>
 
           {error && (
@@ -435,7 +498,9 @@ export default function BreederApply() {
 
           <div className="panel-actions">
             {step > 0 && (
-              <button className="btn-back" onClick={handleBack}>← Back</button>
+              <button className="btn-back" onClick={handleBack}>
+                ← Back
+              </button>
             )}
             {step < STEPS.length - 1 ? (
               <button className="btn-next" onClick={handleNext}>

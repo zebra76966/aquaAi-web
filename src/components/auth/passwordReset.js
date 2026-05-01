@@ -3,6 +3,7 @@ import { Form, Button, Spinner } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import "./passwordReset.css";
+import ThemeToggle from "../ThemeToggle";
 import { baseUrl } from "./config";
 
 export default function PasswordReset() {

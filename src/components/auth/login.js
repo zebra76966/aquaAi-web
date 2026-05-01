@@ -1,55 +1,52 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Button, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { motion } from "framer-motion";
-import { FaUser, FaLock } from "react-icons/fa";
+import { FiUser, FiLock, FiArrowRight, FiAlertCircle } from "react-icons/fi";
+import { RiShieldKeyholeLine } from "react-icons/ri";
 import "./login.css";
 import { baseUrl } from "./config";
 import { AuthContext } from "./authcontext";
+import ThemeToggle from "../ThemeToggle";
+import { useTheme } from "./ThemeContext";
 
 export default function Login() {
   const { token, login, loading: authLoading } = useContext(AuthContext);
+  const { isDark } = useTheme();
   const navigate = useNavigate();
 
-  // Local state for the button spinner
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [focused, setFocused] = useState("");
 
   useEffect(() => {
-    // Use authLoading (from context) not loading (from local state)
-    if (!authLoading && token) {
-      navigate("/plans");
-    }
+    if (!authLoading && token) navigate("/plans");
   }, [token, authLoading, navigate]);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-
     try {
       const res = await fetch(`${baseUrl}/user/login/`, {
-        // Using baseUrl from config
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-
       if (res.ok) {
-        // Use the context login function!
-        // This handles token storage and redirects via the useEffect above
-        await login(data.access);
-        navigate("/plans");
+        // const roles = data.roles || [];
+        const roles = data.roles || [];
+        await login(data.access, roles);
+        // navigate(roles.includes("admin") ? "/admin" : "/plans");
+        navigate(data.is_admin ? "/admin" : "/plans");
       } else {
         setError(data.message || "Login failed");
       }
-    } catch (err) {
+    } catch {
       setError("Network error occurred.");
     } finally {
       setLoading(false);
@@ -57,58 +54,104 @@ export default function Login() {
   };
 
   return (
-    <div className="login-page">
-      {/* These blobs create the colorful glow behind the glass */}
-      <div className="bg-glow-container">
-        <div className="blob-purple"></div>
-        <div className="blob-blue"></div>
+    <div className="auth-page">
+      {/* Background */}
+      <div className="auth-bg">
+        <div className="auth-orb orb-a" />
+        <div className="auth-orb orb-b" />
+        <div className="auth-grid" />
       </div>
 
-      <motion.div className="glass-panel" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}>
-        <div className="login-header text-center mb-4">
-          <h2 className="login-title fw-bold">Welcome Back</h2>
-          <p className="text-muted small">Please enter your details to sign in</p>
+      {/* Theme toggle — top right */}
+      <div className="auth-topbar">
+        <div className="auth-logo-small">
+          <img src="/icon.png" alt="AquaAI Logo" className="auth-logo-img" />
+          <span>AquaAI</span>
         </div>
+        <ThemeToggle />
+      </div>
 
-        {error && <div className="custom-alert mb-3">{error}</div>}
-
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-4">
-            <div className="input-group-custom">
-              <span className="input-icon">
-                <FaUser />
-              </span>
-              <Form.Control type="text" name="username" placeholder="Username or Email" className="custom-input" onChange={handleChange} required />
+      <div className="auth-center">
+        <motion.div className="auth-card" initial={{ opacity: 0, y: 32, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}>
+          {/* Header */}
+          <div className="auth-card-header">
+            <div className="auth-icon-wrap">
+              {/* <RiShieldKeyholeLine size={26} /> */}
+              <img src="/icon.png" alt="AquaAI Logo" className="auth-logo-img" />
             </div>
-          </Form.Group>
-
-          <Form.Group className="mb-2">
-            <div className="input-group-custom">
-              <span className="input-icon">
-                <FaLock />
-              </span>
-              <Form.Control type="password" name="password" placeholder="Password" className="custom-input" onChange={handleChange} required />
-            </div>
-          </Form.Group>
-
-          <div className="d-flex justify-content-end mb-4">
-            <a href="/forgot-password" opacity="0.8" className="forgot-link">
-              Forgot Password?
-            </a>
+            <h1 className="auth-title">Welcome back</h1>
+            <p className="auth-subtitle">Sign in to your AquaAI account</p>
           </div>
 
-          <Button type="submit" className="glow-button w-100" disabled={loading}>
-            {loading ? <Spinner size="sm" animation="border" /> : "Sign In"}
-          </Button>
-        </Form>
+          {/* Error */}
+          {error && (
+            <motion.div className="auth-error" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}>
+              <FiAlertCircle size={15} />
+              <span>{error}</span>
+            </motion.div>
+          )}
 
-        <p className="text-center mt-4 mb-0 text-muted small">
-          Don't have an account?{" "}
-          <a href="/register" className="auth-nav-link">
-            Sign Up
-          </a>
-        </p>
-      </motion.div>
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="auth-form">
+            <div className={`auth-field ${focused === "username" ? "focused" : ""}`}>
+              <FiUser className="auth-field-icon" />
+              <input
+                type="text"
+                name="username"
+                placeholder="Username or Email"
+                value={formData.username}
+                onChange={handleChange}
+                onFocus={() => setFocused("username")}
+                onBlur={() => setFocused("")}
+                required
+                autoComplete="username"
+              />
+            </div>
+
+            <div className={`auth-field ${focused === "password" ? "focused" : ""}`}>
+              <FiLock className="auth-field-icon" />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+                onFocus={() => setFocused("password")}
+                onBlur={() => setFocused("")}
+                required
+                autoComplete="current-password"
+              />
+            </div>
+
+            <div className="auth-forgot-row">
+              <a href="/forgot-password" className="auth-forgot-link">
+                Forgot password?
+              </a>
+            </div>
+
+            <button type="submit" className="auth-submit-btn" disabled={loading}>
+              {loading ? (
+                <Spinner size="sm" animation="border" />
+              ) : (
+                <>
+                  <span>Sign In</span>
+                  <FiArrowRight size={16} />
+                </>
+              )}
+            </button>
+          </form>
+
+          <p className="auth-switch">
+            No account? <a href="/register">Create one</a>
+          </p>
+        </motion.div>
+
+        {/* Floating badge */}
+        {/* <motion.div className="auth-trust-badge" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
+          <span className="trust-dot" />
+          <span>256-bit encrypted · GDPR compliant</span>
+        </motion.div> */}
+      </div>
     </div>
   );
 }
