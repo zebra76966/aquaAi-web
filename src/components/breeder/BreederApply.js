@@ -355,7 +355,10 @@ export default function BreederApply() {
         return;
       }
 
-      const paymentUrl = subJson?.data?.payment_url ?? subJson?.payment_url ?? null;
+      const paymentUrl = subJson?.data?.checkout_url ?? subJson?.checkout_url ?? null;
+      console.log("Subscription response:", subJson);
+
+      console.log("Payment URL:", paymentUrl);
 
       if (paymentUrl) {
         /* Has a payment URL — submit application first, then redirect to payment */
