@@ -80,7 +80,8 @@ export default function Register() {
 
       <div className="auth-topbar">
         <div className="auth-logo-small">
-          <RiBubbleChartLine size={20} />
+          {/* <RiBubbleChartLine size={20} /> */}
+          <img src="/icon.png" alt="AquaAI Logo" className="auth-logo-img" />
           <span>AquaAI</span>
         </div>
         <ThemeToggle />
@@ -89,8 +90,9 @@ export default function Register() {
       <div className="auth-center">
         <motion.div className="auth-card" initial={{ opacity: 0, y: 32, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}>
           <div className="auth-card-header">
-            <div className="auth-icon-wrap" style={{ background: "linear-gradient(135deg, #7c3aed, #14b8a6)" }}>
-              <RiBubbleChartLine size={26} />
+            <div className="auth-icon-wrap">
+              {/* <RiBubbleChartLine size={26} /> */}
+              <img src="/icon.png" alt="AquaAI Logo" className="auth-logo-img" />
             </div>
             <h1 className="auth-title">Create account</h1>
             <p className="auth-subtitle">Join the AquaAI community today</p>
