@@ -256,6 +256,30 @@
   gap: 0.6rem;
 }
 
+.commerce-badge-row {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.commerce-badge-chip {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 16px;
+  background: rgba(20, 209, 255, 0.08);
+  border: 1px solid rgba(20, 209, 255, 0.16);
+}
+
+.commerce-badge-chip strong {
+  font-size: 0.95rem;
+}
+
+.commerce-badge-chip span {
+  color: #9dc1de;
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
 .commerce-section-title {
   display: flex;
   justify-content: space-between;

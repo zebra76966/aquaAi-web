@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { AuthContext } from "../auth/authcontext";
 import CommerceShell from "./CommerceShell";
+import FeatureDBadgeRow from "./FeatureDBadgeRow";
 import { commerceFetch } from "./commerceApi";
 
 
@@ -115,6 +116,13 @@ export default function MarketplaceListingDetail() {
                 <strong>{listing.supports_delivery_quote ? "Yes" : "No"}</strong>
                 <div className="commerce-muted">Delivery quote available</div>
               </div>
+            </div>
+            <div className="commerce-inline-form">
+              <h4>Feature D badges</h4>
+              <FeatureDBadgeRow
+                badges={listing.seller_profile?.feature_d_badges || []}
+                emptyLabel="This breeder has not unlocked any Feature D commerce badges yet."
+              />
             </div>
           </aside>
         </div>

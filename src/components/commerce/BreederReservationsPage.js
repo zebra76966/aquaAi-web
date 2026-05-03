@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useMemo, useState } from "re
 
 import { AuthContext } from "../auth/authcontext";
 import CommerceShell from "./CommerceShell";
+import FeatureDBadgeRow from "./FeatureDBadgeRow";
 import { commerceFetch } from "./commerceApi";
 
 
@@ -11,6 +12,7 @@ const FILTERS = ["all", "quote_pending", "payment_pending", "ready_for_collectio
 export default function BreederReservationsPage() {
   const { token } = useContext(AuthContext);
   const [page, setPage] = useState({ reservations: [], metrics: {}, species: [] });
+  const [badgeState, setBadgeState] = useState({ feature_d_badges: [], feature_d_badge_progress: [] });
   const [connectStatus, setConnectStatus] = useState(null);
   const [verification, setVerification] = useState(null);
   const [earnings, setEarnings] = useState(null);
@@ -43,6 +45,10 @@ export default function BreederReservationsPage() {
       setConnectStatus(connectData.seller_profile);
       setVerification(verificationData.verification);
       setEarnings(earningsData);
+      setBadgeState({
+        feature_d_badges: reservationsData.feature_d_badges || [],
+        feature_d_badge_progress: reservationsData.feature_d_badge_progress || [],
+      });
       setError("");
       if (speciesData?.species) {
         setPage((current) => ({ ...current, species: speciesData.species, low_stock_alerts: speciesData.low_stock_alerts || [] }));
@@ -96,6 +102,13 @@ export default function BreederReservationsPage() {
               <button className="commerce-primary-btn" onClick={() => action("/marketplace/breeders/me/connect/", { complete_mock: true })}>
                 Complete Stripe Connect
               </button>
+            </div>
+            <div className="commerce-inline-form">
+              <h4>Feature D badges</h4>
+              <FeatureDBadgeRow
+                badges={badgeState.feature_d_badges}
+                emptyLabel="Dispatch quickly, keep disputes low, and stay verified to unlock breeder commerce badges."
+              />
             </div>
 
             <div className="commerce-inline-form">

@@ -3,6 +3,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import { AuthContext } from "../auth/authcontext";
 import CommerceShell from "./CommerceShell";
+import FeatureDBadgeRow from "./FeatureDBadgeRow";
 import { commerceFetch } from "./commerceApi";
 
 
@@ -105,6 +106,13 @@ export default function BreederSpeciesPage() {
               <div className={`commerce-status ${page.seller_profile?.verification?.status === "approved" ? "" : "pending"}`}>
                 Delivery verification {page.seller_profile?.verification?.status || "not_submitted"}
               </div>
+            </div>
+            <div className="commerce-inline-form">
+              <h4>Feature D badges</h4>
+              <FeatureDBadgeRow
+                badges={page.seller_profile?.feature_d_badges || []}
+                emptyLabel="This breeder has not unlocked any Feature D commerce badges yet."
+              />
             </div>
             {page.low_stock_alerts?.length > 0 && (
               <div className="commerce-inline-form">

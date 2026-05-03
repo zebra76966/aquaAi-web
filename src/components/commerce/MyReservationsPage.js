@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { AuthContext } from "../auth/authcontext";
 import CommerceShell from "./CommerceShell";
+import FeatureDBadgeRow from "./FeatureDBadgeRow";
 import { commerceFetch } from "./commerceApi";
 
 
@@ -20,6 +21,7 @@ export default function MyReservationsPage() {
   const [searchParams] = useSearchParams();
   const highlightedId = Number(searchParams.get("highlight"));
   const [reservations, setReservations] = useState([]);
+  const [badgeState, setBadgeState] = useState({ feature_d_badges: [], feature_d_badge_progress: [] });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [activeDisputeId, setActiveDisputeId] = useState(null);
@@ -36,6 +38,10 @@ export default function MyReservationsPage() {
       setLoading(true);
       const data = await commerceFetch("/marketplace/reservations/mine/", token);
       setReservations(data.reservations || []);
+      setBadgeState({
+        feature_d_badges: data.feature_d_badges || [],
+        feature_d_badge_progress: data.feature_d_badge_progress || [],
+      });
       setError("");
     } catch (err) {
       setError(err.message);
@@ -73,6 +79,14 @@ export default function MyReservationsPage() {
       {loading && <div className="commerce-empty">Loading reservations...</div>}
       {!loading && (
         <div className="commerce-list">
+          <article className="commerce-card">
+            <h2>Buyer Feature D badges</h2>
+            <p className="commerce-muted">Reservation reliability and clean purchase history now feed buyer-side commerce badges that can be surfaced in mobile profile and reservation screens.</p>
+            <FeatureDBadgeRow
+              badges={badgeState.feature_d_badges}
+              emptyLabel="Complete successful reservation purchases without raising disputes to unlock buyer commerce badges."
+            />
+          </article>
           {orderedReservations.length === 0 && <div className="commerce-empty">No reservations yet. Start from a breeder listing detail or species page.</div>}
           {orderedReservations.map((reservation) => (
             <article className="commerce-card" key={reservation.id} style={reservation.id === highlightedId ? { borderColor: "rgba(20, 209, 255, 0.52)" } : {}}>

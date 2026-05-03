@@ -21,6 +21,7 @@ describe("breeder and admin commerce ops", () => {
 
       if (url.includes("/marketplace/reservations/incoming/") && method === "GET") {
         return ok({
+          feature_d_badges: [{ code: "trusted_seller", name: "Trusted Seller", description: "Clean reservation history." }],
           reservations: [
             {
               id: 51,
@@ -104,6 +105,7 @@ describe("breeder and admin commerce ops", () => {
     );
 
     await waitFor(() => expect(screen.getByText("Complete Stripe Connect")).toBeInTheDocument());
+    expect(screen.getByText("Trusted Seller")).toBeInTheDocument();
     fireEvent.click(screen.getByText("Complete Stripe Connect"));
     await waitFor(() =>
       expect(global.fetch).toHaveBeenCalledWith(

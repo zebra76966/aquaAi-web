@@ -41,6 +41,7 @@ describe("buyer reservation commerce flow", () => {
             reviews_count: 12,
             stripe_connect_status: "active",
             verification: { status: "approved" },
+            feature_d_badges: [{ code: "verified_breeder", name: "Verified Breeder", description: "Connect plus licence approved." }],
           },
           species: [
             {
@@ -72,6 +73,7 @@ describe("buyer reservation commerce flow", () => {
 
       if (url.includes("/marketplace/reservations/mine/") && method === "GET") {
         return ok({
+          feature_d_badges: [{ code: "reservation_master", name: "Reservation Master", description: "Five clean purchases." }],
           reservations: [
             {
               id: 99,
@@ -113,6 +115,7 @@ describe("buyer reservation commerce flow", () => {
     );
 
     await waitFor(() => expect(screen.getByText(/Electric Blue Ram Pair/i)).toBeInTheDocument());
+    expect(screen.getByText("Verified Breeder")).toBeInTheDocument();
     fireEvent.click(screen.getByText("Reserve"));
     fireEvent.click(screen.getByText("Reserve for Collection"));
 
@@ -131,6 +134,7 @@ describe("buyer reservation commerce flow", () => {
     );
 
     await waitFor(() => expect(screen.getByText(/Blue Acara/i)).toBeInTheDocument());
+    expect(screen.getByText("Reservation Master")).toBeInTheDocument();
     fireEvent.click(screen.getByText("Accept quote"));
 
     await waitFor(() =>
