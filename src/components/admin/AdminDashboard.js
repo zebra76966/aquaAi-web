@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   RiHeartPulseLine,
@@ -11,11 +10,10 @@ import {
   RiMenuFoldLine,
   RiMenuUnfoldLine,
   RiLogoutBoxRLine,
-  RiShieldCheckLine,
   RiWifiLine,
 } from "react-icons/ri";
 import { AuthContext } from "../auth/authcontext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import PlatformHealth from "./tabs/PlatformHealth";
 import SignalWeights from "./tabs/SignalWeights";
 import LearningInsights from "./tabs/LearningInsights";
@@ -23,6 +21,7 @@ import Counterfactual from "./tabs/Counterfactual";
 import IntelligenceSessions from "./tabs/IntelligenceSessions";
 import UserIntelligence from "./tabs/UserIntelligence";
 import ThemeToggle from "../ThemeToggle";
+import AdminReservationOps from "../commerce/AdminReservationOps";
 import "./AdminDashboard.css";
 
 const NAV_ITEMS = [
@@ -32,12 +31,14 @@ const NAV_ITEMS = [
   { key: "counterfact", label: "Counterfactual", icon: RiMagicLine, color: "#f59e0b" },
   { key: "sessions", label: "Intel Sessions", icon: RiRadarLine, color: "#06b6d4" },
   { key: "users", label: "User Intelligence", icon: RiUserStarLine, color: "#ec4899" },
+  { key: "reservations", label: "Breeder Commerce", icon: RiWifiLine, color: "#22d3ee" },
 ];
 
 export default function AdminDashboard() {
   const { token, logout, userProfile } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("health");
+  const [searchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState(searchParams.get("tab") || "health");
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
@@ -61,6 +62,8 @@ export default function AdminDashboard() {
         return <IntelligenceSessions {...props} />;
       case "users":
         return <UserIntelligence {...props} />;
+      case "reservations":
+        return <AdminReservationOps {...props} />;
       default:
         return <PlatformHealth {...props} />;
     }

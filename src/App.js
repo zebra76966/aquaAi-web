@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
 import PasswordReset from "./components/auth/passwordReset";
+import SessionBootstrapper from "./components/auth/SessionBootstrapper";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./components/master.css";
@@ -17,6 +18,11 @@ import PaymentFail from "./components/auth/PaymentFail";
 import BreederApply from "./components/breeder/BreederApply";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import FeatureDLab from "./components/featured/FeatureDLab";
+import MarketplaceListingDetail from "./components/commerce/MarketplaceListingDetail";
+import BreederSpeciesPage from "./components/commerce/BreederSpeciesPage";
+import MyReservationsPage from "./components/commerce/MyReservationsPage";
+import BreederReservationsPage from "./components/commerce/BreederReservationsPage";
+import NotificationsInbox from "./components/commerce/NotificationsInbox";
 
 function App() {
   return (
@@ -28,6 +34,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<PasswordReset />} />
+            <Route path="/session/bootstrap" element={<SessionBootstrapper />} />
             <Route path="/plans" element={<Plans />} />
             <Route path="/payment/success" element={<PaymentSuccess />} />
             <Route path="/payment/fail" element={<PaymentFail />} />
@@ -36,6 +43,11 @@ function App() {
             <Route path="/breeder" element={<BreederApply />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/featured" element={<FeatureDLab />} />
+            <Route path="/marketplace/listings/:listingId" element={<MarketplaceListingDetail />} />
+            <Route path="/marketplace/breeders/:sellerId/species" element={<BreederSpeciesPage />} />
+            <Route path="/reservations" element={<MyReservationsPage />} />
+            <Route path="/breeder/reservations" element={<BreederReservationsPage />} />
+            <Route path="/notifications" element={<NotificationsInbox />} />
             <Route path="*" element={<Navigate to="/register" replace />} />
           </Routes>
         </Router>
