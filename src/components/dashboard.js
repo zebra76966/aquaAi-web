@@ -173,6 +173,11 @@ export default function Dashboard() {
               <span className="pulse-dot"></span>
               <span className="status-text">{refreshing ? "SYNCING..." : "REAL-TIME BIOMETRICS ACTIVE"}</span>
             </div>
+            <div className="mt-3">
+              <Button variant="outline-info" onClick={() => navigate("/featured")}>
+                Open Feature D Lab
+              </Button>
+            </div>
           </motion.div>
         </header>
 

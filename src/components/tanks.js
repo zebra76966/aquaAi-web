@@ -96,6 +96,9 @@ export default function Tanks() {
             ) : (
               <Badge className="limit-pill">Limit Reached</Badge>
             )}
+            <Button variant="outline-info" onClick={() => navigate("/featured")}>
+              Feature D Lab
+            </Button>
           </div>
         </header>
 

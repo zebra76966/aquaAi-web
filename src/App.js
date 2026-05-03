@@ -16,6 +16,7 @@ import PaymentSuccess from "./components/auth/PaymentSuccess";
 import PaymentFail from "./components/auth/PaymentFail";
 import BreederApply from "./components/breeder/BreederApply";
 import AdminDashboard from "./components/admin/AdminDashboard";
+import FeatureDLab from "./components/featured/FeatureDLab";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/tanks" element={<Tanks />} />
             <Route path="/breeder" element={<BreederApply />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/featured" element={<FeatureDLab />} />
             <Route path="*" element={<Navigate to="/register" replace />} />
           </Routes>
         </Router>
