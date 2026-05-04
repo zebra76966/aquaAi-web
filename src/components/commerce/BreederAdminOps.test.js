@@ -27,14 +27,33 @@ describe("breeder and admin commerce ops", () => {
               id: 51,
               reservation_code: "RES-51",
               species_name: "Mandarin Dragonet",
-              total_amount: "82.50",
+              pricing_mode: "quote_required",
+              subtotal: "0.00",
+              delivery_cost: "0.00",
+              total_amount: "0.00",
+              line_items: [{ label: "Quoted selection", quantity: 1, unit_price: null }],
               buyer: { name: "Buyer Two", username: "buyer2" },
               status: "quote_pending",
               payment_status: "not_started",
               delivery_method: "delivery_quote",
             },
+            {
+              id: 52,
+              reservation_code: "RES-52",
+              species_name: "Goldfish",
+              pricing_mode: "single_fixed",
+              subtotal: "42.00",
+              delivery_cost: "0.00",
+              total_amount: "42.00",
+              buyer: { name: "Buyer Three", username: "buyer3" },
+              status: "ready_for_collection",
+              payment_status: "paid",
+              delivery_method: "collect",
+              collection_code: "ABC123",
+              pickup_window_expires_at: "2026-05-01T09:00:00Z",
+            },
           ],
-          metrics: { total: 1 },
+          metrics: { total: 2, no_show: 0 },
         });
       }
 
@@ -64,6 +83,14 @@ describe("breeder and admin commerce ops", () => {
 
       if (url.includes("/marketplace/reservations/51/quote/") && method === "POST") {
         return ok({ reservation: { id: 51, status: "quote_received" } });
+      }
+
+      if (url.includes("/marketplace/reservations/52/collection/scan/") && method === "POST") {
+        return ok({ reservation: { id: 52, status: "completed" } });
+      }
+
+      if (url.includes("/marketplace/reservations/52/no-show/") && method === "POST") {
+        return ok({ reservation: { id: 52, status: "no_show" } });
       }
 
       if (url.includes("/marketplace/admin/reservations/dashboard/") && method === "GET") {
@@ -97,7 +124,7 @@ describe("breeder and admin commerce ops", () => {
     global.fetch.mockRestore();
   });
 
-  test("breeder can complete connect and submit a quote", async () => {
+  test("breeder can complete connect, submit a structured quote, and confirm collection", async () => {
     render(
       <AuthContext.Provider value={{ token: "seller-token" }}>
         <BreederReservationsPage />
@@ -114,12 +141,22 @@ describe("breeder and admin commerce ops", () => {
       ),
     );
 
+    fireEvent.change(screen.getByLabelText("Fish price"), { target: { value: "79.99" } });
     fireEvent.change(screen.getByLabelText("Shipping cost"), { target: { value: "14.99" } });
     fireEvent.click(screen.getByText("Submit quote"));
 
     await waitFor(() =>
       expect(global.fetch).toHaveBeenCalledWith(
         expect.stringContaining("/marketplace/reservations/51/quote/"),
+        expect.objectContaining({ method: "POST" }),
+      ),
+    );
+
+    fireEvent.change(screen.getByLabelText("Scan / enter collection code"), { target: { value: "ABC123" } });
+    fireEvent.click(screen.getByText("Confirm collection"));
+    await waitFor(() =>
+      expect(global.fetch).toHaveBeenCalledWith(
+        expect.stringContaining("/marketplace/reservations/52/collection/scan/"),
         expect.objectContaining({ method: "POST" }),
       ),
     );

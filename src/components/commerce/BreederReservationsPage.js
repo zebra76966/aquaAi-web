@@ -6,7 +6,24 @@ import FeatureDBadgeRow from "./FeatureDBadgeRow";
 import { commerceFetch } from "./commerceApi";
 
 
-const FILTERS = ["all", "quote_pending", "payment_pending", "ready_for_collection", "awaiting_dispatch", "disputed", "completed"];
+const FILTERS = ["all", "quote_pending", "quote_received", "payment_pending", "ready_for_collection", "awaiting_dispatch", "disputed", "no_show", "completed"];
+
+
+function defaultQuoteDraft(reservation) {
+  const defaultType = reservation.pricing_mode === "quote_required"
+    ? reservation.delivery_method === "delivery_quote" ? "fish_and_delivery" : "fish_only"
+    : "delivery_only";
+  return {
+    quote_type: defaultType,
+    fish_price: "",
+    shipping_cost: "",
+    estimated_dispatch_date: "",
+    note: "",
+    collection_code: reservation.collection_code || "",
+    tracking_number: "",
+    courier: "",
+  };
+}
 
 
 export default function BreederReservationsPage() {
@@ -76,12 +93,23 @@ export default function BreederReservationsPage() {
     }
   };
 
-  const quoteDraftFor = (reservationId) => quoteDrafts[reservationId] || { shipping_cost: "", estimated_dispatch_date: "", note: "" };
+  const quoteDraftFor = (reservation) => quoteDrafts[reservation.id] || defaultQuoteDraft(reservation);
+
+  const setQuoteDraft = (reservation, patch) => {
+    const current = quoteDraftFor(reservation);
+    setQuoteDrafts((existing) => ({
+      ...existing,
+      [reservation.id]: {
+        ...current,
+        ...patch,
+      },
+    }));
+  };
 
   return (
     <CommerceShell
       title="Incoming Reservations"
-      subtitle="Breeders manage Connect onboarding, licence verification, quote responses, fulfilment, stock health, and earnings from one reservation operations surface."
+      subtitle="Breeders manage Connect onboarding, licence verification, quotes, collection scans, dispatch, no-show handling, and earnings from one reservation operations surface."
     >
       {error && <div className="commerce-alert error">{error}</div>}
       {loading && <div className="commerce-empty">Loading breeder operations...</div>}
@@ -152,7 +180,7 @@ export default function BreederReservationsPage() {
             <div className="commerce-section-title">
               <div>
                 <h2>Incoming Reservations</h2>
-                <p className="commerce-muted">Filter by status, answer quotes, confirm collection, dispatch paid delivery orders, and respond to disputes.</p>
+                <p className="commerce-muted">Filter by status, answer structured quotes, scan collection codes, dispatch paid orders, and respond to disputes.</p>
               </div>
               <label className="commerce-label" style={{ minWidth: "220px" }}>
                 Filter
@@ -166,7 +194,11 @@ export default function BreederReservationsPage() {
             <div className="commerce-list">
               {filteredReservations.length === 0 && <div className="commerce-empty">No reservations in this view.</div>}
               {filteredReservations.map((reservation) => {
-                const quoteDraft = quoteDraftFor(reservation.id);
+                const quoteDraft = quoteDraftFor(reservation);
+                const isQuoteRequired = reservation.pricing_mode === "quote_required";
+                const showFishPrice = quoteDraft.quote_type === "fish_only" || quoteDraft.quote_type === "fish_and_delivery";
+                const showDeliveryFields = quoteDraft.quote_type === "delivery_only" || quoteDraft.quote_type === "fish_and_delivery";
+                const noShowAllowed = reservation.status === "ready_for_collection" && reservation.pickup_window_expires_at && new Date(reservation.pickup_window_expires_at).getTime() <= Date.now();
                 return (
                   <article className="commerce-list-item" key={reservation.id}>
                     <header>
@@ -175,41 +207,84 @@ export default function BreederReservationsPage() {
                         <p className="commerce-muted">
                           {reservation.reservation_code} · {reservation.buyer?.name || reservation.buyer?.username} · £{reservation.total_amount}
                         </p>
+                        <p className="commerce-muted">
+                          {reservation.pricing_mode.replaceAll("_", " ")} · {reservation.delivery_method}
+                        </p>
                       </div>
                       <div className="commerce-pill-row">
-                        <span className={`commerce-status ${["quote_pending", "payment_pending"].includes(reservation.status) ? "pending" : reservation.status === "disputed" ? "warning" : ""}`}>
+                        <span className={`commerce-status ${["quote_pending", "payment_pending", "quote_received"].includes(reservation.status) ? "pending" : reservation.status === "disputed" ? "warning" : ""}`}>
                           {reservation.status.replaceAll("_", " ")}
                         </span>
-                        <span className="commerce-tag">{reservation.delivery_method}</span>
+                        <span className="commerce-tag">Payment {reservation.payment_status}</span>
                       </div>
                     </header>
+
+                    {reservation.line_items?.length > 0 && (
+                      <div className="commerce-inline-form">
+                        <strong>Requested mix</strong>
+                        <div className="commerce-list">
+                          {reservation.line_items.map((item, index) => (
+                            <div className="commerce-list-item" key={`${reservation.id}-line-${index}`}>
+                              {(item.label || item.tier || "Item")} · Qty {item.quantity}
+                              {item.unit_price ? ` · £${item.unit_price}` : ""}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                     {reservation.status === "quote_pending" && (
                       <div className="commerce-inline-form">
                         <div className="commerce-form-grid">
                           <label className="commerce-label">
-                            Shipping cost
-                            <input
-                              className="commerce-input"
-                              value={quoteDraft.shipping_cost}
-                              onChange={(e) => setQuoteDrafts((current) => ({ ...current, [reservation.id]: { ...quoteDraft, shipping_cost: e.target.value } }))}
-                            />
+                            Quote type
+                            <select
+                              className="commerce-select"
+                              value={quoteDraft.quote_type}
+                              onChange={(e) => setQuoteDraft(reservation, { quote_type: e.target.value })}
+                            >
+                              {!isQuoteRequired && <option value="delivery_only">Delivery only</option>}
+                              {isQuoteRequired && reservation.delivery_method === "collect" && <option value="fish_only">Fish only</option>}
+                              {isQuoteRequired && reservation.delivery_method === "delivery_quote" && <option value="fish_and_delivery">Fish and delivery</option>}
+                            </select>
                           </label>
-                          <label className="commerce-label">
-                            Dispatch ETA
-                            <input
-                              type="date"
-                              className="commerce-input"
-                              value={quoteDraft.estimated_dispatch_date}
-                              onChange={(e) => setQuoteDrafts((current) => ({ ...current, [reservation.id]: { ...quoteDraft, estimated_dispatch_date: e.target.value } }))}
-                            />
-                          </label>
+                          {showFishPrice && (
+                            <label className="commerce-label">
+                              Fish price
+                              <input
+                                className="commerce-input"
+                                value={quoteDraft.fish_price}
+                                onChange={(e) => setQuoteDraft(reservation, { fish_price: e.target.value })}
+                              />
+                            </label>
+                          )}
+                          {showDeliveryFields && (
+                            <label className="commerce-label">
+                              Shipping cost
+                              <input
+                                className="commerce-input"
+                                value={quoteDraft.shipping_cost}
+                                onChange={(e) => setQuoteDraft(reservation, { shipping_cost: e.target.value })}
+                              />
+                            </label>
+                          )}
+                          {showDeliveryFields && (
+                            <label className="commerce-label">
+                              Dispatch ETA
+                              <input
+                                type="date"
+                                className="commerce-input"
+                                value={quoteDraft.estimated_dispatch_date}
+                                onChange={(e) => setQuoteDraft(reservation, { estimated_dispatch_date: e.target.value })}
+                              />
+                            </label>
+                          )}
                           <label className="commerce-label">
                             Note
                             <textarea
                               className="commerce-textarea"
                               value={quoteDraft.note}
-                              onChange={(e) => setQuoteDrafts((current) => ({ ...current, [reservation.id]: { ...quoteDraft, note: e.target.value } }))}
+                              onChange={(e) => setQuoteDraft(reservation, { note: e.target.value })}
                             />
                           </label>
                         </div>
@@ -222,18 +297,72 @@ export default function BreederReservationsPage() {
                     )}
 
                     {reservation.status === "ready_for_collection" && (
-                      <div className="commerce-action-row">
-                        <button className="commerce-primary-btn" onClick={() => action(`/marketplace/reservations/${reservation.id}/collection/ready/`)}>
-                          Confirm collection ready
-                        </button>
+                      <div className="commerce-inline-form">
+                        <div className="commerce-form-grid">
+                          <label className="commerce-label">
+                            Scan / enter collection code
+                            <input
+                              className="commerce-input"
+                              value={quoteDraft.collection_code}
+                              onChange={(e) => setQuoteDraft(reservation, { collection_code: e.target.value })}
+                            />
+                          </label>
+                        </div>
+                        <div className="commerce-action-row" style={{ marginTop: "0.8rem" }}>
+                          <button className="commerce-primary-btn" onClick={() => action(`/marketplace/reservations/${reservation.id}/collection/scan/`, { collection_code: quoteDraft.collection_code })}>
+                            Confirm collection
+                          </button>
+                          {noShowAllowed && (
+                            <button className="commerce-danger-btn" onClick={() => action(`/marketplace/reservations/${reservation.id}/no-show/`)}>
+                              Mark no-show
+                            </button>
+                          )}
+                        </div>
                       </div>
                     )}
 
                     {reservation.status === "awaiting_dispatch" && (
-                      <div className="commerce-action-row">
-                        <button className="commerce-primary-btn" onClick={() => action(`/marketplace/reservations/${reservation.id}/dispatch/`, { note: "Packed and handed to courier." })}>
-                          Mark dispatched
-                        </button>
+                      <div className="commerce-inline-form">
+                        <div className="commerce-form-grid">
+                          <label className="commerce-label">
+                            Tracking number
+                            <input
+                              className="commerce-input"
+                              value={quoteDraft.tracking_number}
+                              onChange={(e) => setQuoteDraft(reservation, { tracking_number: e.target.value })}
+                            />
+                          </label>
+                          <label className="commerce-label">
+                            Courier
+                            <input
+                              className="commerce-input"
+                              value={quoteDraft.courier}
+                              onChange={(e) => setQuoteDraft(reservation, { courier: e.target.value })}
+                            />
+                          </label>
+                          <label className="commerce-label">
+                            Note
+                            <textarea
+                              className="commerce-textarea"
+                              value={quoteDraft.note}
+                              onChange={(e) => setQuoteDraft(reservation, { note: e.target.value })}
+                            />
+                          </label>
+                        </div>
+                        <div className="commerce-action-row" style={{ marginTop: "0.8rem" }}>
+                          <button
+                            className="commerce-primary-btn"
+                            onClick={() =>
+                              action(`/marketplace/reservations/${reservation.id}/dispatch/`, {
+                                note: quoteDraft.note || "Packed and handed to courier.",
+                                tracking_number: quoteDraft.tracking_number,
+                                courier: quoteDraft.courier,
+                              })
+                            }
+                          >
+                            Mark dispatched
+                          </button>
+                        </div>
                       </div>
                     )}
 
@@ -267,6 +396,15 @@ export default function BreederReservationsPage() {
           <section className="commerce-card commerce-card--side">
             <h3>Stock dashboard updates</h3>
             <div className="commerce-list">
+              {(page.species || []).filter((item) => item.listed_quantity > 0 && item.status !== "active").map((item) => (
+                <div className="commerce-list-item" key={`relist-${item.id}`}>
+                  <strong>{item.title}</strong>
+                  <p className="commerce-muted">Stock recovered with {item.listed_quantity} units available.</p>
+                  <button className="commerce-ghost-btn" onClick={() => action(`/marketplace/listings/${item.id}/relist/`, { listed_quantity: item.listed_quantity })}>
+                    List on Marketplace
+                  </button>
+                </div>
+              ))}
               {(page.low_stock_alerts || []).map((item) => (
                 <div className="commerce-list-item" key={item.listing_id}>
                   <strong>{item.title}</strong>
@@ -276,7 +414,9 @@ export default function BreederReservationsPage() {
                   </button>
                 </div>
               ))}
-              {(page.low_stock_alerts || []).length === 0 && <div className="commerce-empty">No low-stock alerts right now.</div>}
+              {(page.low_stock_alerts || []).length === 0 && (page.species || []).filter((item) => item.listed_quantity > 0 && item.status !== "active").length === 0 && (
+                <div className="commerce-empty">No stock actions right now.</div>
+              )}
             </div>
           </section>
 

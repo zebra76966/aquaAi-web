@@ -48,11 +48,14 @@ describe("buyer reservation commerce flow", () => {
               id: 21,
               title: "Electric Blue Ram Pair",
               species_name: "Electric Blue Ram",
-              base_price: "42.00",
+              pricing_mode: "tiered",
+              display_price: "10.00-15.00",
               listed_quantity: 3,
               status: "active",
               supports_collection: true,
               supports_delivery_quote: true,
+              tier_prices: { S: "10.00", M: "12.50", L: "15.00" },
+              reserve_button_label: "Reserve tier mix",
             },
           ],
           low_stock_alerts: [],
@@ -79,13 +82,20 @@ describe("buyer reservation commerce flow", () => {
               id: 99,
               reservation_code: "RES-QUOTE",
               species_name: "Blue Acara",
+              pricing_mode: "quote_required",
+              subtotal: "45.00",
+              delivery_cost: "10.00",
               total_amount: "55.00",
               delivery_method: "delivery_quote",
               status: "quote_received",
               payment_status: "not_started",
+              line_items: [{ label: "Quoted selection", quantity: 2, unit_price: "22.50" }],
               active_quote: {
                 id: 7,
-                shipping_cost: "10.00",
+                quote_type: "fish_and_delivery",
+                fish_price: "45.00",
+                delivery_cost: "10.00",
+                total_amount: "55.00",
                 estimated_dispatch_date: "2026-05-08",
                 expires_at: "2026-05-09T14:00:00Z",
                 note: "Insulated shipping included.",
@@ -107,7 +117,7 @@ describe("buyer reservation commerce flow", () => {
     global.fetch.mockRestore();
   });
 
-  test("buyer can start a breeder reservation from the species page", async () => {
+  test("buyer can build a tiered reservation from the species page", async () => {
     render(
       <AuthContext.Provider value={authValue}>
         <BreederSpeciesPage />
@@ -116,7 +126,11 @@ describe("buyer reservation commerce flow", () => {
 
     await waitFor(() => expect(screen.getByText(/Electric Blue Ram Pair/i)).toBeInTheDocument());
     expect(screen.getByText("Verified Breeder")).toBeInTheDocument();
-    fireEvent.click(screen.getByText("Reserve"));
+    fireEvent.click(screen.getByText("Reserve tier mix"));
+    const buttons = screen.getAllByText("+");
+    fireEvent.click(buttons[0]);
+    fireEvent.click(buttons[1]);
+    expect(screen.getByText("£22.50")).toBeInTheDocument();
     fireEvent.click(screen.getByText("Reserve for Collection"));
 
     await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith("/reservations?highlight=88"));
@@ -126,7 +140,7 @@ describe("buyer reservation commerce flow", () => {
     );
   });
 
-  test("buyer can accept a delivery quote from my reservations", async () => {
+  test("buyer can accept a structured quote from my reservations", async () => {
     render(
       <AuthContext.Provider value={authValue}>
         <MyReservationsPage />
@@ -135,6 +149,7 @@ describe("buyer reservation commerce flow", () => {
 
     await waitFor(() => expect(screen.getByText(/Blue Acara/i)).toBeInTheDocument());
     expect(screen.getByText("Reservation Master")).toBeInTheDocument();
+    expect(screen.getByText(/fish and delivery/i)).toBeInTheDocument();
     fireEvent.click(screen.getByText("Accept quote"));
 
     await waitFor(() =>

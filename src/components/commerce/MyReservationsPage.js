@@ -11,9 +11,16 @@ const DISPUTE_OPTIONS = [
   { value: "doa", label: "DOA" },
   { value: "wrong_species", label: "Wrong species" },
   { value: "late_delivery", label: "Late delivery" },
-  { value: "disease", label: "Disease" },
+  { value: "disease_introduction", label: "Disease introduction" },
   { value: "other", label: "Other" },
 ];
+
+
+function reservationModeLabel(reservation) {
+  if (reservation.pricing_mode === "quote_required") return "Quote required";
+  if (reservation.pricing_mode === "tiered") return "Tiered";
+  return "Single fixed";
+}
 
 
 export default function MyReservationsPage() {
@@ -73,7 +80,7 @@ export default function MyReservationsPage() {
   return (
     <CommerceShell
       title="My Reservations"
-      subtitle="Buyers can now track quote responses, complete payment, confirm collection or delivery, open disputes, and review the full breeder transaction history from one reservation ledger."
+      subtitle="Buyers can track quotes, pay in full, present collection QR codes, confirm delivery receipt, and manage disputes from one reservation ledger."
     >
       {error && <div className="commerce-alert error">{error}</div>}
       {loading && <div className="commerce-empty">Loading reservations...</div>}
@@ -97,7 +104,10 @@ export default function MyReservationsPage() {
                   </div>
                   <h2>{reservation.species_name}</h2>
                   <p className="commerce-muted">
-                    {reservation.reservation_code} · {reservation.delivery_method === "collect" ? "Collection" : "Delivery quote"} · £{reservation.total_amount}
+                    {reservation.reservation_code} · {reservation.delivery_method === "collect" ? "Collection" : "Delivery"} · {reservationModeLabel(reservation)}
+                  </p>
+                  <p className="commerce-muted">
+                    Subtotal £{reservation.subtotal} · Delivery £{reservation.delivery_cost} · Total £{reservation.total_amount}
                   </p>
                 </div>
                 <div className="commerce-pill-row">
@@ -106,12 +116,29 @@ export default function MyReservationsPage() {
                 </div>
               </header>
 
+              {reservation.line_items?.length > 0 && (
+                <div className="commerce-inline-form">
+                  <strong>Line items</strong>
+                  <div className="commerce-list">
+                    {reservation.line_items.map((item, index) => (
+                      <div className="commerce-list-item" key={`${reservation.id}-line-${index}`}>
+                        {(item.label || item.tier || "Item")} · Qty {item.quantity}
+                        {item.unit_price ? ` · £${item.unit_price}` : " · price to be quoted"}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {reservation.active_quote && (
                 <div className="commerce-list-item">
                   <strong>Quote details</strong>
                   <p className="commerce-muted">
-                    Shipping £{reservation.active_quote.shipping_cost} · Dispatch ETA {reservation.active_quote.estimated_dispatch_date}
+                    {reservation.active_quote.quote_type.replaceAll("_", " ")} · Fish £{reservation.active_quote.fish_price} · Shipping £{reservation.active_quote.delivery_cost} · Total £{reservation.active_quote.total_amount}
                   </p>
+                  {reservation.active_quote.estimated_dispatch_date && (
+                    <p className="commerce-muted">Dispatch ETA {reservation.active_quote.estimated_dispatch_date}</p>
+                  )}
                   {reservation.active_quote.note && <p>{reservation.active_quote.note}</p>}
                 </div>
               )}
@@ -141,19 +168,13 @@ export default function MyReservationsPage() {
                   </>
                 )}
 
-                {reservation.status === "ready_for_collection" && (
-                  <button className="commerce-primary-btn" onClick={() => act(reservation.id, `/marketplace/reservations/${reservation.id}/collection/confirm/`, { collection_code: reservation.collection_code || "" })}>
-                    I've collected it
-                  </button>
-                )}
-
                 {reservation.status === "dispatched" && (
                   <button className="commerce-primary-btn" onClick={() => act(reservation.id, `/marketplace/reservations/${reservation.id}/receipt/confirm/`)}>
-                    I've received it
+                    I&apos;ve received it
                   </button>
                 )}
 
-                {reservation.payment_status === "paid" && reservation.status !== "disputed" && reservation.status !== "cancelled" && (
+                {reservation.payment_status === "paid" && !["disputed", "cancelled", "no_show"].includes(reservation.status) && (
                   <button className="commerce-ghost-btn" onClick={() => setActiveDisputeId(activeDisputeId === reservation.id ? null : reservation.id)}>
                     Open dispute
                   </button>
@@ -162,8 +183,20 @@ export default function MyReservationsPage() {
 
               {reservation.collection_code && reservation.status === "ready_for_collection" && (
                 <div className="commerce-inline-form">
-                  <strong>Collection code / QR fallback</strong>
-                  <p className="commerce-muted">Code: {reservation.collection_code}</p>
+                  <strong>Collection QR fallback</strong>
+                  <p className="commerce-muted">Show this code to the breeder for scanning: {reservation.collection_code}</p>
+                  {reservation.pickup_window_expires_at && (
+                    <p className="commerce-muted">Pickup window ends {new Date(reservation.pickup_window_expires_at).toLocaleString()}</p>
+                  )}
+                </div>
+              )}
+
+              {reservation.status === "no_show" && (
+                <div className="commerce-inline-form">
+                  <strong>No-show processed</strong>
+                  <p className="commerce-muted">
+                    Refund issued minus no-show fee of £{reservation.no_show_fee}.
+                  </p>
                 </div>
               )}
 

@@ -55,14 +55,15 @@ export default function MarketplaceListingDetail() {
               {listing.is_breeder_listing && <div className="commerce-tag">Breeder transaction surface</div>}
             </div>
             <p className="commerce-muted">{listing.description}</p>
+            {listing.bid_conversion_banner && <div className="commerce-alert">{listing.bid_conversion_banner}</div>}
             <div className="commerce-stat-row">
               <div className="commerce-stat">
                 <strong>{listing.species_name}</strong>
                 <span className="commerce-muted">Species</span>
               </div>
               <div className="commerce-stat">
-                <strong>£{listing.base_price}</strong>
-                <span className="commerce-muted">Unit price</span>
+                <strong>{listing.display_price === "Quote on request" ? listing.display_price : `£${listing.display_price}`}</strong>
+                <span className="commerce-muted">Listing price</span>
               </div>
               <div className="commerce-stat">
                 <strong>{listing.listed_quantity}</strong>
@@ -73,6 +74,14 @@ export default function MarketplaceListingDetail() {
                 <span className="commerce-muted">Typical dispatch estimate</span>
               </div>
             </div>
+            {listing.pricing_mode === "tiered" && listing.tier_prices && (
+              <div className="commerce-inline-form">
+                <strong>Tier prices</strong>
+                <p className="commerce-muted">
+                  Small £{listing.tier_prices.S} · Medium £{listing.tier_prices.M} · Large £{listing.tier_prices.L}
+                </p>
+              </div>
+            )}
             <div className="commerce-action-row" style={{ marginTop: "1rem" }}>
               {listing.is_breeder_listing ? (
                 <button
@@ -107,6 +116,10 @@ export default function MarketplaceListingDetail() {
               <div>
                 <strong>{listing.seller_profile?.reviews_count ?? 0}</strong>
                 <div className="commerce-muted">reviews</div>
+              </div>
+              <div>
+                <strong>{listing.pricing_mode.replaceAll("_", " ")}</strong>
+                <div className="commerce-muted">Pricing mode</div>
               </div>
               <div>
                 <strong>{listing.supports_collection ? "Yes" : "No"}</strong>
