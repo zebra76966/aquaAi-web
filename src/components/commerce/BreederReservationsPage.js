@@ -68,7 +68,12 @@ export default function BreederReservationsPage() {
       });
       setError("");
       if (speciesData?.species) {
-        setPage((current) => ({ ...current, species: speciesData.species, low_stock_alerts: speciesData.low_stock_alerts || [] }));
+        setPage((current) => ({
+          ...current,
+          species: speciesData.species,
+          low_stock_alerts: speciesData.low_stock_alerts || [],
+          restock_recommendations: speciesData.restock_recommendations?.recommendations || [],
+        }));
       }
     } catch (err) {
       setError(err.message);
@@ -138,6 +143,14 @@ export default function BreederReservationsPage() {
                 emptyLabel="Dispatch quickly, keep disputes low, and stay verified to unlock breeder commerce badges."
               />
             </div>
+            {page.metrics?.fulfilment_score && (
+              <div className="commerce-inline-form">
+                <h4>Fulfilment score</h4>
+                <p><strong>{page.metrics.fulfilment_score.fulfilment_score}</strong> / 100</p>
+                <p className="commerce-muted">{page.metrics.fulfilment_score.level.replaceAll("_", " ")}</p>
+                <p className="commerce-muted">{page.metrics.fulfilment_score.recommendation}</p>
+              </div>
+            )}
 
             <div className="commerce-inline-form">
               <h4>Licence upload</h4>
@@ -210,6 +223,11 @@ export default function BreederReservationsPage() {
                         <p className="commerce-muted">
                           {reservation.pricing_mode.replaceAll("_", " ")} · {reservation.delivery_method}
                         </p>
+                        {reservation.dispute_risk && (
+                          <p className="commerce-muted">
+                            Dispute risk {reservation.dispute_risk.risk_level} ({Math.round((reservation.dispute_risk.risk_score || 0) * 100)}%)
+                          </p>
+                        )}
                       </div>
                       <div className="commerce-pill-row">
                         <span className={`commerce-status ${["quote_pending", "payment_pending", "quote_received"].includes(reservation.status) ? "pending" : reservation.status === "disputed" ? "warning" : ""}`}>
@@ -396,6 +414,14 @@ export default function BreederReservationsPage() {
           <section className="commerce-card commerce-card--side">
             <h3>Stock dashboard updates</h3>
             <div className="commerce-list">
+              {(page.restock_recommendations || []).map((item) => (
+                <div className="commerce-list-item" key={`restock-${item.listing_id}`}>
+                  <strong>{item.title}</strong>
+                  <p className="commerce-muted">
+                    {item.urgency} · stock {item.current_stock} · suggested restock {item.suggested_restock_units}
+                  </p>
+                </div>
+              ))}
               {(page.species || []).filter((item) => item.listed_quantity > 0 && item.status !== "active").map((item) => (
                 <div className="commerce-list-item" key={`relist-${item.id}`}>
                   <strong>{item.title}</strong>

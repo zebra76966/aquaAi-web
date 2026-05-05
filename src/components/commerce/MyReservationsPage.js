@@ -109,6 +109,11 @@ export default function MyReservationsPage() {
                   <p className="commerce-muted">
                     Subtotal £{reservation.subtotal} · Delivery £{reservation.delivery_cost} · Total £{reservation.total_amount}
                   </p>
+                  {reservation.dispute_risk && (
+                    <p className="commerce-muted">
+                      Dispute risk {reservation.dispute_risk.risk_level} ({Math.round((reservation.dispute_risk.risk_score || 0) * 100)}%)
+                    </p>
+                  )}
                 </div>
                 <div className="commerce-pill-row">
                   <span className="commerce-tag">Payment {reservation.payment_status}</span>
