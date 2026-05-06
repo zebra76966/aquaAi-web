@@ -155,7 +155,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className={`dashboard-wrapper ${refreshing ? "ui-refreshing" : ""}`}>
+    <div className={`dashboard-wrapper pb-5  ${refreshing ? "ui-refreshing" : ""}`}>
       {/* Subtle refreshing indicator */}
       {refreshing && (
         <div className="refresh-pill">
@@ -164,7 +164,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      <Container className="py-4 position-relative">
+      <Container className="py-4 position-relative mb-5">
         <header className="dashboard-header-premium mb-5">
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
             <span className="breadcrumb-label">SYSTEM DASHBOARD</span>

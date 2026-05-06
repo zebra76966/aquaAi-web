@@ -2,14 +2,22 @@ import React, { useState, useEffect, useContext } from "react";
 import { Container, Row, Col, Button, Spinner, Alert } from "react-bootstrap";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaCheckCircle, FaGem, FaCrown, FaStar, FaTags, FaHistory, FaInfoCircle, FaArrowRight } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThemeToggle from "../ThemeToggle";
 import { AuthContext } from "./authcontext";
 import { baseUrl } from "./config";
 import "./plans.css";
 
 export default function Plans() {
-  const { token, logout } = useContext(AuthContext);
+  const { token, logout, handleUnauthorized, roles } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  // Guard: breeders and consultants should never see /plans
+  useEffect(() => {
+    if (!token) return;
+    if (roles.includes("breeder")) { navigate("/breeder-dashboard", { replace: true }); return; }
+    if (roles.includes("consultant")) { navigate("/consultant-dashboard", { replace: true }); return; }
+  }, [token, roles, navigate]);
   const [plans, setPlans] = useState([]);
   const [mySubscription, setMySubscription] = useState(null);
   const [planDiscounts, setPlanDiscounts] = useState([]);
@@ -31,6 +39,12 @@ export default function Plans() {
           fetch(`${baseUrl}/subscription/subscription/plan-discounts/`, { headers }),
           fetch(`${baseUrl}/subscription/subscription/preview-discount/`, { headers }),
         ]);
+
+        // Logout on any 401
+        if ([pRes, sRes, dAllRes, dCurrentRes].some((r) => r.status === 401)) {
+          handleUnauthorized();
+          return;
+        }
 
         const pJson = await pRes.json();
         const sJson = await sRes.json();
@@ -303,13 +317,18 @@ export default function Plans() {
           })}
         </Row>
 
-        {/* --- Skip / Logout Actions --- */}
+        {/* --- Actions --- */}
         <motion.div className="text-center mt-5 d-flex flex-column align-items-center gap-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
-          {/* <Link to="/dashboard" className="skip-link">
-            No thanks, skip for now <FaArrowRight className="ms-1" size={12} />
-          </Link> */}
+          {/* Continue to Dashboard — always visible as a skip/proceed option */}
+          <button
+            className="plans-continue-btn"
+            onClick={() => navigate("/dashboard")}
+          >
+            <FaArrowRight className="me-2" size={14} />
+            Continue to Dashboard
+          </button>
 
-          <div className="mb-3">
+          <div className="mb-1">
             <a href="aqua://" className="back-to-app-btn">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" className="me-2">
                 <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />

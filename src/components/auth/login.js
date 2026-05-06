@@ -21,7 +21,15 @@ export default function Login() {
   const [focused, setFocused] = useState("");
 
   useEffect(() => {
-    if (!authLoading && token) navigate("/plans");
+    if (!authLoading && token) {
+      // Already logged in — send to the right place
+      const stored = localStorage.getItem("userRoles");
+      const existingRoles = stored ? JSON.parse(stored) : [];
+      if (existingRoles.includes("admin")) navigate("/admin");
+      else if (existingRoles.includes("breeder")) navigate("/breeder-dashboard");
+      else if (existingRoles.includes("consultant")) navigate("/consultant-dashboard");
+      else navigate("/plans");
+    }
   }, [token, authLoading, navigate]);
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -42,7 +50,17 @@ export default function Login() {
         const roles = data.roles || [];
         await login(data.access, roles);
         // navigate(roles.includes("admin") ? "/admin" : "/plans");
-        navigate(data.is_admin ? "/admin" : "/plans");
+        // Route by role after successful login
+        const loginRoles = data.roles || [];
+        if (data.is_admin || loginRoles.includes("admin")) {
+          navigate("/admin");
+        } else if (loginRoles.includes("breeder")) {
+          navigate("/breeder-dashboard");
+        } else if (loginRoles.includes("consultant")) {
+          navigate("/consultant-dashboard");
+        } else {
+          navigate("/plans");
+        }
       } else {
         setError(data.message || "Login failed");
       }

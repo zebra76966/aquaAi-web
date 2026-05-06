@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useCallback } from "react";
+import React, { createContext, useState, useEffect, useCallback, useRef } from "react";
 import { baseUrl } from "./config";
 import { fetchAndSetRealtimeAuth } from "./supabase/supabase";
 
@@ -18,6 +18,31 @@ export const AuthProvider = ({ children }) => {
 
   const isAdmin = roles.includes("admin");
 
+  // Ref so clearSession can be called inside callbacks without stale closure issues
+  const logoutRef = useRef(null);
+
+  const clearSession = useCallback(() => {
+    setToken(null);
+    setTier(null);
+    setPermissions(null);
+    setActiveTankId(null);
+    setUserProfile(null);
+    setRoles([]);
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userPermissions");
+    localStorage.removeItem("activeTankId");
+    localStorage.removeItem("userRoles");
+  }, []);
+
+  // Call this whenever any protected fetch returns 401.
+  // It clears the session and redirects to /login.
+  const handleUnauthorized = useCallback(() => {
+    clearSession();
+    window.location.href = "/login";
+  }, [clearSession]);
+
+  logoutRef.current = handleUnauthorized;
+
   const fetchUserPermissions = useCallback(async (accessToken) => {
     if (!accessToken) return;
     try {
@@ -26,6 +51,7 @@ export const AuthProvider = ({ children }) => {
         method: "GET",
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
       });
+      if (res.status === 401) { logoutRef.current(); return; }
       const json = await res.json();
       if (json?.data) {
         setTier(json.data.tier);
@@ -45,6 +71,7 @@ export const AuthProvider = ({ children }) => {
         method: "GET",
         headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
       });
+      if (res.status === 401) { logoutRef.current(); return; }
       if (!res.ok) return;
       const json = await res.json();
       const data = json?.data || json;
@@ -99,16 +126,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    setToken(null);
-    setTier(null);
-    setPermissions(null);
-    setActiveTankId(null);
-    setUserProfile(null);
-    setRoles([]);
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("userPermissions");
-    localStorage.removeItem("activeTankId");
-    localStorage.removeItem("userRoles");
+    clearSession();
   };
 
   const activateTank = (tankId) => {
@@ -129,6 +147,7 @@ export const AuthProvider = ({ children }) => {
         activeTankId, activateTank, clearActiveTank,
         tier, permissions, permissionsLoading,
         userProfile,
+        handleUnauthorized,
         refreshPermissions: () => fetchUserPermissions(token),
       }}
     >

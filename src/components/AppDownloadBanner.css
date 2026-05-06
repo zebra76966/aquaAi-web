@@ -1,0 +1,151 @@
+/* ─── App Download Banner ───────────────────────────────────── */
+.app-banner {
+  position: fixed;
+  bottom: 110px;
+  right: 24px;
+  z-index: 9000;
+  width: 360px;
+  transform: translateX(420px);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.app-banner.banner-show {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.banner-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(0, 242, 255, 0.3), rgba(138, 43, 226, 0.2));
+  filter: blur(8px);
+  z-index: -1;
+}
+
+.banner-inner {
+  position: relative;
+  background: rgba(8, 16, 28, 0.95);
+  border: 1px solid rgba(0, 242, 255, 0.18);
+  border-radius: 20px;
+  padding: 18px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+.banner-icon-wrap {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 242, 255, 0.08);
+  border: 1px solid rgba(0, 242, 255, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-fish-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.banner-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.banner-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin: 0 0 3px;
+  letter-spacing: -0.01em;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.banner-sub {
+  font-size: 11px;
+  color: rgba(226, 232, 240, 0.5);
+  margin: 0;
+  line-height: 1.4;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.banner-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.banner-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.banner-ios {
+  background: rgba(0, 242, 255, 0.12);
+  color: #00f2ff;
+  border: 1px solid rgba(0, 242, 255, 0.25);
+}
+.banner-ios:hover {
+  background: rgba(0, 242, 255, 0.22);
+  color: #00f2ff;
+}
+
+.banner-android {
+  background: rgba(138, 201, 38, 0.1);
+  color: #8ac926;
+  border: 1px solid rgba(138, 201, 38, 0.25);
+}
+.banner-android:hover {
+  background: rgba(138, 201, 38, 0.2);
+  color: #8ac926;
+}
+
+.banner-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+  cursor: pointer;
+  color: rgba(255,255,255,0.4);
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.banner-close:hover {
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.8);
+}
+
+@media (max-width: 480px) {
+  .app-banner {
+    width: calc(100% - 32px);
+    right: 16px;
+    bottom: 100px;
+  }
+}
