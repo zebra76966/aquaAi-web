@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { AuthContext } from "../auth/authcontext";
 import CommerceShell from "./CommerceShell";
-import FeatureDBadgeRow from "./FeatureDBadgeRow";
 import { commerceFetch } from "./commerceApi";
 
 
@@ -31,31 +30,50 @@ export default function MarketplaceListingDetail() {
         if (active) setLoading(false);
       }
     };
-    if (token) load();
+    if (token) {
+      load();
+    }
     return () => {
       active = false;
     };
   }, [listingId, token]);
 
+  const goToBreeder = () => {
+    if (!listing?.seller_user_id) return;
+    navigate(`/marketplace/breeders/${listing.seller_user_id}/species`);
+  };
+
+  const addDirectToBasket = async () => {
+    if (!listing?.breeder_stock_id) {
+      goToBreeder();
+      return;
+    }
+    try {
+      await commerceFetch("/marketplace/basket/items/", token, {
+        method: "POST",
+        body: JSON.stringify({
+          breeder_stock_id: listing.breeder_stock_id,
+          quantity: 1,
+        }),
+      });
+      navigate("/marketplace/checkout");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <CommerceShell
       title="Marketplace Listing Detail"
-      subtitle="Breeder-origin listings now route into the reservation flow so buyers complete collection or delivery inside a single audited path."
+      subtitle="Breeder-origin marketplace cards now feed the same breeder-section basket and checkout flow instead of launching a separate quote path."
     >
       {error && <div className="commerce-alert error">{error}</div>}
       {loading && <div className="commerce-empty">Loading listing...</div>}
       {!loading && listing && (
         <div className="commerce-grid">
           <section className="commerce-card commerce-card--wide">
-            <div className="commerce-section-title">
-              <div>
-                <div className={`commerce-status ${listing.status === "active" ? "" : "warning"}`}>{listing.status}</div>
-                <h2>{listing.title}</h2>
-              </div>
-              {listing.is_breeder_listing && <div className="commerce-tag">Breeder transaction surface</div>}
-            </div>
+            <h2>{listing.title}</h2>
             <p className="commerce-muted">{listing.description}</p>
-            {listing.bid_conversion_banner && <div className="commerce-alert">{listing.bid_conversion_banner}</div>}
             <div className="commerce-stat-row">
               <div className="commerce-stat">
                 <strong>{listing.species_name}</strong>
@@ -63,81 +81,22 @@ export default function MarketplaceListingDetail() {
               </div>
               <div className="commerce-stat">
                 <strong>{listing.display_price === "Quote on request" ? listing.display_price : `£${listing.display_price}`}</strong>
-                <span className="commerce-muted">Listing price</span>
+                <span className="commerce-muted">Price</span>
               </div>
               <div className="commerce-stat">
                 <strong>{listing.listed_quantity}</strong>
-                <span className="commerce-muted">Stock available</span>
-              </div>
-              <div className="commerce-stat">
-                <strong>{listing.shipping_days_estimate} day(s)</strong>
-                <span className="commerce-muted">Typical dispatch estimate</span>
+                <span className="commerce-muted">Stock</span>
               </div>
             </div>
-            {listing.pricing_mode === "tiered" && listing.tier_prices && (
-              <div className="commerce-inline-form">
-                <strong>Tier prices</strong>
-                <p className="commerce-muted">
-                  Small £{listing.tier_prices.S} · Medium £{listing.tier_prices.M} · Large £{listing.tier_prices.L}
-                </p>
-              </div>
-            )}
             <div className="commerce-action-row" style={{ marginTop: "1rem" }}>
-              {listing.is_breeder_listing ? (
-                <button
-                  className="commerce-primary-btn"
-                  onClick={() => navigate(`/marketplace/breeders/${listing.seller_user_id}/species?listing_id=${listing.id}`)}
-                >
-                  {listing.buy_button_label}
-                </button>
-              ) : (
-                <button className="commerce-primary-btn" disabled>
-                  Buy
-                </button>
-              )}
-              {listing.buy_route && (
-                <Link className="commerce-link" to={listing.buy_route}>
-                  Preview breeder species page
-                </Link>
-              )}
+              <button className="commerce-primary-btn" onClick={addDirectToBasket}>
+                Add to basket
+              </button>
+              <button className="commerce-ghost-btn" onClick={goToBreeder}>
+                Reserve via breeder profile
+              </button>
             </div>
           </section>
-
-          <aside className="commerce-card commerce-card--side">
-            <h3>{listing.breeder_name}</h3>
-            <p className="commerce-muted">Primary seller and breeder transaction owner.</p>
-            <div className="commerce-pill-row">
-              <span className="commerce-tag">Rating {listing.seller_profile?.rating ?? 0}</span>
-              <span className={`commerce-status ${listing.delivery_verification_status === "approved" ? "" : "pending"}`}>
-                Delivery {listing.delivery_verification_status}
-              </span>
-            </div>
-            <div className="commerce-stack" style={{ marginTop: "1rem" }}>
-              <div>
-                <strong>{listing.seller_profile?.reviews_count ?? 0}</strong>
-                <div className="commerce-muted">reviews</div>
-              </div>
-              <div>
-                <strong>{listing.pricing_mode.replaceAll("_", " ")}</strong>
-                <div className="commerce-muted">Pricing mode</div>
-              </div>
-              <div>
-                <strong>{listing.supports_collection ? "Yes" : "No"}</strong>
-                <div className="commerce-muted">Collection available</div>
-              </div>
-              <div>
-                <strong>{listing.supports_delivery_quote ? "Yes" : "No"}</strong>
-                <div className="commerce-muted">Delivery quote available</div>
-              </div>
-            </div>
-            <div className="commerce-inline-form">
-              <h4>Feature D badges</h4>
-              <FeatureDBadgeRow
-                badges={listing.seller_profile?.feature_d_badges || []}
-                emptyLabel="This breeder has not unlocked any Feature D commerce badges yet."
-              />
-            </div>
-          </aside>
         </div>
       )}
     </CommerceShell>

@@ -20,6 +20,7 @@ import AdminDashboard from "./components/admin/AdminDashboard";
 import FeatureDLab from "./components/featured/FeatureDLab";
 import MarketplaceListingDetail from "./components/commerce/MarketplaceListingDetail";
 import BreederSpeciesPage from "./components/commerce/BreederSpeciesPage";
+import BasketCheckoutPage from "./components/commerce/BasketCheckoutPage";
 import MyReservationsPage from "./components/commerce/MyReservationsPage";
 import BreederReservationsPage from "./components/commerce/BreederReservationsPage";
 import NotificationsInbox from "./components/commerce/NotificationsInbox";
@@ -45,6 +46,7 @@ function App() {
             <Route path="/featured" element={<FeatureDLab />} />
             <Route path="/marketplace/listings/:listingId" element={<MarketplaceListingDetail />} />
             <Route path="/marketplace/breeders/:sellerId/species" element={<BreederSpeciesPage />} />
+            <Route path="/marketplace/checkout" element={<BasketCheckoutPage />} />
             <Route path="/reservations" element={<MyReservationsPage />} />
             <Route path="/breeder/reservations" element={<BreederReservationsPage />} />
             <Route path="/notifications" element={<NotificationsInbox />} />

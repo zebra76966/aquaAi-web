@@ -35,6 +35,7 @@ export default function FeatureDLab() {
   const [emergencyRequests, setEmergencyRequests] = useState([]);
   const [responderProfile, setResponderProfile] = useState(null);
   const [registryRecords, setRegistryRecords] = useState([]);
+  const [fishGrowth, setFishGrowth] = useState(null);
 
   const [cycleForm, setCycleForm] = useState({ cycle_name: "", status: "planned", estimated_cost: "" });
   const [emergencyForm, setEmergencyForm] = useState({
@@ -60,6 +61,13 @@ export default function FeatureDLab() {
     longitude: "",
     service_radius_km: 50,
     specialties: "",
+  });
+  const [growthForm, setGrowthForm] = useState({
+    fish_id: "",
+    device_fingerprint: "browser-qa",
+    card_pixel_width: "",
+    fish_pixel_length: "",
+    image_url: "",
   });
   const [busyAction, setBusyAction] = useState("");
 
@@ -218,6 +226,47 @@ export default function FeatureDLab() {
         lineage_notes: "",
       });
       await loadAll();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setBusyAction("");
+    }
+  };
+
+  const handleGrowthCalibration = async (event) => {
+    event.preventDefault();
+    setBusyAction("growth-calibration");
+    try {
+      await postJson(`${baseUrl}/api/v1/tanks/fish/${growthForm.fish_id}/calibrations/`, {
+        device_fingerprint: growthForm.device_fingerprint,
+        card_pixel_width: Number(growthForm.card_pixel_width),
+        reference_card_width_cm: 8.56,
+      });
+      const growthData = await sectionFetch(`${baseUrl}/api/v1/tanks/fish/${growthForm.fish_id}/growth/`, token);
+      setFishGrowth(growthData);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setBusyAction("");
+    }
+  };
+
+  const handleGrowthMeasurement = async (event) => {
+    event.preventDefault();
+    setBusyAction("growth-measurement");
+    try {
+      const growthData = fishGrowth || await sectionFetch(`${baseUrl}/api/v1/tanks/fish/${growthForm.fish_id}/growth/`, token);
+      const calibrationId = growthData?.calibrations?.[0]?.id;
+      if (!calibrationId) {
+        throw new Error("Create a calibration first.");
+      }
+      await postJson(`${baseUrl}/api/v1/tanks/fish/${growthForm.fish_id}/measurements/`, {
+        calibration_id: calibrationId,
+        fish_pixel_length: Number(growthForm.fish_pixel_length),
+        image_url: growthForm.image_url,
+      });
+      const refreshed = await sectionFetch(`${baseUrl}/api/v1/tanks/fish/${growthForm.fish_id}/growth/`, token);
+      setFishGrowth(refreshed);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -453,6 +502,52 @@ export default function FeatureDLab() {
               </article>
             ))}
           </div>
+        </section>
+
+        <section className="fd-panel fd-panel-wide">
+          <div className="fd-panel-head">
+            <h2>Individual Fish Growth Tracking</h2>
+            <p>QA surface for reference-card calibration and per-fish cm growth measurement before the mobile camera flow is wired in.</p>
+          </div>
+          <form className="fd-form" onSubmit={handleGrowthCalibration}>
+            <div className="fd-form-grid">
+              <input placeholder="Fish ID" value={growthForm.fish_id} onChange={(e) => setGrowthForm({ ...growthForm, fish_id: e.target.value })} />
+              <input placeholder="Device fingerprint" value={growthForm.device_fingerprint} onChange={(e) => setGrowthForm({ ...growthForm, device_fingerprint: e.target.value })} />
+            </div>
+            <div className="fd-form-grid">
+              <input placeholder="Reference card width in pixels" value={growthForm.card_pixel_width} onChange={(e) => setGrowthForm({ ...growthForm, card_pixel_width: e.target.value })} />
+              <button type="submit" disabled={busyAction === "growth-calibration"}>
+                {busyAction === "growth-calibration" ? "Calibrating..." : "Save calibration"}
+              </button>
+            </div>
+          </form>
+          <form className="fd-form" onSubmit={handleGrowthMeasurement}>
+            <div className="fd-form-grid">
+              <input placeholder="Measured fish length in pixels" value={growthForm.fish_pixel_length} onChange={(e) => setGrowthForm({ ...growthForm, fish_pixel_length: e.target.value })} />
+              <input placeholder="Snapshot image URL (optional)" value={growthForm.image_url} onChange={(e) => setGrowthForm({ ...growthForm, image_url: e.target.value })} />
+            </div>
+            <button type="submit" disabled={busyAction === "growth-measurement"}>
+              {busyAction === "growth-measurement" ? "Recording..." : "Record growth measurement"}
+            </button>
+          </form>
+          {fishGrowth && (
+            <div className="fd-registry-grid">
+              <article className="fd-registry-card">
+                <h3>{fishGrowth.fish?.name || "Tracked fish"}</h3>
+                <p>{fishGrowth.fish?.species_name}</p>
+                <p>Baseline: {fishGrowth.baseline_length_cm ?? "n/a"} cm</p>
+                <p>Current: {fishGrowth.current_length_cm ?? "n/a"} cm</p>
+                <strong>Growth: {fishGrowth.growth_cm ?? 0} cm</strong>
+              </article>
+              {(fishGrowth.history || []).map((entry) => (
+                <article key={entry.id} className="fd-registry-card">
+                  <h3>{entry.is_baseline ? "Baseline" : "Measurement"}</h3>
+                  <p>{entry.measured_length_cm} cm</p>
+                  <p>{new Date(entry.created_at).toLocaleString()}</p>
+                </article>
+              ))}
+            </div>
+          )}
         </section>
       </div>
     </div>

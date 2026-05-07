@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { AuthContext } from "../auth/authcontext";
 import CommerceShell from "./CommerceShell";
@@ -7,12 +7,10 @@ import FeatureDBadgeRow from "./FeatureDBadgeRow";
 import { commerceFetch } from "./commerceApi";
 
 
-function defaultDraft(item) {
+function defaultDraft(stock) {
   return {
-    delivery_method: item.supports_collection ? "collect" : "delivery_quote",
     quantity: 1,
-    buyer_note: "",
-    tier_counts: { S: 0, M: 0, L: 0 },
+    tierCounts: { S: 0, M: 0, L: 0 },
   };
 }
 
@@ -20,55 +18,27 @@ function defaultDraft(item) {
 export default function BreederSpeciesPage() {
   const { token } = useContext(AuthContext);
   const { sellerId } = useParams();
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const listingId = searchParams.get("listing_id");
+
   const [page, setPage] = useState(null);
+  const [basket, setBasket] = useState(null);
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [drafts, setDrafts] = useState({});
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const [activeListingId, setActiveListingId] = useState(listingId ? Number(listingId) : null);
-  const [drafts, setDrafts] = useState({});
-  const [busyId, setBusyId] = useState(null);
-  const [createdReservation, setCreatedReservation] = useState(null);
-
-  const highlightedListing = useMemo(
-    () => page?.species?.find((item) => Number(item.id) === Number(activeListingId)) || null,
-    [activeListingId, page],
-  );
-
-  const draftFor = useCallback((item) => (
-    drafts[item.id] || defaultDraft(item)
-  ), [drafts]);
-
-  const updateDraft = useCallback((item, patch) => {
-    const current = drafts[item.id] || defaultDraft(item);
-    setDrafts((existing) => ({
-      ...existing,
-      [item.id]: {
-        ...current,
-        ...patch,
-      },
-    }));
-  }, [drafts]);
-
-  const tierLineItems = useCallback((item, draft) => (
-    Object.entries(draft.tier_counts || {})
-      .map(([tier, quantity]) => ({ tier, quantity: Number(quantity) || 0 }))
-      .filter((entry) => entry.quantity > 0 && item.tier_prices?.[entry.tier])
-  ), []);
-
-  const tierSubtotal = useCallback((item, draft) => (
-    tierLineItems(item, draft).reduce(
-      (sum, entry) => sum + entry.quantity * Number(item.tier_prices?.[entry.tier] || 0),
-      0,
-    )
-  ), [tierLineItems]);
+  const [busyStockId, setBusyStockId] = useState("");
+  const [showOpeningHours, setShowOpeningHours] = useState(false);
+  const [conflictState, setConflictState] = useState(null);
 
   const load = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await commerceFetch(`/marketplace/breeders/${sellerId}/species/`, token);
-      setPage(data);
+      const [speciesData, basketData] = await Promise.all([
+        commerceFetch(`/marketplace/breeders/${sellerId}/species/`, token),
+        commerceFetch("/marketplace/basket/", token),
+      ]);
+      setPage(speciesData);
+      setBasket(basketData.basket);
       setError("");
     } catch (err) {
       setError(err.message);
@@ -83,82 +53,117 @@ export default function BreederSpeciesPage() {
     }
   }, [load, token]);
 
-  const reserveListing = async (item) => {
-    const draft = draftFor(item);
+  const visibleStock = useMemo(() => {
+    const items = page?.species || [];
+    if (activeCategory === "all") return items;
+    return items.filter((item) => item.category === activeCategory);
+  }, [activeCategory, page]);
+
+  const updateDraft = (stock, patch) => {
+    const current = drafts[stock.id] || defaultDraft(stock);
+    setDrafts((existing) => ({
+      ...existing,
+      [stock.id]: {
+        ...current,
+        ...patch,
+      },
+    }));
+  };
+
+  const currentDraft = (stock) => drafts[stock.id] || defaultDraft(stock);
+  const formatCategory = (category) => (category || "uncategorised").replaceAll("_", " ");
+
+  const addBasketItem = async (stock, payload, options = {}) => {
     try {
-      setBusyId(item.id);
-      const payload = {
-        delivery_method: draft.delivery_method,
-        buyer_note: draft.buyer_note,
-      };
-      if (item.pricing_mode === "tiered") {
-        const line_items = tierLineItems(item, draft);
-        if (line_items.length === 0) {
-          throw new Error("Choose at least one size before reserving.");
-        }
-        payload.line_items = line_items;
-        payload.quantity = line_items.reduce((sum, entry) => sum + entry.quantity, 0);
-      } else {
-        payload.quantity = Math.max(1, Number(draft.quantity) || 1);
-      }
-      const data = await commerceFetch(`/marketplace/listings/${item.id}/reserve/`, token, {
+      setBusyStockId(stock.id);
+      const response = await commerceFetch("/marketplace/basket/items/", token, {
         method: "POST",
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          breeder_stock_id: stock.id,
+          ...payload,
+          ...options,
+        }),
       });
-      setCreatedReservation(data.reservation);
+      if (response.conflict) {
+        setConflictState({
+          stock,
+          payload,
+          existingBreeder: response.existing_breeder,
+          incomingBreeder: response.incoming_breeder,
+        });
+        return;
+      }
+      setBasket(response.basket);
       setDrafts((existing) => ({
         ...existing,
-        [item.id]: defaultDraft(item),
+        [stock.id]: defaultDraft(stock),
       }));
-      if (data.reservation?.delivery_method === "collect") {
-        navigate(`/reservations?highlight=${data.reservation.id}`);
-      } else {
-        await load();
-      }
+      setError("");
     } catch (err) {
       setError(err.message);
     } finally {
-      setBusyId(null);
+      setBusyStockId("");
     }
+  };
+
+  const addSingleFixed = async (stock) => {
+    const draft = currentDraft(stock);
+    await addBasketItem(stock, {
+      quantity: Math.max(1, Number(draft.quantity) || 1),
+    });
+  };
+
+  const addTiered = async (stock) => {
+    const draft = currentDraft(stock);
+    const tiers = Object.entries(draft.tierCounts || {}).filter(([, count]) => Number(count) > 0);
+    if (tiers.length === 0) {
+      setError("Choose at least one S, M, or L quantity before adding to basket.");
+      return;
+    }
+    for (const [sizeTier, quantity] of tiers) {
+      // eslint-disable-next-line no-await-in-loop
+      await addBasketItem(stock, { size_tier: sizeTier, quantity: Number(quantity) });
+    }
+  };
+
+  const replaceBasket = async () => {
+    if (!conflictState) return;
+    await addBasketItem(conflictState.stock, conflictState.payload, { force_replace: true });
+    setConflictState(null);
   };
 
   return (
     <CommerceShell
       title="Breeder Profile Species Page"
-      subtitle="This is now the primary transaction surface for breeder stock. Buyers can reserve fixed stock, build S/M/L carts, or request breeder quotes from one catalogue."
+      subtitle="The breeder stock card is the listing in v4. Buyers browse by category, add stock straight into a single-breeder basket, and use one canonical checkout."
     >
       {error && <div className="commerce-alert error">{error}</div>}
-      {createdReservation && (
+      {page?.checkout_blocked && (
         <div className="commerce-alert">
-          Reservation {createdReservation.reservation_code} created with status <strong>{createdReservation.status}</strong>.
-          {createdReservation.payment_session_url
-            ? " Continue into the Stripe sheet from My Reservations."
-            : " The breeder now needs to answer with a structured quote."}
+          Holiday mode is enabled. Buyers can still browse and build a basket, but checkout is blocked until the breeder returns.
+          {page.holiday_message ? ` ${page.holiday_message}` : ""}
         </div>
       )}
-      {loading && <div className="commerce-empty">Loading breeder inventory...</div>}
+      {conflictState && (
+        <div className="commerce-alert warning">
+          Your basket already belongs to {conflictState.existingBreeder?.name || conflictState.existingBreeder?.username}. Replacing it will clear those items and start a new basket with {conflictState.incomingBreeder?.name || conflictState.incomingBreeder?.username}.
+          <div className="commerce-action-row" style={{ marginTop: "0.75rem" }}>
+            <button className="commerce-primary-btn" onClick={replaceBasket}>Replace basket</button>
+            <button className="commerce-ghost-btn" onClick={() => setConflictState(null)}>Keep current basket</button>
+          </div>
+        </div>
+      )}
+      {loading && <div className="commerce-empty">Loading breeder stock...</div>}
       {!loading && page && (
         <div className="commerce-grid">
           <section className="commerce-card commerce-card--side">
-            <h2>{page.seller_profile?.name || page.seller_profile?.username}</h2>
-            <p className="commerce-muted">Buyer-facing breeder profile with collection, delivery verification, and stock visibility.</p>
-            <div className="commerce-stat-row">
-              <div className="commerce-stat">
-                <strong>{page.seller_profile?.rating ?? 0}</strong>
-                <span className="commerce-muted">Seller rating</span>
-              </div>
-              <div className="commerce-stat">
-                <strong>{page.seller_profile?.reviews_count ?? 0}</strong>
-                <span className="commerce-muted">Reviews</span>
-              </div>
-            </div>
-            <div className="commerce-stack" style={{ marginTop: "1rem" }}>
-              <div className={`commerce-status ${page.seller_profile?.stripe_connect_status === "active" ? "" : "pending"}`}>
-                Stripe Connect {page.seller_profile?.stripe_connect_status}
-              </div>
-              <div className={`commerce-status ${page.seller_profile?.verification?.status === "approved" ? "" : "pending"}`}>
-                Delivery verification {page.seller_profile?.verification?.status || "not_submitted"}
-              </div>
+            <h2>{page.seller_profile?.company_name || page.seller_profile?.name || page.seller_profile?.username}</h2>
+            <p className="commerce-muted">Buyer flow: browse stock, add to basket, then use the same checkout regardless of where the journey started.</p>
+            <div className="commerce-pill-row">
+              <span className="commerce-tag">Rating {page.seller_profile?.rating ?? 0}</span>
+              <span className={`commerce-status ${page.shipping_profile?.delivery_enabled ? "" : "pending"}`}>
+                Delivery {page.shipping_profile?.delivery_enabled ? "enabled" : "locked"}
+              </span>
             </div>
             <div className="commerce-inline-form">
               <h4>Feature D badges</h4>
@@ -167,146 +172,148 @@ export default function BreederSpeciesPage() {
                 emptyLabel="This breeder has not unlocked any Feature D commerce badges yet."
               />
             </div>
-            {page.low_stock_alerts?.length > 0 && (
-              <div className="commerce-inline-form">
-                <h4>Low stock alerts</h4>
-                <div className="commerce-list">
-                  {page.low_stock_alerts.map((item) => (
-                    <div className="commerce-list-item" key={item.listing_id}>
-                      {item.title}: {item.listed_quantity} remaining
+            <div className="commerce-inline-form">
+              <button className="commerce-ghost-btn" onClick={() => setShowOpeningHours((current) => !current)}>
+                {showOpeningHours ? "Hide opening times" : "View opening times"}
+              </button>
+              {showOpeningHours && (
+                <div className="commerce-list" style={{ marginTop: "0.75rem" }}>
+                  {Object.entries(page.shipping_profile?.opening_hours || {}).map(([day, value]) => (
+                    <div className="commerce-list-item" key={day}>
+                      <strong>{day}</strong>
+                      <span className="commerce-muted">
+                        {value?.closed ? "Closed" : `${value?.open || "?"} - ${value?.close || "?"}`}
+                      </span>
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
+              )}
+            </div>
+            <div className="commerce-inline-form">
+              <h4>Basket</h4>
+              {!basket && <p className="commerce-muted">No active breeder basket yet.</p>}
+              {basket && (
+                <>
+                  <p className="commerce-muted">
+                    {basket.item_count} item(s) from {basket.breeder?.name || basket.breeder?.username}
+                  </p>
+                  <p><strong>Subtotal £{basket.subtotal}</strong></p>
+                  <button
+                    className="commerce-primary-btn"
+                    disabled={page.checkout_blocked}
+                    onClick={() => navigate("/marketplace/checkout")}
+                  >
+                    Go to checkout
+                  </button>
+                </>
+              )}
+            </div>
           </section>
 
           <section className="commerce-card commerce-card--wide">
             <div className="commerce-section-title">
-              <h2>Species currently available</h2>
+              <div>
+                <h2>Available stock</h2>
+                <p className="commerce-muted">Category tabs match the marketplace enum so the mobile buyer flow can reuse the same filters and labels.</p>
+              </div>
               <div className="commerce-pill-row">
-                <span className="commerce-tag">Choose a listing</span>
-                <span className="commerce-tag">Single fixed, tiered, or quote-required</span>
+                <button className={activeCategory === "all" ? "commerce-primary-btn" : "commerce-ghost-btn"} onClick={() => setActiveCategory("all")}>All</button>
+                {(page.categories || []).map((category) => (
+                  <button
+                    key={category}
+                    className={activeCategory === category ? "commerce-primary-btn" : "commerce-ghost-btn"}
+                    onClick={() => setActiveCategory(category)}
+                  >
+                    {formatCategory(category)}
+                  </button>
+                ))}
               </div>
             </div>
+
             <div className="commerce-list">
-              {page.species?.map((item) => {
-                const draft = draftFor(item);
+              {visibleStock.length === 0 && <div className="commerce-empty">No breeder stock in this category.</div>}
+              {visibleStock.map((stock) => {
+                const draft = currentDraft(stock);
                 return (
-                  <article className="commerce-list-item" key={item.id}>
+                  <article className="commerce-list-item" key={stock.id}>
                     <header>
                       <div>
-                        <h3>{item.title}</h3>
+                        <h3>{stock.title}</h3>
                         <p className="commerce-muted">
-                          {item.species_name} · {item.display_price === "Quote on request" ? item.display_price : `£${item.display_price}`} · {item.listed_quantity} in stock
+                          {stock.species_name} · {formatCategory(stock.category)} · {stock.quantity} in stock
                         </p>
-                        {item.bid_conversion_banner && <p className="commerce-muted">{item.bid_conversion_banner}</p>}
+                        <p className="commerce-muted">
+                          {stock.pricing_mode === "tiered" ? `£${stock.price_min} - £${stock.price_max}` : `£${stock.base_price}`}
+                        </p>
                       </div>
-                      <div className="commerce-action-row">
-                        <span className="commerce-status">{item.status}</span>
-                        <button className="commerce-ghost-btn" onClick={() => setActiveListingId(item.id)}>
-                          {item.reserve_button_label || "Reserve"}
-                        </button>
-                      </div>
+                      {stock.low_stock && <span className="commerce-status pending">Low stock</span>}
                     </header>
-                    {Number(activeListingId) === Number(item.id) && (
-                      <div className="commerce-inline-form">
-                        {item.pricing_mode === "tiered" && (
-                          <div className="commerce-form-grid">
-                            {["S", "M", "L"].map((tier) => (
-                              <label className="commerce-label" key={tier}>
-                                {tier === "S" ? "Small" : tier === "M" ? "Medium" : "Large"} (£{item.tier_prices?.[tier] || "0.00"})
-                                <div className="commerce-action-row">
-                                  <button
-                                    className="commerce-ghost-btn"
-                                    type="button"
-                                    onClick={() =>
-                                      updateDraft(item, {
-                                        tier_counts: {
-                                          ...(draft.tier_counts || {}),
-                                          [tier]: Math.max(0, (draft.tier_counts?.[tier] || 0) - 1),
-                                        },
-                                      })
-                                    }
-                                  >
-                                    -
-                                  </button>
-                                  <strong>{draft.tier_counts?.[tier] || 0}</strong>
-                                  <button
-                                    className="commerce-ghost-btn"
-                                    type="button"
-                                    onClick={() =>
-                                      updateDraft(item, {
-                                        tier_counts: {
-                                          ...(draft.tier_counts || {}),
-                                          [tier]: (draft.tier_counts?.[tier] || 0) + 1,
-                                        },
-                                      })
-                                    }
-                                  >
-                                    +
-                                  </button>
-                                </div>
-                              </label>
-                            ))}
-                            <div className="commerce-stat">
-                              <strong>£{tierSubtotal(item, draft).toFixed(2)}</strong>
-                              <span className="commerce-muted">Tiered subtotal</span>
-                            </div>
-                          </div>
-                        )}
 
-                        <div className="commerce-form-grid">
-                          {item.pricing_mode !== "tiered" && (
-                            <label className="commerce-label">
-                              Quantity
-                              <input
-                                type="number"
-                                min="1"
-                                className="commerce-input"
-                                value={draft.quantity}
-                                onChange={(e) => updateDraft(item, { quantity: e.target.value })}
-                              />
-                            </label>
-                          )}
-                          <label className="commerce-label">
-                            Delivery option
-                            <select
-                              className="commerce-select"
-                              value={draft.delivery_method}
-                              onChange={(e) => updateDraft(item, { delivery_method: e.target.value })}
-                            >
-                              {item.supports_collection && <option value="collect">Collect</option>}
-                              {item.supports_delivery_quote && <option value="delivery_quote">Request Delivery Quote</option>}
-                            </select>
-                          </label>
-                          <label className="commerce-label">
-                            Buyer note
-                            <textarea
-                              className="commerce-textarea"
-                              placeholder={item.pricing_mode === "quote_required" ? "Preference notes, size requests, or specimen guidance" : "Preferred pickup slot, habitat notes, or delivery constraints"}
-                              value={draft.buyer_note}
-                              onChange={(e) => updateDraft(item, { buyer_note: e.target.value })}
-                            />
-                          </label>
-                        </div>
-                        {item.pricing_mode === "quote_required" && (
-                          <p className="commerce-muted">
-                            Quote-required livestock skips fixed pricing. The breeder will select the fish and send a structured quote before payment.
-                          </p>
-                        )}
-                        <div className="commerce-action-row" style={{ marginTop: "0.8rem" }}>
-                          <button className="commerce-primary-btn" disabled={busyId === item.id} onClick={() => reserveListing(item)}>
-                            {busyId === item.id
-                              ? "Creating..."
-                              : item.pricing_mode === "quote_required"
-                                ? "Request Quote"
-                                : draft.delivery_method === "collect"
-                                  ? "Reserve for Collection"
-                                  : "Request Delivery Quote"}
+                    {stock.pricing_mode === "single_fixed" && (
+                      <div className="commerce-inline-form">
+                        <div className="commerce-action-row">
+                          <button
+                            className="commerce-ghost-btn"
+                            onClick={() => updateDraft(stock, { quantity: Math.max(1, Number(draft.quantity || 1) - 1) })}
+                          >
+                            -
                           </button>
-                          <button className="commerce-ghost-btn" onClick={() => setActiveListingId(null)}>
-                            Cancel
+                          <strong>{draft.quantity}</strong>
+                          <button
+                            className="commerce-ghost-btn"
+                            onClick={() => updateDraft(stock, { quantity: Number(draft.quantity || 1) + 1 })}
+                          >
+                            +
+                          </button>
+                          <button className="commerce-primary-btn" disabled={busyStockId === stock.id} onClick={() => addSingleFixed(stock)}>
+                            {busyStockId === stock.id ? "Adding..." : "Add to basket"}
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {stock.pricing_mode === "tiered" && (
+                      <div className="commerce-inline-form">
+                        <div className="commerce-form-grid">
+                          {["S", "M", "L"].map((tier) => (
+                            <div key={tier} className="commerce-stat">
+                              <span>{tier}</span>
+                              <strong>£{stock.tier_prices?.[tier] || "0.00"}</strong>
+                              <div className="commerce-action-row">
+                                <button
+                                  className="commerce-ghost-btn"
+                                  onClick={() =>
+                                    updateDraft(stock, {
+                                      tierCounts: {
+                                        ...(draft.tierCounts || {}),
+                                        [tier]: Math.max(0, Number(draft.tierCounts?.[tier] || 0) - 1),
+                                      },
+                                    })
+                                  }
+                                >
+                                  -
+                                </button>
+                                <strong>{draft.tierCounts?.[tier] || 0}</strong>
+                                <button
+                                  className="commerce-ghost-btn"
+                                  onClick={() =>
+                                    updateDraft(stock, {
+                                      tierCounts: {
+                                        ...(draft.tierCounts || {}),
+                                        [tier]: Number(draft.tierCounts?.[tier] || 0) + 1,
+                                      },
+                                    })
+                                  }
+                                >
+                                  +
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="commerce-action-row" style={{ marginTop: "0.75rem" }}>
+                          <button className="commerce-primary-btn" disabled={busyStockId === stock.id} onClick={() => addTiered(stock)}>
+                            {busyStockId === stock.id ? "Adding..." : "Add selected sizes"}
                           </button>
                         </div>
                       </div>
@@ -316,15 +323,6 @@ export default function BreederSpeciesPage() {
               })}
             </div>
           </section>
-
-          {highlightedListing && (
-            <section className="commerce-card">
-              <h3>Transaction routing preview</h3>
-              <p className="commerce-muted">
-                Marketplace listing <strong>{highlightedListing.title}</strong> hands the buyer off here rather than running a one-click checkout directly on the listing detail page.
-              </p>
-            </section>
-          )}
         </div>
       )}
     </CommerceShell>
