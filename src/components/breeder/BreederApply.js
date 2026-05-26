@@ -374,7 +374,7 @@ export default function BreederApply() {
       await submitApplication();
       setSuccess(true);
       setTimeout(() => {
-        window.location.href = "aquaProviders://";
+        window.location.href = "aquaproviders://";
       }, 2500);
     } catch (err) {
       setError(err.message || "Something went wrong. Please try again.");

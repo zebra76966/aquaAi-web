@@ -187,7 +187,7 @@ export default function ConsultantApply() {
       //   window.location.href = "/consultant-dashboard";
       // }, 2500);
       setTimeout(() => {
-        window.location.href = "aquaProviders://";
+        window.location.href = "aquaproviders://";
       }, 2500);
     } catch {
       setError("Something went wrong. Please try again.");
@@ -198,6 +198,9 @@ export default function ConsultantApply() {
 
   /* ── Guard: no token ─────────────────────────────── */
   if (!token) {
+    setTimeout(() => {
+      window.location.href = "aquaproviders://";
+    }, 2500);
     return (
       <div className="br-page">
         <div className="br-bg">
