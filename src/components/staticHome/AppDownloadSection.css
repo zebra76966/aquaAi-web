@@ -1,0 +1,452 @@
+/* ── Section ── */
+.app-dl-section {
+  width: 100%;
+  background: #08091a;
+  padding: 110px 0 120px;
+  font-family: "Inter", sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+.app-dl-section::before {
+  content: "";
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.05) 0%, transparent 65%);
+  top: 50%;
+  right: -100px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* ── Copy ── */
+.app-dl-copy {
+  padding-right: 20px;
+}
+.app-dl-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #00d4ff;
+  margin-bottom: 18px;
+}
+.app-dl-title {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  color: #e8f0fe;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+.app-dl-accent {
+  color: #00d4ff;
+}
+.app-dl-waves {
+  font-size: 28px;
+  color: #00d4ff;
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+.app-dl-body {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #7a9ab0;
+  max-width: 440px;
+  margin-bottom: 36px;
+}
+
+.app-dl-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 40px;
+  background: rgba(0, 212, 255, 0.03);
+  border: 1px solid rgba(0, 212, 255, 0.09);
+  border-radius: 18px;
+  padding: 24px;
+}
+.app-dl-feat {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.app-dl-feat-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  background: rgba(0, 212, 255, 0.08);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #00d4ff;
+}
+.app-dl-feat-label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #e8f0fe;
+  margin-bottom: 3px;
+  line-height: 1.2;
+}
+.app-dl-feat-body {
+  font-size: 12.5px;
+  color: #7a9ab0;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.app-dl-heading-store {
+  font-size: 16px;
+  font-weight: 700;
+  color: #e8f0fe;
+  margin-bottom: 16px;
+}
+.app-dl-badges {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.app-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 22px;
+  background: #0d1128;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  text-decoration: none;
+  color: #e8f0fe;
+  min-width: 155px;
+  transition:
+    border-color 0.25s,
+    background 0.25s,
+    transform 0.2s;
+}
+.app-badge:hover {
+  border-color: rgba(0, 212, 255, 0.4);
+  background: #111830;
+  transform: translateY(-2px);
+  color: #e8f0fe;
+}
+.app-badge-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.app-badge-icon--play {
+  width: auto;
+  height: auto;
+  font-size: 26px;
+  color: #00d4ff;
+}
+.app-badge-sub {
+  display: block;
+  font-size: 10px;
+  color: #7a9ab0;
+  letter-spacing: 0.5px;
+}
+.app-badge-store {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.app-dl-trust {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #7a9ab0;
+}
+.app-dl-trust-icon {
+  color: #00d4ff;
+  font-size: 15px;
+}
+
+/* ══════════════════════════════════════════════════
+   PHONE MOCKUP WRAPPER
+   Front phone sits in normal flow.
+   Back phone is absolute, peeking out from behind
+   and to the right — like in the reference image.
+   ══════════════════════════════════════════════════ */
+.app-phones {
+  position: relative;
+  /* Wide enough to show front phone + back phone peeking right */
+  width: 420px;
+  /* Tall enough for the front phone with some top breathing room */
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+/* Glow blobs */
+.app-phones-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.app-phones-glow:first-child {
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 65%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.app-phones-glow--2 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0, 80, 160, 0.14) 0%, transparent 65%);
+  bottom: -30px;
+  right: -10px;
+}
+
+/* ══════════════════════════════════════════════════
+   SCOPED iPHONE STYLES — prefixed with .app-phones
+   so they never conflict with AboutSection.css
+   ══════════════════════════════════════════════════ */
+.app-phones .iphone-island {
+  width: 90px;
+  height: 26px;
+  background: #000;
+  border-radius: 100px;
+  margin: 0 auto 8px;
+  flex-shrink: 0;
+}
+.app-phones .iphone-island--small {
+  width: 72px;
+  height: 20px;
+  margin-bottom: 6px;
+}
+
+.app-phones .iphone-statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px 8px;
+  flex-shrink: 0;
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 12px 8px;
+  color: #494949;
+}
+.app-phones .iphone-time {
+  font-size: 12px;
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+}
+.app-phones .iphone-statusbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.app-phones .iphone-screen {
+  position: relative;
+  background: #0d1128;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 212, 255, 0.08);
+}
+
+.app-phones .iphone-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50px;
+  pointer-events: none;
+  z-index: 2;
+}
+.app-phones .iphone-fade--top {
+  top: 0;
+  background: linear-gradient(to bottom, #0d1128, transparent);
+}
+.app-phones .iphone-fade--bottom {
+  bottom: 0;
+  background: linear-gradient(to top, #0d1128, transparent);
+}
+
+/* Unique animation name to avoid conflict with AboutSection */
+.app-phones .iphone-scroll-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  animation: dlScreenScroll 18s ease-in-out infinite;
+}
+@keyframes dlScreenScroll {
+  0%,
+  8% {
+    transform: translateY(0%);
+  }
+  45%,
+  55% {
+    transform: translateY(-55%);
+  }
+  92%,
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.app-phones .iphone-screenshot {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.app-phones .iphone-home-bar {
+  width: 80px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 100px;
+  margin: 10px auto 0;
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════════════
+   FRONT PHONE — in normal flow, on the left
+   ══════════════════════════════════════════════════ */
+.iphone-frame--front {
+  position: relative;
+  z-index: 2;
+  width: 265px;
+  background: #14161f;
+  border-radius: 44px;
+  border: 1.5px solid rgba(255, 255, 255, 0.13);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.8),
+    0 32px 64px rgba(0, 0, 0, 0.7),
+    0 0 50px rgba(0, 212, 255, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  padding: 13px 10px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Slight forward tilt toward viewer */
+  transform: perspective(900px) rotateY(3deg) rotateX(-1deg);
+  transition: transform 0.6s ease;
+}
+.iphone-frame--front:hover {
+  transform: perspective(900px) rotateY(0deg) rotateX(0deg);
+}
+/* Side buttons on front phone */
+.iphone-frame--front::before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 86px;
+  width: 3px;
+  height: 26px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px 0 0 2px;
+  box-shadow:
+    0 36px 0 rgba(255, 255, 255, 0.12),
+    0 70px 0 rgba(255, 255, 255, 0.12);
+}
+.iphone-frame--front::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: 114px;
+  width: 3px;
+  height: 54px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 0 2px 2px 0;
+}
+/* Screen height — compact to match reference */
+.iphone-frame--front .iphone-screen {
+  border-radius: 28px;
+  height: 510px;
+}
+
+/* ══════════════════════════════════════════════════
+   BACK PHONE — absolute, peeking behind+right of front
+   Pushed right so it's partially behind the front phone
+   and partially visible on the right edge.
+   ══════════════════════════════════════════════════ */
+.iphone-frame--back {
+  position: absolute;
+  /* Place it starting 70px from left = overlaps right side of front phone */
+  left: 130px;
+  top: 30px;
+  z-index: 1; /* behind front (z:2) but above glows (z:0) */
+  width: 200px;
+  background: #14161f;
+  border-radius: 36px;
+  border: 1.5px solid rgba(255, 255, 255, 0.07);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.8),
+    0 20px 44px rgba(0, 0, 0, 0.65),
+    0 0 24px rgba(0, 212, 255, 0.05);
+  padding: 10px 7px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Tilted right and slightly away */
+  transform: perspective(900px) rotateY(-16deg) rotateX(3deg) rotate(4deg);
+}
+.iphone-frame--back .iphone-screen {
+  border-radius: 22px;
+  height: 320px;
+  opacity: 0.6;
+  flex: 1;
+}
+/* Static screenshot for back phone — just shows top portion */
+.iphone-frame--back .iphone-screenshot {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════ */
+@media (max-width: 991px) {
+  .app-dl-section {
+    padding: 80px 0 90px;
+  }
+  .app-dl-copy {
+    padding-right: 0;
+  }
+  .iphone-frame--back {
+    display: none;
+  }
+  .app-phones {
+    width: 265px;
+  }
+  .iphone-frame--front {
+    transform: none;
+  }
+}
+@media (max-width: 560px) {
+  .app-dl-features {
+    grid-template-columns: 1fr;
+  }
+  .app-dl-badges {
+    flex-direction: column;
+  }
+  .app-badge {
+    min-width: unset;
+  }
+  .iphone-frame--front {
+    width: 245px;
+    border-radius: 40px;
+  }
+  .iphone-frame--front .iphone-screen {
+    height: 350px;
+  }
+}

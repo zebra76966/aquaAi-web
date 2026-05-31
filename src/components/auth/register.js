@@ -79,7 +79,7 @@ export default function Register() {
       </div>
 
       <div className="auth-topbar">
-        <div className="auth-logo-small">
+        <div className="auth-logo-small" onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
           {/* <RiBubbleChartLine size={20} /> */}
           <img src="/icon.png" alt="AquaAI Logo" className="auth-logo-img" />
           <span>AquaAI</span>

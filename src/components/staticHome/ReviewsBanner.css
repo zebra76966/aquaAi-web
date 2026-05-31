@@ -1,0 +1,353 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap");
+
+/* ══════════════════════════════════════════
+   REVIEWS BANNER
+   ══════════════════════════════════════════ */
+
+.rv-section {
+  width: 100%;
+  background: #08091a;
+  padding: 60px 0 100px;
+  font-family: "Inter", sans-serif;
+}
+
+/* ── Heading ── */
+.rv-heading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.rv-title {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(26px, 3.5vw, 42px);
+  font-weight: 600;
+  color: #e8f0fe;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+.rv-accent {
+  color: #00d4ff;
+}
+.rv-waves {
+  font-size: 24px;
+  color: #00d4ff;
+  opacity: 0.6;
+}
+
+/* ══════════════════════════════════════════
+   CARD (mirrors CTABanner dark card exactly)
+   ══════════════════════════════════════════ */
+
+.rv-card {
+  position: relative;
+  overflow: visible;
+  border-radius: 24px;
+  min-height: 300px;
+  padding: 52px 56px;
+
+  background:
+    radial-gradient(ellipse 50% 80% at 10% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 65%), radial-gradient(ellipse 60% 70% at 85% 90%, rgba(0, 80, 160, 0.2) 0%, transparent 65%),
+    linear-gradient(135deg, #0d1128 0%, #0f1838 45%, #0d1530 100%);
+
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(0, 212, 255, 0.05),
+    inset 0 1px 0 rgba(0, 212, 255, 0.08);
+}
+
+/* Ripple rings (identical to CTABanner) */
+.rv-ripple {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 212, 255, 0.13);
+  pointer-events: none;
+  z-index: 2;
+  animation: rvRipple 6s ease-out infinite;
+}
+.rv-ripple--1 {
+  width: 130px;
+  height: 130px;
+  right: 22%;
+  bottom: 30%;
+  animation-delay: 0s;
+  animation-duration: 5.5s;
+}
+.rv-ripple--2 {
+  width: 210px;
+  height: 210px;
+  right: 17%;
+  bottom: 20%;
+  animation-delay: 0.8s;
+  animation-duration: 7s;
+}
+.rv-ripple--3 {
+  width: 110px;
+  height: 110px;
+  right: 8%;
+  bottom: 25%;
+  animation-delay: 1.4s;
+  animation-duration: 6s;
+}
+.rv-ripple--4 {
+  width: 170px;
+  height: 170px;
+  right: 4%;
+  bottom: 10%;
+  animation-delay: 2s;
+  animation-duration: 7.5s;
+}
+@keyframes rvRipple {
+  0% {
+    transform: scale(0.65);
+    opacity: 0.7;
+  }
+  60% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+/* Fish canvases (same positioning as CTABanner) */
+.rv-fish {
+  position: absolute;
+  pointer-events: none;
+  z-index: 5;
+}
+.rv-fish--a {
+  width: 500px;
+  height: 500px;
+  right: 4%;
+  top: -40px;
+}
+.rv-fish--b {
+  width: 340px;
+  height: 340px;
+  right: 20%;
+  bottom: -30px;
+}
+
+/* ══════════════════════════════════════════
+   REVIEW CONTENT
+   ══════════════════════════════════════════ */
+
+.rv-review {
+  position: relative;
+}
+
+/* Slide-in animation */
+.rv-review--enter {
+  animation: rvEnter 0.4s ease forwards;
+}
+.rv-review--exit-left {
+  animation: rvExitLeft 0.35s ease forwards;
+  pointer-events: none;
+}
+.rv-review--exit-right {
+  animation: rvExitRight 0.35s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes rvEnter {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes rvExitLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+@keyframes rvExitRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+}
+
+.rv-quote-mark {
+  font-family: "Oswald", sans-serif;
+  font-size: 72px;
+  line-height: 0.5;
+  color: #00d4ff;
+  opacity: 0.4;
+  margin-bottom: 16px;
+  display: block;
+  user-select: none;
+}
+
+.rv-quote-text {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #c8dae8;
+  font-style: italic;
+  margin-bottom: 20px;
+  max-width: 460px;
+}
+
+/* Stars */
+.rv-stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+.rv-star {
+  width: 18px;
+  height: 18px;
+  color: #00d4ff;
+}
+
+/* Reviewer */
+.rv-reviewer {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.rv-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: #e8f0fe;
+  letter-spacing: 0.5px;
+  border: 1.5px solid rgba(0, 212, 255, 0.2);
+  flex-shrink: 0;
+}
+
+.rv-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #e8f0fe;
+  margin-bottom: 2px;
+}
+.rv-role {
+  font-size: 13px;
+  color: #7a9ab0;
+  margin: 0;
+}
+
+/* ── Navigation ── */
+.rv-nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.rv-nav-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 212, 255, 0.25);
+  background: rgba(0, 212, 255, 0.05);
+  color: #00d4ff;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    border-color 0.25s,
+    background 0.25s,
+    transform 0.2s;
+}
+.rv-nav-btn:hover {
+  border-color: rgba(0, 212, 255, 0.6);
+  background: rgba(0, 212, 255, 0.12);
+  transform: scale(1.08);
+}
+
+.rv-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.rv-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 212, 255, 0.25);
+  cursor: pointer;
+  transition:
+    background 0.3s,
+    transform 0.3s,
+    width 0.3s;
+  padding: 0;
+}
+.rv-dot--active {
+  background: #00d4ff;
+  transform: scale(1.15);
+  width: 24px;
+  border-radius: 100px;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+
+/* ── Responsive ── */
+@media (max-width: 767px) {
+  .rv-card {
+    padding: 40px 28px 200px;
+  }
+  .rv-fish--a {
+    width: 300px;
+    height: 300px;
+    right: 4%;
+    top: auto;
+    bottom: 60px;
+  }
+  .rv-fish--b {
+    width: 200px;
+    height: 200px;
+    right: 44%;
+    bottom: 20px;
+  }
+  .rv-ripple--1 {
+    right: 8%;
+    bottom: 100px;
+  }
+  .rv-ripple--2 {
+    right: 2%;
+    bottom: 50px;
+  }
+  .rv-ripple--3 {
+    right: 40%;
+    bottom: 80px;
+  }
+  .rv-ripple--4 {
+    display: none;
+  }
+  .rv-quote-text {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rv-card {
+    padding: 32px 20px 180px;
+  }
+  .rv-title {
+    font-size: 24px;
+  }
+}

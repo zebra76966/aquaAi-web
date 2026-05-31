@@ -1,0 +1,50 @@
+.trust-bar {
+  width: 100%;
+  background: #0b0d1e;
+  border-top: 1px solid rgba(0,212,255,0.08);
+  border-bottom: 1px solid rgba(0,212,255,0.08);
+  padding: 28px 40px;
+}
+.trust-bar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: #0d1128;
+  border-radius: 14px;
+  border: 1px solid rgba(0,212,255,0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.trust-item:hover {
+  border-color: rgba(0,212,255,0.3);
+  box-shadow: 0 0 20px rgba(0,212,255,0.07);
+}
+.trust-icon {
+  width: 42px; height: 42px; flex-shrink: 0;
+  background: rgba(0,212,255,0.08);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; color: #00d4ff;
+}
+.trust-text { display: flex; flex-direction: column; gap: 3px; }
+.trust-value {
+  font-family: "Oswald", sans-serif;
+  font-size: 20px; font-weight: 600;
+  color: #e8f0fe; letter-spacing: 0.5px;
+}
+.trust-label { font-size: 13px; color: #7a9ab0; }
+
+@media (max-width: 768px) {
+  .trust-bar { padding: 20px; }
+  .trust-bar-inner { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .trust-bar-inner { grid-template-columns: 1fr; }
+}

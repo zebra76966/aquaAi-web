@@ -82,7 +82,7 @@ export default function Login() {
 
       {/* Theme toggle — top right */}
       <div className="auth-topbar">
-        <div className="auth-logo-small">
+        <div className="auth-logo-small" onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
           <img src="/icon.png" alt="AquaAI Logo" className="auth-logo-img" />
           <span>AquaAI</span>
         </div>

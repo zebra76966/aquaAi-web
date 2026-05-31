@@ -1,0 +1,292 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap");
+
+.about-section {
+  width: 100%;
+  background: #08091a;
+  padding: 100px 40px;
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
+}
+
+.about-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* ── Left copy ── */
+.about-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #00d4ff;
+  margin-bottom: 14px;
+}
+.about-title {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(28px, 3.5vw, 48px);
+  font-weight: 600;
+  color: #e8f0fe;
+  line-height: 1.12;
+  margin-bottom: 28px;
+  letter-spacing: 0.5px;
+}
+.about-accent {
+  color: #00d4ff;
+}
+.about-body {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: #7a9ab0;
+  margin-bottom: 18px;
+}
+.about-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+.about-pill {
+  padding: 7px 16px;
+  border-radius: 100px;
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  color: #00d4ff;
+  font-size: 13px;
+  font-weight: 500;
+  background: rgba(0, 212, 255, 0.06);
+  transition:
+    background 0.25s,
+    border-color 0.25s;
+}
+.about-pill:hover {
+  background: rgba(0, 212, 255, 0.12);
+  border-color: rgba(0, 212, 255, 0.5);
+}
+
+/* ── Mockup wrapper ── */
+.about-mockup {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mockup-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.mockup-glow--1 {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, transparent 65%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.mockup-glow--2 {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(0, 80, 180, 0.14) 0%, transparent 65%);
+  bottom: -40px;
+  right: 10%;
+}
+
+/* ══════════════════════════════════
+   iPHONE FRAME — fixed structure
+   All children stack vertically:
+   island → statusbar → screen → bar
+   ══════════════════════════════════ */
+
+.iphone-frame {
+  position: relative;
+  z-index: 1;
+  width: 300px;
+  background: #14161f;
+  border-radius: 48px;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.8),
+    0 40px 80px rgba(0, 0, 0, 0.7),
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(0, 212, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  /* CRITICAL: flex column so children stack naturally */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 14px 10px 18px;
+  gap: 0;
+  transform: perspective(1000px) rotateY(-4deg) rotateX(2deg);
+  transition: transform 0.6s ease;
+}
+.iphone-frame:hover {
+  transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+}
+
+/* Side buttons */
+.iphone-frame::before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 100px;
+  width: 3px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px 0 0 2px;
+  box-shadow:
+    0 44px 0 rgba(255, 255, 255, 0.12),
+    0 82px 0 rgba(255, 255, 255, 0.12);
+}
+.iphone-frame::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: 138px;
+  width: 3px;
+  height: 68px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 0 2px 2px 0;
+}
+
+/* Dynamic Island — first child, centred above status bar */
+.iphone-island {
+  width: 100px;
+  height: 30px;
+  background: #000;
+  border-radius: 100px;
+  margin: 0 auto 10px;
+  flex-shrink: 0;
+}
+
+/* Status bar — second child, simple flex row */
+.iphone-statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px 10px;
+  flex-shrink: 0;
+  color: #363636;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  padding: 10px 14px 8px;
+}
+.iphone-time {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+  letter-spacing: 0.3px;
+}
+.iphone-statusbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Screen — third child, clips the scrolling screenshot */
+.iphone-screen {
+  position: relative;
+  background: #0d1128;
+  border-radius: 28px;
+  overflow: hidden;
+  height: 520px;
+  border: 1px solid rgba(0, 212, 255, 0.06);
+  flex-shrink: 0;
+}
+
+/* Fade masks */
+.iphone-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 55px;
+  pointer-events: none;
+  z-index: 2;
+}
+.iphone-fade--top {
+  top: 0;
+  background: linear-gradient(to bottom, #0d1128, transparent);
+}
+.iphone-fade--bottom {
+  bottom: 0;
+  background: linear-gradient(to top, #0d1128, transparent);
+}
+
+/* Scrolling track */
+.iphone-scroll-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  animation: screenshotScroll 18s ease-in-out infinite;
+}
+.iphone-screenshot {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+@keyframes screenshotScroll {
+  0%,
+  8% {
+    transform: translateY(0%);
+  }
+  45%,
+  55% {
+    transform: translateY(-55%);
+  }
+  92%,
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+/* Home bar — fourth child */
+.iphone-home-bar {
+  width: 100px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 100px;
+  margin: 14px auto 0;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1000px) {
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 70px;
+  }
+  .about-mockup {
+    order: -1;
+  }
+  .iphone-frame {
+    transform: none;
+    width: 280px;
+  }
+  .iphone-screen {
+    height: 490px;
+  }
+}
+@media (max-width: 480px) {
+  .about-section {
+    padding: 70px 20px;
+  }
+  .iphone-frame {
+    width: 255px;
+    border-radius: 40px;
+  }
+  .iphone-island {
+    width: 85px;
+    height: 26px;
+  }
+  .iphone-screen {
+    height: 440px;
+  }
+}

@@ -1,0 +1,145 @@
+.hiw-timeline-section {
+  width: 100%;
+  background: #0b0d1e;
+  padding: 100px 40px;
+  font-family: "Inter", sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+.hiw-tl-inner { max-width: 900px; margin: 0 auto; }
+
+.hiw-tl-heading { text-align: center; margin-bottom: 72px; }
+.hiw-tl-eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 4px;
+  text-transform: uppercase; color: #00d4ff; margin-bottom: 14px;
+}
+.hiw-tl-title {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 600; color: #e8f0fe; letter-spacing: 0.5px;
+}
+.hiw-tl-accent { color: #00d4ff; }
+
+/* Timeline track */
+.hiw-tl-track { position: relative; }
+
+.hiw-tl-line {
+  position: absolute;
+  left: 50%; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(0,212,255,0.25) 8%,
+    rgba(0,212,255,0.25) 92%,
+    transparent 100%
+  );
+  transform: translateX(-50%);
+}
+
+/* Each step row */
+.hiw-tl-step {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  align-items: center;
+  margin-bottom: 64px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease var(--delay, 0s), transform 0.55s ease var(--delay, 0s);
+}
+[data-visible="true"] .hiw-tl-step {
+  opacity: 1; transform: translateY(0);
+}
+
+/* Card on left (odd steps) */
+.hiw-tl-step .hiw-tl-card { grid-column: 1; text-align: right; padding-right: 32px; }
+.hiw-tl-step .hiw-tl-spacer { grid-column: 3; }
+
+/* Flip for even steps */
+.hiw-tl-step--right .hiw-tl-card {
+  grid-column: 3; grid-row: 1;
+  text-align: left; padding-right: 0; padding-left: 32px;
+}
+.hiw-tl-step--right .hiw-tl-node { grid-column: 2; grid-row: 1; }
+.hiw-tl-step--right .hiw-tl-spacer { grid-column: 1; grid-row: 1; }
+
+/* Card */
+.hiw-tl-card {
+  background: #0d1128;
+  border-radius: 16px;
+  border: 1px solid rgba(0,212,255,0.1);
+  padding: 24px 28px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.hiw-tl-card:hover {
+  border-color: rgba(0,212,255,0.28);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 18px rgba(0,212,255,0.07);
+}
+.hiw-tl-card-num {
+  font-family: "Oswald", sans-serif;
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 3px; color: #00d4ff;
+  margin-bottom: 8px;
+}
+.hiw-tl-card-title {
+  font-size: 18px; font-weight: 700;
+  color: #e8f0fe; margin-bottom: 10px; line-height: 1.3;
+}
+.hiw-tl-card-body {
+  font-size: 14px; line-height: 1.65;
+  color: #7a9ab0; margin: 0;
+}
+
+/* Centre node */
+.hiw-tl-node {
+  grid-column: 2;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.hiw-tl-node-icon {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: #0d1128;
+  border: 2px solid rgba(0,212,255,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; color: #00d4ff;
+  box-shadow: 0 0 20px rgba(0,212,255,0.15);
+  position: relative; z-index: 1;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.hiw-tl-card:hover ~ .hiw-tl-node .hiw-tl-node-icon,
+.hiw-tl-step:hover .hiw-tl-node-icon {
+  border-color: rgba(0,212,255,0.7);
+  box-shadow: 0 0 28px rgba(0,212,255,0.3);
+}
+.hiw-tl-node-pulse {
+  position: absolute;
+  width: 72px; height: 72px; border-radius: 50%;
+  border: 1px solid rgba(0,212,255,0.15);
+  animation: tlPulse 3s ease-out infinite;
+}
+@keyframes tlPulse {
+  0%   { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 700px) {
+  .hiw-timeline-section { padding: 70px 20px; }
+  .hiw-tl-line { left: 26px; }
+  .hiw-tl-step,
+  .hiw-tl-step--right {
+    display: flex; flex-direction: row;
+    align-items: flex-start; gap: 20px;
+    margin-bottom: 48px;
+  }
+  .hiw-tl-node { order: -1; flex-shrink: 0; }
+  .hiw-tl-node-icon { width: 48px; height: 48px; font-size: 20px; }
+  .hiw-tl-node-pulse { width: 64px; height: 64px; }
+  .hiw-tl-card,
+  .hiw-tl-step--right .hiw-tl-card {
+    text-align: left; padding: 20px;
+    padding-right: 20px; padding-left: 20px;
+    flex: 1;
+  }
+  .hiw-tl-spacer { display: none; }
+}

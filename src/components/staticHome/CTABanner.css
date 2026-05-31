@@ -1,0 +1,134 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap");
+
+.cta-section {
+  width: 100%;
+  padding: 40px 0 80px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: transparent;
+}
+
+.cta-card {
+  position: relative;
+  overflow: visible;
+  border-radius: 2em;
+  min-height: 220px;
+  padding: 52px 52px 52px 60px;
+  background: linear-gradient(135deg, #0d1530 0%, #0f1a3a 45%, #0d1838 100%);
+  border: 1px solid rgba(0, 212, 255, 0.14);
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(0, 212, 255, 0.05),
+    inset 0 1px 0 rgba(0, 212, 255, 0.07);
+}
+
+.cta-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: radial-gradient(ellipse 50% 80% at 85% 100%, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cta-ripple {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 212, 255, 0.14);
+  pointer-events: none;
+  z-index: 2;
+  animation: ctaRipple 6s ease-out infinite;
+}
+
+.cta-ripple--1 { width: 130px; height: 130px; right: 22%; bottom: 30%; animation-delay: 0s;   animation-duration: 5.5s; }
+.cta-ripple--2 { width: 210px; height: 210px; right: 17%; bottom: 20%; animation-delay: 0.8s; animation-duration: 7s; }
+.cta-ripple--3 { width: 110px; height: 110px; right: 8%;  bottom: 25%; animation-delay: 1.4s; animation-duration: 6s; }
+.cta-ripple--4 { width: 170px; height: 170px; right: 4%;  bottom: 10%; animation-delay: 2s;   animation-duration: 7.5s; }
+
+@keyframes ctaRipple {
+  0%   { transform: scale(0.65); opacity: 0.7; }
+  60%  {                         opacity: 0.25; }
+  100% { transform: scale(1.3);  opacity: 0; }
+}
+
+.cta-fish {
+  position: absolute;
+  pointer-events: none;
+  z-index: 8;
+  filter: drop-shadow(-10px 30px 3px rgba(0, 0, 0, 0.5));
+}
+
+.cta-fish--a { width: 500px; height: 500px; right: 4%;  top: -40px; }
+.cta-fish--b { width: 290px; height: 290px; right: 20%; bottom: -30px; }
+
+.cta-copy { position: relative; z-index: 10; }
+
+.cta-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: #00d4ff;
+  margin-bottom: 12px;
+}
+
+.cta-headline {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 600;
+  color: #e8f0fe;
+  letter-spacing: 0.3px;
+  line-height: 1.12;
+  margin-bottom: 14px;
+}
+
+.cta-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #7a9ab0;
+  margin-bottom: 30px;
+  max-width: 360px;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 26px;
+  border-radius: 100px;
+  border: none;
+  background: #00d4ff;
+  color: #08091a;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(0, 212, 255, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.cta-btn:hover {
+  background: #33ddff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(0, 212, 255, 0.5);
+}
+
+.cta-btn-icon { font-size: 15px; transition: transform 0.25s ease; }
+.cta-btn:hover .cta-btn-icon { transform: translateX(3px); }
+
+@media (max-width: 767px) {
+  .cta-card { padding: 40px 28px 200px; }
+  .cta-fish--a { width: 300px; height: 300px; right: 4%; top: auto; bottom: 60px; }
+  .cta-fish--b { width: 260px; height: 260px; right: 44%; bottom: 20px; }
+  .cta-ripple--1 { right: 8%;  bottom: 100px; }
+  .cta-ripple--2 { right: 2%;  bottom: 50px; }
+  .cta-ripple--3 { right: 40%; bottom: 80px; }
+  .cta-ripple--4 { display: none; }
+  .cta-glow--1 { display: none; }
+}
+@media (max-width: 480px) {
+  .cta-card { padding: 34px 20px 180px; }
+  .cta-headline { font-size: 24px; }
+  .cta-body { font-size: 14px; }
+}

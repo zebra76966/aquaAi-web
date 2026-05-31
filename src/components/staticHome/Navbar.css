@@ -1,0 +1,417 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap");
+
+/* ══════════════════════════════════════════════
+   NAVBAR BAR (always fixed at top)
+   ══════════════════════════════════════════════ */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 72px;
+  font-family: "Inter", sans-serif;
+  transition: background 0.4s ease;
+}
+
+/* When overlay is open, bar blends into it */
+.navbar--open {
+  background: transparent;
+  border-bottom-color: transparent;
+}
+
+/* Default (scrolling) state */
+.navbar:not(.navbar--open) {
+  background: rgba(8, 9, 26, 0.5);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+}
+
+.navbar-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Logo ── */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #e8f0fe;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 2.5px;
+  z-index: 1001; /* always above overlay */
+  position: relative;
+}
+.navbar-logo-drop {
+  width: 22px;
+  height: 22px;
+  color: #00d4ff;
+  transition: filter 0.3s;
+}
+.navbar-logo:hover .navbar-logo-drop {
+  filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.7));
+}
+
+/* ── Right side ── */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 1001;
+  position: relative;
+}
+
+/* Download App pill */
+.navbar-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 22px;
+  border-radius: 100px;
+  background: #00d4ff;
+  color: #08091a;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 16px rgba(0, 212, 255, 0.3);
+  transition:
+    background 0.25s,
+    box-shadow 0.25s,
+    transform 0.2s;
+}
+.navbar-download:hover {
+  background: #33ddff;
+  box-shadow: 0 6px 22px rgba(0, 212, 255, 0.45);
+  transform: translateY(-1px);
+}
+.navbar-download-icon {
+  font-size: 14px;
+}
+
+/* MENU button */
+.navbar-menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.navbar-menu-label {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #e8f0fe;
+  transition: color 0.2s;
+}
+.navbar-menu-btn:hover .navbar-menu-label {
+  color: #00d4ff;
+}
+
+.navbar-menu-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 212, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #00d4ff;
+  transition:
+    border-color 0.25s,
+    background 0.25s,
+    box-shadow 0.25s,
+    transform 0.25s;
+}
+.navbar-menu-btn:hover .navbar-menu-circle {
+  border-color: #00d4ff;
+  background: rgba(0, 212, 255, 0.08);
+  box-shadow: 0 0 14px rgba(0, 212, 255, 0.25);
+}
+/* Rotate icon on open */
+.navbar--open .navbar-menu-circle {
+  border-color: rgba(0, 212, 255, 0.6);
+  background: rgba(0, 212, 255, 0.1);
+}
+
+/* ══════════════════════════════════════════════
+   FULL-SCREEN OVERLAY
+   ══════════════════════════════════════════════ */
+
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+
+  background: #08091a;
+
+  display: flex;
+  flex-direction: column;
+
+  /* Clip from top — slides down on open */
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.65s cubic-bezier(0.77, 0, 0.18, 1);
+
+  overflow: hidden;
+}
+
+.nav-overlay--open {
+  clip-path: inset(0 0 0% 0);
+}
+
+/* Glow blobs */
+.nav-overlay-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.nav-overlay-glow--1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.06) 0%, transparent 70%);
+  top: -150px;
+  right: -100px;
+}
+.nav-overlay-glow--2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0, 80, 160, 0.08) 0%, transparent 70%);
+  bottom: -80px;
+  left: -60px;
+}
+
+.nav-overlay-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 100px 48px 48px; /* 100px top clears the navbar bar */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ── Links list ── */
+.nav-overlay-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-overlay-item {
+  border-bottom: 1px solid rgba(0, 212, 255, 0.07);
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.5s ease calc(var(--i, 0) * 0.08s + 0.25s),
+    transform 0.5s ease calc(var(--i, 0) * 0.08s + 0.25s);
+}
+.nav-overlay-item:first-child {
+  border-top: 1px solid rgba(0, 212, 255, 0.07);
+}
+
+/* Animate in when overlay is open */
+.nav-overlay--open .nav-overlay-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-overlay-link {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 28px 0;
+  text-decoration: none;
+  group: true;
+  transition: padding-left 0.3s ease;
+}
+.nav-overlay-link:hover {
+  padding-left: 12px;
+}
+
+/* Number */
+.nav-ol-num {
+  font-family: "Oswald", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0, 212, 255, 0.4);
+  letter-spacing: 2px;
+  width: 28px;
+  flex-shrink: 0;
+  transition: color 0.25s;
+}
+.nav-overlay-link:hover .nav-ol-num {
+  color: #00d4ff;
+}
+
+/* Label + sub */
+.nav-ol-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+.nav-ol-label {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(28px, 4.5vw, 52px);
+  font-weight: 600;
+  color: #e8f0fe;
+  letter-spacing: 1px;
+  line-height: 1;
+  transition: color 0.25s;
+}
+.nav-overlay-link:hover .nav-ol-label {
+  color: #00d4ff;
+}
+
+.nav-ol-sub {
+  font-size: 14px;
+  color: #7a9ab0;
+  font-weight: 400;
+  transition: color 0.25s;
+}
+.nav-overlay-link:hover .nav-ol-sub {
+  color: rgba(0, 212, 255, 0.6);
+}
+
+/* Arrow */
+.nav-ol-arrow {
+  font-size: 24px;
+  color: rgba(0, 212, 255, 0.25);
+  margin-left: auto;
+  transition:
+    color 0.25s,
+    transform 0.3s;
+  flex-shrink: 0;
+}
+.nav-overlay-link:hover .nav-ol-arrow {
+  color: #00d4ff;
+  transform: translateX(6px);
+}
+
+/* ── Footer strip ── */
+.nav-overlay-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 32px;
+  margin-top: 8px;
+  border-top: 1px solid rgba(0, 212, 255, 0.08);
+  flex-wrap: wrap;
+  gap: 20px;
+
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.5s ease 0.65s,
+    transform 0.5s ease 0.65s;
+}
+.nav-overlay--open .nav-overlay-footer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-overlay-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #7a9ab0;
+  letter-spacing: 0.5px;
+}
+.nav-footer-wave {
+  font-size: 20px;
+  color: #00d4ff;
+  opacity: 0.6;
+}
+
+.nav-footer-ctas {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.nav-footer-btn {
+  padding: 10px 26px;
+  border-radius: 100px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.nav-footer-btn--outline {
+  background: transparent;
+  border: 1.5px solid rgba(0, 212, 255, 0.35);
+  color: #00d4ff;
+}
+.nav-footer-btn--outline:hover {
+  background: rgba(0, 212, 255, 0.08);
+}
+.nav-footer-btn--filled {
+  background: #00d4ff;
+  border: 1.5px solid #00d4ff;
+  color: #08091a;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(0, 212, 255, 0.3);
+}
+.nav-footer-btn--filled:hover {
+  background: #33ddff;
+  box-shadow: 0 6px 22px rgba(0, 212, 255, 0.45);
+}
+
+/* ══════════════════════════════════════════════
+   MOBILE
+   ══════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+  .navbar-inner {
+    padding: 0 24px;
+  }
+  .navbar-download {
+    display: none;
+  } /* hide on smallest screens */
+  .nav-overlay-inner {
+    padding: 88px 24px 36px;
+  }
+  .nav-overlay-link {
+    padding: 22px 0;
+    gap: 16px;
+  }
+  .nav-ol-sub {
+    display: none;
+  }
+  .nav-ol-label {
+    font-size: 28px;
+  }
+  .nav-overlay-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-menu-label {
+    display: none;
+  }
+}
