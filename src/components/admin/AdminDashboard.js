@@ -74,7 +74,7 @@ export default function AdminDashboard() {
       <div className="adm-logo">
         <div className="bg-none">
           {/* <RiShieldCheckLine size={20} /> */}
-          <img src="/icon.png" alt="AquaAI Logo" className="auth-logo-img" />
+          <img src="/favicon32.png" alt="AquaAI Logo" className="auth-logo-img" />
         </div>
         {!collapsed && (
           <div>

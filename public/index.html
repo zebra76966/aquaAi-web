@@ -1,43 +1,113 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#08091a" />
+
+    <!-- Primary SEO -->
+    <title>Aqua AI — Intelligent Aquarium & Pond Management</title>
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Aqua AI is an AI-powered aquarium and pond management platform. Species identification, disease detection, water intelligence, care plans, and a marketplace connecting hobbyists, breeders, and consultants."
     />
+    <meta name="keywords" content="aquarium AI, fish disease detection, water quality monitoring, koi pond management, aquarium care plans, fish species identification, aquatic marketplace" />
+    <meta name="author" content="Humara Ltd" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.aquaai.uk/" />
+    <meta property="og:title" content="Aqua AI — Intelligent Aquarium & Pond Management" />
+    <meta property="og:description" content="AI-powered species identification, disease detection, water intelligence, and a marketplace connecting hobbyists, breeders, and consultants." />
+    <meta property="og:image" content="%PUBLIC_URL%/og-image.png" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content="Aqua AI" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.aquaai.uk/" />
+    <meta name="twitter:title" content="Aqua AI — Intelligent Aquarium & Pond Management" />
+    <meta name="twitter:description" content="AI-powered species identification, disease detection, water intelligence, and a marketplace connecting hobbyists, breeders, and consultants." />
+    <meta name="twitter:image" content="%PUBLIC_URL%/og-image.png" />
+
+    <!-- Apple / PWA -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.aquaai.uk/" />
+
+    <!-- Preconnect for Google Fonts (already imported in CSS, but preconnect speeds it up) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Structured data — Organisation -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Aqua AI",
+        "url": "https://www.aquaai.uk",
+        "logo": "https://www.aquaai.uk/logo192.png",
+        "description": "AI-powered aquarium and pond management platform built for hobbyists, breeders, and aquatic professionals.",
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "email": "support@aquaai.uk",
+            "contactType": "customer support"
+          },
+          {
+            "@type": "ContactPoint",
+            "email": "info@aquaai.uk",
+            "contactType": "general enquiries"
+          }
+        ],
+        "sameAs": ["https://www.instagram.com/aquaai.uk", "https://www.twitter.com/aquaai_uk", "https://www.facebook.com/aquaai.uk", "https://www.youtube.com/@aquaai"],
+        "legalName": "Humara Ltd",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "GB"
+        }
+      }
+    </script>
+
+    <!-- Structured data — SoftwareApplication -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Aqua AI",
+        "operatingSystem": "iOS, Android",
+        "applicationCategory": "LifestyleApplication",
+        "description": "AI-powered aquarium and pond management: species identification, disease detection, water intelligence, care plans, marketplace, and consultant booking.",
+        "offers": [
+          {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "GBP",
+            "name": "Free"
+          },
+          {
+            "@type": "Offer",
+            "price": "14.99",
+            "priceCurrency": "GBP",
+            "name": "Premium"
+          },
+          {
+            "@type": "Offer",
+            "price": "24.99",
+            "priceCurrency": "GBP",
+            "name": "Pro"
+          }
+        ]
+      }
+    </script>
   </head>
+
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript> You need to enable JavaScript to run Aqua AI. Please enable JavaScript in your browser settings and refresh the page. </noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>

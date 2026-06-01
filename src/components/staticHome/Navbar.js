@@ -25,6 +25,8 @@ export default function Navbar() {
         <div className="navbar-inner w-100">
           {/* Logo */}
           <a href="/" className="navbar-logo" onClick={close}>
+            <img src="/favicon32.png" alt="Aqua AI Logo" className="navbar-logo-img" />
+
             <span>AQUA AI</span>
           </a>
 

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiDownload, FiMenu, FiClipboard, FiTrendingUp, FiShield, FiMessageCircle, FiArrowRight } from "react-icons/fi";
 import { GiWaves } from "react-icons/gi";
 import FishModel from "./FishModel";
+import { useNavigate } from "react-router-dom";
 
 function Fish({ className, animationSpeed = 1 }) {
   return (
@@ -163,6 +164,7 @@ function FeatureCards({ cardVariants }) {
 export default function HeroLanding() {
   const [introDone, setIntroDone] = useState(false);
   const [contentReveal, setContentReveal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const revealTimer = setTimeout(() => setContentReveal(true), 1600);
@@ -230,11 +232,11 @@ export default function HeroLanding() {
         </motion.p>
 
         <motion.div className="cta-row" variants={{ ...itemVariants }} style={{ position: "relative", zIndex: 200 }}>
-          <button className="btn btn-outline">
+          <button className="btn btn-outline" onClick={() => navigate("/download")}>
             <FiDownload className="btn-icon" />
             Download App
           </button>
-          <button className="btn btn-filled">
+          <button className="btn btn-filled" onClick={() => navigate("/features")}>
             Learn More
             <FiArrowRight className="btn-icon" />
           </button>

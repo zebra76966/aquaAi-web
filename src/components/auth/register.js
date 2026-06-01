@@ -81,7 +81,7 @@ export default function Register() {
       <div className="auth-topbar">
         <div className="auth-logo-small" onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
           {/* <RiBubbleChartLine size={20} /> */}
-          <img src="/icon.png" alt="AquaAI Logo" className="auth-logo-img" />
+          <img src="/favicon32.png" alt="AquaAI Logo" className="auth-logo-img" />
           <span>AquaAI</span>
         </div>
         <ThemeToggle />
@@ -92,7 +92,7 @@ export default function Register() {
           <div className="auth-card-header">
             <div className="auth-icon-wrap">
               {/* <RiBubbleChartLine size={26} /> */}
-              <img src="/icon.png" alt="AquaAI Logo" className="auth-logo-img" />
+              <img src="/favicon32.png" alt="AquaAI Logo" className="auth-logo-img" />
             </div>
             <h1 className="auth-title">Create account</h1>
             <p className="auth-subtitle">Join the AquaAI community today</p>

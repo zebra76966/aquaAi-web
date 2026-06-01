@@ -356,7 +356,7 @@ export default function ConsultantApply() {
         {/* Sidebar */}
         <motion.aside className="br-sidebar" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }}>
           <div className="br-logo">
-            <img src="/icon.png" alt="AquaAI Logo" className="auth-logo-img" />
+            <img src="/favicon32.png" alt="AquaAI Logo" className="auth-logo-img" />
             <div>
               <div className="br-logo-name">AquaAI</div>
               <div className="br-logo-sub">Consultant Programme</div>
