@@ -196,6 +196,7 @@ export default function BreederApply() {
   const [certifications, setCertifications] = useState("");
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [agreeGuidelines, setAgreeGuidelines] = useState(false);
+  const [certificateFile, setCertificateFile] = useState(null);
 
   /* species */
   const [speciesList, setSpeciesList] = useState([]);
@@ -309,31 +310,47 @@ export default function BreederApply() {
 
   /* ── submit application (called AFTER successful subscribe) ── */
   const submitApplication = async () => {
-    const payload = {
-      company_name: companyName,
-      bio,
-      website,
-      instagram,
-      facebook,
-      business_phone: phone,
-      business_address: address,
-      species: selectedSpecies.map((s) => s.id),
-      years_experience: Number(years) || 0,
-      breeding_focus: focus,
-      certifications: certifications
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean),
-      agree_terms: true,
-      agree_guidelines: true,
-    };
+    const formData = new FormData();
+
+    formData.append("company_name", companyName);
+    formData.append("bio", bio);
+    formData.append("website", website);
+    formData.append("instagram", instagram);
+    formData.append("facebook", facebook);
+    formData.append("business_phone", phone);
+    formData.append("business_address", address);
+    formData.append("years_experience", Number(years) || 0);
+    formData.append("breeding_focus", focus);
+    formData.append("agree_terms", true);
+    formData.append("agree_guidelines", true);
+
+    certifications
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .forEach((cert) => formData.append("certifications", cert));
+
+    selectedSpecies.forEach((species) => {
+      formData.append("species", species.id);
+    });
+
+    if (certificateFile) {
+      formData.append("certificate_document", certificateFile);
+    }
+
     const res = await fetch(`${baseUrl}/breeders/apply/`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify(payload),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
     });
+
     const json = await res.json();
-    if (!res.ok) throw new Error(json.message || "Application submission failed.");
+
+    if (!res.ok) {
+      throw new Error(json.message || "Application submission failed.");
+    }
   };
 
   /* ── subscribe + auto-submit ─────────────────────── */
@@ -466,6 +483,12 @@ export default function BreederApply() {
       <Field icon={FaCertificate}>
         <input className="br-input" placeholder="Certifications (comma separated)" value={certifications} onChange={(e) => setCertifications(e.target.value)} />
       </Field>
+
+      <Field icon={FaCertificate}>
+        <input type="file" className="br-input" accept=".pdf,application/pdf" onChange={(e) => setCertificateFile(e.target.files?.[0] || null)} />
+      </Field>
+
+      {certificateFile && <div className="br-file-selected">📄 {certificateFile.name}</div>}
       <div className="br-species-section">
         <p className="br-section-label">Species You Breed *</p>
         <div className="br-cat-pills">
