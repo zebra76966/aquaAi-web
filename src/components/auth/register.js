@@ -23,16 +23,32 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    const params = new URLSearchParams(window.location.search);
+    const isProvider = params.get("isprovider") === "true";
+
     try {
       const res = await fetch(`${baseUrl}/user/register/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+
       const data = await res.json();
+
       if (res.ok) {
         setSuccess(true);
         setMessage("Account created!");
+
+        // Provider registration flow
+        if (isProvider) {
+          setTimeout(() => {
+            window.location.href = "aquaproviders://";
+          }, 1000);
+          return;
+        }
+
+        // Existing flow
         if (data.access) {
           await login(data.access, data.roles || []);
           navigate("/plans");
@@ -41,13 +57,20 @@ export default function Register() {
             const lr = await fetch(`${baseUrl}/user/login/`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ username: formData.username, password: formData.password }),
+              body: JSON.stringify({
+                username: formData.username,
+                password: formData.password,
+              }),
             });
+
             const ld = await lr.json();
+
             if (lr.ok && ld.access) {
               await login(ld.access, ld.roles || []);
               navigate("/plans");
-            } else setTimeout(() => navigate("/login"), 1500);
+            } else {
+              setTimeout(() => navigate("/login"), 1500);
+            }
           } catch {
             setTimeout(() => navigate("/login"), 1500);
           }
