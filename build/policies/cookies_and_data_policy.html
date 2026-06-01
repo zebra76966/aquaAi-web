@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aqua AI — Cookies and Data Policy</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --aqua: #00b4d8;
+        --aqua-dark: #0077a8;
+        --navy: #0a1628;
+        --ink: #1c2b3a;
+        --muted: #5a7080;
+        --rule: #d4e8f0;
+        --bg: #f4f9fc;
+        --card: #ffffff;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.7;
+        font-size: 15px;
+        padding: 48px 16px 80px;
+      }
+
+      .page {
+        max-width: 740px;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        padding-bottom: 40px;
+        border-bottom: 2px solid var(--rule);
+        margin-bottom: 40px;
+      }
+
+      .brand {
+        font-family: "DM Serif Display", serif;
+        font-size: 2.6rem;
+        color: var(--navy);
+        letter-spacing: -0.5px;
+      }
+
+      .brand span {
+        color: var(--aqua);
+      }
+
+      .header-sub {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-top: 6px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+
+      .meta-block {
+        margin-top: 20px;
+        display: inline-block;
+        text-align: left;
+        font-size: 0.88rem;
+        color: var(--muted);
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        padding: 14px 22px;
+        line-height: 1.9;
+      }
+
+      .meta-block strong {
+        color: var(--navy);
+        font-weight: 500;
+      }
+
+      a {
+        color: var(--aqua-dark);
+        text-decoration: none;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      a:hover {
+        border-color: var(--aqua);
+        color: var(--aqua);
+      }
+
+      /* Sections */
+      .section {
+        background: var(--card);
+        border-radius: 10px;
+        border: 1px solid var(--rule);
+        padding: 28px 32px;
+        margin-bottom: 20px;
+      }
+
+      .section-title {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.2rem;
+        color: var(--aqua-dark);
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .sub-title {
+        font-weight: 500;
+        color: var(--navy);
+        font-size: 0.95rem;
+        margin: 16px 0 6px;
+      }
+
+      .sub-title:first-of-type {
+        margin-top: 0;
+      }
+
+      p {
+        color: var(--ink);
+        margin-bottom: 10px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Bullet lists */
+      .bullet-list {
+        list-style: none;
+        padding: 0;
+        margin: 6px 0 10px;
+      }
+
+      .bullet-list li {
+        padding: 5px 0 5px 18px;
+        position: relative;
+        font-size: 0.93rem;
+        border-bottom: 1px solid var(--rule);
+        color: var(--ink);
+      }
+
+      .bullet-list li:last-child {
+        border-bottom: none;
+      }
+
+      .bullet-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 13px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--aqua);
+      }
+
+      /* Retention table */
+      .retention-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.91rem;
+        margin-top: 4px;
+      }
+
+      .retention-table th {
+        text-align: left;
+        padding: 8px 10px;
+        background: #edf6fa;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--navy);
+      }
+
+      .retention-table td {
+        padding: 8px 10px;
+        border-top: 1px solid var(--rule);
+        color: var(--ink);
+        vertical-align: top;
+      }
+
+      .retention-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .retention-table .data-type {
+        font-weight: 500;
+        color: var(--navy);
+      }
+
+      /* Contact grid */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 24px;
+        font-size: 0.92rem;
+      }
+
+      .contact-item strong {
+        color: var(--navy);
+        display: block;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin-bottom: 2px;
+        font-weight: 500;
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 0.82rem;
+        color: var(--muted);
+        letter-spacing: 0.03em;
+      }
+
+      @media (max-width: 560px) {
+        .section {
+          padding: 20px 18px;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .brand {
+          font-size: 2rem;
+        }
+        .retention-table {
+          font-size: 0.83rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-sub">Cookies and Data Policy</div>
+        <div class="meta-block">
+          <strong>Version:</strong> 3.0<br />
+          <strong>Last Updated:</strong> May 2026<br />
+          <strong>Classification:</strong> Public<br />
+          <strong>Operated by:</strong> Humara Ltd, Registered in England and Wales
+        </div>
+      </header>
+
+      <!-- 1. Introduction -->
+      <section class="section">
+        <h2 class="section-title">1. Introduction</h2>
+        <p>
+          1.1. This Cookies and Data Policy explains how Aqua AI (operated by Humara Ltd) collects, uses, stores, and manages data through the Aqua AI and Aqua Providers mobile applications (the
+          "Apps") and the website at <a href="https://www.aquaai.uk">www.aquaai.uk</a> (the "Website").
+        </p>
+        <p>1.2. This policy should be read alongside our Privacy Policy and Terms and Conditions.</p>
+      </section>
+
+      <!-- 2. Data We Collect -->
+      <section class="section">
+        <h2 class="section-title">2. Data We Collect</h2>
+
+        <div class="sub-title">2.1. User-Provided Data</div>
+        <ul class="bullet-list">
+          <li>Account information (email, name, authentication credentials)</li>
+          <li>Aquarium setup data (tanks, species, equipment, water parameters)</li>
+          <li>Images and video for AI analysis (species identification, disease detection, tank scanning)</li>
+          <li>Location data (with permission, for marketplace and consultant discovery)</li>
+          <li>Marketplace listings, booking requests, and communications</li>
+          <li>Payment information (processed by Stripe; we do not store full card details)</li>
+          <li>Breeder in-app order data, transaction metadata (order amounts, 7-day hold status, payout routing), and financial identity data submitted to Stripe Connect by Breeders</li>
+        </ul>
+
+        <div class="sub-title">2.2. Automatically Collected Data</div>
+        <ul class="bullet-list">
+          <li>Device information (model, OS, unique identifiers, network)</li>
+          <li>App usage data (features used, session duration, navigation paths)</li>
+          <li>Performance and diagnostic data (crash reports, error logs)</li>
+          <li>AI interaction logs (queries, responses, confidence scores)</li>
+          <li>Push notification tokens and delivery status</li>
+        </ul>
+      </section>
+
+      <!-- 3. How Data Is Stored -->
+      <section class="section">
+        <h2 class="section-title">3. How Data Is Stored</h2>
+
+        <div class="sub-title">3.1. On-Device Storage</div>
+        <p>
+          Images captured for AI identification are processed locally on your device where possible. Local storage is used for user preferences, cached data, and performance optimisation. On-device
+          data is subject to your device's own security controls.
+        </p>
+
+        <div class="sub-title">3.2. Cloud Storage</div>
+        <p>
+          Account data, tank configurations, water readings, booking records, marketplace listings, and trust score data are stored on our cloud infrastructure: Supabase (primary database and
+          authentication), AWS S3 (media file storage). All cloud storage is encrypted at rest and protected by access controls.
+        </p>
+
+        <div class="sub-title">3.3. AI Model Data</div>
+        <p>Our species database (20,000+ species) and AI models are hosted on secure cloud infrastructure. AI inference requests are processed through encrypted API connections.</p>
+      </section>
+
+      <!-- 4. Data Processing -->
+      <section class="section">
+        <h2 class="section-title">4. Data Processing</h2>
+
+        <div class="sub-title">4.1. On-Device Processing</div>
+        <p>
+          Species and equipment identification may occur on-device using downloaded models. Water parameter analysis from test strip photos is processed on-device where supported. This reduces data
+          transmission and improves response times.
+        </p>
+
+        <div class="sub-title">4.2. Cloud Processing</div>
+        <p>
+          Complex AI analysis (disease detection, compatibility assessment, care plan generation, health scoring) is processed via cloud APIs. AI chat interactions are processed through OpenAI's
+          language models. All cloud processing is subject to our data processing agreements with providers.
+        </p>
+      </section>
+
+      <!-- 5. Analytics and Intelligence -->
+      <section class="section">
+        <h2 class="section-title">5. Analytics and Intelligence</h2>
+        <p>
+          5.1. We collect anonymised and aggregated data to improve the Platform, including: feature usage patterns, AI accuracy metrics, marketplace activity trends, booking completion rates, trust
+          score distribution, and species identification frequency.
+        </p>
+        <p>5.2. This analytics data is processed at Layer 3 (MI/BI Intelligence) of our architecture and does not contain personally identifiable information.</p>
+        <p>5.3. Analytics data helps us improve AI model accuracy, enhance product recommendations, optimise the user experience, and provide aggregate insights to the aquatic industry.</p>
+      </section>
+
+      <!-- 6. Third-Party Data Sharing -->
+      <section class="section">
+        <h2 class="section-title">6. Third-Party Data Sharing</h2>
+
+        <div class="sub-title">6.1. Service Providers</div>
+        <p>
+          We share data with service providers who assist in Platform operation: Stripe (payment processing and Stripe Connect payouts), Supabase (data hosting), AWS (cloud infrastructure), OpenAI (AI
+          processing), Expo (push notifications), and Geoapify (geolocation services). All providers are contractually obligated to process data only on our instructions and in accordance with
+          applicable data protection law.
+        </p>
+
+        <div class="sub-title">6.2. Product Recommendations</div>
+        <p>
+          Product recommendations use Amazon Affiliate integration. When you interact with product recommendations, your interaction data is used to improve future recommendations. If you click
+          through to Amazon, you leave the Aqua AI platform and are subject to Amazon's own privacy policy.
+        </p>
+      </section>
+
+      <!-- 7. Data Retention -->
+      <section class="section">
+        <h2 class="section-title">7. Data Retention</h2>
+        <table class="retention-table">
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Retention Period</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="data-type">Account and profile data</td>
+              <td>Duration of active account plus 30 days</td>
+            </tr>
+            <tr>
+              <td class="data-type">Tank and species data</td>
+              <td>Duration of active account</td>
+            </tr>
+            <tr>
+              <td class="data-type">AI interaction logs</td>
+              <td>24 months, then anonymised</td>
+            </tr>
+            <tr>
+              <td class="data-type">Booking records</td>
+              <td>36 months</td>
+            </tr>
+            <tr>
+              <td class="data-type">Trust score and badge data</td>
+              <td>Account lifetime plus 12 months</td>
+            </tr>
+            <tr>
+              <td class="data-type">Payment records</td>
+              <td>7 years (UK financial obligations)</td>
+            </tr>
+            <tr>
+              <td class="data-type">Anonymised analytics</td>
+              <td>Retained indefinitely</td>
+            </tr>
+            <tr>
+              <td class="data-type">On-device images</td>
+              <td>Managed by you on your device; not retained on our servers</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 8. Your Controls -->
+      <section class="section">
+        <h2 class="section-title">8. Your Controls</h2>
+
+        <div class="sub-title">8.1. Device Permissions</div>
+        <p>You can control the Apps' access to device features through your device settings:</p>
+        <ul class="bullet-list">
+          <li>Camera (required for AI scanning)</li>
+          <li>Microphone (for video analysis)</li>
+          <li>Location services (for marketplace and consultant discovery)</li>
+          <li>Photo library (for image upload)</li>
+          <li>Notifications (for alerts and updates)</li>
+        </ul>
+
+        <div class="sub-title">8.2. Data Access and Deletion</div>
+        <p>
+          You can request a copy of your data, correction of inaccurate data, or deletion of your account and associated data by contacting <a href="mailto:info@aquaai.uk">info@aquaai.uk</a> or
+          through the in-app settings. We will process requests within 30 days.
+        </p>
+
+        <div class="sub-title">8.3. AI Processing Opt-Out</div>
+        <p>You may request that your data is excluded from AI model improvement processes by contacting us. This will not affect the AI services available to you.</p>
+      </section>
+
+      <!-- 9. Cookies and Similar Technologies -->
+      <section class="section">
+        <h2 class="section-title">9. Cookies and Similar Technologies</h2>
+        <p>9.1. The Aqua AI mobile applications do not use traditional browser cookies.</p>
+
+        <p>9.2. We use the following device-level technologies:</p>
+        <ul class="bullet-list">
+          <li>Local storage: for preferences, authentication tokens, and cached data</li>
+          <li>Device identifiers: for analytics, push notifications, and security</li>
+          <li>Session tokens: JWT-based authentication tokens with short-lived access and refresh rotation</li>
+        </ul>
+
+        <p>
+          9.3. The Website (<a href="https://www.aquaai.uk">www.aquaai.uk</a>) may use standard cookies for functionality, analytics, and preference storage. Cookie consent is obtained through our
+          website cookie banner.
+        </p>
+      </section>
+
+      <!-- 10. Changes to This Policy -->
+      <section class="section">
+        <h2 class="section-title">10. Changes to This Policy</h2>
+        <p>We may update this policy periodically. Changes will be communicated through the Apps or Website. The "Last Updated" date indicates the most recent revision.</p>
+      </section>
+
+      <!-- 11. Contact Us -->
+      <section class="section">
+        <h2 class="section-title">11. Contact Us</h2>
+        <p style="margin-bottom: 16px">Aqua AI (operated by Humara Ltd)</p>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <strong>Website</strong>
+            <a href="https://www.aquaai.uk">www.aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>General Enquiries</strong>
+            <a href="mailto:info@aquaai.uk">info@aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>Support</strong>
+            <a href="mailto:support@aquaai.uk">support@aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>WhatsApp / Signal</strong>
+            <a href="tel:+447586576323">+44 7586 576323</a>
+          </div>
+          <div class="contact-item">
+            <strong>SMS</strong>
+            <a href="tel:+447782207333">+44 7782 207333</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">Aqua AI is operated by Humara Ltd, Registered in England and Wales &middot; May 2026</footer>
+    </div>
+  </body>
+</html>

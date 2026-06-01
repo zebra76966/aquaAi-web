@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aqua AI — Refund Policy</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --aqua: #00b4d8;
+        --aqua-dark: #0077a8;
+        --navy: #0a1628;
+        --ink: #1c2b3a;
+        --muted: #5a7080;
+        --rule: #d4e8f0;
+        --bg: #f4f9fc;
+        --card: #ffffff;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.7;
+        font-size: 15px;
+        padding: 48px 16px 80px;
+      }
+
+      .page {
+        max-width: 740px;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        padding-bottom: 40px;
+        border-bottom: 2px solid var(--rule);
+        margin-bottom: 40px;
+      }
+
+      .brand {
+        font-family: "DM Serif Display", serif;
+        font-size: 2.6rem;
+        color: var(--navy);
+        letter-spacing: -0.5px;
+      }
+
+      .brand span {
+        color: var(--aqua);
+      }
+
+      .header-sub {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-top: 6px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+
+      .meta {
+        margin-top: 20px;
+        font-size: 0.88rem;
+        color: var(--muted);
+      }
+
+      .meta a {
+        color: var(--aqua-dark);
+        text-decoration: none;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .meta a:hover {
+        border-color: var(--aqua);
+        color: var(--aqua);
+      }
+
+      /* Sections */
+      .section {
+        background: var(--card);
+        border-radius: 10px;
+        border: 1px solid var(--rule);
+        padding: 28px 32px;
+        margin-bottom: 20px;
+      }
+
+      .section-title {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.2rem;
+        color: var(--aqua-dark);
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      p {
+        color: var(--ink);
+        margin-bottom: 10px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Rule list items */
+      .rule-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .rule-list li {
+        display: flex;
+        gap: 12px;
+        padding: 8px 0;
+        border-bottom: 1px solid var(--rule);
+        font-size: 0.93rem;
+      }
+
+      .rule-list li:last-child {
+        border-bottom: none;
+      }
+
+      .rule-label {
+        font-weight: 500;
+        color: var(--navy);
+        min-width: 190px;
+        flex-shrink: 0;
+      }
+
+      .rule-value {
+        color: var(--ink);
+      }
+
+      /* Sub-sections for Exceptions */
+      .sub-section {
+        margin-bottom: 20px;
+      }
+
+      .sub-section:last-child {
+        margin-bottom: 0;
+      }
+
+      .sub-title {
+        font-weight: 500;
+        color: var(--navy);
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+      }
+
+      /* Highlight box */
+      .highlight-box {
+        background: #e8f6fb;
+        border-left: 3px solid var(--aqua);
+        border-radius: 0 6px 6px 0;
+        padding: 14px 18px;
+        font-size: 0.92rem;
+        color: var(--ink);
+        margin-top: 16px;
+      }
+
+      /* Contact */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 24px;
+        font-size: 0.92rem;
+      }
+
+      .contact-item strong {
+        color: var(--navy);
+        display: block;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin-bottom: 2px;
+        font-weight: 500;
+      }
+
+      .contact-item a {
+        color: var(--aqua-dark);
+        text-decoration: none;
+      }
+
+      .contact-item a:hover {
+        color: var(--aqua);
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 0.82rem;
+        color: var(--muted);
+        letter-spacing: 0.03em;
+      }
+
+      @media (max-width: 560px) {
+        .section {
+          padding: 20px 18px;
+        }
+        .rule-label {
+          min-width: 140px;
+          font-size: 0.88rem;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .brand {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-sub">Mobile App Version &middot; May 2026</div>
+        <div class="meta">Last Updated: May 2026 &nbsp;&bull;&nbsp; For the complete Refund Policy, please visit <a href="https://www.aquaai.uk/refunds">www.aquaai.uk/refunds</a></div>
+      </header>
+
+      <!-- Subscriptions -->
+      <section class="section">
+        <h2 class="section-title">Subscriptions</h2>
+        <p>
+          Non-refundable once billing period starts. 14-day cooling-off under UK consumer law (contact <a href="mailto:info@aquaai.uk">info@aquaai.uk</a>). Cancelled subscriptions retain access until
+          end of period.
+        </p>
+      </section>
+
+      <!-- Consultant Bookings -->
+      <section class="section">
+        <h2 class="section-title">Consultant Bookings</h2>
+        <ul class="rule-list">
+          <li><span class="rule-label">Consultant cancels</span><span class="rule-value">Full refund (automatic, original payment method)</span></li>
+          <li><span class="rule-label">User cancels</span><span class="rule-value">No refund</span></li>
+          <li><span class="rule-label">Reschedule</span><span class="rule-value">No financial impact</span></li>
+          <li><span class="rule-label">No-show by user</span><span class="rule-value">No refund</span></li>
+          <li><span class="rule-label">No-show by consultant</span><span class="rule-value">Full refund</span></li>
+        </ul>
+      </section>
+
+      <!-- Marketplace -->
+      <section class="section">
+        <h2 class="section-title">Marketplace</h2>
+        <p>Aqua AI does not process marketplace payments. Marketplace disputes are between buyers and sellers. Breeder payments arranged directly (PayPal/bank transfer).</p>
+      </section>
+
+      <!-- Exceptions -->
+      <section class="section">
+        <h2 class="section-title">Exceptions</h2>
+
+        <div class="sub-section">
+          <div class="sub-title">Breeder Commerce Refunds</div>
+
+          <div class="sub-section">
+            <div class="sub-title">Pre-Fulfilment Cancellation</div>
+            <p>If a Breeder cancels an order before the 7-day hold expires and before fulfilment, a full refund is automatically issued to the buyer's original payment method via Stripe.</p>
+          </div>
+
+          <div class="sub-section">
+            <div class="sub-title">Post-Release Disputes</div>
+            <p>
+              Once the 7-day hold has expired and funds have been released to the Breeder, Aqua AI cannot issue a direct refund. Buyers must raise post-fulfilment disputes (including Dead on Arrival
+              claims) directly with the Breeder.
+            </p>
+          </div>
+
+          <div class="sub-section">
+            <div class="sub-title">Buyer Cancellation</div>
+            <p>
+              Buyers may cancel an order before collection or dispatch. If the Breeder has not yet prepared the order for fulfilment, a full refund is issued. If the Breeder has already prepared the
+              order, the cancellation is at the Breeder's discretion.
+            </p>
+          </div>
+
+          <div class="sub-section">
+            <div class="sub-title">Non-Collection</div>
+            <p>
+              If a buyer selects in-store collection and fails to collect within the 7-day hold period, the order may be cancelled by the Breeder and funds returned to the buyer, less any reasonable
+              restocking fee as disclosed in the listing.
+            </p>
+          </div>
+        </div>
+
+        <p>Platform/billing errors reviewed case-by-case. Email <a href="mailto:info@aquaai.uk">info@aquaai.uk</a>.</p>
+      </section>
+
+      <!-- Promotional Pricing Grace Period -->
+      <section class="section">
+        <h2 class="section-title">Promotional Pricing Grace Period</h2>
+        <p>
+          If you cancel a grandfathered promotional subscription, a 30-day grace period applies. Resubscribing within 30 days restores your promotional rate. After 30 days, standard pricing applies
+          and the promotional entitlement is permanently forfeited.
+        </p>
+      </section>
+
+      <!-- Contact -->
+      <section class="section">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <strong>Website</strong>
+            <a href="https://www.aquaai.uk">www.aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>General Enquiries</strong>
+            <a href="mailto:info@aquaai.uk">info@aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>Support</strong>
+            <a href="mailto:support@aquaai.uk">support@aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>WhatsApp / Signal</strong>
+            <a href="tel:+447586576323">+44 7586 576323</a>
+          </div>
+          <div class="contact-item">
+            <strong>SMS</strong>
+            <a href="tel:+447782207333">+44 7782 207333</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">Aqua AI is operated by Humara Ltd, Registered in England and Wales &middot; May 2026</footer>
+    </div>
+  </body>
+</html>

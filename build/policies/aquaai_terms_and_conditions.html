@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aqua AI — Terms and Conditions</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --aqua: #00b4d8;
+        --aqua-dark: #0077a8;
+        --navy: #0a1628;
+        --ink: #1c2b3a;
+        --muted: #5a7080;
+        --rule: #d4e8f0;
+        --bg: #f4f9fc;
+        --card: #ffffff;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.7;
+        font-size: 15px;
+        padding: 48px 16px 80px;
+      }
+
+      .page {
+        max-width: 740px;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        padding-bottom: 40px;
+        border-bottom: 2px solid var(--rule);
+        margin-bottom: 40px;
+      }
+
+      .brand {
+        font-family: "DM Serif Display", serif;
+        font-size: 2.6rem;
+        color: var(--navy);
+        letter-spacing: -0.5px;
+      }
+
+      .brand span {
+        color: var(--aqua);
+      }
+
+      .header-sub {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-top: 6px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+
+      .meta {
+        margin-top: 20px;
+        font-size: 0.88rem;
+        color: var(--muted);
+      }
+
+      .meta a,
+      a {
+        color: var(--aqua-dark);
+        text-decoration: none;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .meta a:hover,
+      a:hover {
+        border-color: var(--aqua);
+        color: var(--aqua);
+      }
+
+      /* Sections */
+      .section {
+        background: var(--card);
+        border-radius: 10px;
+        border: 1px solid var(--rule);
+        padding: 28px 32px;
+        margin-bottom: 20px;
+      }
+
+      .section-title {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.2rem;
+        color: var(--aqua-dark);
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      p {
+        color: var(--ink);
+        margin-bottom: 10px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Tier table */
+      .tier-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.91rem;
+        margin-top: 4px;
+      }
+
+      .tier-table th {
+        text-align: left;
+        font-weight: 500;
+        color: var(--navy);
+        padding: 8px 10px;
+        background: #edf6fa;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .tier-table td {
+        padding: 9px 10px;
+        border-top: 1px solid var(--rule);
+        color: var(--ink);
+        vertical-align: top;
+      }
+
+      .tier-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .tier-name {
+        font-weight: 500;
+        color: var(--navy);
+        white-space: nowrap;
+      }
+
+      .tier-price {
+        color: var(--aqua-dark);
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      /* Rule list */
+      .rule-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .rule-list li {
+        display: flex;
+        gap: 12px;
+        padding: 8px 0;
+        border-bottom: 1px solid var(--rule);
+        font-size: 0.93rem;
+      }
+
+      .rule-list li:last-child {
+        border-bottom: none;
+      }
+
+      .rule-label {
+        font-weight: 500;
+        color: var(--navy);
+        min-width: 200px;
+        flex-shrink: 0;
+      }
+
+      /* Promo pricing table */
+      .promo-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        margin-top: 12px;
+      }
+
+      .promo-table th {
+        text-align: left;
+        padding: 8px 10px;
+        background: #edf6fa;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--navy);
+      }
+
+      .promo-table td {
+        padding: 8px 10px;
+        border-top: 1px solid var(--rule);
+        color: var(--ink);
+      }
+
+      .promo-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .promo-table .plan {
+        font-weight: 500;
+        color: var(--navy);
+      }
+
+      /* Contact grid */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 24px;
+        font-size: 0.92rem;
+      }
+
+      .contact-item strong {
+        color: var(--navy);
+        display: block;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin-bottom: 2px;
+        font-weight: 500;
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 0.82rem;
+        color: var(--muted);
+        letter-spacing: 0.03em;
+      }
+
+      @media (max-width: 560px) {
+        .section {
+          padding: 20px 18px;
+        }
+        .rule-label {
+          min-width: 140px;
+          font-size: 0.88rem;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .brand {
+          font-size: 2rem;
+        }
+        .tier-table,
+        .promo-table {
+          font-size: 0.83rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-sub">Mobile App Version &middot; May 2026</div>
+        <div class="meta">Last Updated: May 2026 &nbsp;&bull;&nbsp; For the complete Terms and Conditions, please visit <a href="https://www.aquaai.uk/terms">www.aquaai.uk/terms</a></div>
+      </header>
+
+      <!-- Service -->
+      <section class="section">
+        <h2 class="section-title">Service</h2>
+        <p>
+          Aqua AI is an AI-powered aquatic intelligence platform providing species identification, disease detection, water analysis, AI Water Intelligence, care plans, AquaBot assistant (text and
+          voice), product recommendations with dosing, equipment management, a peer-to-peer marketplace, consultant booking across 20+ service types, and a breeder directory. All AI is advisory.
+        </p>
+      </section>
+
+      <!-- Tiers -->
+      <section class="section">
+        <h2 class="section-title">Tiers</h2>
+        <table class="tier-table">
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>Price</th>
+              <th>Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="tier-name">Free</td>
+              <td class="tier-price">£0</td>
+              <td>1 habitat, buy-only marketplace, consultant booking, breeder access, basic AI.</td>
+            </tr>
+            <tr>
+              <td class="tier-name">Premium</td>
+              <td class="tier-price">£14.99/mo or £139.99/yr</td>
+              <td>3 habitats, disease detection, AquaBot (100/mo), buy+sell marketplace, AI care plans.</td>
+            </tr>
+            <tr>
+              <td class="tier-name">Pro</td>
+              <td class="tier-price">£24.99/mo or £239.99/yr</td>
+              <td>Unlimited habitats incl. pond, full AI (500/mo), advanced analytics, preventative alerts, data export.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Payments -->
+      <section class="section">
+        <h2 class="section-title">Payments</h2>
+        <p>Via Aqua AI domain (Apple Pay, Google Pay, credit/debit). Auto-renew unless cancelled 24hrs before renewal. Prices in GBP incl. VAT.</p>
+        <p>Breeder Commerce: Stripe processed. 7-day escrow hold. Payout to Breeder Stripe Connect account less 7% commission. Circumventing payment rails prohibited.</p>
+      </section>
+
+      <!-- Bookings -->
+      <section class="section">
+        <h2 class="section-title">Bookings</h2>
+        <ul class="rule-list">
+          <li><span class="rule-label">Availability</span><span>Available all tiers. 10% commission. 72hr response window. Messaging scoped to bookings.</span></li>
+          <li><span class="rule-label">Consultant cancels</span><span>Full refund</span></li>
+          <li><span class="rule-label">User cancels</span><span>No refund</span></li>
+          <li><span class="rule-label">Late cancellations (&lt;48hrs)</span><span>Affect trust scores</span></li>
+        </ul>
+      </section>
+
+      <!-- Marketplace -->
+      <section class="section">
+        <h2 class="section-title">Marketplace</h2>
+        <p>P2P trading. No Aqua AI payment processing. Free = buy only. Premium/Pro = buy+sell. 200km radius. Purchase confirmation by email with seller details. Listings don't auto-expire.</p>
+      </section>
+
+      <!-- Breeders -->
+      <section class="section">
+        <h2 class="section-title">Breeders</h2>
+        <p>
+          All users browse. In-app purchases via Stripe. 7-day payment hold. Collection (free) or delivery (Breeder sets cost). 7% platform commission. Certification indicates compliance, not
+          warranty.
+        </p>
+      </section>
+
+      <!-- Referrals -->
+      <section class="section">
+        <h2 class="section-title">Referrals</h2>
+        <p>10% recurring credit, capped at your plan cost. Platform credit only.</p>
+      </section>
+
+      <!-- Trust -->
+      <section class="section">
+        <h2 class="section-title">Trust</h2>
+        <p>Earned through activity. L1–L4 incidents. Nightly recompute. Immutable audit trail.</p>
+      </section>
+
+      <!-- Providers -->
+      <section class="section">
+        <h2 class="section-title">Providers</h2>
+        <ul class="rule-list">
+          <li><span class="rule-label">Consultants</span><span>£50/mo + 10% commission.</span></li>
+          <li><span class="rule-label">Breeders</span><span>£24.99/mo, 7% commission on in-app sales, 93% revenue retained.</span></li>
+          <li><span class="rule-label">Approval</span><span>24–48hrs. Both roles simultaneously.</span></li>
+        </ul>
+      </section>
+
+      <!-- Liability -->
+      <section class="section">
+        <h2 class="section-title">Liability</h2>
+        <p>Platform "as is." Max liability = 12 months' fees. Not liable for AI accuracy, provider conduct, or marketplace transactions.</p>
+      </section>
+
+      <!-- Law -->
+      <section class="section">
+        <h2 class="section-title">Law</h2>
+        <p>England and Wales. Contact: <a href="mailto:info@aquaai.uk">info@aquaai.uk</a> | <a href="https://www.aquaai.uk">www.aquaai.uk</a></p>
+      </section>
+
+      <!-- Promotional Pricing and Grandfathering -->
+      <section class="section">
+        <h2 class="section-title">Promotional Pricing and Grandfathering</h2>
+        <p>Promotional pricing is available for the first 1,000 qualifying users and first 100 breeders.</p>
+        <table class="promo-table">
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>Promotional</th>
+              <th>Standard</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="plan">Premium</td>
+              <td>£11.99/mo or £114.99/yr</td>
+              <td>£14.99/mo or £144.99/yr</td>
+            </tr>
+            <tr>
+              <td class="plan">Pro</td>
+              <td>£19.99/mo or £189.99/yr</td>
+              <td>£24.99/mo or £239.99/yr</td>
+            </tr>
+            <tr>
+              <td class="plan">Breeder</td>
+              <td>£19.99/mo or £189.99/yr</td>
+              <td>£24.99/mo or £239.99/yr</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top: 14px">
+          Promotional pricing is grandfathered for qualifying early adopters. A 30-day grace period applies on cancellation; resubscribing within 30 days restores the promotional rate.
+        </p>
+      </section>
+
+      <!-- Badges, Tiers, and Rewards -->
+      <section class="section">
+        <h2 class="section-title">Badges, Tiers, and Rewards</h2>
+        <p>
+          Aqua AI uses a Trust Score system with Bronze, Silver, Gold, and Platinum tiers. Badges are earned through consistent care, marketplace conduct, and community participation. Badges may be
+          revoked if standards are not maintained.
+        </p>
+      </section>
+
+      <!-- Referral Programme -->
+      <section class="section">
+        <h2 class="section-title">Referral Programme</h2>
+        <p>Earn a 10% recurring platform credit for each user you refer. Credits apply to your subscription invoice and cannot be withdrawn as cash.</p>
+      </section>
+
+      <!-- Community Showcase -->
+      <section class="section">
+        <h2 class="section-title">Community Showcase</h2>
+        <p>Opt-in to display your tanks publicly, receive likes, and message other users. Participation is voluntary and can be toggled at any time.</p>
+      </section>
+
+      <!-- Contact -->
+      <section class="section">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <strong>Website</strong>
+            <a href="https://www.aquaai.uk">www.aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>General Enquiries</strong>
+            <a href="mailto:info@aquaai.uk">info@aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>Support</strong>
+            <a href="mailto:support@aquaai.uk">support@aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>WhatsApp / Signal</strong>
+            <a href="tel:+447586576323">+44 7586 576323</a>
+          </div>
+          <div class="contact-item">
+            <strong>SMS</strong>
+            <a href="tel:+447782207333">+44 7782 207333</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">Aqua AI is operated by Humara Ltd, Registered in England and Wales &middot; May 2026</footer>
+    </div>
+  </body>
+</html>
