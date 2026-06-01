@@ -250,7 +250,7 @@ export default function BreederApply() {
     (async () => {
       setLoadingPlans(true);
       try {
-        const res = await fetch(`${baseUrl}/subscription/subscription/plans/`, {
+        const res = await fetch(`${baseUrl}/subscription/subscription/breeder/plans/`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const json = await res.json();
@@ -266,7 +266,7 @@ export default function BreederApply() {
   }, [step]); // eslint-disable-line
 
   /* ── species helpers ─────────────────────────────── */
-  const filteredList = speciesList.filter((item) => {
+  const filteredList = speciesList?.filter((item) => {
     const q = searchQuery.toLowerCase();
     return item.name.toLowerCase().includes(q) || item.scientific_name.toLowerCase().includes(q);
   });
@@ -500,7 +500,7 @@ export default function BreederApply() {
               }}
             />
           </div>
-          <AnimatePresence>
+          {/* <AnimatePresence>
             {dropdownOpen && (
               <motion.div className="br-dropdown" initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.15 }}>
                 {loadingSpecies ? (
@@ -523,7 +523,7 @@ export default function BreederApply() {
                 )}
               </motion.div>
             )}
-          </AnimatePresence>
+          </AnimatePresence> */}
         </div>
         {selectedSpecies.length > 0 && (
           <div className="br-chips">
