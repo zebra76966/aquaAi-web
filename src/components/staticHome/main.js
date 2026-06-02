@@ -18,7 +18,7 @@ const Home = () => {
       <TrustBar />
       <AboutSection />
 
-      <HowItWorksTimeline />
+      {/* <HowItWorksTimeline /> */}
       {/* <HowItWorks /> */}
       {/* <PricingSection /> */}
       {/* <UserGuides /> */}

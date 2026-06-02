@@ -36,6 +36,15 @@ export default function Navbar() {
               <FiDownload className="navbar-download-icon" />
               Download App
             </Link>
+            <button
+              className="nav-footer-btn nav-footer-btn--outline"
+              onClick={() => {
+                navigate("/register");
+                close();
+              }}
+            >
+              Signup
+            </button>
 
             <button className="navbar-menu-btn" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>
               <span className="navbar-menu-label">MENU</span>

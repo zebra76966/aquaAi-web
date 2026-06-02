@@ -7,7 +7,7 @@ export default function HowItWorksPage() {
   return (
     <>
       <HowItWorksTimeline />
-      <ContactSection />
+      {/* <ContactSection /> */}
     </>
   );
 }

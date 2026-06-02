@@ -4,24 +4,25 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useState } from "react";
 import { FiInstagram, FiYoutube, FiFacebook, FiTwitter, FiSend } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const NAV_COLS = [
-  {
-    heading: "Product",
-    links: [
-      { label: "Features", href: "#" },
-      { label: "Care Plans", href: "#" },
-      { label: "Detection", href: "#" },
-      { label: "Insights", href: "#" },
-    ],
-  },
+  // {
+  //   heading: "Product",
+  //   links: [
+  //     { label: "Features", href: "#" },
+  //     { label: "Care Plans", href: "#" },
+  //     { label: "Detection", href: "#" },
+  //     { label: "Insights", href: "#" },
+  //   ],
+  // },
   {
     heading: "Resources",
     links: [
       { label: "Blog", href: "#" },
-      { label: "Guides", href: "#" },
-      { label: "FAQs", href: "#" },
-      { label: "Support", href: "#" },
+      { label: "Guides", href: "#", internal: true, link: "/guides" },
+      { label: "FAQs", href: "#", internal: true, link: "/faqs" },
+      { label: "Support", href: "#", internal: true, link: "/contact" },
     ],
   },
   {
@@ -33,7 +34,7 @@ const NAV_COLS = [
       { label: "Marketplace Policy", href: "/policies/aquaai_marketplace_policy.html", external: true },
       { label: "Cookies & Data Policy", href: "/policies/cookies_and_data_policy.html", external: true },
       // { label: "Data Processing Agreement", href: "/policies/data-processing-agreement.html", external: true },
-      { label: "Contact", href: "/contact" },
+      { label: "Contact", href: "/contact", internal: true, link: "/contact" },
     ],
   },
 ];
@@ -81,11 +82,17 @@ export default function Footer() {
             <Col key={col.heading} xs={6} md={2}>
               <h4 className="footer-col-heading">{col.heading}</h4>
               <ul className="footer-links">
-                {col.links.map(({ label, href, external }) => (
+                {col.links.map(({ label, href, external, internal, link }) => (
                   <li key={label}>
-                    <a href={href} className="footer-link" onClick={(e) => handlePolicyClick(e, href, external)}>
-                      {label}
-                    </a>
+                    {internal ? (
+                      <Link to={link} className="footer-link">
+                        {label}
+                      </Link>
+                    ) : (
+                      <a href={href} className="footer-link" onClick={(e) => handlePolicyClick(e, href, external)}>
+                        {label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>

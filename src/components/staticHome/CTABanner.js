@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { FiArrowRight } from "react-icons/fi";
 import FishModel from "./FishModel";
+import { useNavigate } from "react-router-dom";
 
 /** Wraps FishModel and makes it swim in a gentle figure-8 path inside 3D space,
  *  so the tail-flap AND body movement are both visible — no CSS animation needed. */
@@ -55,6 +56,8 @@ function CardFish({ className, speed = 1, phaseOffset = 0 }) {
 }
 
 export default function CTABanner() {
+  const navigate = useNavigate();
+
   return (
     <section className="cta-section">
       <Container fluid="xl">
@@ -77,7 +80,7 @@ export default function CTABanner() {
                   Smarter Than Ever
                 </h2>
                 <p className="cta-body">Join thousands of aquarists who trust Aqua AI to keep their tanks healthy and thriving.</p>
-                <button className="cta-btn">
+                <button className="cta-btn" onClick={() => navigate("/register")}>
                   Get Started Free
                   <FiArrowRight className="cta-btn-icon" />
                 </button>

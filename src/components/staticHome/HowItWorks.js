@@ -1,109 +1,135 @@
 import "./HowItWorks.css";
 import { useEffect, useRef, useState } from "react";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { FiDroplet, FiTrendingUp, FiBell, FiHeart } from "react-icons/fi";
-import CTABanner from "./CTABanner";
+import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
+import { FiDroplet, FiTrendingUp, FiBell, FiHeart,
+         FiDownload, FiHome, FiCpu, FiUsers } from "react-icons/fi";
+import { GiFishbone } from "react-icons/gi";
+import FishModel from "./FishModel";
 
 const STEPS = [
-  {
-    number: "01",
-    label: "Monitor",
-    body: "We monitor your water quality and fish behavior.",
-    icon: <FiDroplet />,
-  },
-  {
-    number: "02",
-    label: "Analyze",
-    body: "AI analyzes the data to detect patterns and issues.",
-    icon: <FiTrendingUp />,
-  },
-  {
-    number: "03",
-    label: "Alert",
-    body: "Get instant alerts and actionable insights.",
-    icon: <FiBell />,
-  },
-  {
-    number: "04",
-    label: "Improve",
-    body: "Follow personalized recommendations for better care.",
-    icon: <FiHeart />,
-  },
+  { number: "01", label: "Monitor",           icon: <FiDroplet />,   body: "We monitor your water quality and fish behaviour in real time, tracking every parameter that matters." },
+  { number: "02", label: "Analyse",           icon: <FiTrendingUp />,body: "AI analyses the data to detect patterns, anomalies, and potential issues before they become problems." },
+  { number: "03", label: "Alert",             icon: <FiBell />,      body: "Get instant, actionable alerts tailored to your specific habitat and species mix." },
+  { number: "04", label: "Improve",           icon: <FiHeart />,     body: "Follow personalised care plan recommendations to keep your aquarium thriving long-term." },
 ];
+
+/* ── Single decorative fish (top-down, CSS-positioned, gentle float) ── */
+function DecorFish({ className, animationSpeed = 1 }) {
+  return (
+    <div className={`hiw-fish ${className}`}>
+      <Canvas camera={{ position: [0, 6, 0], fov: 45, up: [0, 0, -1] }}>
+        <ambientLight intensity={2.5} />
+        <directionalLight position={[5, 8, 5]} intensity={2.2} />
+        <directionalLight position={[-5, 4, -5]} intensity={1} />
+        <Suspense fallback={null}>
+          {/* Top-down view, CSS handles on-screen angle via transform */}
+          <group rotation={[Math.PI / 2, 0, 0]}>
+            <FishModel animationSpeed={animationSpeed} />
+          </group>
+        </Suspense>
+      </Canvas>
+    </div>
+  );
+}
 
 export default function HowItWorks() {
   const [activeStep, setActiveStep] = useState(null);
-  const [visible, setVisible] = useState(false);
-  const ref = useRef(null);
+  const [visible,    setVisible]    = useState(false);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.2 },
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.1 }
     );
-    if (ref.current) observer.observe(ref.current);
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className={`hiw-section${visible ? " is-visible" : ""} d-xl-flex d-block`} ref={ref}>
-      <Container fluid="xl">
-        {/* ── Heading (centred) ── */}
-        <Row className="justify-content-center">
-          <Col xs={12} className="text-center">
-            <div className="hiw-heading">
-              <p className="hiw-eyebrow">Simple. Smart. Seamless.</p>
-              <h2 className="hiw-title">
-                How <span className="hiw-brand">Aqua AI</span> Works
-              </h2>
-              <div className="hiw-heading-bar d-flex justify-content-center gap-1">
-                <span className="hiw-bar hiw-bar--1" />
-                <span className="hiw-bar hiw-bar--2" />
-                <span className="hiw-bar hiw-bar--3" />
-                <span className="hiw-bar hiw-bar--4" />
-              </div>
+    <section
+      className={`hiw-section${visible ? " is-visible" : ""}`}
+      ref={sectionRef}
+      id="how-it-works"
+    >
+      {/* ── Decorative floating koi fish (left side / scattered) ── */}
+      <DecorFish className="hiw-fish--1" animationSpeed={0.8} />
+      <DecorFish className="hiw-fish--2" animationSpeed={1.1} />
+      <DecorFish className="hiw-fish--3" animationSpeed={0.9} />
+
+      <div className="hiw-layout">
+
+        {/* ════════════════ LEFT: heading + steps ════════════════ */}
+        <div className="hiw-left">
+
+          {/* Heading */}
+          <div className="hiw-heading">
+            <p className="hiw-eyebrow">How It Works</p>
+            <h2 className="hiw-title">
+              Simple. <span className="hiw-brand">Intelligent.</span> Effective.
+            </h2>
+            <div className="hiw-bars d-flex gap-1">
+              <span className="hiw-bar hiw-bar--1" />
+              <span className="hiw-bar hiw-bar--2" />
+              <span className="hiw-bar hiw-bar--3" />
+              <span className="hiw-bar hiw-bar--4" />
             </div>
-          </Col>
-        </Row>
+          </div>
 
-        {/* ── Steps ── */}
-        <Row className="hiw-steps-row justify-content-center">
-          {/* Pure-CSS dashed connector — 1 px, sits behind icons */}
-          <div className="hiw-connector" aria-hidden="true" />
+          {/* Step cards with vertical connector line */}
+          <div className="hiw-steps-wrap">
+            {/* Vertical dashed line between steps */}
+            <div className="hiw-vline" aria-hidden="true" />
 
-          {STEPS.map((step, i) => (
-            <Col
-              key={i}
-              xs={12}
-              sm={6}
-              md={3}
-              className={`hiw-step${activeStep === i ? " active" : ""}`}
-              style={{ "--delay": `${i * 0.14}s` }}
-              onMouseEnter={() => setActiveStep(i)}
-              onMouseLeave={() => setActiveStep(null)}
-            >
-              {/* Icon circle */}
-              <div className="hiw-icon-wrap mx-auto">
-                <div className="hiw-icon d-flex align-items-center justify-content-center">{step.icon}</div>
-                <div className="hiw-pulse" />
+            {STEPS.map((step, i) => (
+              <div
+                key={i}
+                className={`hiw-step-row${activeStep === i ? " active" : ""}`}
+                style={{ "--delay": `${i * 0.14}s` }}
+                onMouseEnter={() => setActiveStep(i)}
+                onMouseLeave={() => setActiveStep(null)}
+              >
+                {/* Card */}
+                <div className="hiw-step-card">
+                  <span className="hiw-step-num">{step.number}</span>
+                  <h3 className="hiw-step-label">{step.label}</h3>
+                  <p className="hiw-step-body">{step.body}</p>
+                </div>
+
+                {/* Centre node on the line */}
+                <div className="hiw-node">
+                  <div className="hiw-node-icon">{step.icon}</div>
+                  <div className="hiw-node-pulse" />
+                </div>
               </div>
+            ))}
+          </div>
+        </div>
 
-              {/* Text */}
-              <div className="hiw-text text-center mx-auto">
-                <span className="hiw-number">{step.number}</span>
-                <h3 className="hiw-label">{step.label}</h3>
-                <p className="hiw-body">{step.body}</p>
-              </div>
-            </Col>
-          ))}
-        </Row>
-      </Container>
+        {/* ════════════════ RIGHT: sticky video panel ════════════════ */}
+        <div className="hiw-right">
+          <div className="hiw-video-sticky">
+            <div className="hiw-video-frame">
+              {/* Inner glow */}
+              <div className="hiw-video-glow" />
 
-      <CTABanner />
+              <video
+                className="hiw-video"
+                src="/fishes.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+
+              {/* Subtle overlay gradient at bottom */}
+              <div className="hiw-video-overlay" />
+            </div>
+          </div>
+        </div>
+
+      </div>
     </section>
   );
 }

@@ -8,7 +8,7 @@ export default function PricingPage() {
   return (
     <>
       <PricingSection />
-      <ContactSection />
+      {/* <ContactSection /> */}
     </>
   );
 }
