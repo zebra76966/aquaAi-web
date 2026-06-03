@@ -46,12 +46,15 @@ export default function Login() {
       });
       const data = await res.json();
       if (res.ok) {
-        // const roles = data.roles || [];
-        const roles = data.roles || [];
-        await login(data.access, roles);
-        // navigate(roles.includes("admin") ? "/admin" : "/plans");
-        // Route by role after successful login
         const loginRoles = data.roles || [];
+        await login(data.access, loginRoles);
+
+        // Provider account: skip plans, go straight to apply/status screen
+        if (data.is_for_provider === true) {
+          navigate("/provider-status");
+          return;
+        }
+
         if (data.is_admin || loginRoles.includes("admin")) {
           navigate("/admin");
         } else if (loginRoles.includes("breeder")) {

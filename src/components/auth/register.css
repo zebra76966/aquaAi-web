@@ -13,3 +13,36 @@
 }
 
 [data-theme="light"] .auth-success { color: #059669; }
+
+/* ── Provider toggle ── */
+.auth-provider-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  background: rgba(0,212,255,0.04);
+  border: 1.5px solid rgba(0,212,255,0.15);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.25s, background 0.25s;
+  margin-top: 4px;
+  user-select: none;
+}
+.auth-provider-toggle:hover {
+  border-color: rgba(0,212,255,0.35);
+  background: rgba(0,212,255,0.07);
+}
+
+.apt-label {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.apt-label span {
+  font-size: 14px; font-weight: 600; color: #e8f0fe;
+}
+.apt-label small {
+  font-size: 12px; color: #7a9ab0;
+}
+
+.apt-switch { color: #7a9ab0; transition: color 0.25s; }
+.apt-switch--on { color: #00d4ff; }

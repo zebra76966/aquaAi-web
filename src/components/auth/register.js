@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Spinner } from "react-bootstrap";
 import { motion } from "framer-motion";
-import { FiUser, FiMail, FiLock, FiArrowRight, FiAlertCircle, FiCheckCircle, FiGift } from "react-icons/fi";
+import { FiUser, FiMail, FiLock, FiArrowRight, FiAlertCircle, FiCheckCircle, FiGift, FiToggleLeft, FiToggleRight } from "react-icons/fi";
 import { RiBubbleChartLine } from "react-icons/ri";
 import "./register.css";
 import { baseUrl } from "./config";
@@ -12,7 +12,7 @@ import ThemeToggle from "../ThemeToggle";
 export default function Register() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
-  const [formData, setFormData] = useState({ username: "", email: "", name: "", password: "", referral_code: "" });
+  const [formData, setFormData] = useState({ username: "", email: "", name: "", password: "", referral_code: "", is_for_provider: false });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
@@ -145,6 +145,17 @@ export default function Register() {
                 />
               </div>
             ))}
+
+            {/* Provider toggle */}
+            <div className="auth-provider-toggle" onClick={() => setFormData(f => ({ ...f, is_for_provider: !f.is_for_provider }))}>
+              <div className="apt-label">
+                <span>Registering as a Provider?</span>
+                <small>Breeder or Consultant accounts</small>
+              </div>
+              <div className={`apt-switch${formData.is_for_provider ? " apt-switch--on" : ""}`}>
+                {formData.is_for_provider ? <FiToggleRight size={28} /> : <FiToggleLeft size={28} />}
+              </div>
+            </div>
 
             <button type="submit" className="auth-submit-btn" disabled={loading} style={{ marginTop: 8 }}>
               {loading ? (

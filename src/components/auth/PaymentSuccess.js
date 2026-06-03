@@ -63,8 +63,8 @@ export default function PaymentSuccess() {
             </svg>
             Open AquaAI Providers App
           </a>
-          <a href="/plans" className="payment-btn payment-btn-ghost">
-            View Plans
+          <a href="/login" className="payment-btn payment-btn-ghost">
+            Login
           </a>
         </motion.div>
       </motion.div>

@@ -40,6 +40,7 @@ import ContactPage from "./components/staticHome/ContactPage";
 import FaqsPage from "./components/staticHome/FaqsPage";
 import FeaturesPage from "./components/staticHome/FeaturesPage";
 import HowItWorksPage from "./components/staticHome/HowItWorksPage";
+import ProviderApplicationStatus from "./components/auth/ProviderApplicationStatus";
 import PricingPage from "./components/staticHome/PricingPage";
 
 function RoleRedirect() {
@@ -102,6 +103,7 @@ function AppContent() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<PasswordReset />} />
+        <Route path="/provider-status" element={<ProviderApplicationStatus />} />
         <Route path="/plans" element={<Plans />} />
 
         <Route path="/payment/success" element={<PaymentSuccess />} />

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Spinner } from "react-bootstrap";
 import {
@@ -25,6 +26,7 @@ import { RiArrowLeftLine } from "react-icons/ri";
 import { baseUrl } from "../auth/config";
 import "./ConsultantApply.css";
 import ThemeToggle from "../ThemeToggle";
+import { AuthContext } from "../auth/authcontext";
 
 /* ─────────────────────────────────────────────────────
    STEPS — 4 steps, no plan/subscription
@@ -75,8 +77,8 @@ const Field = ({ icon: Icon, children, isTextarea }) => (
    MAIN COMPONENT
 ───────────────────────────────────────────────────── */
 export default function ConsultantApply() {
-  const params = new URLSearchParams(window.location.search);
-  const token = params.get("token") || "";
+  const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
@@ -182,13 +184,6 @@ export default function ConsultantApply() {
       }
 
       setSuccess(true);
-      // Redirect to consultant dashboard — no plans screen
-      // setTimeout(() => {
-      //   window.location.href = "/consultant-dashboard";
-      // }, 2500);
-      setTimeout(() => {
-        window.location.href = "aquaproviders://";
-      }, 2500);
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
@@ -196,25 +191,8 @@ export default function ConsultantApply() {
     }
   };
 
-  /* ── Guard: no token ─────────────────────────────── */
-  if (!token) {
-    setTimeout(() => {
-      window.location.href = "aquaproviders://";
-    }, 2500);
-    return (
-      <div className="br-page">
-        <div className="br-bg">
-          <div className="br-blob br-blob-a" />
-          <div className="br-blob br-blob-b" />
-        </div>
-        <div className="breeder-error-state">
-          <div className="error-icon">⚠️</div>
-          <h2>Access Denied</h2>
-          <p>No authentication token found. Please open this page from the AquaAI app.</p>
-        </div>
-      </div>
-    );
-  }
+
+
 
   /* ── Success screen ──────────────────────────────── */
   if (success) {
@@ -229,9 +207,21 @@ export default function ConsultantApply() {
             <FaCheckCircle size={44} />
           </div>
           <h2>Application Submitted!</h2>
-          <p>Your consultant application has been received. Taking you to your dashboard…</p>
-          <div className="br-success-bar-wrap">
-            <div className="br-success-bar" />
+          <p style={{ marginBottom: 28, color: "#7a9ab0" }}>Your consultant application is under review. We\'ll be in touch soon.</p>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}>
+            <button
+              onClick={() => { window.location.href = "aquaproviders://"; }}
+              style={{ padding: "13px", borderRadius: "100px", background: "#00d4ff", border: "none", color: "#08091a", fontWeight: 700, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
+            >
+              Return to Aqua Providers App
+            </button>
+            <button
+              onClick={() => navigate("/provider-status")}
+              style={{ padding: "13px", borderRadius: "100px", background: "transparent", border: "1.5px solid rgba(0,212,255,0.3)", color: "#00d4ff", fontWeight: 600, fontSize: 14, cursor: "pointer" }}
+            >
+              View Application Status
+            </button>
           </div>
         </motion.div>
       </div>

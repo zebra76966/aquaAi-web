@@ -77,8 +77,17 @@ export default function FloatingNav() {
   const isBreeder    = roles.includes("breeder");
   const isConsultant = roles.includes("consultant");
 
-  const AUTH_ROUTES = ["/login", "/register", "/forgot-password", "/plans", "/payment/success", "/payment/fail"];
-  const shouldHide  = AUTH_ROUTES.includes(location.pathname) || isAdmin || !token;
+  // Whitelist: FloatingNav only shows on authenticated app screens.
+  // Static/public pages, auth pages, and provider screens all hide it.
+  const DASHBOARD_ROUTES = [
+    /^\/dashboard$/,
+    /^\/tanks(\/.*)?$/,
+    /^\/profile$/,
+    /^\/breeder-dashboard$/,
+    /^\/consultant-dashboard$/,
+  ];
+  const isOnDashboard = DASHBOARD_ROUTES.some((r) => r.test(location.pathname));
+  const shouldHide = !isOnDashboard || isAdmin || !token;
 
   useEffect(() => {
     if (!shouldHide) setTimeout(() => setVisible(true), 300);

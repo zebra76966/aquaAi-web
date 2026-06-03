@@ -1,0 +1,380 @@
+/* ── Page shell ── */
+.pas-page {
+  min-height: 100vh;
+  background: #08091a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background orbs */
+.pas-bg { position: absolute; inset: 0; pointer-events: none; }
+.pas-orb {
+  position: absolute; border-radius: 50%;
+}
+.pas-orb-a {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 70%);
+  top: -120px; right: -80px;
+}
+.pas-orb-b {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,80,160,0.08) 0%, transparent 70%);
+  bottom: -80px; left: -80px;
+}
+.pas-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Loader */
+.pas-loader {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+}
+
+/* Top bar */
+.pas-topbar {
+  position: relative; z-index: 10;
+  width: 100%; max-width: 520px;
+  padding: 24px 24px 0;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.pas-logo {
+  display: flex; align-items: center; gap: 8px;
+  color: #e8f0fe; font-weight: 700; font-size: 15px; letter-spacing: 1.5px;
+}
+.pas-logo-img { width: 24px; height: 24px; border-radius: 6px; }
+.pas-logout-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: none; border: 1px solid rgba(255,100,100,0.3);
+  color: #ff8080; font-size: 13px; font-weight: 600;
+  padding: 6px 14px; border-radius: 100px; cursor: pointer;
+  transition: all 0.2s;
+}
+.pas-logout-btn:hover { background: rgba(255,80,80,0.1); border-color: rgba(255,80,80,0.6); }
+
+/* Center */
+.pas-center {
+  position: relative; z-index: 5;
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  width: 100%; padding: 32px 20px 48px;
+}
+
+/* Main card */
+.pas-card {
+  width: 100%; max-width: 520px;
+  background: #0d1128;
+  border: 1px solid rgba(0,212,255,0.14);
+  border-radius: 24px;
+  padding: 36px 32px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 40px rgba(0,212,255,0.06);
+}
+
+/* Header */
+.pas-header { text-align: center; margin-bottom: 28px; }
+.pas-icon-wrap {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: rgba(0,212,255,0.1);
+  border: 1.5px solid rgba(0,212,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  color: #00d4ff; margin: 0 auto 16px;
+}
+.pas-icon-wrap--success { background: rgba(0,212,255,0.12); border-color: rgba(0,212,255,0.5); color: #00d4ff; }
+
+.pas-title { font-size: 22px; font-weight: 700; color: #e8f0fe; margin-bottom: 6px; }
+.pas-subtitle { font-size: 14px; color: #7a9ab0; line-height: 1.5; }
+
+/* Alert */
+.pas-alert {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px; border-radius: 10px;
+  font-size: 13.5px; font-weight: 500; margin-bottom: 20px;
+}
+.pas-alert--error { background: rgba(255,77,77,0.08); border: 1px solid rgba(255,77,77,0.25); color: #ff8080; }
+
+/* Status cards */
+.pas-statuses { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+
+.pas-status-card {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 18px; border-radius: 14px;
+  border: 1px solid rgba(0,212,255,0.1);
+  background: rgba(255,255,255,0.02);
+}
+.pas-status-card--approved { border-color: rgba(0,212,255,0.3); background: rgba(0,212,255,0.04); }
+.pas-status-card--pending  { border-color: rgba(240,165,0,0.3);  background: rgba(240,165,0,0.04); }
+.pas-status-card--rejected { border-color: rgba(255,77,77,0.3);  background: rgba(255,77,77,0.04); }
+
+.pas-status-icon-wrap { flex-shrink: 0; }
+.pas-status-type  { font-size: 13px; color: #7a9ab0; margin-bottom: 3px; font-weight: 600; letter-spacing: 0.3px; }
+.pas-status-label { font-size: 16px; font-weight: 700; margin-bottom: 0; }
+.pas-status-msg   { font-size: 12px; color: #7a9ab0; margin-top: 4px; margin-bottom: 0; }
+
+/* Role cards */
+.pas-roles { display: flex; flex-direction: column; gap: 12px; }
+.pas-roles--compact { margin-top: 0; }
+
+.pas-role-card {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; position: relative;
+  padding: 22px 20px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(0,212,255,0.15);
+  border-radius: 16px; cursor: pointer;
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+  width: 100%;
+}
+.pas-role-card:hover {
+  border-color: rgba(0,212,255,0.4);
+  background: rgba(0,212,255,0.04);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 16px rgba(0,212,255,0.07);
+}
+.pas-role-card.disabled { opacity: 0.45; cursor: default; }
+
+.pas-role-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: #00d4ff; font-size: 20px; margin-bottom: 12px;
+}
+.pas-role-title { font-size: 15px; font-weight: 700; color: #e8f0fe; margin-bottom: 6px; }
+.pas-role-desc  { font-size: 13px; color: #7a9ab0; line-height: 1.5; margin: 0; }
+.pas-role-arrow {
+  position: absolute; right: 18px; top: 50%;
+  transform: translateY(-50%); color: rgba(0,212,255,0.4); font-size: 16px;
+}
+
+/* "Also apply" section */
+.pas-also-apply { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(0,212,255,0.08); }
+.pas-also-label { font-size: 12px; color: #7a9ab0; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+
+/* Return buttons */
+.pas-return {
+  display: flex; flex-direction: column; gap: 10px;
+  margin-top: 24px; padding-top: 20px;
+  border-top: 1px solid rgba(0,212,255,0.08);
+}
+
+.pas-return-btn {
+  width: 100%; padding: 13px;
+  border-radius: 100px; font-size: 14px; font-weight: 600;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  gap: 8px; transition: all 0.25s;
+  font-family: "Inter", sans-serif;
+}
+.pas-return-btn--primary {
+  background: #00d4ff; color: #08091a; border: none;
+  box-shadow: 0 6px 20px rgba(0,212,255,0.3);
+}
+.pas-return-btn--primary:hover { background: #33ddff; box-shadow: 0 10px 28px rgba(0,212,255,0.45); transform: translateY(-1px); }
+.pas-return-btn--ghost {
+  background: transparent; border: 1.5px solid rgba(0,212,255,0.25); color: #00d4ff;
+}
+.pas-return-btn--ghost:hover { background: rgba(0,212,255,0.07); border-color: rgba(0,212,255,0.5); }
+
+@media (max-width: 480px) {
+  .pas-card { padding: 28px 20px; }
+  .pas-topbar { padding: 20px 20px 0; }
+}
+
+/* Second primary button variant — teal tint for breeder */
+.pas-return-btn--teal {
+  background: rgba(0,212,255,0.15);
+  color: #00d4ff;
+  border: 1.5px solid rgba(0,212,255,0.4);
+  box-shadow: none;
+}
+.pas-return-btn--teal:hover {
+  background: rgba(0,212,255,0.25);
+  border-color: rgba(0,212,255,0.7);
+  transform: translateY(-1px);
+}
+
+/* ══════════════════════════════════════════
+   BREEDER PAYMENT RECOVERY FLOW
+   ══════════════════════════════════════════ */
+
+.pas-payment-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0,212,255,0.1);
+}
+
+/* Warning banner */
+.pas-payment-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px 16px;
+  border-radius: 12px;
+  background: rgba(240,165,0,0.07);
+  border: 1px solid rgba(240,165,0,0.25);
+  color: #f0a500;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Credit banner */
+.pas-credit-banner {
+  padding: 11px 14px;
+  border-radius: 10px;
+  background: rgba(0,212,255,0.06);
+  border: 1px solid rgba(0,212,255,0.18);
+  font-size: 13px;
+  color: #7a9ab0;
+}
+.pas-credit-banner strong { color: #00d4ff; }
+
+/* Billing toggle */
+.pas-billing-toggle {
+  display: flex;
+  gap: 8px;
+}
+.pas-billing-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(0,212,255,0.15);
+  background: transparent;
+  color: #7a9ab0;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  transition: all 0.2s;
+  flex-wrap: wrap;
+}
+.pas-billing-btn.active {
+  border-color: #00d4ff;
+  color: #00d4ff;
+  background: rgba(0,212,255,0.07);
+}
+.pas-billing-save {
+  font-size: 10px;
+  font-weight: 700;
+  color: #00d4ff;
+  background: rgba(0,212,255,0.12);
+  padding: 2px 6px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+/* Plan cards */
+.pas-plans { display: flex; flex-direction: column; gap: 10px; }
+
+.pas-plan-card {
+  background: rgba(255,255,255,0.02);
+  border: 1.5px solid rgba(0,212,255,0.12);
+  border-radius: 14px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: border-color 0.25s, background 0.25s;
+}
+.pas-plan-card.selected {
+  border-color: rgba(0,212,255,0.5);
+  background: rgba(0,212,255,0.05);
+}
+.pas-plan-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pas-plan-name { font-size: 15px; font-weight: 700; color: #e8f0fe; margin-bottom: 4px; }
+.pas-plan-price-row { display: flex; align-items: baseline; gap: 4px; }
+.pas-plan-price { font-family: "Oswald", sans-serif; font-size: 24px; font-weight: 700; color: #00d4ff; }
+.pas-plan-period { font-size: 13px; color: #7a9ab0; }
+.pas-plan-orig { font-size: 13px; color: #7a9ab0; text-decoration: line-through; margin-left: 4px; }
+.pas-plan-saving { font-size: 12px; color: #00d4ff; margin-top: 4px; font-weight: 500; }
+.pas-plan-promo { font-size: 11px; color: #00d4ff; margin-top: 10px; padding: 5px 10px; background: rgba(0,212,255,0.07); border-radius: 8px; border: 1px solid rgba(0,212,255,0.18); }
+.pas-plan-radio {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid rgba(0,212,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: #08091a;
+  transition: all 0.2s;
+}
+.pas-plan-radio.checked { background: #00d4ff; border-color: #00d4ff; }
+
+/* Plan loading */
+.pas-plan-loading { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 20px; color: #7a9ab0; font-size: 14px; }
+
+/* Order summary (reused for checkout screen inside the flow) */
+.pas-order-summary {
+  background: rgba(0,212,255,0.04);
+  border: 1px solid rgba(0,212,255,0.14);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.pas-order-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #7a9ab0; }
+.pas-order-row { display: flex; align-items: center; justify-content: space-between; font-size: 14px; color: #c0d0e0; }
+.pas-order-cap { text-transform: capitalize; }
+.pas-order-row--muted { color: #7a9ab0; }
+.pas-order-row--green { color: #4caf50; font-weight: 600; }
+.pas-order-row--cyan  { color: #00d4ff; font-size: 13px; font-weight: 500; }
+.pas-order-strike { text-decoration: line-through; color: #7a9ab0; }
+.pas-order-divider { height: 1px; background: rgba(0,212,255,0.1); margin: 3px 0; }
+.pas-order-total { font-size: 15px; font-weight: 700; color: #e8f0fe; }
+.pas-order-amount { font-family: "Oswald", sans-serif; font-size: 22px; font-weight: 700; color: #00d4ff; }
+.pas-order-amount small { font-size: 12px; font-weight: 400; color: #7a9ab0; font-family: "Inter", sans-serif; margin-left: 2px; }
+
+/* Pay CTA */
+.pas-pay-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 100px;
+  background: #00d4ff;
+  color: #08091a;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(0,212,255,0.35);
+  transition: background 0.25s, box-shadow 0.25s, transform 0.2s;
+  font-family: "Inter", sans-serif;
+  text-align: center;
+}
+.pas-pay-btn:hover { background: #33ddff; box-shadow: 0 10px 32px rgba(0,212,255,0.5); transform: translateY(-2px); color: #08091a; }
+
+.pas-pay-secure { font-size: 12px; color: #7a9ab0; text-align: center; margin: 0; }
+
+.pas-pay-later {
+  background: none; border: none;
+  color: #7a9ab0; font-size: 13px; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 3px;
+  font-family: "Inter", sans-serif;
+  text-align: center; padding: 0;
+  transition: color 0.2s;
+}
+.pas-pay-later:hover { color: #c0d0e0; }
+
+/* Warn button (orange-ish for "complete payment" reminder) */
+.pas-return-btn--warn {
+  background: rgba(240,165,0,0.1);
+  border: 1.5px solid rgba(240,165,0,0.35);
+  color: #f0a500;
+}
+.pas-return-btn--warn:hover {
+  background: rgba(240,165,0,0.18);
+  border-color: rgba(240,165,0,0.6);
+}

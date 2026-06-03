@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Spinner } from "react-bootstrap";
 import {
@@ -26,6 +27,7 @@ import { RiArrowLeftLine, RiCalendarLine, RiVipCrownLine, RiCoinsLine } from "re
 import { baseUrl } from "../auth/config";
 import "./BreederApply.css";
 import ThemeToggle from "../ThemeToggle";
+import { AuthContext } from "../auth/authcontext";
 
 /* ─────────────────────────────────────────────────────
    CONSTANTS
@@ -135,17 +137,22 @@ const PlanCard = ({ plan, billing, selected, onSelect }) => {
         <div>
           <div className="br-plan-name">{plan.name}</div>
           <div className="br-plan-price">
-            <span className="br-plan-amount">${price.discounted_price.toFixed(2)}</span>
+            <span className="br-plan-amount">£{price?.discounted_price.toFixed(2)}</span>
             <span className="br-plan-period">/ {billing === "monthly" ? "mo" : "yr"}</span>
           </div>
-          {price.original_price > price.discounted_price && <div className="br-plan-original">${price.original_price.toFixed(2)}</div>}
+          {price?.original_price > price?.discounted_price && <div className="br-plan-original">£{price.original_price.toFixed(2)}</div>}
         </div>
         <div className={`br-plan-radio ${isSelected ? "checked" : ""}`}>{isSelected && <FaCheck size={10} />}</div>
       </div>
 
-      {billing === "yearly" && plan.yearly.savings && (
+      {billing === "yearly" && plan.yearly?.savings > 0 && (
         <div className="br-plan-savings">
-          <FaBolt size={10} /> Save ${plan.yearly.savings.toFixed(2)} ({plan.yearly.savings_percent}% off)
+          <FaBolt size={10} /> Save £{plan.yearly.savings.toFixed(2)} ({plan.yearly.savings_percent}% off)
+        </div>
+      )}
+      {plan.isPromo && (
+        <div className="br-plan-promo-tag">
+          🔒 Early adopter price — locked in for life
         </div>
       )}
 
@@ -174,8 +181,8 @@ const PlanCard = ({ plan, billing, selected, onSelect }) => {
    MAIN COMPONENT
 ───────────────────────────────────────────────────── */
 export default function BreederApply() {
-  const params = new URLSearchParams(window.location.search);
-  const token = params.get("token") || "";
+  const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   /* wizard */
   const [step, setStep] = useState(0);
@@ -214,6 +221,7 @@ export default function BreederApply() {
   const [billing, setBilling] = useState("monthly"); // "monthly" | "yearly"
   const [selectedPlan, setSelectedPlan] = useState(null); // plan key
   const [subscribing, setSubscribing] = useState(false);
+  const [checkoutData, setCheckoutData] = useState(null); // set when Stripe URL is returned
 
   /* ── fetch species ───────────────────────────────── */
   const fetchSpecies = useCallback(async () => {
@@ -255,9 +263,39 @@ export default function BreederApply() {
           headers: { Authorization: `Bearer ${token}` },
         });
         const json = await res.json();
-        setPlans(json?.data?.plans ?? []);
-        setCredit(json?.data?.your_credit ?? 0);
-        if (json?.data?.plans?.length) setSelectedPlan(json.data.plans[0].key);
+        const rawPlans = json?.data?.plans ?? [];
+
+        /* Normalise the API shape so PlanCard can read plan.monthly / plan.yearly
+           The API returns: standard_pricing.monthly/yearly + promo_pricing.monthly/yearly
+           We use promo when available, otherwise standard. */
+        const normalisedPlans = rawPlans.map((p) => {
+          const usePromo = p.promo_pricing?.is_available === true;
+          const mo = usePromo ? p.promo_pricing?.monthly  : p.standard_pricing?.monthly;
+          const yr = usePromo ? p.promo_pricing?.yearly   : p.standard_pricing?.yearly;
+
+          return {
+            ...p,
+            /* Flat monthly shape PlanCard reads */
+            monthly: {
+              discounted_price: mo?.discounted_price ?? mo?.original_price ?? 0,
+              original_price:   usePromo ? (p.standard_pricing?.monthly?.original_price ?? 0) : (mo?.original_price ?? 0),
+            },
+            /* Flat yearly shape PlanCard reads — includes savings */
+            yearly: {
+              discounted_price:  yr?.discounted_price ?? yr?.original_price ?? 0,
+              original_price:    usePromo ? (p.standard_pricing?.yearly?.original_price ?? 0) : (yr?.original_price ?? 0),
+              savings:           yr?.savings ?? 0,
+              savings_percent:   yr?.savings_percent ?? 0,
+            },
+            isPromo: usePromo,
+          };
+        });
+
+        setPlans(normalisedPlans);
+        /* your_credit is an object: { available, held, usable } — show usable */
+        const creditObj = json?.data?.your_credit;
+        setCredit(typeof creditObj === "object" ? (creditObj?.usable ?? 0) : (creditObj ?? 0));
+        if (normalisedPlans.length) setSelectedPlan(normalisedPlans[0].key);
       } catch {
         setError("Failed to load subscription plans.");
       } finally {
@@ -372,27 +410,26 @@ export default function BreederApply() {
         return;
       }
 
-      const paymentUrl = subJson?.data?.checkout_url ?? subJson?.checkout_url ?? null;
-      console.log("Subscription response:", subJson);
+      const checkoutUrl = subJson?.data?.checkout_url ?? subJson?.checkout_url ?? null;
 
-      console.log("Payment URL:", paymentUrl);
-
-      if (paymentUrl) {
-        /* Has a payment URL — submit application first, then redirect to payment */
+      if (checkoutUrl) {
+        /* Store full checkout data and submit application, then show payment screen */
         await submitApplication();
-        setSuccess(true);
-        setTimeout(() => {
-          window.location.href = paymentUrl;
-        }, 1800);
+        setCheckoutData({
+          url:            checkoutUrl,
+          plan_key:       subJson?.data?.plan_key       ?? selectedPlan,
+          billing_period: subJson?.data?.billing_period ?? billing,
+          original_price: subJson?.data?.original_price ?? 0,
+          discounted_price: subJson?.data?.discounted_price ?? 0,
+          credit_used:    subJson?.data?.credit_used    ?? 0,
+          launch_pricing: subJson?.data?.launch_pricing_eligible ?? false,
+        });
         return;
       }
 
-      /* No redirect needed (e.g. credit covered it) — just submit application */
+      /* No checkout URL — credit covered it fully, just submit */
       await submitApplication();
       setSuccess(true);
-      setTimeout(() => {
-        window.location.href = "aquaproviders://";
-      }, 2500);
     } catch (err) {
       setError(err.message || "Something went wrong. Please try again.");
     } finally {
@@ -400,19 +437,94 @@ export default function BreederApply() {
     }
   };
 
-  if (!token) {
+  /* ── Checkout / Payment screen ── */
+  if (checkoutData) {
+    const isYearly = checkoutData.billing_period === "yearly";
+    const savedAmount = (checkoutData.original_price - checkoutData.discounted_price).toFixed(2);
+    const hasSaving = parseFloat(savedAmount) > 0 || checkoutData.credit_used > 0;
+
     return (
-      <div className="br-page ">
+      <div className="br-page">
         <div className="br-bg">
-          <div className="br-blob-a" />
-          <div className="br-blob-b" />
-          <div className="br-blob-c" />
+          <div className="br-blob br-blob-a" />
+          <div className="br-blob br-blob-b" />
         </div>
-        <div className="breeder-error-state">
-          <div className="error-icon">⚠️</div>
-          <h2>Access Denied</h2>
-          <p>No authentication token found. Please open this page from the AquaAI app.</p>
-        </div>
+
+        <motion.div
+          className="br-success br-checkout"
+          initial={{ scale: 0.88, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 180, damping: 20 }}
+        >
+          {/* Header */}
+          <div className="br-checkout-header">
+            <div className="br-checkout-icon">
+              <FaCheckCircle size={32} />
+            </div>
+            <h2>Application Submitted!</h2>
+            <p className="br-checkout-sub">One last step — complete your payment to activate your breeder account.</p>
+          </div>
+
+          {/* Order summary card */}
+          <div className="br-order-summary">
+            <p className="br-order-label">Order Summary</p>
+
+            <div className="br-order-row">
+              <span>Breeder Plan</span>
+              <span className="br-order-cap">{checkoutData.billing_period === "monthly" ? "Monthly" : "Annual"}</span>
+            </div>
+
+            {checkoutData.original_price !== checkoutData.discounted_price && (
+              <div className="br-order-row br-order-row--muted">
+                <span>Standard price</span>
+                <span className="br-order-strike">£{checkoutData.original_price.toFixed(2)}</span>
+              </div>
+            )}
+
+            {checkoutData.credit_used > 0 && (
+              <div className="br-order-row br-order-row--green">
+                <span>Referral credit applied</span>
+                <span>−£{checkoutData.credit_used.toFixed(2)}</span>
+              </div>
+            )}
+
+            {checkoutData.launch_pricing && (
+              <div className="br-order-row br-order-row--cyan">
+                <span>🔒 Early adopter pricing</span>
+                <span>Locked in for life</span>
+              </div>
+            )}
+
+            <div className="br-order-divider" />
+
+            <div className="br-order-row br-order-total">
+              <span>Total due today</span>
+              <span className="br-order-amount">£{checkoutData.discounted_price.toFixed(2)}<small>/{isYearly ? "yr" : "mo"}</small></span>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="br-checkout-actions">
+            <a
+              href={checkoutData.url}
+              className="br-checkout-pay-btn"
+              target="_self"
+              rel="noreferrer"
+            >
+              <FaShieldAlt size={15} />
+              Complete Payment — £{checkoutData.discounted_price.toFixed(2)}
+            </a>
+            <p className="br-checkout-secure">
+              Secured by Stripe · Cancel anytime
+            </p>
+            <button
+              className="br-checkout-skip"
+              onClick={() => { setCheckoutData(null); setSuccess(true); }}
+            >
+              Pay later — View application status
+            </button>
+          </div>
+        </motion.div>
       </div>
     );
   }
@@ -428,11 +540,46 @@ export default function BreederApply() {
           <div className="br-success-ring">
             <FaCheckCircle size={44} />
           </div>
-          <h2>You're all set!</h2>
-          <p>Your application is submitted. Redirecting to complete payment…</p>
-          <p className="br-redirect-hint">Taking you to secure checkout…</p>
-          <div className="br-success-bar-wrap">
-            <div className="br-success-bar" />
+          <h2>Application Submitted!</h2>
+          <p style={{ marginBottom: 28, color: "#7a9ab0" }}>Your breeder application is under review. We'll be in touch soon.</p>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}>
+            <button
+              onClick={() => {
+                window.location.href = "aquaproviders://";
+              }}
+              style={{
+                padding: "13px",
+                borderRadius: "100px",
+                background: "#00d4ff",
+                border: "none",
+                color: "#08091a",
+                fontWeight: 700,
+                fontSize: 14,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+              }}
+            >
+              Return to Aqua Providers App
+            </button>
+            <button
+              onClick={() => navigate("/provider-status")}
+              style={{
+                padding: "13px",
+                borderRadius: "100px",
+                background: "transparent",
+                border: "1.5px solid rgba(0,212,255,0.3)",
+                color: "#00d4ff",
+                fontWeight: 600,
+                fontSize: 14,
+                cursor: "pointer",
+              }}
+            >
+              View Application Status
+            </button>
           </div>
         </motion.div>
       </div>
@@ -523,7 +670,7 @@ export default function BreederApply() {
               }}
             />
           </div>
-          {/* <AnimatePresence>
+          <AnimatePresence>
             {dropdownOpen && (
               <motion.div className="br-dropdown" initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.15 }}>
                 {loadingSpecies ? (
@@ -546,7 +693,7 @@ export default function BreederApply() {
                 )}
               </motion.div>
             )}
-          </AnimatePresence> */}
+          </AnimatePresence>
         </div>
         {selectedSpecies.length > 0 && (
           <div className="br-chips">
@@ -612,7 +759,7 @@ export default function BreederApply() {
         <div className="br-credit-banner">
           <RiCoinsLine size={16} />
           <span>
-            You have <strong>${credit.toFixed(2)}</strong> referral credit — applied automatically at checkout
+            You have <strong>£{credit.toFixed(2)}</strong> referral credit — applied automatically at checkout
           </span>
         </div>
       )}
