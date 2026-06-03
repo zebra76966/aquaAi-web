@@ -7,8 +7,8 @@ export default function FeaturesPage() {
   return (
     <>
       <FeaturesGrid />
-      <UserGuides />
-      <ContactSection />
+      {/* <UserGuides /> */}
+      {/* <ContactSection /> */}
     </>
   );
 }

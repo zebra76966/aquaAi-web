@@ -7,7 +7,7 @@ import { FiCheck, FiLock, FiX, FiAlertCircle } from "react-icons/fi";
 import FishModel from "./FishModel";
 
 /* ── API ─────────────────────────────────────────────── */
-const API_BASE = "https://aquaai.uk";
+const API_BASE = "https://aquaai.uk/api/v1";
 const PLANS_URL = `${API_BASE}/subscription/subscription/public-plans/`;
 
 /* ── Fish for promo banner (same pattern as CTABanner) ── */
@@ -285,6 +285,8 @@ export default function PricingSection() {
       <div className="pricing-inner">
         {/* Promo banner */}
         {!loading && !error && anyPromo && showBanner && <PromoBanner usersPromo={promo.users} breederPromo={promo.breeder} onDismiss={() => setShowBanner(false)} />}
+
+        {/* <PromoBanner usersPromo={promo.users} breederPromo={promo.breeder} onDismiss={() => setShowBanner(false)} /> */}
 
         <div className="pricing-heading">
           <p className="pricing-eyebrow">Pricing</p>
