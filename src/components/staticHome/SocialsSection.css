@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap");
+
+.sc-section {
+  width: 100%;
+  background: #08091a;
+  padding: 90px 40px;
+  font-family: "Inter", sans-serif;
+}
+.sc-inner { max-width: 1100px; margin: 0 auto; }
+
+.sc-heading { text-align: center; margin-bottom: 56px; }
+.sc-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: #00d4ff; margin-bottom: 12px; }
+.sc-title { font-family: "Oswald", sans-serif; font-size: clamp(28px,3.5vw,42px); font-weight: 600; color: #e8f0fe; letter-spacing: 0.5px; margin-bottom: 10px; }
+.sc-accent { color: #00d4ff; }
+.sc-subtitle { font-size: 14px; color: #7a9ab0; }
+
+.sc-block { margin-bottom: 48px; }
+.sc-block-title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: #7a9ab0; margin-bottom: 20px;
+}
+
+.sc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.sc-card {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px;
+  background: #0d1128;
+  border: 1px solid rgba(0,212,255,0.09);
+  border-radius: 14px;
+  text-decoration: none;
+  color: #e8f0fe;
+  transition: border-color 0.25s, background 0.25s, transform 0.2s;
+  cursor: pointer;
+}
+.sc-card:hover {
+  border-color: rgba(0,212,255,0.3);
+  background: rgba(0,212,255,0.04);
+  transform: translateY(-2px);
+  color: #e8f0fe;
+}
+.sc-card--static {
+  opacity: 0.6;
+  cursor: default;
+}
+.sc-card--static:hover { transform: none; border-color: rgba(0,212,255,0.09); background: #0d1128; }
+
+.sc-card-icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.sc-card-info { flex: 1; min-width: 0; }
+.sc-card-label { font-size: 13px; font-weight: 600; color: #e8f0fe; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sc-card-note  { font-size: 11px; color: #7a9ab0; display: block; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sc-card-arrow { color: rgba(0,212,255,0.4); flex-shrink: 0; }
+
+@media (max-width: 900px) { .sc-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .sc-grid { grid-template-columns: repeat(2, 1fr); } .sc-section { padding: 64px 20px; } }
+@media (max-width: 380px) { .sc-grid { grid-template-columns: 1fr; } }

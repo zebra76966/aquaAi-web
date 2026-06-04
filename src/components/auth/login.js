@@ -25,7 +25,9 @@ export default function Login() {
       // Already logged in — send to the right place
       const stored = localStorage.getItem("userRoles");
       const existingRoles = stored ? JSON.parse(stored) : [];
-      if (existingRoles.includes("admin")) navigate("/admin");
+      const isProvider = localStorage.getItem("isForProvider") === "true";
+      if (isProvider) navigate("/provider-status");
+      else if (existingRoles.includes("admin")) navigate("/admin");
       else if (existingRoles.includes("breeder")) navigate("/breeder-dashboard");
       else if (existingRoles.includes("consultant")) navigate("/consultant-dashboard");
       else navigate("/plans");
@@ -49,11 +51,14 @@ export default function Login() {
         const loginRoles = data.roles || [];
         await login(data.access, loginRoles);
 
-        // Provider account: skip plans, go straight to apply/status screen
+        // Provider account: persist flag + go straight to apply/status screen
         if (data.is_for_provider === true) {
+          localStorage.setItem("isForProvider", "true");
           navigate("/provider-status");
           return;
         }
+        // Clear any stale provider flag for non-provider users
+        localStorage.removeItem("isForProvider");
 
         if (data.is_admin || loginRoles.includes("admin")) {
           navigate("/admin");

@@ -28,7 +28,7 @@ const NAV_COLS = [
   {
     heading: "Company",
     links: [
-      { label: "About Us", href: "#" },
+      // { label: "About Us", href: "#" },
       { label: "Terms of Service", href: "/policies/aquaai_terms_and_conditions.html", external: true },
       { label: "Refund Policy", href: "/policies/aquaai_refund_policy.html", external: true },
       { label: "Marketplace Policy", href: "/policies/aquaai_marketplace_policy.html", external: true },

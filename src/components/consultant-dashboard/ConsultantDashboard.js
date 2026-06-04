@@ -30,6 +30,10 @@ import {
   FaChevronRight,
   FaSync,
   FaInfoCircle,
+  FaPlus,
+  FaEdit,
+  FaTrash,
+  FaTimes,
 } from "react-icons/fa";
 import { MdBusiness } from "react-icons/md";
 import "./ConsultantDashboard.css";
@@ -1313,8 +1317,314 @@ function ProfileTab({ token }) {
 // ═══════════════════════════════════════════════
 //  ROOT
 // ═══════════════════════════════════════════════
+// ─── Services Tab ─────────────────────────────────────────────
+const PRICE_UNITS = ["hour", "visit", "job", "session", "day"];
+
+function ServicesTab({ token }) {
+  const [sections, setSections] = useState([]);
+  const [allServices, setAllServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [showAdd, setShowAdd] = useState(false);
+  const [editItem, setEditItem] = useState(null); // pricing obj for editing
+  const [saveError, setSaveError] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
+  // add form
+  const [selLabel, setSelLabel] = useState("");
+  const [price, setPrice] = useState("");
+  const [priceUnit, setPriceUnit] = useState("visit");
+  const [duration, setDuration] = useState("");
+  const [loadingCat, setLoadingCat] = useState(false);
+
+  const h = { Authorization: `Bearer ${token}`, "Content-Type": "application/json" };
+
+  /* Fetch current services from profile */
+  const fetchServices = useCallback(async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`${baseUrl}/consultants/profile/`, { headers: { Authorization: `Bearer ${token}` } });
+      const json = await res.json();
+      const pricing = json?.data?.pricing || [];
+      const grouped = pricing.reduce((acc, p) => {
+        const cat = p.service?.category || "Other";
+        if (!acc[cat]) acc[cat] = [];
+        acc[cat].push(p);
+        return acc;
+      }, {});
+      setSections(Object.entries(grouped).map(([title, data]) => ({ title, data })));
+    } catch {
+      setError("Could not load services.");
+    } finally {
+      setLoading(false);
+    }
+  }, [token]);
+
+  /* Fetch available service catalogue */
+  const fetchCatalogue = useCallback(async () => {
+    setLoadingCat(true);
+    try {
+      const res = await fetch(`${baseUrl}/consultants/services/`, { headers: { Authorization: `Bearer ${token}` } });
+      const json = await res.json();
+      setAllServices(Object.values(json?.data || {}).flat());
+    } catch {
+    } finally {
+      setLoadingCat(false);
+    }
+  }, [token]);
+
+  useEffect(() => {
+    fetchServices();
+    fetchCatalogue();
+  }, [fetchServices, fetchCatalogue]);
+
+  const openAdd = () => {
+    setSelLabel("");
+    setPrice("");
+    setPriceUnit("visit");
+    setDuration("");
+    setSaveError("");
+    setShowAdd(true);
+  };
+  const openEdit = (item) => {
+    setEditItem(item);
+    setPrice(String(item.price));
+    setPriceUnit(item.price_unit || "visit");
+    setDuration(item.duration_minutes ? String(item.duration_minutes) : "");
+    setSaveError("");
+  };
+
+  const handleAdd = async () => {
+    if (!selLabel || !price || !duration) {
+      setSaveError("Please fill in all fields.");
+      return;
+    }
+    setSaving(true);
+    setSaveError("");
+    try {
+      const res = await fetch(`${baseUrl}/consultants/services/add/`, {
+        method: "POST",
+        headers: h,
+        body: JSON.stringify({ label: selLabel, price: parseFloat(price), price_unit: priceUnit, duration_minutes: parseInt(duration, 10) }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.message || "Failed to add.");
+      setShowAdd(false);
+      fetchServices();
+    } catch (e) {
+      setSaveError(e.message);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleUpdate = async () => {
+    if (!price) {
+      setSaveError("Price is required.");
+      return;
+    }
+    setSaving(true);
+    setSaveError("");
+    try {
+      const res = await fetch(`${baseUrl}/consultants/services/${editItem.service.id}/update/`, {
+        method: "PUT",
+        headers: h,
+        body: JSON.stringify({ price: parseFloat(price), price_unit: priceUnit }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.message || "Failed to update.");
+      setEditItem(null);
+      fetchServices();
+    } catch (e) {
+      setSaveError(e.message);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDelete = async (serviceId, pricingId) => {
+    if (!window.confirm("Remove this service from your profile?")) return;
+    setDeletingId(pricingId);
+    try {
+      await fetch(`${baseUrl}/consultants/services/${serviceId}/remove/`, { method: "DELETE", headers: { Authorization: `Bearer ${token}` } });
+      fetchServices();
+    } catch {
+      setError("Failed to remove service.");
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
+  if (loading)
+    return (
+      <div className="cd-loading">
+        <div className="cd-spinner" />
+        <p>Loading services…</p>
+      </div>
+    );
+
+  return (
+    <div>
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+        <div>
+          <h3 style={{ fontSize: 20, fontWeight: 700, color: "#f1f0ff", margin: 0 }}>My Services</h3>
+          <p style={{ fontSize: 13, color: "rgba(241,240,255,.45)", margin: "4px 0 0" }}>
+            {sections.reduce((n, s) => n + s.data.length, 0)} service{sections.reduce((n, s) => n + s.data.length, 0) !== 1 ? "s" : ""} listed
+          </p>
+        </div>
+        <button className="cd-action-btn" onClick={openAdd}>
+          <FaPlus size={12} /> Add Service
+        </button>
+      </div>
+
+      {error && <div className="cd-error-banner">{error}</div>}
+
+      {sections.length === 0 ? (
+        <div className="cd-empty-state">
+          <FaStar size={32} style={{ color: "rgba(241,240,255,.2)", marginBottom: 12 }} />
+          <p>No services added yet.</p>
+          <p style={{ fontSize: 13, opacity: 0.5, marginBottom: 16 }}>Add your first service to start receiving bookings.</p>
+          <button className="cd-action-btn" onClick={openAdd}>
+            <FaPlus size={12} /> Add Service
+          </button>
+        </div>
+      ) : (
+        sections.map((section) => (
+          <div key={section.title} style={{ marginBottom: 24 }}>
+            <p className="cd-section-category">{section.title.toUpperCase()}</p>
+            <div className="cd-services-grid">
+              {section.data.map((item) => (
+                <motion.div key={item.id} className="cd-service-card" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                  <div className="cd-service-card-header">
+                    <div>
+                      <p className="cd-service-card-name">{item.service?.label}</p>
+                      <p className="cd-service-card-cat">{item.service?.category}</p>
+                    </div>
+                    <div className="cd-service-card-actions">
+                      <button className="cd-service-edit-btn" onClick={() => openEdit(item)} title="Edit price">
+                        <FaEdit size={13} />
+                      </button>
+                      <button className="cd-service-del-btn" onClick={() => handleDelete(item.service?.id, item.id)} disabled={deletingId === item.id} title="Remove">
+                        {deletingId === item.id ? <div className="cd-spinner-sm" /> : <FaTrash size={13} />}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="cd-service-price-row">
+                    <span className="cd-service-price">£{Number(item.price).toFixed(0)}</span>
+                    <span className="cd-service-unit">/ {item.price_unit}</span>
+                    {item.duration_minutes && <span className="cd-service-duration">{item.duration_minutes} min</span>}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        ))
+      )}
+
+      {/* ── Add Service Modal ── */}
+      <AnimatePresence>
+        {showAdd && (
+          <motion.div className="cd-modal-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setShowAdd(false)}>
+            <motion.div className="cd-modal" initial={{ scale: 0.92, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.92, y: 20 }} onClick={(e) => e.stopPropagation()}>
+              <div className="cd-modal-head">
+                <h3>Add Service</h3>
+                <button className="cd-modal-close" onClick={() => setShowAdd(false)}>
+                  <FaTimes />
+                </button>
+              </div>
+              <div className="cd-form">
+                <label className="cd-form-label">Select Service *</label>
+                <div className="cd-service-list">
+                  {loadingCat ? (
+                    <div style={{ textAlign: "center", padding: 16 }}>
+                      <div className="cd-spinner-sm" />
+                    </div>
+                  ) : allServices.length === 0 ? (
+                    <p style={{ fontSize: 13, color: "rgba(241,240,255,.4)", textAlign: "center", padding: 16 }}>No services available.</p>
+                  ) : (
+                    allServices.map((s) => {
+                      const active = selLabel === s.label;
+                      return (
+                        <div key={s.id} className={`cd-svc-pick-row${active ? " active" : ""}`} onClick={() => setSelLabel(s.label)}>
+                          <div className={`cd-svc-radio${active ? " active" : ""}`} />
+                          <div>
+                            <p className="cd-svc-pick-name">{s.label}</p>
+                            {s.category && <p className="cd-svc-pick-cat">{s.category}</p>}
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+                <label className="cd-form-label" style={{ marginTop: 16 }}>
+                  Price (£) *
+                </label>
+                <input className="cd-input" type="number" min="0" step="0.01" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="e.g. 75" />
+                <label className="cd-form-label">Per</label>
+                <div className="cd-unit-row">
+                  {PRICE_UNITS.map((u) => (
+                    <button key={u} type="button" className={`cd-unit-chip${priceUnit === u ? " active" : ""}`} onClick={() => setPriceUnit(u)}>
+                      {u}
+                    </button>
+                  ))}
+                </div>
+                <label className="cd-form-label">Duration (minutes) *</label>
+                <input className="cd-input" type="number" min="0" value={duration} onChange={(e) => setDuration(e.target.value)} placeholder="e.g. 60" />
+                {saveError && <p className="cd-form-error">{saveError}</p>}
+                <button className="cd-save-btn" onClick={handleAdd} disabled={saving}>
+                  {saving ? (
+                    "Adding…"
+                  ) : (
+                    <>
+                      <FaPlus size={12} /> Add Service
+                    </>
+                  )}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* ── Edit Price Modal ── */}
+        {editItem && (
+          <motion.div className="cd-modal-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setEditItem(null)}>
+            <motion.div className="cd-modal" style={{ maxWidth: 380 }} initial={{ scale: 0.92, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.92, y: 20 }} onClick={(e) => e.stopPropagation()}>
+              <div className="cd-modal-head">
+                <h3>Update Price</h3>
+                <button className="cd-modal-close" onClick={() => setEditItem(null)}>
+                  <FaTimes />
+                </button>
+              </div>
+              <div className="cd-form">
+                <p style={{ fontSize: 14, fontWeight: 600, color: "#f1f0ff", marginBottom: 16 }}>{editItem.service?.label}</p>
+                <label className="cd-form-label">Price (£) *</label>
+                <input className="cd-input" type="number" min="0" step="0.01" value={price} onChange={(e) => setPrice(e.target.value)} />
+                <label className="cd-form-label">Per</label>
+                <div className="cd-unit-row">
+                  {PRICE_UNITS.map((u) => (
+                    <button key={u} type="button" className={`cd-unit-chip${priceUnit === u ? " active" : ""}`} onClick={() => setPriceUnit(u)}>
+                      {u}
+                    </button>
+                  ))}
+                </div>
+                {saveError && <p className="cd-form-error">{saveError}</p>}
+                <button className="cd-save-btn" onClick={handleUpdate} disabled={saving}>
+                  {saving ? "Saving…" : "Save Changes"}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 const TABS = [
   { key: "dashboard", label: "Dashboard", icon: <FaBriefcase /> },
+  { key: "services", label: "Services", icon: <FaStar /> },
   { key: "calendar", label: "Calendar", icon: <FaCalendarAlt /> },
   { key: "analytics", label: "Analytics", icon: <FaChartBar /> },
   { key: "profile", label: "Profile", icon: <FaUser /> },
@@ -1341,7 +1651,7 @@ export default function ConsultantDashboard() {
         <motion.header className="cd-header" initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}>
           <div>
             <p className="cd-eyebrow">AquaAI Consultant</p>
-            <h1 className="cd-title">Intelligence Center</h1>
+            <h1 className="cd-title">Consultant Hub</h1>
             <p className="cd-subtitle">Manage appointments, analytics, and your consulting business.</p>
           </div>
           <div className="cd-header-icon">
@@ -1362,6 +1672,11 @@ export default function ConsultantDashboard() {
             {activeTab === "dashboard" && (
               <motion.div key="d" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <DashboardTab token={token} />
+              </motion.div>
+            )}
+            {activeTab === "services" && (
+              <motion.div key="sv" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <ServicesTab token={token} />
               </motion.div>
             )}
             {activeTab === "calendar" && (

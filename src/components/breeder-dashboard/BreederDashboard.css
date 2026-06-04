@@ -314,3 +314,240 @@
   .bd-prof-sidebar { position:static; padding-right:0; border-right:none; border-bottom:1px solid rgba(255,255,255,.06); padding-bottom:20px; }
   .bd-prof-main { padding-left:0; padding-top:20px; }
 }
+
+/* ═══════════════════════════════════════════
+   ORDERS TAB
+   ═══════════════════════════════════════════ */
+.ord-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.ord-filter-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.ord-filter-btn {
+  padding: 7px 16px; border-radius: 100px;
+  border: 1.5px solid rgba(0,212,255,0.15);
+  background: transparent; color: #7a9ab0;
+  font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
+  transition: all 0.2s;
+}
+.ord-filter-btn.active { border-color: #00d4ff; color: #00d4ff; background: rgba(0,212,255,0.08); }
+.ord-filter-btn.disputed { border-color: rgba(239,68,68,0.4); color: #ef4444; }
+.ord-list { display: flex; flex-direction: column; gap: 14px; }
+.ord-error { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-radius: 10px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); color: #ef4444; font-size: 13px; margin-bottom: 14px; }
+.ord-dispute-badge { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #ef4444; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 100px; }
+
+.ord-card { background: rgba(13,17,40,0.8); border: 1px solid rgba(0,212,255,0.1); border-radius: 16px; padding: 16px; overflow: hidden; }
+.ord-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+.ord-code { font-size: 15px; font-weight: 700; color: #e8f0fe; letter-spacing: 0.3px; }
+.ord-date { font-size: 12px; color: #7a9ab0; margin-top: 2px; }
+.ord-status-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px; white-space: nowrap; }
+.ord-buyer-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+.ord-buyer-name { font-size: 13px; font-weight: 600; color: #c0d0e0; }
+.ord-buyer-email { font-size: 11px; color: #7a9ab0; }
+.ord-method-chip { display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 8px; margin-left: auto; }
+.ord-method-chip.collect { background: rgba(34,197,94,0.1); color: #22c55e; }
+.ord-method-chip.delivery { background: rgba(59,130,246,0.1); color: #3b82f6; }
+.ord-dispute-banner { display: flex; align-items: flex-start; gap: 10px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3); border-radius: 12px; padding: 12px; margin: 10px 0; }
+.ord-dispute-title { font-size: 13px; font-weight: 700; color: #ef4444; margin-bottom: 2px; }
+.ord-dispute-reason { font-size: 12px; color: #fca5a5; font-style: italic; }
+.ord-dispute-desc { font-size: 12px; color: #f87171; margin-top: 2px; }
+.ord-replaced-banner { display: flex; align-items: center; gap: 8px; background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.25); border-radius: 10px; padding: 10px 12px; margin: 8px 0; font-size: 12px; color: #a78bfa; }
+.ord-items { border-top: 1px solid rgba(0,212,255,0.08); padding-top: 10px; margin: 10px 0; display: flex; flex-direction: column; gap: 8px; }
+.ord-item-row { display: flex; align-items: center; gap: 8px; }
+.ord-item-name { flex: 1; font-size: 13px; font-weight: 600; color: #c0d0e0; }
+.ord-size-pill { background: #00d4ff; color: #08091a; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 6px; }
+.ord-item-qty { font-size: 12px; color: #7a9ab0; }
+.ord-item-total { font-size: 13px; font-weight: 700; color: #e8f0fe; }
+.ord-price-block { background: rgba(0,212,255,0.04); border-radius: 10px; padding: 12px; margin: 10px 0; border: 1px solid rgba(0,212,255,0.08); }
+.ord-price-row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 13px; color: #7a9ab0; }
+.ord-price-divider { height: 1px; background: rgba(0,212,255,0.1); margin: 6px 0; }
+.ord-price-total { font-size: 15px; font-weight: 700; color: #e8f0fe; }
+.ord-price-total span:last-child { color: #00d4ff; }
+.ord-payout { display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 12px; border: 1px solid; margin: 8px 0; }
+.ord-address, .ord-tracking { display: flex; align-items: center; gap: 7px; padding: 8px 10px; border-radius: 10px; font-size: 12px; margin: 6px 0; }
+.ord-address { background: rgba(0,212,255,0.05); color: #7a9ab0; }
+.ord-tracking { background: rgba(59,130,246,0.08); color: #3b82f6; }
+.ord-action-btn { display: flex; align-items: center; justify-content: center; gap: 7px; width: 100%; padding: 12px; border-radius: 12px; border: none; font-size: 13px; font-weight: 700; cursor: pointer; margin-top: 8px; font-family: inherit; transition: opacity 0.2s; }
+.ord-action-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.ord-action-btn--green  { background: #22c55e; color: #fff; }
+.ord-action-btn--blue   { background: #3b82f6; color: #fff; }
+.ord-action-btn--red    { background: #ef4444; color: #fff; }
+.ord-action-btn--ghost  { background: transparent; color: #7a9ab0; border: 1.5px solid rgba(255,255,255,0.1); }
+
+/* ═══════════════════════════════════════════
+   SCHEDULE TAB
+   ═══════════════════════════════════════════ */
+.sch-holiday-banner { display: flex; align-items: flex-start; gap: 14px; background: rgba(240,165,0,0.08); border: 1px solid rgba(240,165,0,0.3); border-radius: 16px; padding: 18px 20px; margin-bottom: 20px; }
+.sch-days-grid { display: flex; flex-direction: column; gap: 8px; }
+.sch-day-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: rgba(0,212,255,0.03); border-radius: 10px; border: 1px solid rgba(0,212,255,0.08); }
+.sch-day-row--closed { opacity: 0.5; }
+.sch-day-name { width: 36px; font-size: 13px; font-weight: 700; color: #e8f0fe; }
+.sch-day-hours { flex: 1; font-size: 13px; color: #7a9ab0; }
+.sch-edit-btn { background: none; border: none; color: #00d4ff; cursor: pointer; padding: 4px; opacity: 0.6; transition: opacity 0.2s; }
+.sch-edit-btn:hover { opacity: 1; }
+.bd-select { width: 100%; background: rgba(13,17,40,0.9); border: 1.5px solid rgba(0,212,255,0.2); border-radius: 10px; padding: 10px 12px; color: #e8f0fe; font-family: inherit; font-size: 14px; outline: none; cursor: pointer; }
+.bd-select:focus { border-color: rgba(0,212,255,0.5); }
+
+/* ═══════════════════════════════════════════
+   SPECIES TAB — UPDATED
+   ═══════════════════════════════════════════ */
+.spc-bulk-bar { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.2); border-radius: 12px; margin-bottom: 16px; }
+.spc-bulk-sel-all { background: none; border: none; color: #00d4ff; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; }
+.spc-bulk-count { font-size: 13px; font-weight: 600; color: #e8f0fe; }
+.spc-bulk-btn { padding: 8px 16px; border-radius: 100px; font-size: 12px; font-weight: 700; cursor: pointer; border: none; font-family: inherit; }
+.spc-bulk-btn--list { background: #00d4ff; color: #08091a; }
+.spc-bulk-btn--delist { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+.spc-checkbox { width: 22px; height: 22px; border-radius: 6px; border: 2px solid rgba(0,212,255,0.3); cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-right: 4px; transition: border-color 0.2s; }
+.spc-checkbox.checked { border-color: #00d4ff; }
+.bd-species-card.spc-selected { border-color: rgba(0,212,255,0.4); background: rgba(0,212,255,0.04); }
+.spc-listing-btn { padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 700; cursor: pointer; border: 1.5px solid rgba(0,212,255,0.25); background: transparent; color: #7a9ab0; font-family: inherit; transition: all 0.2s; }
+.spc-listing-btn.listed { border-color: #22c55e; color: #22c55e; background: rgba(34,197,94,0.08); }
+.spc-listing-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ═══════════════════════════════════════════
+   SPECIES SEARCH DROPDOWN (in Add modal)
+   ═══════════════════════════════════════════ */
+
+.spc-search-wrap {
+  position: relative;
+}
+
+/* Category pills */
+.spc-cat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.spc-cat-pill {
+  padding: 5px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1.5px solid rgba(0,212,255,0.15);
+  background: transparent;
+  color: #7a9ab0;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.spc-cat-pill.active {
+  border-color: #00d4ff;
+  color: #00d4ff;
+  background: rgba(0,212,255,0.08);
+}
+
+/* Search input wrapper */
+.spc-search-input-wrap {
+  position: relative;
+  margin-bottom: 0;
+}
+.spc-search-icon {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7a9ab0;
+  pointer-events: none;
+}
+.spc-search-input-wrap input {
+  width: 100%;
+  background: rgba(13,17,40,0.9);
+  border: 1.5px solid rgba(0,212,255,0.2);
+  border-radius: 10px;
+  padding: 10px 12px 10px 32px;
+  color: #e8f0fe;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.25s;
+}
+.spc-search-input-wrap input:focus {
+  border-color: rgba(0,212,255,0.5);
+}
+.spc-search-input-wrap input::placeholder {
+  color: #3a5a70;
+}
+
+/* Dropdown list */
+.spc-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0; right: 0;
+  z-index: 100;
+  background: #0d1128;
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  overflow: hidden;
+  max-height: 280px;
+  overflow-y: auto;
+}
+.spc-dropdown::-webkit-scrollbar { width: 4px; }
+.spc-dropdown::-webkit-scrollbar-track { background: transparent; }
+.spc-dropdown::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.2); border-radius: 2px; }
+
+.spc-dropdown-state {
+  padding: 18px;
+  text-align: center;
+  color: #7a9ab0;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spc-dropdown-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-bottom: 1px solid rgba(0,212,255,0.05);
+}
+.spc-dropdown-row:last-child { border-bottom: none; }
+.spc-dropdown-row:hover { background: rgba(0,212,255,0.06); }
+
+.spc-dropdown-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: rgba(0,212,255,0.08);
+}
+.spc-dropdown-icon {
+  width: 36px;
+  height: 36px;
+  color: #00d4ff;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+.spc-dropdown-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #e8f0fe;
+  line-height: 1.2;
+}
+.spc-dropdown-sci {
+  font-size: 11.5px;
+  color: #7a9ab0;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+/* Selected species tag shown below the search input */
+.spc-selected-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(0,212,255,0.07);
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 8px;
+  font-size: 13px;
+  color: #e8f0fe;
+}
+.spc-selected-tag svg { color: #00d4ff; flex-shrink: 0; }

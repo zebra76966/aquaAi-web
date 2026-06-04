@@ -259,6 +259,7 @@ export default function TankDetail() {
   const [productsLoading, setProductsLoading] = useState(false);
 
   const [activeTab, setActiveTab] = useState("species");
+  const [showAddSpeciesModal, setShowAddSpeciesModal] = useState(false);
   const [activeMetric, setActiveMetric] = useState(METRICS[0]);
 
   const [showImportModal, setShowImportModal] = useState(false);
@@ -539,6 +540,11 @@ export default function TankDetail() {
                   })}
                 </div>
               )}
+              <div style={{ marginTop: 16, textAlign: "center" }}>
+                <button className="td-add-species-btn" onClick={() => setShowAddSpeciesModal(true)}>
+                  + Add Species
+                </button>
+              </div>
             </motion.div>
           )}
 
@@ -679,6 +685,34 @@ export default function TankDetail() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Add Species via App Modal */}
+      {showAddSpeciesModal && (
+        <div className="td-modal-overlay" onClick={() => setShowAddSpeciesModal(false)}>
+          <motion.div className="td-modal" style={{ maxWidth: 380 }}
+            initial={{ scale: 0.9, y: 30 }} animate={{ scale: 1, y: 0 }}
+            onClick={e => e.stopPropagation()}>
+            <button className="td-modal-close" onClick={() => setShowAddSpeciesModal(false)}>
+              <FaArrowLeft style={{ fontSize: 13 }} />
+            </button>
+            <div style={{ textAlign: "center", padding: "8px 0 4px" }}>
+              <div style={{ fontSize: 48, marginBottom: 12 }}>🐟</div>
+              <h4 className="td-modal-title">Add Species via App</h4>
+              <p className="td-modal-sub">
+                Use the AquaAI mobile app to scan your fish with AI-powered species identification — point your camera and it will detect, identify, and add the species to this habitat instantly.
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 20 }}>
+                <a href="/download" className="td-app-cta-btn" onClick={() => setShowAddSpeciesModal(false)}>
+                  📱 Get the AquaAI App
+                </a>
+                <button className="td-modal-dismiss-btn" onClick={() => setShowAddSpeciesModal(false)}>
+                  Dismiss
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
 
       {/* Fish Modal */}
       <AnimatePresence>

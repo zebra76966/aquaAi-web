@@ -1,8 +1,20 @@
 import "./AboutSection.css";
+import { FiAlertCircle, FiDroplet, FiShoppingCart, FiCalendar, FiUsers } from "react-icons/fi";
+import { FaFish } from "react-icons/fa";
+/* Feature pills that orbit the phone */
+const PILLS = [
+  { icon: FaFish, label: "Species ID", side: "left", top: "18%" },
+  { icon: FiAlertCircle, label: "Disease Detection", side: "left", top: "42%" },
+  { icon: FiDroplet, label: "Water Intelligence", side: "left", top: "66%" },
+  { icon: FiShoppingCart, label: "Marketplace", side: "right", top: "24%" },
+  { icon: FiCalendar, label: "Consultant Booking", side: "right", top: "50%" },
+  { icon: FiUsers, label: "Breeder Network", side: "right", top: "74%" },
+];
 
+/* Status icons for the phone statusbar */
 function StatusIcons() {
   return (
-    <div className="iphone-statusbar-icons">
+    <div className="ab-statusbar-icons">
       <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor">
         <path d="M8 8.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" />
         <path d="M2.5 4.5a7.9 7.9 0 0 1 11 0" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
@@ -17,65 +29,99 @@ function StatusIcons() {
   );
 }
 
-function IPhoneMockup() {
-  return (
-    <div className="iphone-frame">
-      {/* 1. Dynamic Island — sits in the frame above the screen */}
-
-      {/* 3. Screen — clipped scroll window */}
-      <div className="iphone-screen">
-        <div className="iphone-statusbar">
-          <span className="iphone-time">9:41</span>
-          <div className="iphone-island" />
-          <StatusIcons />
-        </div>
-        <div className="iphone-scroll-track">
-          <img src="/appSS.png" alt="Aqua AI app screenshot" className="iphone-screenshot" draggable="false" />
-        </div>
-      </div>
-
-      {/* 4. Home indicator bar — below screen */}
-      <div className="iphone-home-bar" />
-    </div>
-  );
-}
-
 export default function AboutSection() {
   return (
     <section className="about-section" id="about">
       <div className="about-inner">
-        <div className="about-copy">
+        {/* ── Heading ── */}
+        <div className="about-header">
           <p className="about-eyebrow">What is Aqua AI?</p>
           <h2 className="about-title">
             The Smartest Way to
             <br />
             <span className="about-accent">Manage Your Aquarium</span>
           </h2>
-          <p className="about-body">
-            Aqua AI is an AI-powered aquarium and pond management platform built for hobbyists, breeders, and aquatic professionals. From species identification across a database of 20,000+ species to
-            real-time disease detection — every feature is designed to keep your habitat thriving.
-          </p>
-          <p className="about-body">
-            Our water intelligence engine interprets your test strip readings and flags risks before they become problems. AI care plans adapt to your specific fish, tank size, and water chemistry —
-            personalised to you, not generic advice.
-          </p>
-          <p className="about-body">
-            Connect with verified breeders to source new stock, book certified aquatic consultants, and buy or sell in our peer-to-peer marketplace. Every interaction teaches the system. Every data
-            point makes recommendations smarter.
-          </p>
-          <div className="about-pills">
-            {["Species ID", "Disease Detection", "Water Intelligence", "Marketplace", "Consultant Booking"].map((t) => (
-              <span key={t} className="about-pill">
-                {t}
-              </span>
-            ))}
-          </div>
         </div>
 
-        <div className="about-mockup">
-          <div className="mockup-glow mockup-glow--1" />
-          <div className="mockup-glow mockup-glow--2" />
-          <IPhoneMockup />
+        {/* ── Phone + floating pills ── */}
+        <div className="about-visual">
+          {/* Left pills */}
+          {PILLS.filter((p) => p.side === "left").map((pill) => (
+            <div key={pill.label} className="about-pill about-pill--left" style={{ top: pill.top }}>
+              <div className="about-pill-inner">
+                <div className="about-pill-icon">
+                  <pill.icon size={16} />
+                </div>
+                <span>{pill.label}</span>
+              </div>
+              {/* Dotted connector line */}
+              <div className="about-connector about-connector--left" />
+              {/* Dot at phone end */}
+              <div className="about-dot" />
+            </div>
+          ))}
+
+          {/* Centre: iPhone */}
+          <div className="about-phone-wrap">
+            {/* Glow */}
+            <div className="about-phone-glow" />
+            <div className="about-phone-glow about-phone-glow--2" />
+
+            <div className="ab-iphone">
+              <div className="ab-screen">
+                <div className="ab-statusbar">
+                  <span className="ab-time">9:41</span>
+                  <div className="ab-island" />
+                  <StatusIcons />
+                </div>
+
+                <div className="ab-scroll-track">
+                  <img src="/appSS.png" alt="Aqua AI app" className="ab-screenshot" draggable="false" />
+                </div>
+              </div>
+              <div className="ab-home-bar" />
+            </div>
+          </div>
+
+          {/* Right pills */}
+          {PILLS.filter((p) => p.side === "right").map((pill) => (
+            <div key={pill.label} className="about-pill about-pill--right" style={{ top: pill.top }}>
+              {/* Dot at phone end */}
+              <div className="about-dot" />
+              {/* Dotted connector */}
+              <div className="about-connector about-connector--right" />
+              <div className="about-pill-inner">
+                <div className="about-pill-icon">
+                  <pill.icon size={16} />
+                </div>
+                <span>{pill.label}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── Body copy below ── */}
+        <div className="about-copy">
+          <p className="about-body">
+            Aqua AI is an intelligent aquarium and pond management platform that combines artificial intelligence with real-world aquatic expertise to transform how people care for aquatic life.
+          </p>
+          <p className="about-body">
+            At its core, Aqua AI gives hobbyists the tools that were previously only available to professionals. Scan your tank to identify species from a database of over 20,000. Detect disease early
+            through AI-powered image analysis. Monitor water quality with intelligent interpretation that doesn't just show you numbers — it tells you what they mean and what to do next. Every habitat
+            gets a personalised care plan that adapts as conditions change.
+          </p>
+          <p className="about-body">
+            But Aqua AI is more than a monitoring tool. Our marketplace connects the entire aquatics community in one trusted ecosystem. Breeders list and sell livestock directly to hobbyists with
+            full order management, delivery tracking, and quality assurance built in. Consultants offer their professional services through an integrated booking system with in-app communication and
+            verified trust scoring. Hobbyists can browse, buy, book, and learn — all in one place.
+          </p>
+
+          <p className="about-body">
+            Behind everything is an intelligence layer that learns from every interaction. The more the community uses the platform, the smarter the recommendations become — healthier habitats, better
+            breeding outcomes, stronger businesses, and a more connected aquatics community.{" "}
+          </p>
+
+          <p className="about-body">Aqua AI is a product of Humara, a Tech company building intelligent platforms that elevate industries through data, AI, and community.</p>
         </div>
       </div>
     </section>

@@ -35,6 +35,7 @@ export default function Dashboard() {
 
   const [category, setCategory] = useState("ALL");
   const [showModal, setShowModal] = useState(false);
+  const [showAddTankModal, setShowAddTankModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
 
   const scrollRef = useRef(null);
@@ -308,12 +309,45 @@ export default function Dashboard() {
               <Button className="btn-glass-round-premium">
                 <FaCog />
               </Button>
-              <Button className="btn-glass-round-premium plus">
+              <Button className="btn-glass-round-premium plus" onClick={() => setShowAddTankModal(true)}>
                 <FaPlus />
               </Button>
             </div>
           </Col>
         </Row>
+
+        {/* --- Add Tank via App Modal --- */}
+        <Modal show={showAddTankModal} onHide={() => setShowAddTankModal(false)} centered contentClassName="premium-modal-content" backdropClassName="premium-modal-backdrop">
+          <div className="modal-glass-wrapper">
+            <Modal.Header>
+              <div className="d-flex align-items-center gap-3">
+                <div className="modal-icon-shield"><FaWater /></div>
+                <div>
+                  <Modal.Title className="modal-task-title">Add a New Habitat</Modal.Title>
+                  <span className="modal-task-date">Available on the AquaAI mobile app</span>
+                </div>
+              </div>
+              <button className="modal-close-btn" onClick={() => setShowAddTankModal(false)}>
+                <FaTimes />
+              </button>
+            </Modal.Header>
+            <Modal.Body style={{ textAlign: "center", padding: "32px 24px" }}>
+              <div style={{ fontSize: 52, marginBottom: 16 }}>🐠</div>
+              <h5 style={{ color: "#e8f0fe", fontWeight: 700, marginBottom: 10 }}>Set Up Your Habitat in the App</h5>
+              <p style={{ color: "#7a9ab0", fontSize: 14, lineHeight: 1.7, marginBottom: 24 }}>
+                Adding tanks, setting water type, scanning fish, and configuring your habitat is all done inside the AquaAI mobile app — with AI-powered species identification and instant water parameter reading.
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                <Button className="modal-btn-primary" onClick={() => { setShowAddTankModal(false); navigate("/download"); }}>
+                  📱 Download AquaAI App
+                </Button>
+                <Button className="modal-btn-secondary" onClick={() => setShowAddTankModal(false)}>
+                  Maybe later
+                </Button>
+              </div>
+            </Modal.Body>
+          </div>
+        </Modal>
 
         {/* --- Task Detail Modal --- */}
         <Modal show={showModal} onHide={() => setShowModal(false)} centered contentClassName="premium-modal-content" backdropClassName="premium-modal-backdrop">

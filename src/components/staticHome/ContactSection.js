@@ -1,5 +1,7 @@
 import "./ContactSection.css";
 import { useState } from "react";
+import { BsDiscord } from "react-icons/bs";
+import { FaDiscord, FaTiktok } from "react-icons/fa";
 import { FiMail, FiMessageCircle, FiPhone, FiGlobe, FiSend, FiInstagram, FiTwitter, FiFacebook, FiYoutube, FiCheck, FiAlertCircle, FiLoader } from "react-icons/fi";
 
 /* ── API config ──────────────────────────────────────────────
@@ -208,6 +210,17 @@ export default function ContactSection() {
               </div>
               <div className="ci-item">
                 <div className="ci-icon">
+                  <FiMessageCircle />
+                </div>
+                <div>
+                  <p className="ci-label">Telegram</p>
+                  <a href="https://t.me/aquaai_care_bot" target="_blank" rel="noreferrer" className="ci-value">
+                    @aquaai_care_bot
+                  </a>
+                </div>
+              </div>
+              <div className="ci-item">
+                <div className="ci-icon">
                   <FiGlobe />
                 </div>
                 <div>
@@ -222,11 +235,24 @@ export default function ContactSection() {
             <div className="ci-socials-wrap">
               <p className="ci-label">Follow Us</p>
               <div className="ci-socials">
-                {[FiInstagram, FiTwitter, FiFacebook, FiYoutube].map((Icon, i) => (
-                  <a key={i} href="#" className="ci-social">
-                    <Icon />
-                  </a>
-                ))}
+                <a href="https://instagram.com/aquaai_care" target="_blank" rel="noreferrer" className="ci-social" title="Instagram">
+                  <FiInstagram />
+                </a>
+                <a href="https://x.com/aquaai_care" target="_blank" rel="noreferrer" className="ci-social" title="Twitter / X">
+                  <FiTwitter />
+                </a>
+                <a href="https://facebook.com/AQUA_AI" target="_blank" rel="noreferrer" className="ci-social" title="Facebook">
+                  <FiFacebook />
+                </a>
+                <a href="https://youtube.com/@aquaai_care" target="_blank" rel="noreferrer" className="ci-social" title="YouTube">
+                  <FiYoutube />
+                </a>
+                <a href="https://tiktok.com/@aquaai_care" target="_blank" rel="noreferrer" className="ci-social" title="TikTok" style={{ fontSize: 15 }}>
+                  <FaTiktok />
+                </a>
+                <a href="https://discord.gg/zvUVRTmqsB" target="_blank" rel="noreferrer" className="ci-social" title="Discord" style={{ fontSize: 15 }}>
+                  <BsDiscord />{" "}
+                </a>
               </div>
             </div>
 

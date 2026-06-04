@@ -314,7 +314,7 @@
 }
 
 /* ══════════════════════════════════════════════════
-   PROMO BANNER  (mirrors CTABanner card aesthetic)
+   PREMIUM GOLD PROMO BANNER
    ══════════════════════════════════════════════════ */
 
 .pb-banner {
@@ -325,112 +325,191 @@
   padding: 28px 56px 28px 32px;
 
   background:
-    radial-gradient(ellipse 45% 80% at 8% 50%, rgba(0,212,255,0.06) 0%, transparent 65%),
-    radial-gradient(ellipse 55% 70% at 85% 90%, rgba(0,80,160,0.22) 0%, transparent 65%),
-    linear-gradient(135deg, #0d1128 0%, #0f1838 50%, #0d1530 100%);
+    radial-gradient(ellipse 45% 80% at 8% 50%, rgba(255, 214, 107, 0.12) 0%, transparent 65%), radial-gradient(ellipse 55% 70% at 85% 90%, rgba(246, 196, 83, 0.18) 0%, transparent 65%),
+    linear-gradient(135deg, #0d0904 0%, #1a1207 45%, #251808 75%, #120b03 100%);
 
-  border: 1px solid rgba(0,212,255,0.18);
+  border: 1px solid rgba(255, 214, 107, 0.22);
+
   box-shadow:
-    0 16px 48px rgba(0,0,0,0.45),
-    0 0 30px rgba(0,212,255,0.07),
-    inset 0 1px 0 rgba(0,212,255,0.08);
+    0 18px 55px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(255, 214, 107, 0.1),
+    inset 0 1px 0 rgba(255, 214, 107, 0.15);
 }
 
-/* Ripple rings behind text */
+/* Gold glow sweep */
+.pb-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+
+  background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.03) 40%, rgba(255, 214, 107, 0.1) 50%, rgba(255, 255, 255, 0.03) 60%, transparent 80%);
+
+  pointer-events: none;
+}
+
+/* Ripple rings */
+
 .pb-ripple {
   position: absolute;
   border-radius: 50%;
-  border: 1px solid rgba(0,212,255,0.13);
+  border: 1px solid rgba(255, 214, 107, 0.18);
   pointer-events: none;
   z-index: 0;
   animation: pbRipple 6s ease-out infinite;
 }
-.pb-ripple--1 { width: 120px; height: 120px; right: 26%; top: 10%; animation-delay: 0s;   animation-duration: 5.5s; }
-.pb-ripple--2 { width: 190px; height: 190px; right: 20%; top: -5%; animation-delay: 0.8s; animation-duration: 7s; }
-.pb-ripple--3 { width: 100px; height: 100px; right: 9%;  top: 30%; animation-delay: 1.5s; animation-duration: 6s; }
-@keyframes pbRipple {
-  0%   { transform: scale(0.65); opacity: 0.7; }
-  60%  {                         opacity: 0.2; }
-  100% { transform: scale(1.3);  opacity: 0; }
+
+.pb-ripple--1 {
+  width: 120px;
+  height: 120px;
+  right: 26%;
+  top: 10%;
+  animation-delay: 0s;
 }
 
-/* Fish — same positioning pattern as CTABanner */
+.pb-ripple--2 {
+  width: 190px;
+  height: 190px;
+  right: 20%;
+  top: -5%;
+  animation-delay: 0.8s;
+}
+
+.pb-ripple--3 {
+  width: 100px;
+  height: 100px;
+  right: 9%;
+  top: 30%;
+  animation-delay: 1.5s;
+}
+
+@keyframes pbRipple {
+  0% {
+    transform: scale(0.65);
+    opacity: 0.65;
+  }
+
+  60% {
+    opacity: 0.18;
+  }
+
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+/* Fish */
+
 .pb-fish {
   position: absolute;
   pointer-events: none;
   z-index: 1;
+  filter: drop-shadow(0 0 12px rgba(255, 214, 107, 0.18)) drop-shadow(0 0 28px rgba(246, 196, 83, 0.12));
 }
-.pb-fish--a { width: 220px; height: 220px; right: 6%;  top: -40px; }
-.pb-fish--b { width: 170px; height: 170px; right: 22%; bottom: -25px; }
 
-/* Content row */
+.pb-fish--a {
+  width: 420px;
+  height: 420px;
+  right: 6%;
+  top: -40px;
+}
+
+.pb-fish--b {
+  width: 370px;
+  height: 370px;
+  right: 22%;
+  bottom: -25px;
+}
+
+/* Content */
+
 .pb-content {
   position: relative;
   z-index: 2;
   display: flex;
   align-items: center;
   gap: 18px;
-  max-width: 62%;   /* leave room for fish on the right */
+  max-width: 62%;
   flex-wrap: wrap;
 }
 
 .pb-icon {
-  font-size: 26px;
-  color: #00d4ff;
+  font-size: 28px;
+  color: #ffd66b;
   flex-shrink: 0;
-  opacity: 0.85;
-}
 
-.pb-text { flex: 1; min-width: 0; }
+  filter: drop-shadow(0 0 10px rgba(255, 214, 107, 0.35));
+}
 
 .pb-headline {
   font-family: "Oswald", sans-serif;
   font-size: 20px;
   font-weight: 600;
-  color: #e8f0fe;
   letter-spacing: 0.3px;
-  margin-bottom: 4px;
+
+  color: #fff7d6;
+
+  text-shadow: 0 0 12px rgba(255, 214, 107, 0.15);
 }
 
 .pb-body {
   font-size: 13.5px;
-  line-height: 1.55;
-  color: #7a9ab0;
+  line-height: 1.6;
+  color: #c9b17c;
   margin: 0;
 }
-.pb-body strong { color: #00d4ff; }
+
+.pb-body strong {
+  color: #ffd66b;
+  font-weight: 700;
+}
 
 .pb-lock {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 14px;
-  border-radius: 100px;
-  border: 1px solid rgba(0,212,255,0.28);
-  background: rgba(0,212,255,0.07);
-  color: #00d4ff;
+
+  padding: 7px 14px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(255, 214, 107, 0.3);
+
+  background: linear-gradient(180deg, rgba(255, 214, 107, 0.15), rgba(166, 106, 28, 0.12));
+
+  color: #ffd66b;
   font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-  flex-shrink: 0;
+  font-weight: 700;
+
+  box-shadow: 0 0 18px rgba(255, 214, 107, 0.08);
 }
 
-/* Dismiss button */
+/* Dismiss */
+
 .pb-dismiss {
   position: absolute;
-  top: 14px; right: 14px;
+  top: 14px;
+  right: 14px;
+  display: none;
   background: none;
   border: none;
-  color: #7a9ab0;
+
+  color: #b89756;
   font-size: 18px;
   cursor: pointer;
+
   z-index: 5;
   padding: 4px;
-  border-radius: 50%;
-  transition: color 0.2s, background 0.2s;
-}
-.pb-dismiss:hover { color: #e8f0fe; background: rgba(255,255,255,0.06); }
 
+  border-radius: 50%;
+
+  transition: all 0.25s ease;
+}
+
+.pb-dismiss:hover {
+  color: #ffd66b;
+  background: rgba(255, 214, 107, 0.08);
+}
 /* ── Loading skeleton ── */
 .pricing-skeleton {
   display: grid;
@@ -440,19 +519,18 @@
 .pricing-skeleton-card {
   height: 420px;
   border-radius: 20px;
-  background: linear-gradient(
-    90deg,
-    #0d1128 0%,
-    #141a35 40%,
-    #0d1128 80%
-  );
+  background: linear-gradient(90deg, #0d1128 0%, #141a35 40%, #0d1128 80%);
   background-size: 200% 100%;
   animation: shimmer 1.6s linear infinite;
-  border: 1px solid rgba(0,212,255,0.07);
+  border: 1px solid rgba(0, 212, 255, 0.07);
 }
 @keyframes shimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* ── Error state ── */
@@ -465,16 +543,26 @@
   text-align: center;
   color: #7a9ab0;
 }
-.pricing-error svg { font-size: 28px; color: #ff8080; }
-.pricing-error p   { font-size: 15px; color: #c0d0e0; margin: 0; }
-.pricing-error small { font-size: 12px; color: #3a5a70; }
+.pricing-error svg {
+  font-size: 28px;
+  color: #ff8080;
+}
+.pricing-error p {
+  font-size: 15px;
+  color: #c0d0e0;
+  margin: 0;
+}
+.pricing-error small {
+  font-size: 12px;
+  color: #3a5a70;
+}
 
 /* ── Savings badge ── */
 .pricing-savings {
   font-size: 12px;
   color: #00d4ff;
-  background: rgba(0,212,255,0.08);
-  border: 1px solid rgba(0,212,255,0.2);
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.2);
   border-radius: 100px;
   padding: 4px 12px;
   display: inline-block;
@@ -484,12 +572,33 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .pb-content { max-width: 100%; }
-  .pb-fish--a { width: 150px; height: 150px; right: 4%; top: auto; bottom: 50px; }
-  .pb-fish--b { display: none; }
-  .pb-ripple--2, .pb-ripple--3 { display: none; }
-  .pb-banner { padding: 24px 44px 24px 24px; }
+  .pb-content {
+    max-width: 100%;
+  }
+  .pb-fish--a {
+    width: 150px;
+    height: 150px;
+    right: 4%;
+    top: auto;
+    bottom: 50px;
+  }
+  .pb-fish--b {
+    display: none;
+  }
+  .pb-ripple--2,
+  .pb-ripple--3 {
+    display: none;
+  }
+  .pb-banner {
+    padding: 24px 44px 24px 24px;
+  }
 
-  .pricing-skeleton { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
-  .pricing-skeleton-card { height: 320px; }
+  .pricing-skeleton {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .pricing-skeleton-card {
+    height: 320px;
+  }
 }

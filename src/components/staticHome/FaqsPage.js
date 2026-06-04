@@ -6,7 +6,7 @@ export default function FaqsPage() {
   return (
     <>
       <UserGuides />
-      <ContactSection />
+      {/* <ContactSection /> */}
     </>
   );
 }

@@ -5,9 +5,10 @@ import { Suspense } from "react";
 import { useFrame } from "@react-three/fiber";
 import { FiCheck, FiLock, FiX, FiAlertCircle } from "react-icons/fi";
 import FishModel from "./FishModel";
+import { useNavigate } from "react-router-dom";
 
 /* ── API ─────────────────────────────────────────────── */
-const API_BASE = "https://aquaai.uk/api/v1";
+const API_BASE = "https://api.aquaai.uk/api/v1";
 const PLANS_URL = `${API_BASE}/subscription/subscription/public-plans/`;
 
 /* ── Fish for promo banner (same pattern as CTABanner) ── */
@@ -72,7 +73,7 @@ function PromoBanner({ usersPromo, breederPromo, onDismiss }) {
           <FiAlertCircle />
         </div>
         <div className="pb-text">
-          <p className="pb-headline">🎉 Early Adopter Pricing is Live!</p>
+          <p className="pb-headline">Early Adopter Pricing is Live!</p>
           <p className="pb-body">
             {hasUserPromo && (
               <span>
@@ -86,9 +87,9 @@ function PromoBanner({ usersPromo, breederPromo, onDismiss }) {
             )}
             Lock in your rate for life while subscribed.
           </p>
-        </div>
-        <div className="pb-lock">
-          <FiLock /> Locked in for life
+          <div className="pb-lock mt-3">
+            <FiLock /> Locked in for life
+          </div>
         </div>
       </div>
 
@@ -109,7 +110,7 @@ function featureLabel(key, value) {
     allow_pond: () => "Pond Support",
     disease_detection: () => "Disease Detection",
     water_parameter_interpretation: () => "Water Parameter Interpretation",
-    ai_chat: (_, p) => (p.ai_chat_monthly_limit ? `AI Chat (${p.ai_chat_monthly_limit}/mo)` : "AI Chat"),
+    ai_chat: (_, p) => (p?.ai_chat_monthly_limit ? `AI Chat (${p.ai_chat_monthly_limit}/mo)` : "AI Chat"),
     ai_maintenance_suggestions: () => "AI Maintenance Suggestions",
     historical_tracking: () => "Historical Tracking",
     advanced_analytics: () => "Advanced Analytics",
@@ -154,6 +155,8 @@ function planFeatureList(features) {
 
 /* ── Single Plan Card ─────────────────────────────────── */
 function PlanCard({ plan, annual, highlight, popularLabel }) {
+  const navigate = useNavigate();
+
   const pricing = annual ? plan.yearly : plan.monthly;
   const hasPromo = plan.promotion?.available;
   const price = hasPromo ? pricing.promo_price : pricing.discounted_price;
@@ -194,7 +197,14 @@ function PlanCard({ plan, annual, highlight, popularLabel }) {
         ))}
       </ul>
 
-      <button className={`pricing-cta${highlight ? " pricing-cta--primary" : ""}`}>{plan.key === "free" ? "Get Started Free" : "Get Started"}</button>
+      <button
+        onClick={() => {
+          navigate("/register");
+        }}
+        className={`pricing-cta${highlight ? " pricing-cta--primary" : ""}`}
+      >
+        {plan.key === "free" ? "Get Started Free" : "Get Started"}
+      </button>
     </div>
   );
 }
@@ -205,6 +215,7 @@ function UserPlans({ plans, annual }) {
   const userPlans = userKeys.map((k) => plans.find((p) => p.key === k)).filter(Boolean);
   return (
     <div className="pricing-grid">
+      {console.log("plans", userPlans)}
       {userPlans.map((plan) => (
         <PlanCard key={plan.key} plan={plan} annual={annual} highlight={plan.key === "premium"} popularLabel={plan.key === "premium" ? "Most Popular" : null} />
       ))}

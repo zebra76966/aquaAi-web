@@ -3,7 +3,7 @@
 .about-section {
   width: 100%;
   background: #08091a;
-  padding: 100px 40px;
+  padding: 90px 40px 80px;
   font-family: "Inter", sans-serif;
   overflow: hidden;
 }
@@ -11,13 +11,16 @@
 .about-inner {
   max-width: 1200px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-/* ── Left copy ── */
+/* ── Heading centred ── */
+.about-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
 .about-eyebrow {
   font-size: 12px;
   font-weight: 600;
@@ -28,142 +31,112 @@
 }
 .about-title {
   font-family: "Oswald", sans-serif;
-  font-size: clamp(28px, 3.5vw, 48px);
-  font-weight: 600;
+  font-size: clamp(32px, 5vw, 60px);
+  font-weight: 700;
   color: #e8f0fe;
-  line-height: 1.12;
-  margin-bottom: 28px;
+  line-height: 1.1;
   letter-spacing: 0.5px;
 }
 .about-accent {
   color: #00d4ff;
 }
-.about-body {
-  font-size: 15.5px;
-  line-height: 1.75;
-  color: #7a9ab0;
-  margin-bottom: 18px;
-}
-.about-pills {
+
+/* ══════════════════════════════════════════
+   VISUAL: phone + floating pills
+   ══════════════════════════════════════════ */
+.about-visual {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  /* Height driven by the phone — roughly 560px visible phone + spacing */
+  height: 620px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 28px;
-}
-.about-pill {
-  padding: 7px 16px;
-  border-radius: 100px;
-  border: 1px solid rgba(0, 212, 255, 0.25);
-  color: #00d4ff;
-  font-size: 13px;
-  font-weight: 500;
-  background: rgba(0, 212, 255, 0.06);
-  transition:
-    background 0.25s,
-    border-color 0.25s;
-}
-.about-pill:hover {
-  background: rgba(0, 212, 255, 0.12);
-  border-color: rgba(0, 212, 255, 0.5);
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 56px;
 }
 
-/* ── Mockup wrapper ── */
-.about-mockup {
+/* ── Centred phone ── */
+.about-phone-wrap {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  z-index: 5;
+  flex-shrink: 0;
 }
-.mockup-glow {
+
+.about-phone-glow {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
 }
-.mockup-glow--1 {
-  width: 420px;
-  height: 420px;
-  background: radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, transparent 65%);
+.about-phone-glow:first-child {
+  width: 460px;
+  height: 460px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 65%);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.mockup-glow--2 {
-  width: 260px;
-  height: 260px;
-  background: radial-gradient(circle, rgba(0, 80, 180, 0.14) 0%, transparent 65%);
-  bottom: -40px;
-  right: 10%;
+.about-phone-glow--2 {
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(0, 80, 180, 0.12) 0%, transparent 65%);
+  bottom: -30px;
+  right: -20px;
 }
 
-/* ══════════════════════════════════
-   iPHONE FRAME — fixed structure
-   All children stack vertically:
-   island → statusbar → screen → bar
-   ══════════════════════════════════ */
-
-.iphone-frame {
+/* iPhone */
+.ab-iphone {
   position: relative;
   z-index: 1;
-  width: 300px;
+  width: 260px;
   background: #14161f;
-  border-radius: 48px;
+  border-radius: 44px;
   border: 1.5px solid rgba(255, 255, 255, 0.12);
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.8),
-    0 40px 80px rgba(0, 0, 0, 0.7),
-    0 20px 40px rgba(0, 0, 0, 0.5),
-    0 0 60px rgba(0, 212, 255, 0.1),
+    0 36px 72px rgba(0, 0, 0, 0.7),
+    0 0 50px rgba(0, 212, 255, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  /* CRITICAL: flex column so children stack naturally */
+  padding: 13px 9px 16px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: 14px 10px 18px;
-  gap: 0;
-  transform: perspective(1000px) rotateY(-4deg) rotateX(2deg);
-  transition: transform 0.6s ease;
-}
-.iphone-frame:hover {
-  transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
 }
 
 /* Side buttons */
-.iphone-frame::before {
+.ab-iphone::before {
   content: "";
   position: absolute;
   left: -3px;
-  top: 100px;
+  top: 88px;
   width: 3px;
-  height: 32px;
+  height: 28px;
   background: rgba(255, 255, 255, 0.12);
   border-radius: 2px 0 0 2px;
   box-shadow:
-    0 44px 0 rgba(255, 255, 255, 0.12),
-    0 82px 0 rgba(255, 255, 255, 0.12);
+    0 38px 0 rgba(255, 255, 255, 0.12),
+    0 74px 0 rgba(255, 255, 255, 0.12);
 }
-.iphone-frame::after {
+.ab-iphone::after {
   content: "";
   position: absolute;
   right: -3px;
-  top: 138px;
+  top: 116px;
   width: 3px;
-  height: 68px;
+  height: 56px;
   background: rgba(255, 255, 255, 0.12);
   border-radius: 0 2px 2px 0;
 }
 
-/* Dynamic Island — first child, centred above status bar */
-.iphone-island {
-  width: 100px;
-  height: 30px;
+.ab-island {
+  width: 90px;
+  height: 26px;
   background: #000;
   border-radius: 100px;
-  margin: 0 auto 10px;
+  margin: 0 auto 8px;
   flex-shrink: 0;
 }
-
-/* Status bar — second child, simple flex row */
-.iphone-statusbar {
+.ab-statusbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -175,64 +148,51 @@
   width: 100%;
   padding: 10px 14px 8px;
 }
-.iphone-time {
-  font-size: 13px;
+
+.ab-time {
+  font-size: 12px;
   font-weight: 700;
   font-family: "Inter", sans-serif;
-  letter-spacing: 0.3px;
 }
-.iphone-statusbar-icons {
+.ab-statusbar-icons {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 }
 
-/* Screen — third child, clips the scrolling screenshot */
-.iphone-screen {
+.ab-screen {
   position: relative;
   background: #0d1128;
   border-radius: 28px;
   overflow: hidden;
-  height: 520px;
-  border: 1px solid rgba(0, 212, 255, 0.06);
+  height: 440px;
   flex-shrink: 0;
+  border: 1px solid rgba(0, 212, 255, 0.06);
 }
-
-/* Fade masks */
-.iphone-fade {
+.ab-fade {
   position: absolute;
   left: 0;
   right: 0;
-  height: 55px;
+  height: 50px;
   pointer-events: none;
   z-index: 2;
 }
-.iphone-fade--top {
+.ab-fade--top {
   top: 0;
   background: linear-gradient(to bottom, #0d1128, transparent);
 }
-.iphone-fade--bottom {
+.ab-fade--bottom {
   bottom: 0;
   background: linear-gradient(to top, #0d1128, transparent);
 }
-
-/* Scrolling track */
-.iphone-scroll-track {
+.ab-scroll-track {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  animation: screenshotScroll 18s ease-in-out infinite;
+  animation: aboutScroll 18s ease-in-out infinite;
 }
-.iphone-screenshot {
-  width: 100%;
-  height: auto;
-  display: block;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
-@keyframes screenshotScroll {
+@keyframes aboutScroll {
   0%,
   8% {
     transform: translateY(0%);
@@ -246,47 +206,183 @@
     transform: translateY(0%);
   }
 }
-
-/* Home bar — fourth child */
-.iphone-home-bar {
-  width: 100px;
+.ab-screenshot {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.ab-home-bar {
+  width: 80px;
   height: 4px;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.22);
   border-radius: 100px;
-  margin: 14px auto 0;
+  margin: 10px auto 0;
   flex-shrink: 0;
 }
 
+/* ── Feature pills ── */
+.about-pill {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  z-index: 4;
+}
+
+/* Left pills: pill → connector → dot (right-to-left order in DOM, flex row) */
+.about-pill--left {
+  right: calc(50% + 130px + 30px); /* 130 = half phone width, 30 = gap */
+  flex-direction: row;
+  transform: translateY(-50%);
+}
+
+/* Right pills: dot → connector → pill */
+.about-pill--right {
+  left: calc(50% + 130px + 30px);
+  flex-direction: row;
+  transform: translateY(-50%);
+}
+
+.about-pill-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: rgba(13, 17, 40, 0.92);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  border-radius: 100px;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  color: #e8f0fe;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.4),
+    0 0 12px rgba(0, 212, 255, 0.08);
+  backdrop-filter: blur(8px);
+}
+
+.about-pill-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 212, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00d4ff;
+  flex-shrink: 0;
+}
+
+/* Dotted connector line */
+.about-connector {
+  width: 60px;
+  height: 1px;
+  flex-shrink: 0;
+  background: none;
+  border-top: 1.5px dashed rgba(0, 212, 255, 0.3);
+}
+
+/* Dot at the phone-side end */
+.about-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00d4ff;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(0, 212, 255, 0.7);
+}
+
+/* ── Body copy ── */
+.about-copy {
+  max-width: 700px;
+  text-align: center;
+}
+.about-body {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: #7a9ab0;
+  margin-bottom: 18px;
+}
+
 /* ── Responsive ── */
-@media (max-width: 1000px) {
-  .about-inner {
-    grid-template-columns: 1fr;
-    gap: 70px;
+@media (max-width: 900px) {
+  .about-visual {
+    height: auto;
+    flex-direction: column;
+    gap: 40px;
   }
-  .about-mockup {
-    order: -1;
-  }
-  .iphone-frame {
+  .about-pill {
+    position: static;
     transform: none;
-    width: 280px;
   }
-  .iphone-screen {
-    height: 490px;
+  .about-pill--left,
+  .about-pill--right {
+    left: auto;
+    right: auto;
+  }
+  .about-connector,
+  .about-dot {
+    display: none;
+  }
+
+  /* Show pills as a horizontal wrap below the phone */
+  .about-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .about-visual::after {
+    content: "";
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  /* Re-layout pills in a flex row below phone */
+  .about-pill {
+    position: relative;
+    top: auto !important;
+  }
+  .about-pill--left .about-pill-inner,
+  .about-pill--right .about-pill-inner {
+    font-size: 12px;
+    padding: 7px 13px;
   }
 }
+
+/* On mobile, hide the orbiting pill layout entirely and just show pills in a row */
+@media (max-width: 900px) {
+  .about-visual {
+    height: auto;
+    position: relative;
+  }
+  /* Stack: phone then pills row */
+  .about-pill {
+    position: static;
+    transform: none;
+    flex-direction: row;
+  }
+  .about-pill--left,
+  .about-pill--right {
+    left: auto;
+    right: auto;
+  }
+}
+
 @media (max-width: 480px) {
   .about-section {
-    padding: 70px 20px;
+    padding: 64px 20px 56px;
   }
-  .iphone-frame {
-    width: 255px;
+  .ab-iphone {
+    width: 240px;
     border-radius: 40px;
   }
-  .iphone-island {
-    width: 85px;
-    height: 26px;
+  .ab-island {
+    width: 80px;
+    height: 24px;
   }
-  .iphone-screen {
-    height: 440px;
+  .ab-screen {
+    height: 400px;
   }
 }

@@ -177,3 +177,62 @@
     padding: 70px 20px;
   }
 }
+
+/* ── Subtitle ── */
+.ug-subtitle {
+  font-size: 14px;
+  color: #7a9ab0;
+  margin-top: 8px;
+}
+
+/* ── Video dot indicator on accordion question ── */
+.ug-question-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ug-video-dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #ff4444;
+  flex-shrink: 0;
+  box-shadow: 0 0 5px rgba(255,68,68,0.6);
+}
+/* Legend dot in subtitle */
+.ug-dot-legend {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #ff4444;
+  margin: 0 2px;
+  vertical-align: middle;
+  box-shadow: 0 0 5px rgba(255,68,68,0.5);
+}
+
+/* ── YouTube video link inside accordion answer ── */
+.ug-video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ff4444;
+  text-decoration: none;
+  padding: 7px 14px;
+  border-radius: 100px;
+  border: 1px solid rgba(255,68,68,0.3);
+  background: rgba(255,68,68,0.06);
+  transition: all 0.25s;
+}
+.ug-video-link:hover {
+  background: rgba(255,68,68,0.12);
+  border-color: rgba(255,68,68,0.55);
+  color: #ff6666;
+  transform: translateY(-1px);
+}
+.ug-yt-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}

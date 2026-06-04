@@ -30,21 +30,31 @@ export default function Navbar() {
             <span>AQUA AI</span>
           </a>
 
+          <Link to="/download" className="navbar-download d-none d-lg-inline" onClick={close}>
+            <FiDownload className="navbar-download-icon" />
+            Download App
+          </Link>
+
           {/* Right side: Download + Menu */}
           <div className="navbar-right">
-            <Link to="/download" className="navbar-download" onClick={close}>
+            <Link to="/login" className="navbar-download d-none d-lg-inline" onClick={close}>
               <FiDownload className="navbar-download-icon" />
-              Download App
+              Login
             </Link>
             <button
-              className="nav-footer-btn nav-footer-btn--outline"
+              className="nav-footer-btn nav-footer-btn--outline d-none d-lg-inline"
               onClick={() => {
                 navigate("/register");
                 close();
               }}
             >
-              Signup
+              Join Now
             </button>
+
+            <Link to="/download" className="navbar-download d-inline d-lg-none" onClick={close}>
+              <FiDownload className="navbar-download-icon" />
+              Download
+            </Link>
 
             <button className="navbar-menu-btn" onClick={() => setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>
               <span className="navbar-menu-label">MENU</span>

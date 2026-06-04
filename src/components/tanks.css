@@ -604,3 +604,68 @@
   .hb-grid { grid-template-columns: 1fr; }
   .hb-params { grid-template-columns: repeat(4, 1fr); }
 }
+
+/* ═══════════════════════════════════════════
+   ADD SPECIES BUTTON + APP MODAL (TankDetail)
+   ═══════════════════════════════════════════ */
+.td-add-species-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 24px;
+  border-radius: 100px;
+  border: 1.5px solid rgba(0,212,255,0.3);
+  background: rgba(0,212,255,0.07);
+  color: #00d4ff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.25s;
+}
+.td-add-species-btn:hover {
+  background: rgba(0,212,255,0.14);
+  border-color: rgba(0,212,255,0.55);
+  transform: translateY(-1px);
+}
+
+.td-app-cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border-radius: 100px;
+  background: #00d4ff;
+  color: #08091a;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,212,255,0.3);
+  transition: background 0.25s, box-shadow 0.25s, transform 0.2s;
+}
+.td-app-cta-btn:hover {
+  background: #33ddff;
+  box-shadow: 0 10px 28px rgba(0,212,255,0.45);
+  transform: translateY(-2px);
+  color: #08091a;
+}
+
+.td-modal-dismiss-btn {
+  background: none;
+  border: none;
+  color: rgba(232,240,254,0.4);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 6px;
+  font-family: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+.td-modal-dismiss-btn:hover { color: rgba(232,240,254,0.7); }
+
+/* Add Habitat via app — modal is handled by Bootstrap Modal in dashboard.js */
+/* no extra CSS needed — reuses premium-modal-content */

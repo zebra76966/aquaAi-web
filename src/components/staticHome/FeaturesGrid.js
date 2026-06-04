@@ -1,7 +1,29 @@
 import "./FeaturesGrid.css";
 import { FiCamera, FiAlertCircle, FiDroplet, FiCalendar, FiShoppingCart, FiUsers, FiTrendingUp, FiShoppingBag, FiStore, FiBookOpen, FiMessageSquare, FiStar, FiShield } from "react-icons/fi";
-
 import { FaStore } from "react-icons/fa";
+import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
+import FishModel from "./FishModel";
+
+/* Same Fish component as HeroLanding — uses identical CSS classes */
+function Fish({ className, animationSpeed = 1 }) {
+  return (
+    <div className={`fish ${className}`}>
+      <div className="fish-inner">
+        <Canvas camera={{ position: [0, 0, 8], fov: 35 }}>
+          <ambientLight intensity={2} />
+          <directionalLight position={[5, 5, 5]} intensity={2} />
+          <directionalLight position={[-5, -2, -5]} intensity={1} />
+          <Suspense fallback={null}>
+            <group rotation={[Math.PI / 2, 0, 0]}>
+              <FishModel animationSpeed={animationSpeed} />
+            </group>
+          </Suspense>
+        </Canvas>
+      </div>
+    </div>
+  );
+}
 
 const FEATURES = [
   { icon: FiCamera, name: "Species Identification", tier: null, body: "Scan your tank with your camera or upload an image. AI identifies species from a database of 20,000+ aquatic life." },
@@ -21,8 +43,20 @@ const FEATURES = [
 
 export default function FeaturesGrid() {
   return (
-    <section className="features-section" id="features">
-      <div className="features-inner">
+    <section className="features-section" id="features" style={{ position: "relative", overflow: "hidden" }}>
+      {/* Fish flock — identical classes + speeds to HeroLanding */}
+      <div className="fish-flock fg-fish-flock">
+        <Fish className="swim-lr-1 size-xl"              animationSpeed={1.0} />
+        <Fish className="swim-lr-floaty size-lg over-text" animationSpeed={0.9} />
+        <Fish className="swim-rl-1 size-xl tint-dark"    animationSpeed={0.6} />
+        <Fish className="swim-rl-floaty size-lg over-text" animationSpeed={1.3} />
+        <Fish className="swim-tb-1 size-xl tint-warm"    animationSpeed={1.2} />
+        <Fish className="swim-bt-1 size-lg tint-cool over-text" animationSpeed={0.8} />
+        <Fish className="swim-diag-1 size-xl tint-dark over-text" animationSpeed={0.7} />
+        <Fish className="swim-diag-2 size-xl over-text"  animationSpeed={1.3} />
+      </div>
+
+      <div className="features-inner" style={{ position: "relative", zIndex: 5 }}>
         <div className="features-heading">
           <p className="features-eyebrow">Powerful Features</p>
           <h2 className="features-title">

@@ -10,6 +10,7 @@ import UserGuides from "./UserGuides";
 import CTABanner from "./CTABanner"; // existing CTA card
 import ContactSection from "./ContactSection";
 import Footer from "./Footer"; // existing footer
+import SocialsSection from "./SocialsSection";
 const Home = () => {
   return (
     <>
@@ -22,8 +23,9 @@ const Home = () => {
       {/* <HowItWorks /> */}
       {/* <PricingSection /> */}
       {/* <UserGuides /> */}
+      <SocialsSection />
       <CTABanner />
-      <ContactSection />
+      {/* <ContactSection /> */}
     </>
   );
 };
