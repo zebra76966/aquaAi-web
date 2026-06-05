@@ -38,8 +38,7 @@ export default function Navbar() {
           {/* Right side: Download + Menu */}
           <div className="navbar-right">
             <Link to="/login" className="navbar-download d-none d-lg-inline" onClick={close}>
-              <FiDownload className="navbar-download-icon" />
-              Login
+              Welcome Back
             </Link>
             <button
               className="nav-footer-btn nav-footer-btn--outline d-none d-lg-inline"
@@ -48,7 +47,7 @@ export default function Navbar() {
                 close();
               }}
             >
-              Join Now
+              Join US
             </button>
 
             <Link to="/download" className="navbar-download d-inline d-lg-none" onClick={close}>

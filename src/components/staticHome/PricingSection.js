@@ -69,23 +69,35 @@ function PromoBanner({ usersPromo, breederPromo, onDismiss }) {
 
       {/* Content */}
       <div className="pb-content">
-        <div className="pb-icon">
-          <FiAlertCircle />
-        </div>
         <div className="pb-text">
-          <p className="pb-headline">Early Adopter Pricing is Live!</p>
+          <div className="d-flex align-items-center gap-2 mb-2">
+            <div className="pb-icon">
+              <FiAlertCircle />
+            </div>{" "}
+            <p className="pb-headline mb-0 pb-0">Early Adopter Pricing is Live!</p>
+          </div>
           <p className="pb-body">
             {hasUserPromo && (
               <span>
-                <strong>{usersPromo.slots_remaining}</strong> user spots remaining at launch price.{" "}
+                <strong>{usersPromo.slots_remaining}</strong> Subscribers spots left.{" "}
               </span>
             )}
+
             {hasBreederPromo && (
               <span>
-                <strong>{breederPromo.slots_remaining}</strong> breeder spots left.{" "}
+                <strong>{breederPromo.slots_remaining} </strong>Breeder spots left.{" "}
               </span>
             )}
-            Lock in your rate for life while subscribed.
+
+            <hr />
+
+            {hasUserPromo && (
+              <span className="d-block mt-2">
+                The first 1000 qualifying <strong>Subscribers</strong> (Premium and Pro) and the first 100 qualifying <strong>Breeders</strong> receive grandfathered promotional pricing.{" "}
+              </span>
+            )}
+
+            <span className="d-block mt-2 fw-bold fs-6 mt-2">This rate is locked in for the lifetime of your continuous subscription.</span>
           </p>
           <div className="pb-lock mt-3">
             <FiLock /> Locked in for life
@@ -172,7 +184,7 @@ function PlanCard({ plan, annual, highlight, popularLabel }) {
 
       <div className="pricing-price">
         <span className="pricing-promo">{isFree ? "Free" : fmt(price)}</span>
-        {!isFree && origPrice && origPrice !== price && <span className="pricing-orig">{fmt(origPrice)}</span>}
+        {!isFree && origPrice && origPrice !== price && <span className="pricing-orig fw-bold">{fmt(origPrice)}</span>}
         {!isFree && <span className="pricing-period">{annual ? "/yr" : "/mo"}</span>}
       </div>
 
@@ -244,7 +256,7 @@ function ConsultantPlan() {
         <h3 className="pricing-plan-name">Aquatic Professionals</h3>
         <div className="pricing-price">
           <span className="pricing-promo">£0</span>
-          <span className="pricing-period"> + 10% commission</span>
+          <span className="pricing-period fw-bold "> + 10% commission</span>
         </div>
         <ul className="pricing-features">
           {features.map((f) => (

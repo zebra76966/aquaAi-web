@@ -123,10 +123,10 @@ function DashboardTab({ token }) {
   return (
     <div>
       <div className="bd-stat-row">
-        <div className="bd-stat">
+        {/* <div className="bd-stat">
           <span className="bd-stat-val">{overview?.pending ?? 0}</span>
           <span className="bd-stat-label">Pending Inquiries</span>
-        </div>
+        </div> */}
         <div className="bd-stat">
           <span className="bd-stat-val">{overview?.species ?? 0}</span>
           <span className="bd-stat-label">Species Listed</span>

@@ -72,7 +72,7 @@ export default function SocialsSection() {
         </div>
 
         {/* Messaging & Support */}
-        <div className="sc-block">
+        {/* <div className="sc-block">
           <h3 className="sc-block-title">
             <FiMessageCircle size={16} /> Messaging & Support
           </h3>
@@ -81,7 +81,7 @@ export default function SocialsSection() {
               <ChannelCard key={ch.label} {...ch} />
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Social Media */}
         <div className="sc-block">

@@ -1,0 +1,109 @@
+.faq-section {
+  border-top: 1px solid rgba(0,212,255,0.07);
+}
+
+.faq-inner {
+  max-width: 1060px;
+}
+
+/* ── Two-column layout: sidebar + panel ── */
+.faq-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* ── Category sidebar ── */
+.faq-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: sticky;
+  top: 96px;
+}
+
+.faq-cat-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 11px 16px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #7a9ab0;
+  font-family: "Inter", sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.faq-cat-btn:hover {
+  color: #e8f0fe;
+  background: rgba(0,212,255,0.05);
+}
+.faq-cat-btn.active {
+  color: #00d4ff;
+  background: rgba(0,212,255,0.08);
+  border-color: rgba(0,212,255,0.2);
+}
+
+.faq-cat-count {
+  font-size: 11px;
+  font-weight: 700;
+  color: inherit;
+  background: rgba(0,212,255,0.12);
+  border-radius: 100px;
+  padding: 2px 7px;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+.faq-cat-btn.active .faq-cat-count { opacity: 1; }
+
+/* ── Questions panel ── */
+.faq-panel-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.faq-panel-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #e8f0fe;
+  letter-spacing: 0.3px;
+}
+.faq-panel-count {
+  font-size: 12px;
+  color: #7a9ab0;
+  font-weight: 600;
+}
+
+.faq-accordion .ug-answer p {
+  white-space: pre-line;
+}
+
+/* ── Responsive ── */
+@media (max-width: 780px) {
+  .faq-layout {
+    grid-template-columns: 1fr;
+  }
+  .faq-sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .faq-cat-btn {
+    padding: 7px 14px;
+    font-size: 12px;
+    border-radius: 100px;
+    border: 1.5px solid rgba(0,212,255,0.15);
+  }
+  .faq-cat-btn.active { border-color: rgba(0,212,255,0.4); }
+  .faq-cat-count { display: none; }
+}
