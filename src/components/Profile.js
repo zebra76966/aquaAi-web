@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import AccountDangerZone from "./auth/AccountDangerZone";
 import { AuthContext } from "./auth/authcontext";
 import { baseUrl } from "./auth/config";
 import { motion, AnimatePresence } from "framer-motion";
@@ -44,7 +45,10 @@ export default function Profile() {
       const res = await fetch(`${baseUrl}/user/profile/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (res.status === 401) { handleUnauthorized(); return; }
+      if (res.status === 401) {
+        handleUnauthorized();
+        return;
+      }
       if (!res.ok) return;
       const json = await res.json();
       const data = json?.data || json;
@@ -84,9 +88,7 @@ export default function Profile() {
         handleUnauthorized();
         return;
       }
-      const [myJson, defsJson, trustJson] = await Promise.all([
-        myRes.json(), defsRes.json(), trustRes.json(),
-      ]);
+      const [myJson, defsJson, trustJson] = await Promise.all([myRes.json(), defsRes.json(), trustRes.json()]);
       setBadges(myJson?.data?.recently_earned || []);
       setBadgeDefs(defsJson?.data || []);
       setTrust(trustJson?.data || null);
@@ -165,15 +167,11 @@ export default function Profile() {
         <aside className="prof-sidebar">
           {/* Avatar */}
           <div className="prof-avatar-wrap">
-            {profileImage ? (
-              <img src={profileImage} alt="Profile" className="prof-avatar" />
-            ) : (
-              <div className="prof-avatar-placeholder">
-                {firstName ? firstName[0].toUpperCase() : "?"}
-              </div>
-            )}
+            {profileImage ? <img src={profileImage} alt="Profile" className="prof-avatar" /> : <div className="prof-avatar-placeholder">{firstName ? firstName[0].toUpperCase() : "?"}</div>}
             <div className="prof-avatar-info">
-              <p className="prof-display-name">{firstName} {lastName}</p>
+              <p className="prof-display-name">
+                {firstName} {lastName}
+              </p>
               <p className="prof-email-sub">{email}</p>
             </div>
           </div>
@@ -191,7 +189,9 @@ export default function Profile() {
             <div className="prof-trust-card">
               <span className="prof-trust-icon">{tierIcon}</span>
               <div>
-                <p className="prof-trust-tier" style={{ color: tierColor }}>{tierName} Tier</p>
+                <p className="prof-trust-tier" style={{ color: tierColor }}>
+                  {tierName} Tier
+                </p>
                 {trustPoints != null && <p className="prof-trust-pts">{trustPoints} trust points</p>}
               </div>
             </div>
@@ -200,11 +200,7 @@ export default function Profile() {
           {/* Nav */}
           <nav className="prof-nav">
             {SECTIONS.map((s) => (
-              <button
-                key={s.key}
-                className={`prof-nav-item ${activeSection === s.key ? "prof-nav-active" : ""}`}
-                onClick={() => setActiveSection(s.key)}
-              >
+              <button key={s.key} className={`prof-nav-item ${activeSection === s.key ? "prof-nav-active" : ""}`} onClick={() => setActiveSection(s.key)}>
                 <span className="prof-nav-icon">{s.icon}</span>
                 {s.label}
               </button>
@@ -213,7 +209,9 @@ export default function Profile() {
 
           {/* Logout */}
           <button className="prof-logout-btn" onClick={() => setShowLogoutConfirm(true)}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
+            </svg>
             Logout
           </button>
         </aside>
@@ -221,13 +219,14 @@ export default function Profile() {
         {/* Main Content */}
         <main className="prof-main">
           <AnimatePresence mode="wait">
-
             {/* PROFILE */}
             {activeSection === "profile" && (
               <motion.div key="profile" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
                 <h2 className="prof-section-title">Profile Information</h2>
                 {profileLoading ? (
-                  <div className="prof-loading"><div className="prof-spinner" /></div>
+                  <div className="prof-loading">
+                    <div className="prof-spinner" />
+                  </div>
                 ) : (
                   <form onSubmit={handleUpdate}>
                     <div className="prof-form-grid">
@@ -289,7 +288,9 @@ export default function Profile() {
               <motion.div key="badges" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
                 <h2 className="prof-section-title">Badges & Trust Score</h2>
                 {badgeLoading ? (
-                  <div className="prof-loading"><div className="prof-spinner" /></div>
+                  <div className="prof-loading">
+                    <div className="prof-spinner" />
+                  </div>
                 ) : (
                   <>
                     {trust?.trust_score && (
@@ -297,10 +298,14 @@ export default function Profile() {
                         <div className="prof-trust-header">
                           <div>
                             <span className="prof-trust-big-icon">{tierIcon}</span>
-                            <h3 className="prof-trust-big-tier" style={{ color: tierColor }}>{tierName} Tier</h3>
+                            <h3 className="prof-trust-big-tier" style={{ color: tierColor }}>
+                              {tierName} Tier
+                            </h3>
                           </div>
                           <div className="prof-trust-score-circle" style={{ borderColor: tierColor }}>
-                            <span className="prof-trust-score-num" style={{ color: tierColor }}>{trustPoints}</span>
+                            <span className="prof-trust-score-num" style={{ color: tierColor }}>
+                              {trustPoints}
+                            </span>
                             <span className="prof-trust-score-label">pts</span>
                           </div>
                         </div>
@@ -314,13 +319,13 @@ export default function Profile() {
                         <div className="prof-badge-featured-info">
                           <h3 className="prof-badge-name">{resolvedBadge.name}</h3>
                           <p className="prof-badge-desc">{resolvedBadge.description}</p>
-                          {latestBadge?.earned_at && (
-                            <p className="prof-badge-earned">Earned {new Date(latestBadge.earned_at).toLocaleDateString()}</p>
-                          )}
+                          {latestBadge?.earned_at && <p className="prof-badge-earned">Earned {new Date(latestBadge.earned_at).toLocaleDateString()}</p>}
                           {resolvedBadge.authority_signals?.length > 0 && (
                             <div className="prof-badge-signals">
                               {resolvedBadge.authority_signals.map((s, i) => (
-                                <span key={i} className="prof-signal-chip" style={{ borderColor: resolvedBadge.color, color: resolvedBadge.color }}>{s}</span>
+                                <span key={i} className="prof-signal-chip" style={{ borderColor: resolvedBadge.color, color: resolvedBadge.color }}>
+                                  {s}
+                                </span>
                               ))}
                             </div>
                           )}
@@ -369,9 +374,7 @@ export default function Profile() {
                     <span className="prof-credits-num">{referralData.available_credits}</span>
                     <span className="prof-credits-label">Available Credits</span>
                   </div>
-                  <p className="prof-referral-desc">
-                    Share your referral code with friends. When they sign up, you both get discount credits on your next billing cycle!
-                  </p>
+                  <p className="prof-referral-desc">Share your referral code with friends. When they sign up, you both get discount credits on your next billing cycle!</p>
                 </div>
 
                 <div className="prof-code-wrap">
@@ -396,19 +399,31 @@ export default function Profile() {
                         }
                       }}
                     >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="18" cy="5" r="3" />
+                        <circle cx="6" cy="12" r="3" />
+                        <circle cx="18" cy="19" r="3" />
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                      </svg>
                       Share
                     </button>
                   </div>
                 </div>
 
                 <div className="prof-referral-note">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                  </svg>
                   Credits are applied automatically to your next billing cycle.
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
+
+          <AccountDangerZone token={token} userEmail={email} onLogout={handleLogout} />
         </main>
       </div>
 
@@ -420,8 +435,12 @@ export default function Profile() {
               <h3 className="prof-confirm-title">Logout?</h3>
               <p className="prof-confirm-sub">You'll need to sign in again to access your tanks.</p>
               <div className="prof-confirm-actions">
-                <button className="prof-confirm-cancel" onClick={() => setShowLogoutConfirm(false)}>Cancel</button>
-                <button className="prof-confirm-logout" onClick={handleLogout}>Logout</button>
+                <button className="prof-confirm-cancel" onClick={() => setShowLogoutConfirm(false)}>
+                  Cancel
+                </button>
+                <button className="prof-confirm-logout" onClick={handleLogout}>
+                  Logout
+                </button>
               </div>
             </motion.div>
           </motion.div>

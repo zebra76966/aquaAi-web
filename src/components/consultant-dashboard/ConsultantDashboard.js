@@ -37,6 +37,7 @@ import {
 } from "react-icons/fa";
 import { MdBusiness } from "react-icons/md";
 import "./ConsultantDashboard.css";
+import AccountDangerZone from "../auth/AccountDangerZone";
 
 const Spinner = () => <div className="cd-spinner" />;
 const KpiCard = ({ label, value, icon, color, trend }) => (
@@ -1310,6 +1311,15 @@ function ProfileTab({ token }) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <AccountDangerZone
+        token={token}
+        userEmail={email}
+        onLogout={() => {
+          logout();
+          navigate("/login");
+        }}
+      />
     </div>
   );
 }

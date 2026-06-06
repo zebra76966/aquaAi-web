@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "r
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
 import PasswordReset from "./components/auth/passwordReset";
+import PasswordResetVerify from "./components/auth/PasswordResetVerify";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./components/master.css";
@@ -103,6 +104,7 @@ function AppContent() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<PasswordReset />} />
+        <Route path="/resetpw/verify/:token" element={<PasswordResetVerify />} />
         <Route path="/provider-status" element={<ProviderApplicationStatus />} />
         <Route path="/plans" element={<Plans />} />
 

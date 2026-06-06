@@ -18,7 +18,7 @@ export default function PasswordReset() {
 
   useEffect(() => {
     if (urlToken) {
-      fetch(`${baseUrl}/api/v1/user/password-reset/verify/?reset_token=${urlToken}`)
+      fetch(`${baseUrl}/user/password-reset/verify/?reset_token=${urlToken}`)
         .then((res) => {
           if (!res.ok) setMessage("Invalid or expired token.");
         })

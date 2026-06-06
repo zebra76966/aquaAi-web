@@ -40,6 +40,7 @@ import { MdBusiness, MdScience } from "react-icons/md";
 import "./BreederDashboard.css";
 import OrdersTab from "./OrdersTab";
 import ScheduleTab from "./ScheduleTab";
+import AccountDangerZone from "../auth/AccountDangerZone";
 
 // ─── Helpers ─────────────────────────────────────────────────
 const Spinner = () => <div className="bd-spinner" />;
@@ -1538,6 +1539,15 @@ function ProfileTab({ token }) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <AccountDangerZone
+        token={token}
+        userEmail={email}
+        onLogout={() => {
+          logout();
+          navigate("/login");
+        }}
+      />
     </div>
   );
 }

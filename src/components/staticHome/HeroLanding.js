@@ -7,6 +7,9 @@ import { FiDownload, FiMenu, FiClipboard, FiTrendingUp, FiShield, FiMessageCircl
 import { GiWaves } from "react-icons/gi";
 import FishModel from "./FishModel";
 import { useNavigate } from "react-router-dom";
+import SchoolOfFishModel from "./SchoolOfFishModel";
+import { Environment } from "@react-three/drei";
+import * as THREE from "three";
 
 function Fish({ className, animationSpeed = 1 }) {
   return (
@@ -30,6 +33,33 @@ function Fish({ className, animationSpeed = 1 }) {
         </Canvas>
       </div>
     </div>
+  );
+}
+function Fish2() {
+  return (
+    <Canvas
+      camera={{ position: [-1, 2, 14], fov: 50 }}
+      gl={{
+        outputColorSpace: THREE.SRGBColorSpace,
+      }}
+      flat
+    >
+      {/* Low ambient */}
+      <ambientLight intensity={0.25} />
+
+      {/* Main light */}
+      <directionalLight position={[8, 8, 6]} intensity={1.1} color="#ffffff" />
+
+      {/* Cool fill */}
+      <directionalLight position={[-8, 2, 4]} intensity={0.3} color="#d8eeff" />
+
+      {/* Rim */}
+      <directionalLight position={[4, 2, -8]} intensity={0.4} color="#ffffff" />
+
+      <Suspense fallback={null}>
+        <SchoolOfFishModel animationSpeed={1} />
+      </Suspense>
+    </Canvas>
   );
 }
 
@@ -200,11 +230,11 @@ export default function HeroLanding() {
       <motion.div className="content" variants={contentVariants} initial="hidden" animate={contentReveal ? "visible" : "hidden"}>
         <motion.div className="fish-flock" initial={{ opacity: 0 }} animate={{ opacity: introDone ? 1 : 0 }} transition={{ duration: 1.0, ease: "easeOut" }}>
           <Fish className="swim-lr-1 size-xl " animationSpeed={1.0} />
-          {/* <Fish className="swim-lr-2 size-lg tint-cool over-text" animationSpeed={1.4} /> */}
+
           <Fish className="swim-lr-floaty size-lg over-text" animationSpeed={0.9} />
 
           <Fish className="swim-rl-1 size-xl tint-dark" animationSpeed={0.6} />
-          {/* <Fish className="swim-rl-2 size-md tint-cool" animationSpeed={1.1} /> */}
+
           <Fish className="swim-rl-floaty size-lg over-text" animationSpeed={1.3} />
 
           <Fish className="swim-tb-1 size-xl tint-warm" animationSpeed={1.2} />
@@ -213,6 +243,10 @@ export default function HeroLanding() {
           <Fish className="swim-diag-1 size-xl tint-dark over-text" animationSpeed={0.7} />
           <Fish className="swim-diag-2 size-xl over-text" animationSpeed={1.3} />
         </motion.div>
+
+        {/* <motion.div className="fish-flock" initial={{ opacity: 0 }} animate={{ opacity: introDone ? 1 : 0 }} transition={{ duration: 1.0, ease: "easeOut" }}>
+          <Fish2 animationSpeed={1} />
+        </motion.div> */}
 
         <motion.div className="subtitle" variants={itemVariants}>
           SMART CARE. HEALTHY AQUARIUMS.
