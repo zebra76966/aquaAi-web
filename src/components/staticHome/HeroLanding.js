@@ -228,7 +228,7 @@ export default function HeroLanding() {
       <div className="ripple ripple4"></div>
 
       <motion.div className="content" variants={contentVariants} initial="hidden" animate={contentReveal ? "visible" : "hidden"}>
-        {/* <motion.div className="fish-flock" initial={{ opacity: 0 }} animate={{ opacity: introDone ? 1 : 0 }} transition={{ duration: 1.0, ease: "easeOut" }}>
+        <motion.div className="fish-flock" initial={{ opacity: 0 }} animate={{ opacity: introDone ? 1 : 0 }} transition={{ duration: 1.0, ease: "easeOut" }}>
           <Fish className="swim-lr-1 size-xl " animationSpeed={1.0} />
 
           <Fish className="swim-lr-floaty size-lg over-text" animationSpeed={0.9} />
@@ -242,11 +242,11 @@ export default function HeroLanding() {
 
           <Fish className="swim-diag-1 size-xl tint-dark over-text" animationSpeed={0.7} />
           <Fish className="swim-diag-2 size-xl over-text" animationSpeed={1.3} />
-        </motion.div> */}
-
-        <motion.div className="fish-flock" initial={{ opacity: 0 }} animate={{ opacity: introDone ? 1 : 0 }} transition={{ duration: 1.0, ease: "easeOut" }}>
-          <Fish2 animationSpeed={1} />
         </motion.div>
+
+        {/* <motion.div className="fish-flock" initial={{ opacity: 0 }} animate={{ opacity: introDone ? 1 : 0 }} transition={{ duration: 1.0, ease: "easeOut" }}>
+          <Fish2 animationSpeed={1} />
+        </motion.div> */}
 
         <motion.div className="subtitle" variants={itemVariants}>
           SMART CARE. HEALTHY AQUARIUMS.
