@@ -150,11 +150,7 @@ const PlanCard = ({ plan, billing, selected, onSelect }) => {
           <FaBolt size={10} /> Save £{plan.yearly.savings.toFixed(2)} ({plan.yearly.savings_percent}% off)
         </div>
       )}
-      {plan.isPromo && (
-        <div className="br-plan-promo-tag">
-          🔒 Early adopter price — locked in for life
-        </div>
-      )}
+      {plan.isPromo && <div className="br-plan-promo-tag">🔒 Early adopter price — locked in for life</div>}
 
       <div className="br-plan-features">
         {KEY_FEATURES.map((k) => {
@@ -270,22 +266,22 @@ export default function BreederApply() {
            We use promo when available, otherwise standard. */
         const normalisedPlans = rawPlans.map((p) => {
           const usePromo = p.promo_pricing?.is_available === true;
-          const mo = usePromo ? p.promo_pricing?.monthly  : p.standard_pricing?.monthly;
-          const yr = usePromo ? p.promo_pricing?.yearly   : p.standard_pricing?.yearly;
+          const mo = usePromo ? p.promo_pricing?.monthly : p.standard_pricing?.monthly;
+          const yr = usePromo ? p.promo_pricing?.yearly : p.standard_pricing?.yearly;
 
           return {
             ...p,
             /* Flat monthly shape PlanCard reads */
             monthly: {
               discounted_price: mo?.discounted_price ?? mo?.original_price ?? 0,
-              original_price:   usePromo ? (p.standard_pricing?.monthly?.original_price ?? 0) : (mo?.original_price ?? 0),
+              original_price: usePromo ? (p.standard_pricing?.monthly?.original_price ?? 0) : (mo?.original_price ?? 0),
             },
             /* Flat yearly shape PlanCard reads — includes savings */
             yearly: {
-              discounted_price:  yr?.discounted_price ?? yr?.original_price ?? 0,
-              original_price:    usePromo ? (p.standard_pricing?.yearly?.original_price ?? 0) : (yr?.original_price ?? 0),
-              savings:           yr?.savings ?? 0,
-              savings_percent:   yr?.savings_percent ?? 0,
+              discounted_price: yr?.discounted_price ?? yr?.original_price ?? 0,
+              original_price: usePromo ? (p.standard_pricing?.yearly?.original_price ?? 0) : (yr?.original_price ?? 0),
+              savings: yr?.savings ?? 0,
+              savings_percent: yr?.savings_percent ?? 0,
             },
             isPromo: usePromo,
           };
@@ -416,12 +412,12 @@ export default function BreederApply() {
         /* Store full checkout data and submit application, then show payment screen */
         await submitApplication();
         setCheckoutData({
-          url:            checkoutUrl,
-          plan_key:       subJson?.data?.plan_key       ?? selectedPlan,
+          url: checkoutUrl,
+          plan_key: subJson?.data?.plan_key ?? selectedPlan,
           billing_period: subJson?.data?.billing_period ?? billing,
           original_price: subJson?.data?.original_price ?? 0,
           discounted_price: subJson?.data?.discounted_price ?? 0,
-          credit_used:    subJson?.data?.credit_used    ?? 0,
+          credit_used: subJson?.data?.credit_used ?? 0,
           launch_pricing: subJson?.data?.launch_pricing_eligible ?? false,
         });
         return;
@@ -450,12 +446,7 @@ export default function BreederApply() {
           <div className="br-blob br-blob-b" />
         </div>
 
-        <motion.div
-          className="br-success br-checkout"
-          initial={{ scale: 0.88, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 180, damping: 20 }}
-        >
+        <motion.div className="br-success br-checkout" initial={{ scale: 0.88, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 180, damping: 20 }}>
           {/* Header */}
           <div className="br-checkout-header">
             <div className="br-checkout-icon">
@@ -499,27 +490,26 @@ export default function BreederApply() {
 
             <div className="br-order-row br-order-total">
               <span>Total due today</span>
-              <span className="br-order-amount">£{checkoutData.discounted_price.toFixed(2)}<small>/{isYearly ? "yr" : "mo"}</small></span>
+              <span className="br-order-amount">
+                £{checkoutData.discounted_price.toFixed(2)}
+                <small>/{isYearly ? "yr" : "mo"}</small>
+              </span>
             </div>
           </div>
 
           {/* CTA */}
           <div className="br-checkout-actions">
-            <a
-              href={checkoutData.url}
-              className="br-checkout-pay-btn"
-              target="_self"
-              rel="noreferrer"
-            >
+            <a href={checkoutData.url} className="br-checkout-pay-btn" target="_self" rel="noreferrer">
               <FaShieldAlt size={15} />
               Complete Payment — £{checkoutData.discounted_price.toFixed(2)}
             </a>
-            <p className="br-checkout-secure">
-              Secured by Stripe · Cancel anytime
-            </p>
+            <p className="br-checkout-secure">Secured by Stripe · Cancel anytime</p>
             <button
               className="br-checkout-skip"
-              onClick={() => { setCheckoutData(null); setSuccess(true); }}
+              onClick={() => {
+                setCheckoutData(null);
+                setSuccess(true);
+              }}
             >
               Pay later — View application status
             </button>
@@ -736,7 +726,7 @@ export default function BreederApply() {
         <div className={`br-agree-box ${agreeTerms ? "checked" : ""}`}>{agreeTerms && <FaCheckCircle size={13} />}</div>
         <p>
           I agree to the{" "}
-          <a href="/terms" target="_blank" rel="noreferrer">
+          <a href="/policies/aquaai_terms_and_conditions.html" target="_blank" rel="noreferrer">
             Terms of Service
           </a>
         </p>
@@ -745,8 +735,8 @@ export default function BreederApply() {
         <div className={`br-agree-box ${agreeGuidelines ? "checked" : ""}`}>{agreeGuidelines && <FaCheckCircle size={13} />}</div>
         <p>
           I agree to the{" "}
-          <a href="/guidelines" target="_blank" rel="noreferrer">
-            Breeder Community Guidelines
+          <a href="/policies/aquaai_marketplace_policy.html" target="_blank" rel="noreferrer">
+            Breeder marketplace Guidelines
           </a>
         </p>
       </div>

@@ -14,8 +14,6 @@ export const startConversation = async (userId, message, token) => {
   });
 
   const data = await res.json();
-  console.log("datas", data);
-  console.log("Start conversation response", data);
 
   if (!res.ok) {
     throw new Error(data?.detail || "Failed to start conversation");
@@ -61,7 +59,6 @@ export const sendMessage = async (conversationId, content, token) => {
   });
 
   const data = await res.json();
-  console.log("Send message response", data);
 
   return data;
 };

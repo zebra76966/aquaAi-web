@@ -191,9 +191,6 @@ export default function ConsultantApply() {
     }
   };
 
-
-
-
   /* ── Success screen ──────────────────────────────── */
   if (success) {
     return (
@@ -211,14 +208,38 @@ export default function ConsultantApply() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}>
             <button
-              onClick={() => { window.location.href = "aquaproviders://"; }}
-              style={{ padding: "13px", borderRadius: "100px", background: "#00d4ff", border: "none", color: "#08091a", fontWeight: 700, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
+              onClick={() => {
+                window.location.href = "aquaproviders://";
+              }}
+              style={{
+                padding: "13px",
+                borderRadius: "100px",
+                background: "#00d4ff",
+                border: "none",
+                color: "#08091a",
+                fontWeight: 700,
+                fontSize: 14,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+              }}
             >
               Return to Aqua Providers App
             </button>
             <button
               onClick={() => navigate("/provider-status")}
-              style={{ padding: "13px", borderRadius: "100px", background: "transparent", border: "1.5px solid rgba(0,212,255,0.3)", color: "#00d4ff", fontWeight: 600, fontSize: 14, cursor: "pointer" }}
+              style={{
+                padding: "13px",
+                borderRadius: "100px",
+                background: "transparent",
+                border: "1.5px solid rgba(0,212,255,0.3)",
+                color: "#00d4ff",
+                fontWeight: 600,
+                fontSize: 14,
+                cursor: "pointer",
+              }}
             >
               View Application Status
             </button>
@@ -310,7 +331,7 @@ export default function ConsultantApply() {
         <div className={`br-agree-box ${agreeTerms ? "checked" : ""}`}>{agreeTerms && <FaCheckCircle size={13} />}</div>
         <p>
           I agree to the{" "}
-          <a href="/terms" target="_blank" rel="noreferrer">
+          <a href="/policies/aquaai_terms_and_conditions.html" target="_blank" rel="noreferrer">
             Terms of Service
           </a>
         </p>
@@ -319,7 +340,7 @@ export default function ConsultantApply() {
         <div className={`br-agree-box ${agreeGuidelines ? "checked" : ""}`}>{agreeGuidelines && <FaCheckCircle size={13} />}</div>
         <p>
           I agree to the{" "}
-          <a href="/guidelines" target="_blank" rel="noreferrer">
+          <a href="/policies/aquaai_marketplace_policy.html" target="_blank" rel="noreferrer">
             Consultant Community Guidelines
           </a>
         </p>

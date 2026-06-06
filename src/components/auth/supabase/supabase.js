@@ -9,7 +9,6 @@ const SUPABASE_ANON_KEY =
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 export const fetchAndSetRealtimeAuth = async (djangoAuthToken) => {
-  console.log("DJANGO", djangoAuthToken);
   try {
     const res = await fetch(`${baseUrl}/messenger/realtime-token/`, {
       headers: {
@@ -33,7 +32,7 @@ export const fetchAndSetRealtimeAuth = async (djangoAuthToken) => {
 
     supabase.realtime.setAuth(token);
 
-    console.log("Supabase Realtime authenticated ✅");
+    console.log("Supabase Realtime authenticated ");
     return true;
   } catch (error) {
     console.error("Realtime auth error:", error);

@@ -227,7 +227,6 @@ function UserPlans({ plans, annual }) {
   const userPlans = userKeys.map((k) => plans.find((p) => p.key === k)).filter(Boolean);
   return (
     <div className="pricing-grid">
-      {console.log("plans", userPlans)}
       {userPlans.map((plan) => (
         <PlanCard key={plan.key} plan={plan} annual={annual} highlight={plan.key === "premium"} popularLabel={plan.key === "premium" ? "Most Popular" : null} />
       ))}

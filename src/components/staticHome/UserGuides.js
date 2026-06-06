@@ -15,6 +15,7 @@ const VIDEO_LINKS = {
   "Adding Services": "https://youtube.com/shorts/fUsHNeenM5g",
   "Breeder Intelligence": "https://youtube.com/shorts/nMklY4-hpkg?feature=share",
   "Managing Store Hours & Orders": "https://youtube.com/shorts/NYkBUheVyPs?feature=share",
+  "Listing Stock": "https://youtube.com/shorts/SeWeQR8SkL4?si=cTiXN5S9vUQzzntI",
 };
 
 const USER_SECTIONS = [

@@ -33,7 +33,7 @@ const NAV_COLS = [
       { label: "Refund Policy", href: "/policies/aquaai_refund_policy.html", external: true },
       { label: "Marketplace Policy", href: "/policies/aquaai_marketplace_policy.html", external: true },
       { label: "Cookies & Data Policy", href: "/policies/cookies_and_data_policy.html", external: true },
-      // { label: "Data Processing Agreement", href: "/policies/data-processing-agreement.html", external: true },
+      // { label: "Data Processing Agreement", href: "/policies/aquaai_data_processing_agreement.html", external: true },
       { label: "Contact", href: "/contact", internal: true, link: "/contact" },
     ],
   },

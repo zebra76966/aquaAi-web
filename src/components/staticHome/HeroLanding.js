@@ -42,19 +42,19 @@ function Fish2() {
       gl={{
         outputColorSpace: THREE.SRGBColorSpace,
       }}
-      flat
+      // flat
     >
       {/* Low ambient */}
-      <ambientLight intensity={0.25} />
+      <ambientLight intensity={5} />
 
       {/* Main light */}
-      <directionalLight position={[8, 8, 6]} intensity={1.1} color="#ffffff" />
-
-      {/* Cool fill */}
-      <directionalLight position={[-8, 2, 4]} intensity={0.3} color="#d8eeff" />
+      <directionalLight position={[-8, -20, -6]} intensity={1} color="#ffffff" />
 
       {/* Rim */}
-      <directionalLight position={[4, 2, -8]} intensity={0.4} color="#ffffff" />
+      {/* <directionalLight position={[4, 2, -8]} intensity={0.4} color="#ffffff" /> */}
+
+      {/* Cool fill */}
+      {/* <directionalLight position={[-8, 2, 4]} intensity={0.3} color="#d8eeff" /> */}
 
       <Suspense fallback={null}>
         <SchoolOfFishModel animationSpeed={1} />
@@ -228,7 +228,7 @@ export default function HeroLanding() {
       <div className="ripple ripple4"></div>
 
       <motion.div className="content" variants={contentVariants} initial="hidden" animate={contentReveal ? "visible" : "hidden"}>
-        <motion.div className="fish-flock" initial={{ opacity: 0 }} animate={{ opacity: introDone ? 1 : 0 }} transition={{ duration: 1.0, ease: "easeOut" }}>
+        {/* <motion.div className="fish-flock" initial={{ opacity: 0 }} animate={{ opacity: introDone ? 1 : 0 }} transition={{ duration: 1.0, ease: "easeOut" }}>
           <Fish className="swim-lr-1 size-xl " animationSpeed={1.0} />
 
           <Fish className="swim-lr-floaty size-lg over-text" animationSpeed={0.9} />
@@ -242,11 +242,11 @@ export default function HeroLanding() {
 
           <Fish className="swim-diag-1 size-xl tint-dark over-text" animationSpeed={0.7} />
           <Fish className="swim-diag-2 size-xl over-text" animationSpeed={1.3} />
-        </motion.div>
-
-        {/* <motion.div className="fish-flock" initial={{ opacity: 0 }} animate={{ opacity: introDone ? 1 : 0 }} transition={{ duration: 1.0, ease: "easeOut" }}>
-          <Fish2 animationSpeed={1} />
         </motion.div> */}
+
+        <motion.div className="fish-flock" initial={{ opacity: 0 }} animate={{ opacity: introDone ? 1 : 0 }} transition={{ duration: 1.0, ease: "easeOut" }}>
+          <Fish2 animationSpeed={1} />
+        </motion.div>
 
         <motion.div className="subtitle" variants={itemVariants}>
           SMART CARE. HEALTHY AQUARIUMS.

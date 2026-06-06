@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aqua AI — Data Processing Agreement</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --aqua: #00b4d8;
+        --aqua-dark: #0077a8;
+        --navy: #0a1628;
+        --ink: #1c2b3a;
+        --muted: #5a7080;
+        --rule: #d4e8f0;
+        --bg: #f4f9fc;
+        --card: #ffffff;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.7;
+        font-size: 15px;
+        padding: 48px 16px 80px;
+      }
+
+      .page {
+        max-width: 740px;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        padding-bottom: 40px;
+        border-bottom: 2px solid var(--rule);
+        margin-bottom: 40px;
+      }
+
+      .brand {
+        font-family: "DM Serif Display", serif;
+        font-size: 2.6rem;
+        color: var(--navy);
+        letter-spacing: -0.5px;
+      }
+
+      .brand span {
+        color: var(--aqua);
+      }
+
+      .header-sub {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-top: 6px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+
+      .meta-block {
+        margin-top: 20px;
+        display: inline-block;
+        text-align: left;
+        font-size: 0.88rem;
+        color: var(--muted);
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        padding: 14px 22px;
+        line-height: 1.9;
+      }
+
+      .meta-block strong {
+        color: var(--navy);
+        font-weight: 500;
+      }
+
+      .confidential-badge {
+        display: inline-block;
+        margin-top: 4px;
+        background: #fff3cd;
+        border: 1px solid #f0c040;
+        color: #7a5c00;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 3px 10px;
+        border-radius: 20px;
+      }
+
+      a {
+        color: var(--aqua-dark);
+        text-decoration: none;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      a:hover {
+        border-color: var(--aqua);
+        color: var(--aqua);
+      }
+
+      /* Sections */
+      .section {
+        background: var(--card);
+        border-radius: 10px;
+        border: 1px solid var(--rule);
+        padding: 28px 32px;
+        margin-bottom: 20px;
+      }
+
+      .section-title {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.2rem;
+        color: var(--aqua-dark);
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .sub-title {
+        font-weight: 500;
+        color: var(--navy);
+        font-size: 0.95rem;
+        margin: 16px 0 6px;
+      }
+
+      .sub-title:first-of-type {
+        margin-top: 0;
+      }
+
+      p {
+        color: var(--ink);
+        margin-bottom: 10px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Bullet lists */
+      .bullet-list {
+        list-style: none;
+        padding: 0;
+        margin: 6px 0 10px;
+      }
+
+      .bullet-list li {
+        padding: 5px 0 5px 18px;
+        position: relative;
+        font-size: 0.93rem;
+        border-bottom: 1px solid var(--rule);
+        color: var(--ink);
+      }
+
+      .bullet-list li:last-child {
+        border-bottom: none;
+      }
+
+      .bullet-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 13px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--aqua);
+      }
+
+      /* Sub-processor table */
+      .processor-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.91rem;
+        margin-top: 8px;
+      }
+
+      .processor-table th {
+        text-align: left;
+        padding: 8px 10px;
+        background: #edf6fa;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--navy);
+      }
+
+      .processor-table td {
+        padding: 9px 10px;
+        border-top: 1px solid var(--rule);
+        color: var(--ink);
+        vertical-align: top;
+      }
+
+      .processor-table tr:last-child td {
+        border-bottom: none;
+      }
+      .processor-table .proc-name {
+        font-weight: 500;
+        color: var(--navy);
+        white-space: nowrap;
+      }
+
+      /* Security measures list */
+      .security-list {
+        list-style: none;
+        padding: 0;
+        margin: 6px 0;
+      }
+
+      .security-list li {
+        display: flex;
+        gap: 12px;
+        padding: 8px 0;
+        border-bottom: 1px solid var(--rule);
+        font-size: 0.93rem;
+      }
+
+      .security-list li:last-child {
+        border-bottom: none;
+      }
+
+      .sec-label {
+        font-weight: 500;
+        color: var(--navy);
+        min-width: 160px;
+        flex-shrink: 0;
+      }
+
+      /* Contact grid */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 24px;
+        font-size: 0.92rem;
+      }
+
+      .contact-item strong {
+        color: var(--navy);
+        display: block;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin-bottom: 2px;
+        font-weight: 500;
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 0.82rem;
+        color: var(--muted);
+        letter-spacing: 0.03em;
+      }
+
+      @media (max-width: 560px) {
+        .section {
+          padding: 20px 18px;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .brand {
+          font-size: 2rem;
+        }
+        .processor-table {
+          font-size: 0.83rem;
+        }
+        .sec-label {
+          min-width: 120px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-sub">Data Processing Agreement</div>
+        <div class="meta-block">
+          <strong>Version:</strong> 3.0<br />
+          <strong>Last Updated:</strong> May 2026<br />
+          <strong>Classification:</strong> <span class="confidential-badge">Confidential</span><br />
+          <strong>Operated by:</strong> Humara Ltd, Registered in England and Wales
+        </div>
+      </header>
+
+      <!-- 1. Parties and Scope -->
+      <section class="section">
+        <h2 class="section-title">1. Parties and Scope</h2>
+        <p>
+          1.1. This Data Processing Agreement ("DPA") forms part of the Terms and Conditions between Humara Ltd, trading as Aqua AI ("Data Controller" / "we"), and the user of the Platform ("Data
+          Subject" / "you").
+        </p>
+        <p>1.2. This DPA also governs the relationship between Aqua AI as Data Controller and our third-party service providers acting as Data Processors on our behalf.</p>
+        <p>1.3. This DPA is governed by the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.</p>
+      </section>
+
+      <!-- 2. Definitions -->
+      <section class="section">
+        <h2 class="section-title">2. Definitions</h2>
+        <p>2.1. <strong>"Personal Data"</strong> means any information relating to an identified or identifiable natural person, as defined in Article 4(1) of the UK GDPR.</p>
+        <p>2.2. <strong>"Processing"</strong> means any operation performed on personal data, as defined in Article 4(2) of the UK GDPR.</p>
+        <p>2.3. <strong>"Data Processor"</strong> means a third party who processes personal data on behalf of the Data Controller.</p>
+        <p>2.4. <strong>"Platform"</strong> means the Aqua AI and Aqua Providers mobile applications and the website at <a href="https://www.aquaai.uk">www.aquaai.uk</a>.</p>
+      </section>
+
+      <!-- 3. Data Controller Obligations -->
+      <section class="section">
+        <h2 class="section-title">3. Data Controller Obligations</h2>
+        <p>3.1. Aqua AI, as Data Controller, is responsible for:</p>
+        <ul class="bullet-list">
+          <li>Determining the purposes and means of processing personal data</li>
+          <li>Ensuring a lawful basis exists for all processing activities</li>
+          <li>Maintaining records of processing activities under Article 30 of the UK GDPR</li>
+          <li>Implementing appropriate technical and organisational measures to protect personal data</li>
+          <li>Notifying the ICO and affected individuals of personal data breaches within 72 hours where required</li>
+        </ul>
+      </section>
+
+      <!-- 4. Categories of Data Processed -->
+      <section class="section">
+        <h2 class="section-title">4. Categories of Data Processed</h2>
+        <ul class="bullet-list">
+          <li><strong>Identity data:</strong> name, email address, profile information</li>
+          <li><strong>Authentication data:</strong> login credentials, third-party OAuth tokens</li>
+          <li><strong>Aquarium data:</strong> tank configurations, species, water parameters, equipment, care schedules</li>
+          <li><strong>AI interaction data:</strong> queries, images, video, AI-generated insights</li>
+          <li><strong>Transactional data:</strong> booking records, payment references, subscription status</li>
+          <li><strong>Marketplace data:</strong> listings, bids, purchase requests, seller profiles</li>
+          <li><strong>Trust data:</strong> trust scores, badge history, incident records</li>
+          <li><strong>Communication data:</strong> booking-scoped messages between users and consultants</li>
+          <li><strong>Device and usage data:</strong> device identifiers, app usage patterns, performance metrics</li>
+          <li><strong>Location data:</strong> approximate and precise location (where consent is provided)</li>
+        </ul>
+      </section>
+
+      <!-- 5. Sub-Processors -->
+      <section class="section">
+        <h2 class="section-title">5. Sub-Processors</h2>
+        <p style="margin-bottom: 14px">5.1. Aqua AI engages the following sub-processors:</p>
+        <table class="processor-table">
+          <thead>
+            <tr>
+              <th>Provider</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="proc-name">Supabase Inc.</td>
+              <td>Database hosting, authentication, real-time data services</td>
+            </tr>
+            <tr>
+              <td class="proc-name">Amazon Web Services (AWS)</td>
+              <td>Cloud computing, object storage (S3)</td>
+            </tr>
+            <tr>
+              <td class="proc-name">Stripe Inc.</td>
+              <td>Payment processing and subscription billing</td>
+            </tr>
+            <tr>
+              <td class="proc-name">Stripe Connect (Breeder Payouts)</td>
+              <td>
+                Processing of Breeder identity verification, bank account details, transaction settlements, and 7-day escrow hold management. Data processed: Breeder legal name, address, date of
+                birth, bank account details, transaction amounts, commission calculations. Location: EU/UK.
+              </td>
+            </tr>
+            <tr>
+              <td class="proc-name">OpenAI Inc.</td>
+              <td>Language model processing for AI features</td>
+            </tr>
+            <tr>
+              <td class="proc-name">Expo (Software Mansion)</td>
+              <td>Push notification delivery</td>
+            </tr>
+            <tr>
+              <td class="proc-name">Geoapify GmbH</td>
+              <td>Geolocation services</td>
+            </tr>
+            <tr>
+              <td class="proc-name">Amazon Associates</td>
+              <td>Product recommendation affiliate tracking</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top: 14px">
+          5.2. Each sub-processor is bound by a data processing agreement that requires them to process data only on our documented instructions, implement appropriate security measures, and assist
+          with data subject rights requests.
+        </p>
+        <p>5.3. We will notify users of any material changes to sub-processors through the Platform or by email.</p>
+      </section>
+
+      <!-- 6. Data Security Measures -->
+      <section class="section">
+        <h2 class="section-title">6. Data Security Measures</h2>
+        <p style="margin-bottom: 12px">6.1. Aqua AI implements the following technical and organisational measures:</p>
+        <ul class="security-list">
+          <li><span class="sec-label">Encryption</span><span>TLS/HTTPS for all data in transit; AES-256 encryption at rest</span></li>
+          <li><span class="sec-label">Authentication</span><span>JWT-based with 5-minute access tokens and 7-day refresh rotation</span></li>
+          <li><span class="sec-label">Access control</span><span>Backend-enforced ACL as primary layer; Supabase Row Level Security as secondary</span></li>
+          <li><span class="sec-label">Audit logging</span><span>Immutable logs on all privileged operations</span></li>
+          <li><span class="sec-label">MFA</span><span>Mandatory for all operational and administrative accounts</span></li>
+          <li><span class="sec-label">Environment variables</span><span>All secrets and API keys managed via environment variables, never hardcoded</span></li>
+          <li><span class="sec-label">Rate limiting</span><span>100 requests per hour per user via Redis</span></li>
+          <li><span class="sec-label">Password security</span><span>PBKDF2 hashing for stored credentials</span></li>
+        </ul>
+      </section>
+
+      <!-- 7. International Transfers -->
+      <section class="section">
+        <h2 class="section-title">7. International Transfers</h2>
+        <p>
+          7.1. Where personal data is transferred outside the United Kingdom, we ensure appropriate safeguards are in place in accordance with Chapter V of the UK GDPR, including: UK Standard
+          Contractual Clauses, adequacy decisions by the UK Government, or binding corporate rules where applicable.
+        </p>
+      </section>
+
+      <!-- 8. Data Subject Rights -->
+      <section class="section">
+        <h2 class="section-title">8. Data Subject Rights</h2>
+        <p>
+          8.1. Aqua AI facilitates the exercise of data subject rights as set out in Chapter III of the UK GDPR. Sub-processors are contractually required to assist in fulfilling these requests.
+          Requests are processed within 30 days.
+        </p>
+      </section>
+
+      <!-- 9. Data Breach Notification -->
+      <section class="section">
+        <h2 class="section-title">9. Data Breach Notification</h2>
+        <p>9.1. In the event of a personal data breach, Aqua AI will:</p>
+        <ul class="bullet-list">
+          <li>Assess the breach within 24 hours of discovery</li>
+          <li>Notify the ICO within 72 hours where the breach is likely to result in a risk to individuals' rights</li>
+          <li>Notify affected individuals without undue delay where the breach is likely to result in a high risk</li>
+          <li>Document the breach, its effects, and remedial actions taken</li>
+        </ul>
+      </section>
+
+      <!-- 10. Data Retention and Deletion -->
+      <section class="section">
+        <h2 class="section-title">10. Data Retention and Deletion</h2>
+        <p>
+          10.1. Personal data is retained only for as long as necessary for the purposes for which it was collected, as detailed in our Privacy Policy. Upon account deletion or expiry of retention
+          periods, personal data is securely deleted or anonymised.
+        </p>
+      </section>
+
+      <!-- 11. Audit Rights -->
+      <section class="section">
+        <h2 class="section-title">11. Audit Rights</h2>
+        <p>
+          11.1. Aqua AI maintains the right to audit sub-processors' compliance with data processing obligations. Users may request information about our data processing practices by contacting
+          <a href="mailto:info@aquaai.uk">info@aquaai.uk</a>.
+        </p>
+      </section>
+
+      <!-- 12. Contact -->
+      <section class="section">
+        <h2 class="section-title">12. Contact</h2>
+        <p style="margin-bottom: 16px">
+          Data Protection enquiries: <a href="mailto:info@aquaai.uk">info@aquaai.uk</a><br />Aqua AI (operated by Humara Ltd) | Website: <a href="https://www.aquaai.uk">www.aquaai.uk</a>
+        </p>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <strong>Website</strong>
+            <a href="https://www.aquaai.uk">www.aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>General Enquiries</strong>
+            <a href="mailto:info@aquaai.uk">info@aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>Support</strong>
+            <a href="mailto:support@aquaai.uk">support@aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>WhatsApp / Signal</strong>
+            <a href="tel:+447586576323">+44 7586 576323</a>
+          </div>
+          <div class="contact-item">
+            <strong>SMS</strong>
+            <a href="tel:+447782207333">+44 7782 207333</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">Aqua AI is operated by Humara Ltd, Registered in England and Wales &middot; May 2026</footer>
+    </div>
+  </body>
+</html>
