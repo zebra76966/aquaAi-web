@@ -41,6 +41,89 @@ import "./BreederDashboard.css";
 import OrdersTab from "./OrdersTab";
 import ScheduleTab from "./ScheduleTab";
 import AccountDangerZone from "../auth/AccountDangerZone";
+import { Canvas } from "@react-three/fiber";
+
+import { Suspense } from "react";
+import { useFrame } from "@react-three/fiber";
+import { FiCheck, FiLock, FiX, FiAlertCircle, FiTruck } from "react-icons/fi";
+import FishModel from "../staticHome/FishModel";
+
+/* ── Fish for promo banner (same pattern as CTABanner) ── */
+function SwimmingFish({ speed = 1, radius = 1.2, phaseOffset = 0 }) {
+  const groupRef = useRef();
+  const t = useRef(phaseOffset);
+
+  useFrame((_, delta) => {
+    t.current += delta * speed * 0.4;
+    if (!groupRef.current) return;
+    const denom = 1 + Math.sin(t.current) ** 2;
+    const x = (radius * Math.cos(t.current)) / denom;
+    const z = (radius * Math.sin(t.current) * Math.cos(t.current)) / denom;
+    const dx = -(radius * Math.sin(t.current) * (2 + Math.sin(t.current) ** 2)) / denom ** 2;
+    const dz = (radius * Math.cos(2 * t.current)) / denom;
+    groupRef.current.position.set(x, 0, z);
+    groupRef.current.rotation.set(0, Math.atan2(dx, dz), 0);
+  });
+
+  return (
+    <group ref={groupRef} rotation={[Math.PI / 2, 0, 0]}>
+      <FishModel animationSpeed={speed} />
+    </group>
+  );
+}
+
+function BannerFish({ className, speed, phaseOffset }) {
+  return (
+    <div className={`pb-fish ${className}`}>
+      <Canvas camera={{ position: [0, 6, 0], fov: 45, up: [0, 0, -1] }}>
+        <ambientLight intensity={2.5} />
+        <directionalLight position={[5, 8, 5]} intensity={2.2} />
+        <directionalLight position={[-5, 4, -5]} intensity={1} />
+        <Suspense fallback={null}>
+          <SwimmingFish speed={speed} radius={1.4} phaseOffset={phaseOffset} />
+        </Suspense>
+      </Canvas>
+    </div>
+  );
+}
+
+/* ── Promo Banner ─────────────────────────────────────── */
+function PromoBanner({ onDismiss }) {
+  return (
+    <div className="pb-banner">
+      {/* Ripple rings */}
+      <div className="pb-ripple pb-ripple--1" />
+      <div className="pb-ripple pb-ripple--2" />
+      <div className="pb-ripple pb-ripple--3" />
+
+      {/* Fish */}
+      <BannerFish className="pb-fish--a" speed={0.85} phaseOffset={0} />
+      <BannerFish className="pb-fish--b" speed={1.1} phaseOffset={Math.PI} />
+
+      {/* Content */}
+      <div className="pb-content">
+        <div className="pb-text">
+          <div className="d-flex align-items-center gap-2 mb-2">
+            <div className="pb-icon">
+              <FiTruck />
+            </div>
+            <p className="pb-headline mb-0 pb-0">Wholesalers Are Coming Soon</p>
+          </div>
+
+          <p className="pb-body">
+            We're currently onboarding trusted aquatic wholesalers to the platform. Soon you'll be able to source livestock, equipment, and supplies directly from verified wholesale partners across
+            the UK.
+          </p>
+        </div>
+      </div>
+
+      {/* Dismiss */}
+      <button className="pb-dismiss" onClick={onDismiss} aria-label="Dismiss">
+        <FiX />
+      </button>
+    </div>
+  );
+}
 
 // ─── Helpers ─────────────────────────────────────────────────
 const Spinner = () => <div className="bd-spinner" />;
@@ -1592,6 +1675,8 @@ export default function BreederDashboard() {
             <FaFish />
           </div>
         </motion.header>
+
+        <PromoBanner />
 
         <div className="bd-tabs">
           {TABS.map((t) => (

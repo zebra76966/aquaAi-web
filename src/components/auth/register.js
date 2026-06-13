@@ -12,7 +12,9 @@ import ThemeToggle from "../ThemeToggle";
 export default function Register() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
-  const [formData, setFormData] = useState({ username: "", email: "", name: "", password: "", referral_code: "", is_for_provider: false });
+  const params = new URLSearchParams(window.location.search);
+  const isProvider = params.get("isprovider") === "true";
+  const [formData, setFormData] = useState({ username: "", email: "", name: "", password: "", referral_code: "", is_for_provider: isProvider || false });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
@@ -23,9 +25,6 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    const params = new URLSearchParams(window.location.search);
-    const isProvider = params.get("isprovider") === "true";
 
     try {
       const res = await fetch(`${baseUrl}/user/register/`, {
@@ -147,14 +146,12 @@ export default function Register() {
             ))}
 
             {/* Provider toggle */}
-            <div className="auth-provider-toggle" onClick={() => setFormData(f => ({ ...f, is_for_provider: !f.is_for_provider }))}>
+            <div className="auth-provider-toggle" onClick={() => setFormData((f) => ({ ...f, is_for_provider: !f.is_for_provider }))}>
               <div className="apt-label">
                 <span>Registering as a Provider?</span>
                 <small>Breeder or Consultant accounts</small>
               </div>
-              <div className={`apt-switch${formData.is_for_provider ? " apt-switch--on" : ""}`}>
-                {formData.is_for_provider ? <FiToggleRight size={28} /> : <FiToggleLeft size={28} />}
-              </div>
+              <div className={`apt-switch${formData.is_for_provider ? " apt-switch--on" : ""}`}>{formData.is_for_provider ? <FiToggleRight size={28} /> : <FiToggleLeft size={28} />}</div>
             </div>
 
             <button type="submit" className="auth-submit-btn" disabled={loading} style={{ marginTop: 8 }}>
