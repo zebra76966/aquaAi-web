@@ -16,6 +16,8 @@ const VIDEO_LINKS = {
   "Breeder Intelligence": "https://youtube.com/shorts/nMklY4-hpkg?feature=share",
   "Managing Store Hours & Orders": "https://youtube.com/shorts/NYkBUheVyPs?feature=share",
   "Listing Stock": "https://youtube.com/shorts/SeWeQR8SkL4?si=cTiXN5S9vUQzzntI",
+  "Stripe Setup with Aqua Providers #1": "https://youtube.com/shorts/LK49n7oI-L4?feature=share",
+  "Stripe Setup with Aqua Providers #2": "https://youtube.com/shorts/ow6Qa49asU8?feature=share",
 };
 
 const USER_SECTIONS = [
@@ -36,6 +38,8 @@ const PROVIDER_SECTIONS = {
     { title: "Managing Store Hours & Orders", body: "Set your opening hours, weekend availability, and holiday mode. Accept, fulfil, and manage orders end-to-end." },
     { title: "Breeder Intelligence", body: "Track listing performance, buyer engagement, and trust score. Understand how badges affect your visibility." },
     { title: "Analytics & Trust Intelligence", body: "View AI-powered insights on your stock performance, pricing, cohort benchmarks, and retention triggers." },
+    { title: "Stripe Setup with Aqua Providers #1", body: "A step-by-step video for setting up the stripe payments part 1." },
+    { title: "Stripe Setup with Aqua Providers #2", body: "A step-by-step video for setting up the stripe payments part 2." },
   ],
   Consultants: [
     { title: "Consultant Onboarding", body: "Apply for a consultant account. Submit credentials, set your service areas, rates, and availability." },
