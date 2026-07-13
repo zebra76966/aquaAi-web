@@ -1562,3 +1562,93 @@
   padding: 0;
 }
 .br-checkout-skip:hover { color: #c0d0e0; }
+
+/* ─── Certificate warning popup ──────────────────────── */
+.br-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 8, 18, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.br-modal-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg-2);
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  padding: 28px 26px;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.br-modal-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 158, 11, 0.14);
+  color: var(--warning);
+}
+
+.br-modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  font-family: "Geist", "DM Sans", sans-serif;
+}
+
+.br-modal-body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+  margin-bottom: 22px;
+}
+
+.br-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.br-modal-btn-primary {
+  padding: 13px;
+  border-radius: 100px;
+  background: #00d4ff;
+  border: none;
+  color: #08091a;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  transition: background 0.2s, transform 0.2s;
+}
+.br-modal-btn-primary:hover {
+  background: #33ddff;
+  transform: translateY(-1px);
+}
+
+.br-modal-btn-secondary {
+  padding: 12px;
+  border-radius: 100px;
+  background: transparent;
+  border: 1.5px solid var(--border-strong);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  transition: background 0.2s;
+}
+.br-modal-btn-secondary:hover {
+  background: var(--surface-hover);
+}

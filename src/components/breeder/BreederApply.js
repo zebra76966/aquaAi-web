@@ -39,12 +39,19 @@ const SPECIES_CATEGORIES = [
   { key: "marine_invertebrate", label: "Invertebrates", icon: "🦀" },
 ];
 
+// const STEPS_META = [
+//   { title: "Business Info", subtitle: "Tell us about your operation", icon: FaBuilding },
+//   { title: "Online Presence", subtitle: "Where can customers find you?", icon: FaGlobe },
+//   { title: "Species & Expertise", subtitle: "What do you breed?", icon: FaFish },
+//   { title: "Review", subtitle: "Confirm your details", icon: FaShieldAlt },
+//   { title: "Choose a Plan", subtitle: "Subscribe to go live", icon: FaCrown },
+// ];
+
 const STEPS_META = [
   { title: "Business Info", subtitle: "Tell us about your operation", icon: FaBuilding },
   { title: "Online Presence", subtitle: "Where can customers find you?", icon: FaGlobe },
   { title: "Species & Expertise", subtitle: "What do you breed?", icon: FaFish },
   { title: "Review", subtitle: "Confirm your details", icon: FaShieldAlt },
-  { title: "Choose a Plan", subtitle: "Subscribe to go live", icon: FaCrown },
 ];
 
 const TOTAL_STEPS = STEPS_META.length; // 5
@@ -183,7 +190,6 @@ export default function BreederApply() {
   /* wizard */
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
   /* form fields */
@@ -200,6 +206,7 @@ export default function BreederApply() {
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [agreeGuidelines, setAgreeGuidelines] = useState(false);
   const [certificateFile, setCertificateFile] = useState(null);
+  const [showCertWarning, setShowCertWarning] = useState(false);
 
   /* species */
   const [speciesList, setSpeciesList] = useState([]);
@@ -335,7 +342,12 @@ export default function BreederApply() {
   };
 
   const handleNext = () => {
-    if (validateStep()) setStep((s) => Math.min(s + 1, TOTAL_STEPS - 1));
+    if (!validateStep()) return;
+    if (step === 2 && !certificateFile) {
+      setShowCertWarning(true);
+      return;
+    }
+    setStep((s) => Math.min(s + 1, TOTAL_STEPS - 1));
   };
   const handleBack = () => {
     setError("");
@@ -406,26 +418,26 @@ export default function BreederApply() {
         return;
       }
 
-      const checkoutUrl = subJson?.data?.checkout_url ?? subJson?.checkout_url ?? null;
+      // const checkoutUrl = subJson?.data?.checkout_url ?? subJson?.checkout_url ?? null;
 
-      if (checkoutUrl) {
-        /* Store full checkout data and submit application, then show payment screen */
-        await submitApplication();
-        setCheckoutData({
-          url: checkoutUrl,
-          plan_key: subJson?.data?.plan_key ?? selectedPlan,
-          billing_period: subJson?.data?.billing_period ?? billing,
-          original_price: subJson?.data?.original_price ?? 0,
-          discounted_price: subJson?.data?.discounted_price ?? 0,
-          credit_used: subJson?.data?.credit_used ?? 0,
-          launch_pricing: subJson?.data?.launch_pricing_eligible ?? false,
-        });
-        return;
-      }
+      // if (checkoutUrl) {
+      //   /* Store full checkout data and submit application, then show payment screen */
+      //   await submitApplication();
+      //   setCheckoutData({
+      //     url: checkoutUrl,
+      //     plan_key: subJson?.data?.plan_key ?? selectedPlan,
+      //     billing_period: subJson?.data?.billing_period ?? billing,
+      //     original_price: subJson?.data?.original_price ?? 0,
+      //     discounted_price: subJson?.data?.discounted_price ?? 0,
+      //     credit_used: subJson?.data?.credit_used ?? 0,
+      //     launch_pricing: subJson?.data?.launch_pricing_eligible ?? false,
+      //   });
+      //   return;
+      // }
 
       /* No checkout URL — credit covered it fully, just submit */
       await submitApplication();
-      setSuccess(true);
+      navigate("/providers/application/success");
     } catch (err) {
       setError(err.message || "Something went wrong. Please try again.");
     } finally {
@@ -508,67 +520,10 @@ export default function BreederApply() {
               className="br-checkout-skip"
               onClick={() => {
                 setCheckoutData(null);
-                setSuccess(true);
+                navigate("/providers/application/success");
               }}
             >
               Pay later — View application status
-            </button>
-          </div>
-        </motion.div>
-      </div>
-    );
-  }
-
-  if (success) {
-    return (
-      <div className="br-page">
-        <div className="br-bg">
-          <div className="br-blob br-blob-a" />
-          <div className="br-blob br-blob-b" />
-        </div>
-        <motion.div className="br-success" initial={{ scale: 0.85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 200 }}>
-          <div className="br-success-ring">
-            <FaCheckCircle size={44} />
-          </div>
-          <h2>Application Submitted!</h2>
-          <p style={{ marginBottom: 28, color: "#7a9ab0" }}>Your breeder application is under review. We'll be in touch soon.</p>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}>
-            <button
-              onClick={() => {
-                window.location.href = "aquaproviders://";
-              }}
-              style={{
-                padding: "13px",
-                borderRadius: "100px",
-                background: "#00d4ff",
-                border: "none",
-                color: "#08091a",
-                fontWeight: 700,
-                fontSize: 14,
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 8,
-              }}
-            >
-              Return to Aqua Providers App
-            </button>
-            <button
-              onClick={() => navigate("/provider-status")}
-              style={{
-                padding: "13px",
-                borderRadius: "100px",
-                background: "transparent",
-                border: "1.5px solid rgba(0,212,255,0.3)",
-                color: "#00d4ff",
-                fontWeight: 600,
-                fontSize: 14,
-                cursor: "pointer",
-              }}
-            >
-              View Application Status
             </button>
           </div>
         </motion.div>
@@ -887,7 +842,7 @@ export default function BreederApply() {
                 Continue <FaChevronRight size={12} />
               </button>
             ) : (
-              <button className="br-btn-submit" onClick={handleSubscribeAndSubmit} disabled={subscribing || loadingPlans || !selectedPlan}>
+              <button className="br-btn-submit" onClick={handleSubscribeAndSubmit} disabled={subscribing}>
                 {subscribing ? (
                   <>
                     <Spinner size="sm" animation="border" /> Processing…
@@ -902,6 +857,45 @@ export default function BreederApply() {
           </div>
         </motion.div>
       </div>
+
+      {/* ── Certificate not uploaded — info popup ──────────────── */}
+      <AnimatePresence>
+        {showCertWarning && (
+          <motion.div className="br-modal-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setShowCertWarning(false)}>
+            <motion.div
+              className="br-modal-card"
+              initial={{ opacity: 0, scale: 0.92, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="br-modal-icon">
+                <FaCertificate size={22} />
+              </div>
+              <h3 className="br-modal-title">Certificate not uploaded</h3>
+              <p className="br-modal-body">
+                You will be restricted from selling livestock in the app until a valid certification has been uploaded and verified. You can upload your certificate now, or later from your Profile.
+              </p>
+
+              <div className="br-modal-actions">
+                <button
+                  className="br-modal-btn-primary"
+                  onClick={() => {
+                    setShowCertWarning(false);
+                    setStep((s) => Math.min(s + 1, TOTAL_STEPS - 1));
+                  }}
+                >
+                  Continue Without It
+                </button>
+                <button className="br-modal-btn-secondary" onClick={() => setShowCertWarning(false)}>
+                  Upload Certificate Now
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

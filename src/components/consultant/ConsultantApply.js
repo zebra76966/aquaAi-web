@@ -82,7 +82,6 @@ export default function ConsultantApply() {
 
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
   // Form fields — matches app CreateBusinessProfileScreen exactly
@@ -183,71 +182,13 @@ export default function ConsultantApply() {
         return;
       }
 
-      setSuccess(true);
+      navigate("/providers/application/success");
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
       setSubmitting(false);
     }
   };
-
-  /* ── Success screen ──────────────────────────────── */
-  if (success) {
-    return (
-      <div className="br-page">
-        <div className="br-bg">
-          <div className="br-blob br-blob-a" />
-          <div className="br-blob br-blob-b" />
-        </div>
-        <motion.div className="br-success" initial={{ scale: 0.85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 200 }}>
-          <div className="br-success-ring">
-            <FaCheckCircle size={44} />
-          </div>
-          <h2>Application Submitted!</h2>
-          <p style={{ marginBottom: 28, color: "#7a9ab0" }}>Your consultant application is under review. We\'ll be in touch soon.</p>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}>
-            <button
-              onClick={() => {
-                window.location.href = "aquaproviders://";
-              }}
-              style={{
-                padding: "13px",
-                borderRadius: "100px",
-                background: "#00d4ff",
-                border: "none",
-                color: "#08091a",
-                fontWeight: 700,
-                fontSize: 14,
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 8,
-              }}
-            >
-              Return to Aqua Providers App
-            </button>
-            <button
-              onClick={() => navigate("/provider-status")}
-              style={{
-                padding: "13px",
-                borderRadius: "100px",
-                background: "transparent",
-                border: "1.5px solid rgba(0,212,255,0.3)",
-                color: "#00d4ff",
-                fontWeight: 600,
-                fontSize: 14,
-                cursor: "pointer",
-              }}
-            >
-              View Application Status
-            </button>
-          </div>
-        </motion.div>
-      </div>
-    );
-  }
 
   /* ─────────────────────────────────────────────────
      STEP CONTENT

@@ -40,12 +40,6 @@ export default function Register() {
         setMessage("Account created!");
 
         // Provider registration flow
-        if (isProvider) {
-          setTimeout(() => {
-            window.location.href = "aquaproviders://";
-          }, 1000);
-          return;
-        }
 
         // Existing flow
         if (data.access) {
@@ -66,7 +60,11 @@ export default function Register() {
 
             if (lr.ok && ld.access) {
               await login(ld.access, ld.roles || []);
-              navigate("/plans");
+              if (isProvider || formData.is_for_provider) {
+                navigate("/provider-status");
+              } else {
+                navigate("/plans");
+              }
             } else {
               setTimeout(() => navigate("/login"), 1500);
             }
