@@ -27,6 +27,7 @@ import { baseUrl } from "../auth/config";
 import "./ConsultantApply.css";
 import ThemeToggle from "../ThemeToggle";
 import { AuthContext } from "../auth/authcontext";
+import { useSearchParams } from "react-router-dom";
 
 /* ─────────────────────────────────────────────────────
    STEPS — 4 steps, no plan/subscription
@@ -77,8 +78,12 @@ const Field = ({ icon: Icon, children, isTextarea }) => (
    MAIN COMPONENT
 ───────────────────────────────────────────────────── */
 export default function ConsultantApply() {
-  const { token } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const { token: authToken } = useContext(AuthContext);
+  const [searchParams] = useSearchParams();
+
+  const token = authToken ?? searchParams.get("token");
 
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
