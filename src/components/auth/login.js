@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { FiUser, FiLock, FiArrowRight, FiAlertCircle } from "react-icons/fi";
@@ -14,6 +14,12 @@ export default function Login() {
   const { token, login, loading: authLoading } = useContext(AuthContext);
   const { isDark } = useTheme();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  // If we were sent here from a specific page (e.g. a breeder payment link),
+  // that page passes ?redirect=<encoded path> so we can bounce straight back
+  // to it after signing in, instead of the usual role-based landing page.
+  const redirectTarget = searchParams.get("redirect");
 
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [loading, setLoading] = useState(false);
@@ -22,6 +28,10 @@ export default function Login() {
 
   useEffect(() => {
     if (!authLoading && token) {
+      if (redirectTarget) {
+        navigate(redirectTarget);
+        return;
+      }
       // Already logged in — send to the right place
       const stored = localStorage.getItem("userRoles");
       const existingRoles = stored ? JSON.parse(stored) : [];
@@ -32,7 +42,7 @@ export default function Login() {
       else if (existingRoles.includes("consultant")) navigate("/consultant-dashboard");
       else navigate("/plans");
     }
-  }, [token, authLoading, navigate]);
+  }, [token, authLoading, navigate, redirectTarget]);
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -50,6 +60,13 @@ export default function Login() {
       if (res.ok) {
         const loginRoles = data.roles || [];
         await login(data.access, loginRoles);
+
+        // A specific page sent us here (e.g. a breeder payment link) —
+        // go straight back to it instead of the usual role-based landing page.
+        if (redirectTarget) {
+          navigate(redirectTarget);
+          return;
+        }
 
         // Provider account: persist flag + go straight to apply/status screen
         if (data.is_for_provider === true) {

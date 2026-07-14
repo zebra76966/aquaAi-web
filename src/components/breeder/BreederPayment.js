@@ -121,6 +121,17 @@ export default function BreederPayment() {
   const { token, loading: authLoading } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  /* If we don't have a token, this breeder isn't signed in yet — send them
+     to log in first, then bounce them straight back to this exact payment
+     URL (with the breeder id they arrived with) once they're authenticated. */
+  useEffect(() => {
+    if (authLoading) return;
+    if (!token) {
+      const returnTo = `/breeder/${breederId}/payments/`;
+      navigate(`/login?redirect=${encodeURIComponent(returnTo)}`, { replace: true });
+    }
+  }, [authLoading, token, breederId, navigate]);
+
   /* subscription status */
   const [statusLoading, setStatusLoading] = useState(true);
   const [statusError, setStatusError] = useState("");
@@ -173,9 +184,9 @@ export default function BreederPayment() {
   }, [token, breederId]);
 
   useEffect(() => {
-    if (authLoading) return;
+    if (authLoading || !token) return;
     fetchStatus();
-  }, [authLoading, fetchStatus]);
+  }, [authLoading, token, fetchStatus]);
 
   /* ── 2. Fetch plans once we know a plan is needed ───────── */
   useEffect(() => {
@@ -275,7 +286,7 @@ export default function BreederPayment() {
   };
 
   /* ── Loading / error states ──────────────────────────────── */
-  if (authLoading || statusLoading) {
+  if (authLoading || !token || statusLoading) {
     return (
       <div className="br-page">
         <div className="br-bg">
