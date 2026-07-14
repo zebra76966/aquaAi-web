@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Spinner } from "react-bootstrap";
 import {
@@ -39,19 +39,12 @@ const SPECIES_CATEGORIES = [
   { key: "marine_invertebrate", label: "Invertebrates", icon: "🦀" },
 ];
 
-// const STEPS_META = [
-//   { title: "Business Info", subtitle: "Tell us about your operation", icon: FaBuilding },
-//   { title: "Online Presence", subtitle: "Where can customers find you?", icon: FaGlobe },
-//   { title: "Species & Expertise", subtitle: "What do you breed?", icon: FaFish },
-//   { title: "Review", subtitle: "Confirm your details", icon: FaShieldAlt },
-//   { title: "Choose a Plan", subtitle: "Subscribe to go live", icon: FaCrown },
-// ];
-
 const STEPS_META = [
   { title: "Business Info", subtitle: "Tell us about your operation", icon: FaBuilding },
   { title: "Online Presence", subtitle: "Where can customers find you?", icon: FaGlobe },
   { title: "Species & Expertise", subtitle: "What do you breed?", icon: FaFish },
   { title: "Review", subtitle: "Confirm your details", icon: FaShieldAlt },
+  { title: "Choose a Plan", subtitle: "Subscribe to go live", icon: FaCrown },
 ];
 
 const TOTAL_STEPS = STEPS_META.length; // 5
@@ -184,12 +177,8 @@ const PlanCard = ({ plan, billing, selected, onSelect }) => {
    MAIN COMPONENT
 ───────────────────────────────────────────────────── */
 export default function BreederApply() {
+  const { token } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const { token: authToken } = useContext(AuthContext);
-  const [searchParams] = useSearchParams();
-
-  const token = authToken ?? searchParams.get("token");
 
   /* wizard */
   const [step, setStep] = useState(0);
@@ -327,6 +316,14 @@ export default function BreederApply() {
   const validateStep = () => {
     if (step === 0 && (!companyName.trim() || !bio.trim())) {
       setError("Please fill in your Company Name and Bio.");
+      return false;
+    }
+    if (step === 0 && bio.trim().length <= 10) {
+      setError("Please tell us a bit more — your bio needs to be more than 10 characters.");
+      return false;
+    }
+    if (step === 1 && !website.trim()) {
+      setError("Please enter your website to continue.");
       return false;
     }
     if (step === 2 && selectedSpecies.length === 0) {
@@ -552,7 +549,7 @@ export default function BreederApply() {
     /* 1 — Online Presence */
     <motion.div key="s1" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} transition={{ duration: 0.25 }}>
       <Field icon={FaGlobe}>
-        <input className="br-input" placeholder="Website URL" value={website} onChange={(e) => setWebsite(e.target.value)} />
+        <input className="br-input" placeholder="Website URL *" value={website} onChange={(e) => setWebsite(e.target.value)} />
       </Field>
       <Field icon={FaInstagram}>
         <input className="br-input" placeholder="Instagram handle" value={instagram} onChange={(e) => setInstagram(e.target.value)} />
@@ -846,7 +843,7 @@ export default function BreederApply() {
                 Continue <FaChevronRight size={12} />
               </button>
             ) : (
-              <button className="br-btn-submit" onClick={handleSubscribeAndSubmit} disabled={subscribing}>
+              <button className="br-btn-submit" onClick={handleSubscribeAndSubmit} disabled={subscribing || loadingPlans || !selectedPlan}>
                 {subscribing ? (
                   <>
                     <Spinner size="sm" animation="border" /> Processing…

@@ -27,7 +27,6 @@ import { baseUrl } from "../auth/config";
 import "./ConsultantApply.css";
 import ThemeToggle from "../ThemeToggle";
 import { AuthContext } from "../auth/authcontext";
-import { useSearchParams } from "react-router-dom";
 
 /* ─────────────────────────────────────────────────────
    STEPS — 4 steps, no plan/subscription
@@ -78,12 +77,8 @@ const Field = ({ icon: Icon, children, isTextarea }) => (
    MAIN COMPONENT
 ───────────────────────────────────────────────────── */
 export default function ConsultantApply() {
+  const { token } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const { token: authToken } = useContext(AuthContext);
-  const [searchParams] = useSearchParams();
-
-  const token = authToken ?? searchParams.get("token");
 
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
@@ -133,6 +128,14 @@ export default function ConsultantApply() {
   const validateStep = () => {
     if (step === 0 && (!companyName.trim() || !bio.trim())) {
       setError("Please fill in your Company Name and Bio.");
+      return false;
+    }
+    if (step === 0 && bio.trim().length <= 10) {
+      setError("Please tell us a bit more — your bio needs to be more than 10 characters.");
+      return false;
+    }
+    if (step === 1 && !website.trim()) {
+      setError("Please enter your website to continue.");
       return false;
     }
     if (step === 3 && (!agreeTerms || !agreeGuidelines)) {
@@ -224,7 +227,7 @@ export default function ConsultantApply() {
     /* 1 — Online Presence */
     <motion.div key="s1" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} transition={{ duration: 0.25 }}>
       <Field icon={FaGlobe}>
-        <input className="br-input" placeholder="Website URL" value={website} onChange={(e) => setWebsite(e.target.value)} />
+        <input className="br-input" placeholder="Website URL *" value={website} onChange={(e) => setWebsite(e.target.value)} />
       </Field>
       <Field icon={FaInstagram}>
         <input className="br-input" placeholder="Instagram handle" value={instagram} onChange={(e) => setInstagram(e.target.value)} />
