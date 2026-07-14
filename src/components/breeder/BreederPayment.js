@@ -143,7 +143,7 @@ export default function BreederPayment() {
 
   /* ── 1. Check subscription status for this breeder ──────── */
   const fetchStatus = useCallback(async () => {
-    if (!token || !breederId) return;
+    if (!breederId) return;
     setStatusLoading(true);
     setStatusError("");
     try {
@@ -179,7 +179,7 @@ export default function BreederPayment() {
 
   /* ── 2. Fetch plans once we know a plan is needed ───────── */
   useEffect(() => {
-    if (!needsPlan || !token || plans.length > 0) return;
+    if (!needsPlan || plans.length > 0) return;
     (async () => {
       setLoadingPlans(true);
       setPlansError("");

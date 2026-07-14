@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Spinner } from "react-bootstrap";
 import {
@@ -177,8 +177,12 @@ const PlanCard = ({ plan, billing, selected, onSelect }) => {
    MAIN COMPONENT
 ───────────────────────────────────────────────────── */
 export default function BreederApply() {
-  const { token } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const { token: authToken } = useContext(AuthContext);
+  const [searchParams] = useSearchParams();
+
+  const token = authToken ?? searchParams.get("token");
 
   /* wizard */
   const [step, setStep] = useState(0);

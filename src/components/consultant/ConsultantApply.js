@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Spinner } from "react-bootstrap";
 import {
@@ -77,8 +77,11 @@ const Field = ({ icon: Icon, children, isTextarea }) => (
    MAIN COMPONENT
 ───────────────────────────────────────────────────── */
 export default function ConsultantApply() {
-  const { token } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { token: authToken } = useContext(AuthContext);
+  const [searchParams] = useSearchParams();
+
+  const token = authToken ?? searchParams.get("token");
 
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
