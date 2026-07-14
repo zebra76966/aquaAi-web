@@ -90,7 +90,7 @@ function FrontPhone() {
         </div>
 
         <div className="iphone-scroll-track">
-          <img src="/appSS.png" alt="Aqua AI app" className="iphone-screenshot" draggable="false" />
+          <img src="/appSS.png" alt="AQUA AI® app" className="iphone-screenshot" draggable="false" />
         </div>
       </div>
       {/* 4. Home bar */}
@@ -134,7 +134,7 @@ export default function AppDownloadSection() {
             {/* Left copy */}
             <Col xs={12} lg={6}>
               <motion.div className="app-dl-copy" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: false }}>
-                <p className="app-dl-eyebrow">Download the Aqua AI App</p>
+                <p className="app-dl-eyebrow">Download the AQUA AI® App</p>
                 <h2 className="app-dl-title">
                   Smarter Aquarium
                   <br />
@@ -167,7 +167,7 @@ export default function AppDownloadSection() {
                   ))}
                 </div>
 
-                <div className="app-dl-heading-store">Download Aqua AI Now</div>
+                <div className="app-dl-heading-store">Download AQUA AI® Now</div>
                 <div className="app-dl-badges">
                   {/* Apple badge */}
                   <a href="#" className="app-badge">

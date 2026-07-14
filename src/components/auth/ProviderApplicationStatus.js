@@ -476,7 +476,7 @@ export default function ProviderApplicationStatus() {
                   <IoFishSharp size={28} />
                 </div>
                 <h1 className="pas-title">Choose Your Path</h1>
-                <p className="pas-subtitle">How would you like to join Aqua AI as a provider?</p>
+                <p className="pas-subtitle">How would you like to join AQUA AI® as a provider?</p>
               </div>
               <div className="pas-roles">
                 <RoleCard icon={FiBriefcase} title="Apply as Consultant" desc="Offer aquatic services, manage bookings, and grow your professional business." onClick={() => navigate("/consultant")} />

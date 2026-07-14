@@ -7,7 +7,7 @@ import { IoFishSharp } from "react-icons/io5";
 import FishModel from "./FishModel";
 
 const STEPS = [
-  { icon: FiDownload, num: "01", title: "Download the App", body: "Available on iOS and Android. Create your account on the Aqua AI platform in under two minutes." },
+  { icon: FiDownload, num: "01", title: "Download the App", body: "Available on iOS and Android. Create your account on the AQUA AI® platform in under two minutes." },
   { icon: FiHome, num: "02", title: "Set Up Your Habitat", body: "Name your tank or pond. Choose your water type — freshwater, saltwater, or brackish. Enter the volume." },
   { icon: IoFishSharp, num: "03", title: "Add Your Fish", body: "Scan your tank with the camera or search the species database. Confirm identification and save to your habitat." },
   { icon: FiDroplet, num: "04", title: "Enter Water Parameters", body: "Manually enter readings or scan a test strip with your camera. AI interprets the results instantly." },

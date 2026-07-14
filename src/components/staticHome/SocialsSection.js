@@ -32,7 +32,7 @@ const SOCIALS = [
   { label: "Bluesky", href: "https://bsky.app/profile/aquaai_care", icon: SiBluesky, color: "#0085FF" },
   { label: "Reddit", href: "https://reddit.com/user/aquaai_care", icon: FaReddit, color: "#FF4500" },
   { label: "Telegram Channel", href: "https://t.me/aquaai_care", icon: FaTelegram, color: "#2AABEE" },
-  { label: "Google Business", href: null, note: "Search AQUA AI on Google", icon: FiGlobe, color: "#4285F4" },
+  { label: "Google Business", href: null, note: "Search AQUA AI® on Google", icon: FiGlobe, color: "#4285F4" },
 ];
 
 function ChannelCard({ label, href, note, icon: Icon, color }) {

@@ -65,7 +65,7 @@ export default function Footer() {
           <Col xs={12} md={3}>
             <div className="footer-brand">
               <div className="footer-logo">
-                <span>AQUA AI</span>
+                <span>AQUA AI®</span>
               </div>
               <p className="footer-tagline">
                 AI-powered care for your aquarium.
@@ -127,7 +127,7 @@ export default function Footer() {
 
         {/* ── Bottom bar ── */}
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} Aqua AI. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} AQUA AI®. All rights reserved.</p>
         </div>
       </Container>
     </footer>

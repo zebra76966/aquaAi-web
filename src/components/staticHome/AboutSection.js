@@ -35,7 +35,7 @@ export default function AboutSection() {
       <div className="about-inner">
         {/* ── Heading ── */}
         <div className="about-header">
-          <p className="about-eyebrow">What is Aqua AI?</p>
+          <p className="about-eyebrow">What is AQUA AI®?</p>
           <h2 className="about-title">
             The Smartest Way to
             <br />
@@ -76,7 +76,7 @@ export default function AboutSection() {
                 </div>
 
                 <div className="ab-scroll-track">
-                  <img src="/appSS.png" alt="Aqua AI app" className="ab-screenshot" draggable="false" />
+                  <img src="/appSS.png" alt="AQUA AI® app" className="ab-screenshot" draggable="false" />
                 </div>
               </div>
               <div className="ab-home-bar" />
@@ -103,15 +103,15 @@ export default function AboutSection() {
         {/* ── Body copy below ── */}
         <div className="about-copy">
           <p className="about-body">
-            Aqua AI is an intelligent aquarium and pond management platform that combines artificial intelligence with real-world aquatic expertise to transform how people care for aquatic life.
+            AQUA AI® is an intelligent aquarium and pond management platform that combines artificial intelligence with real-world aquatic expertise to transform how people care for aquatic life.
           </p>
           <p className="about-body">
-            At its core, Aqua AI gives hobbyists the tools that were previously only available to professionals. Scan your tank to identify species from a database of over 20,000. Detect disease early
-            through AI-powered image analysis. Monitor water quality with intelligent interpretation that doesn't just show you numbers — it tells you what they mean and what to do next. Every habitat
-            gets a personalised care plan that adapts as conditions change.
+            At its core, AQUA AI® gives hobbyists the tools that were previously only available to professionals. Scan your tank to identify species from a database of over 20,000. Detect disease
+            early through AI-powered image analysis. Monitor water quality with intelligent interpretation that doesn't just show you numbers — it tells you what they mean and what to do next. Every
+            habitat gets a personalised care plan that adapts as conditions change.
           </p>
           <p className="about-body">
-            But Aqua AI is more than a monitoring tool. Our marketplace connects the entire aquatics community in one trusted ecosystem. Breeders list and sell livestock directly to hobbyists with
+            But AQUA AI® is more than a monitoring tool. Our marketplace connects the entire aquatics community in one trusted ecosystem. Breeders list and sell livestock directly to hobbyists with
             full order management, delivery tracking, and quality assurance built in. Consultants offer their professional services through an integrated booking system with in-app communication and
             verified trust scoring. Hobbyists can browse, buy, book, and learn — all in one place.
           </p>
@@ -121,7 +121,7 @@ export default function AboutSection() {
             breeding outcomes, stronger businesses, and a more connected aquatics community.{" "}
           </p>
 
-          <p className="about-body">Aqua AI is a product of Humara, a Tech company building intelligent platforms that elevate industries through data, AI, and community.</p>
+          <p className="about-body">AQUA AI® is a product of Humara, a Tech company building intelligent platforms that elevate industries through data, AI, and community.</p>
         </div>
       </div>
     </section>

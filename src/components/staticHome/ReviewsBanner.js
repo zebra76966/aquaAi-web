@@ -17,7 +17,7 @@ const REVIEWS = [
     avatar: "JT",
     avatarColor: "#1a4a6e",
     stars: 5,
-    quote: "Aqua AI helped me detect fin rot early. The care plan was super easy to follow and my fish is doing great now!",
+    quote: "AQUA AI® helped me detect fin rot early. The care plan was super easy to follow and my fish is doing great now!",
   },
   {
     name: "Priya S.",
@@ -25,7 +25,7 @@ const REVIEWS = [
     avatar: "PS",
     avatarColor: "#1a3a4e",
     stars: 5,
-    quote: "Aqua AI helped me detect fin rot early. The care plan was super easy to follow and my fish is doing great now!",
+    quote: "AQUA AI® helped me detect fin rot early. The care plan was super easy to follow and my fish is doing great now!",
   },
   {
     name: "Liam B.",
@@ -33,7 +33,7 @@ const REVIEWS = [
     avatar: "LP",
     avatarColor: "#0f2e50",
     stars: 5,
-    quote: "Aqua AI helped me detect fin rot early. The care plan was super easy to follow and my fish is doing great now!",
+    quote: "AQUA AI® helped me detect fin rot early. The care plan was super easy to follow and my fish is doing great now!",
   },
   {
     name: "Sarah K.",
@@ -41,7 +41,7 @@ const REVIEWS = [
     avatar: "SK",
     avatarColor: "#1a3050",
     stars: 5,
-    quote: "I've tried many apps but none come close to Aqua AI. My pond has never been healthier!",
+    quote: "I've tried many apps but none come close to AQUA AI®. My pond has never been healthier!",
   },
 ];
 

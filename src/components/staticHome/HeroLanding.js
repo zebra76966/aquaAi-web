@@ -94,7 +94,7 @@ function GiantRevealFish({ onComplete }) {
 
 function AquaTitle() {
   return (
-    <svg className="aqua-title" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" aria-label="AQUA AI">
+    <svg className="aqua-title" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" aria-label="AQUA AI®">
       <defs>
         <mask id="water-mask">
           <path className="water-wave" d="M-100,80 Q 0,60 100,80 T 300,80 T 500,80 T 700,80 T 900,80 L 900,180 L -100,180 Z" fill="white" />
@@ -102,11 +102,11 @@ function AquaTitle() {
       </defs>
 
       <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" className="title-outline">
-        AQUA AI
+        AQUA AI®
       </text>
 
       <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" className="title-fill" mask="url(#water-mask)">
-        AQUA AI
+        AQUA AI®
       </text>
     </svg>
   );

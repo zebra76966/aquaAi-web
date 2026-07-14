@@ -91,9 +91,9 @@ function Accordion({ sections }) {
 
 const downloadGuide = (type) => {
   const guides = {
-    users: "/guides/Professional AQUA AI Users App Guide.pdf",
-    breeders: "/guides/Professional AQUA AI Breeders App Guide.pdf",
-    consultants: "/guides/Professional AQUA AI Consultants App Guide.pdf",
+    users: "/guides/Professional AQUA AI® Users App Guide.pdf",
+    breeders: "/guides/Professional AQUA AI® Breeders App Guide.pdf",
+    consultants: "/guides/Professional AQUA AI® Consultants App Guide.pdf",
   };
   const fileUrl = guides[type];
   if (!fileUrl) return;

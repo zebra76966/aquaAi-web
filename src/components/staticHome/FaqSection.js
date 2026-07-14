@@ -9,28 +9,28 @@ const FAQ_CATEGORIES = [
     label: "Getting Started",
     items: [
       {
-        q: "What is Aqua AI?",
-        a: "Aqua AI is the world's most advanced aquatic intelligence platform. It provides hobbyists, breeders, and consultants with AI-powered tools for habitat management, species identification, water parameter analysis, disease detection, marketplace commerce, and professional bookings — all in one platform.",
+        q: "What is AQUA AI®?",
+        a: "AQUA AI® is the world's most advanced aquatic intelligence platform. It provides hobbyists, breeders, and consultants with AI-powered tools for habitat management, species identification, water parameter analysis, disease detection, marketplace commerce, and professional bookings — all in one platform.",
       },
       {
         q: "How do I download the app?",
-        a: "Aqua AI is available as a mobile application. Download it from the App Store (iOS) or Google Play (Android). You can also access certain features through the web platform at www.aquaai.uk.",
+        a: "AQUA AI® is available as a mobile application. Download it from the App Store (iOS) or Google Play (Android). You can also access certain features through the web platform at www.aquaai.uk.",
       },
       {
         q: "How do I create an account?",
         a: "Open the app, tap Sign Up, and create your account using a valid email address and password. Alternatively, you can sign up using Apple or Google authentication.",
       },
       {
-        q: "Is Aqua AI free to use?",
-        a: "Yes. Aqua AI offers a Free tier that includes 1 habitat, species identification via image, basic water parameter tracking, basic care plan, peer-to-peer marketplace access (browse and buy), and consultant booking. Premium and Pro tiers unlock additional habitats, AI features, and selling capabilities.",
+        q: "Is AQUA AI® free to use?",
+        a: "Yes. AQUA AI® offers a Free tier that includes 1 habitat, species identification via image, basic water parameter tracking, basic care plan, peer-to-peer marketplace access (browse and buy), and consultant booking. Premium and Pro tiers unlock additional habitats, AI features, and selling capabilities.",
       },
       {
-        q: "What devices does Aqua AI support?",
-        a: "Aqua AI is available on iOS and Android devices. The web platform at www.aquaai.uk provides additional access to certain features including dashboards for breeders and consultants.",
+        q: "What devices does AQUA AI® support?",
+        a: "AQUA AI® is available on iOS and Android devices. The web platform at www.aquaai.uk provides additional access to certain features including dashboards for breeders and consultants.",
       },
       {
         q: "Is there an age restriction?",
-        a: "Aqua AI is not directed at children under 13. Users aged 13 to 18 require parental consent. Users under 13 require explicit, verified parental consent to access any platform features.",
+        a: "AQUA AI® is not directed at children under 13. Users aged 13 to 18 require parental consent. Users under 13 require explicit, verified parental consent to access any platform features.",
       },
     ],
   },
@@ -40,7 +40,7 @@ const FAQ_CATEGORIES = [
     items: [
       {
         q: "What are the subscription tiers?",
-        a: "Aqua AI operates a three-tier model:\n\nFree (£0): 1 habitat, species identification (image), basic water parameter tracking, basic care plan, peer-to-peer marketplace.\n\nPremium (£14.99/month or £139.99/year): Up to 3 habitats, disease detection, AquaBot (100 queries/month), marketplace selling, consultant booking, breeder purchasing, growth tracking, and full water intelligence.\n\nPro (£24.99/month or £239.99/year): Unlimited habitats including ponds, full AI capabilities, AquaBot (500 queries/month), preventative alerts, data export, and priority features.",
+        a: "AQUA AI® operates a three-tier model:\n\nFree (£0): 1 habitat, species identification (image), basic water parameter tracking, basic care plan, peer-to-peer marketplace.\n\nPremium (£14.99/month or £139.99/year): Up to 3 habitats, disease detection, AquaBot (100 queries/month), marketplace selling, consultant booking, breeder purchasing, growth tracking, and full water intelligence.\n\nPro (£24.99/month or £239.99/year): Unlimited habitats including ponds, full AI capabilities, AquaBot (500 queries/month), preventative alerts, data export, and priority features.",
       },
       {
         q: "Is there a promotional launch price?",
@@ -51,8 +51,8 @@ const FAQ_CATEGORIES = [
         a: "If you cancel, you have a 30-day grace period. If you re-subscribe within those 30 days, your promotional pricing is restored. After 30 days, you will be charged at the standard rate.",
       },
       {
-        q: "Can Aqua AI change its prices?",
-        a: "Aqua AI reserves the right to modify pricing with 30 days' written notice. Existing subscribers retain their current pricing until their next renewal.",
+        q: "Can AQUA AI® change its prices?",
+        a: "AQUA AI® reserves the right to modify pricing with 30 days' written notice. Existing subscribers retain their current pricing until their next renewal.",
       },
       {
         q: "What payment methods are accepted?",
@@ -126,7 +126,7 @@ const FAQ_CATEGORIES = [
       },
       {
         q: "Are AI outputs guaranteed to be accurate?",
-        a: "All AI outputs are probabilistic and advisory. Aqua AI strives for accuracy and the AI improves over time, but results should be treated as guidance, not a substitute for professional veterinary or specialist advice in critical situations.",
+        a: "All AI outputs are probabilistic and advisory. AQUA AI® strives for accuracy and the AI improves over time, but results should be treated as guidance, not a substitute for professional veterinary or specialist advice in critical situations.",
       },
     ],
   },
@@ -139,8 +139,8 @@ const FAQ_CATEGORIES = [
         a: "The Peer-to-Peer (P2P) Marketplace allows users to buy and sell aquatic goods, equipment, plants, and accessories directly with each other. Free tier users can browse and buy; Premium and Pro users can also sell.",
       },
       {
-        q: "Does Aqua AI charge fees on P2P sales?",
-        a: "No. There are no platform fees or commissions on P2P marketplace transactions. Aqua AI facilitates the connection but does not process payment — buyers and sellers arrange payment directly.",
+        q: "Does AQUA AI® charge fees on P2P sales?",
+        a: "No. There are no platform fees or commissions on P2P marketplace transactions. AQUA AI® facilitates the connection but does not process payment — buyers and sellers arrange payment directly.",
       },
       {
         q: "Are marketplace listings restricted by location?",
@@ -154,7 +154,7 @@ const FAQ_CATEGORIES = [
         q: "What is the 7-day security hold?",
         a: "When you purchase from a Breeder, your payment is held securely for 7 days. This ensures you have time to collect the livestock and confirm it is as described before funds are released to the breeder.",
       },
-      { q: "What commission does Aqua AI charge on Breeder sales?", a: "Aqua AI charges 7% on all in-app Breeder sales. The Breeder keeps 93% of every transaction." },
+      { q: "What commission does AQUA AI® charge on Breeder sales?", a: "AQUA AI® charges 7% on all in-app Breeder sales. The Breeder keeps 93% of every transaction." },
     ],
   },
   {
@@ -162,7 +162,7 @@ const FAQ_CATEGORIES = [
     label: "Professional Breeders",
     items: [
       {
-        q: "How do I become a Breeder on Aqua AI?",
+        q: "How do I become a Breeder on AQUA AI®?",
         a: "Download the Aqua Providers app, tap Sign Up, and select Breeder as your provider role. Complete the application with your business details, species specialisms, and location. Once approved, subscribe to activate your Breeder account.",
       },
       {
@@ -192,7 +192,7 @@ const FAQ_CATEGORIES = [
     label: "Professional Consultants",
     items: [
       {
-        q: "How do I become a Consultant on Aqua AI?",
+        q: "How do I become a Consultant on AQUA AI®?",
         a: "Download the Aqua Providers app, tap Sign Up, and select Consultancy as your provider role. Complete your application with credentials, service areas, and availability. Once approved, your profile becomes discoverable in the Consultant Directory.",
       },
       {
@@ -223,7 +223,7 @@ const FAQ_CATEGORIES = [
     items: [
       {
         q: "What is the Trust Score?",
-        a: "The Trust Score is the reputational backbone of Aqua AI. It is calculated automatically based on your verified platform activity, consistency, responsiveness, and community contributions.",
+        a: "The Trust Score is the reputational backbone of AQUA AI®. It is calculated automatically based on your verified platform activity, consistency, responsiveness, and community contributions.",
       },
       {
         q: "How do the Trust Tiers work?",
@@ -241,18 +241,21 @@ const FAQ_CATEGORIES = [
     label: "Data & Privacy",
     items: [
       {
-        q: "What data does Aqua AI collect?",
-        a: "Aqua AI collects account information, habitat data (species, equipment, water parameters), images and video (for AI analysis), booking and transaction records, and usage analytics to improve the platform.",
+        q: "What data does AQUA AI® collect?",
+        a: "AQUA AI® collects account information, habitat data (species, equipment, water parameters), images and video (for AI analysis), booking and transaction records, and usage analytics to improve the platform.",
       },
       {
-        q: "Does Aqua AI sell my data?",
-        a: "No. Aqua AI does not sell your personal data. Data is shared only with service providers necessary to operate the platform (such as Stripe for payments and cloud hosting providers).",
+        q: "Does AQUA AI® sell my data?",
+        a: "No. AQUA AI® does not sell your personal data. Data is shared only with service providers necessary to operate the platform (such as Stripe for payments and cloud hosting providers).",
       },
       {
         q: "How is my data protected?",
         a: "Security measures include TLS/HTTPS encryption in transit, AES-256 encryption at rest, JWT authentication with short token expiry, and regular security audits.",
       },
-      { q: "Does Aqua AI store my card details?", a: "No. All payment card details are processed and stored directly by Stripe. Aqua AI does not have access to your full card details at any point." },
+      {
+        q: "Does AQUA AI® store my card details?",
+        a: "No. All payment card details are processed and stored directly by Stripe. AQUA AI® does not have access to your full card details at any point.",
+      },
       {
         q: "What happens to my data if I delete my account?",
         a: "Upon account termination, access ceases immediately. Account data is retained for 30 days (in case of accidental deletion), then permanently deleted — except where longer retention is required by law (e.g., 7 years for financial records).",
@@ -268,18 +271,18 @@ const FAQ_CATEGORIES = [
     label: "Platform & Support",
     items: [
       {
-        q: "What is Aqua AI's uptime target?",
-        a: "Aqua AI targets 99.5% uptime for core platform services, measured monthly, excluding scheduled maintenance windows announced at least 48 hours in advance.",
+        q: "What is AQUA AI®'s uptime target?",
+        a: "AQUA AI® targets 99.5% uptime for core platform services, measured monthly, excluding scheduled maintenance windows announced at least 48 hours in advance.",
       },
       { q: "How do I contact support?", a: "Email: info@aquaai.uk\nSupport: support@aquaai.uk\nWhatsApp / Signal: +44 7586 576323\nSMS: +44 7782 207333\nWebsite: www.aquaai.uk/support" },
       {
         q: "What are the support response times?",
         a: "Critical (platform outage, data loss, security incident): within 4 hours\nHigh priority (payment/payout, booking failures, account access): within 24 hours\nStandard (feature questions, feedback): within 48 hours\nLow priority (suggestions, non-urgent feedback): within 5 business days",
       },
-      { q: "Who operates Aqua AI?", a: "Aqua AI is operated by Humara Ltd, registered in England and Wales. The platform is governed by the laws of England and Wales." },
+      { q: "Who operates AQUA AI®?", a: "AQUA AI® is operated by Humara Ltd, registered in England and Wales. The platform is governed by the laws of England and Wales." },
       {
-        q: "Does Aqua AI endorse listings or providers?",
-        a: "No. Aqua AI does not endorse or guarantee any user content, listing, consultant service, or breeder stock. Users and providers are independent, and all transactions are conducted at the parties' own risk.",
+        q: "Does AQUA AI® endorse listings or providers?",
+        a: "No. AQUA AI® does not endorse or guarantee any user content, listing, consultant service, or breeder stock. Users and providers are independent, and all transactions are conducted at the parties' own risk.",
       },
     ],
   },

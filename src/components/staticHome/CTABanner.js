@@ -79,7 +79,7 @@ export default function CTABanner() {
                   <br />
                   Smarter Than Ever
                 </h2>
-                <p className="cta-body">Join thousands of aquarists who trust Aqua AI to keep their tanks healthy and thriving.</p>
+                <p className="cta-body">Join thousands of aquarists who trust AQUA AI® to keep their tanks healthy and thriving.</p>
                 <button className="cta-btn" onClick={() => navigate("/register")}>
                   Get Started Free
                   <FiArrowRight className="cta-btn-icon" />

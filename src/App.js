@@ -21,6 +21,7 @@ import PaymentSuccess from "./components/auth/PaymentSuccess";
 import PaymentFail from "./components/auth/PaymentFail";
 
 import BreederApply from "./components/breeder/BreederApply";
+import BreederPayment from "./components/breeder/BreederPayment";
 import ConsultantApply from "./components/consultant/ConsultantApply";
 
 import AdminDashboard from "./components/admin/AdminDashboard";
@@ -125,6 +126,7 @@ function AppContent() {
 
         {/* Admin */}
         <Route path="/breeder" element={<BreederApply />} />
+        <Route path="/breeder/:breederId/payments/" element={<BreederPayment />} />
         <Route path="/consultant" element={<ConsultantApply />} />
         <Route path="/admin" element={<AdminDashboard />} />
       </Routes>

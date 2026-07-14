@@ -5,7 +5,7 @@ import { GiWaves } from "react-icons/gi";
 import { Link, useNavigate } from "react-router-dom";
 
 const NAV_LINKS = [
-  { label: "Features", sub: "Explore what Aqua AI can do", type: "internal", to: "/features" },
+  { label: "Features", sub: "Explore what AQUA AI® can do", type: "internal", to: "/features" },
   { label: "How It Works", sub: "Step-by-step walkthrough", type: "internal", to: "/how-it-works" },
   { label: "Pricing", sub: "Plans for every aquarist", type: "internal", to: "/pricing" },
   { label: "User Guides /FAQs", sub: "Get the most from the app", type: "internal", to: "/faqs" },
@@ -25,9 +25,9 @@ export default function Navbar() {
         <div className="navbar-inner w-100">
           {/* Logo */}
           <a href="/" className="navbar-logo" onClick={close}>
-            <img src="/favicon32.png" alt="Aqua AI Logo" className="navbar-logo-img" />
+            <img src="/favicon32.png" alt="AQUA AI® Logo" className="navbar-logo-img" />
 
-            <span>AQUA AI</span>
+            <span>AQUA AI®</span>
           </a>
 
           <Link to="/download" className="navbar-download d-none d-lg-inline" onClick={close}>
