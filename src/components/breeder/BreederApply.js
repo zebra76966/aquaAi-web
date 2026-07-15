@@ -44,7 +44,6 @@ const STEPS_META = [
   { title: "Online Presence", subtitle: "Where can customers find you?", icon: FaGlobe },
   { title: "Species & Expertise", subtitle: "What do you breed?", icon: FaFish },
   { title: "Review", subtitle: "Confirm your details", icon: FaShieldAlt },
-  { title: "Choose a Plan", subtitle: "Subscribe to go live", icon: FaCrown },
 ];
 
 const TOTAL_STEPS = STEPS_META.length; // 5
@@ -847,7 +846,7 @@ export default function BreederApply() {
                 Continue <FaChevronRight size={12} />
               </button>
             ) : (
-              <button className="br-btn-submit" onClick={handleSubscribeAndSubmit} disabled={subscribing || loadingPlans || !selectedPlan}>
+              <button className="br-btn-submit" onClick={handleSubscribeAndSubmit} disabled={subscribing}>
                 {subscribing ? (
                   <>
                     <Spinner size="sm" animation="border" /> Processing…
