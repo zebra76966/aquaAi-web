@@ -39,6 +39,15 @@ export default function Register() {
         setSuccess(true);
         setMessage("Account created!");
 
+        const forProvider = isProvider || formData.is_for_provider;
+
+        if (!forProvider) {
+          // Regular (non-provider) sign-up — don't auto-login. Send them to
+          // a clean confirmation page and let them sign in themselves.
+          navigate("/user-signup/success");
+          return;
+        }
+
         // Provider registration flow
 
         // Existing flow
@@ -60,11 +69,7 @@ export default function Register() {
 
             if (lr.ok && ld.access) {
               await login(ld.access, ld.roles || []);
-              if (isProvider || formData.is_for_provider) {
-                navigate("/provider-status");
-              } else {
-                navigate("/plans");
-              }
+              navigate("/provider-status");
             } else {
               setTimeout(() => navigate("/login"), 1500);
             }
