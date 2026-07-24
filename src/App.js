@@ -45,6 +45,7 @@ import HowItWorksPage from "./components/staticHome/HowItWorksPage";
 import ProviderApplicationStatus from "./components/auth/ProviderApplicationStatus";
 import ProviderApplicationSuccess from "./components/auth/ProviderApplicationSuccess";
 import UserSignupSuccess from "./components/auth/UserSignupSuccess";
+import VerifyEmail from "./components/auth/VerifyEmail";
 import PricingPage from "./components/staticHome/PricingPage";
 
 function RoleRedirect() {
@@ -111,6 +112,7 @@ function AppContent() {
         <Route path="/provider-status" element={<ProviderApplicationStatus />} />
         <Route path="/providers/application/success" element={<ProviderApplicationSuccess />} />
         <Route path="/user-signup/success" element={<UserSignupSuccess />} />
+        <Route path="/verify-email/:token" element={<VerifyEmail />} />
         <Route path="/plans" element={<Plans />} />
 
         <Route path="/payment/success" element={<PaymentSuccess />} />

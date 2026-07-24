@@ -102,11 +102,11 @@ function AquaTitle() {
       </defs>
 
       <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" className="title-outline">
-        AQUA AI®
+        AQUA AI
       </text>
 
       <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" className="title-fill" mask="url(#water-mask)">
-        AQUA AI®
+        AQUA AI
       </text>
     </svg>
   );
