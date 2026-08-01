@@ -9,7 +9,8 @@ const VIDEO_LINKS = {
   "Water Parameters & Testing": "https://www.youtube.com/watch?v=q_phhmldAVg&list=PL8oU20hcR0ed-_oQOD2eflOX5RIl15PT0&index=1",
   "Marketplace & Buying": "https://youtube.com/shorts/YHbtAd_f1q0",
   "Booking a Consultant": "https://youtube.com/shorts/Ns6iDQB56rA",
-  "Community & Badges": "https://youtube.com/shorts/iisfOMzaPGQ?feature=share",
+  Badges: "https://youtube.com/shorts/iisfOMzaPGQ?feature=share",
+  Community: "https://www.youtube.com/shorts/k6UQVpzAN4Y",
   "Managing Your Calendar": "https://youtube.com/shorts/gKaitEn-fxM?feature=share",
   "Analytics & Trust Intelligence": "https://youtube.com/shorts/Nt3lV1ViZxw",
   "Adding Services": "https://youtube.com/shorts/fUsHNeenM5g",
@@ -28,7 +29,8 @@ const USER_SECTIONS = [
   { title: "AI Care Plans & Insights", body: "How personalised care plans are generated. Understanding alerts, recommendations, and when to act." },
   { title: "Marketplace & Buying", body: "Browse listings, add to basket, checkout, and arrange collection or delivery. Buyer protection and dispute resolution." },
   { title: "Booking a Consultant", body: "Find, filter, and book aquatic professionals. In-app calendar, payment, and messaging walkthrough." },
-  { title: "Community & Badges", body: "Share your tank, interact with the community, and understand the trust badge system and how to earn rank upgrades." },
+  { title: "Badges", body: "Earn trust badges and understand how to earn rank upgrades." },
+  { title: "Community", body: "Share your tank, interact with the community." },
 ];
 
 const PROVIDER_SECTIONS = {
