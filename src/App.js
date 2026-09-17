@@ -47,6 +47,8 @@ import ProviderApplicationSuccess from "./components/auth/ProviderApplicationSuc
 import UserSignupSuccess from "./components/auth/UserSignupSuccess";
 import VerifyEmail from "./components/auth/VerifyEmail";
 import PricingPage from "./components/staticHome/PricingPage";
+import BreederOutreachPage from "./components/staticHome/BreederOutreachPage";
+import ConsultantOutreachPage from "./components/staticHome/ConsultantOutreachPage";
 
 function RoleRedirect() {
   const { token, roles, loading } = useContext(AuthContext);
@@ -103,6 +105,8 @@ function AppContent() {
         <Route path="/features" element={<FeaturesPage />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/why-sell-with-us" element={<BreederOutreachPage />} />
+        <Route path="/why-partner-with-us" element={<ConsultantOutreachPage />} />
 
         <Route path="/role-redirect" element={<RoleRedirect />} />
         <Route path="/login" element={<Login />} />

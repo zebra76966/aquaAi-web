@@ -105,6 +105,9 @@
   color: #e8f0fe;
   margin-bottom: 16px;
 }
+.app-dl-heading-store--providers {
+  margin-top: -8px;
+}
 .app-dl-badges {
   display: flex;
   gap: 14px;

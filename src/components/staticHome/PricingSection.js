@@ -211,7 +211,7 @@ function PlanCard({ plan, annual, highlight, popularLabel }) {
 
       <button
         onClick={() => {
-          navigate("/register");
+          navigate(popularLabel === "Breeder Plan" ? "/register/?isprovider=true" : "/register/");
         }}
         className={`pricing-cta${highlight ? " pricing-cta--primary" : ""}`}
       >
@@ -242,11 +242,17 @@ function BreederPlan({ plans, annual }) {
       <div className="pricing-card pricing-card--highlight pricing-card--wide">
         <PlanCard plan={plan} annual={annual} highlight popularLabel="Breeder Plan" />
       </div>
+      <p style={{ textAlign: "center", marginTop: 16 }}>
+        <a href="/why-sell-with-us" style={{ color: "#00e5ff", fontWeight: 600, textDecoration: "none" }}>
+          Why breeders sell with Aqua AI &rarr;
+        </a>
+      </p>
     </div>
   );
 }
 
 function ConsultantPlan() {
+  const navigate = useNavigate();
   const features = ["Service listing", "Calendar management", "Booking management", "Client data access", "Analytics dashboard", "Trust intelligence", "10% commission on bookings"];
   return (
     <div className="pricing-single-wrap">
@@ -265,8 +271,20 @@ function ConsultantPlan() {
             </li>
           ))}
         </ul>
-        <button className="pricing-cta pricing-cta--primary">Apply as Consultant</button>
+        <button
+          onClick={() => {
+            navigate("/register/?isprovider=true");
+          }}
+          className="pricing-cta pricing-cta--primary"
+        >
+          Apply as Consultant
+        </button>
       </div>
+      <p style={{ textAlign: "center", marginTop: 16 }}>
+        <a href="/why-partner-with-us" style={{ color: "#00e5ff", fontWeight: 600, textDecoration: "none" }}>
+          Why consultants partner with Aqua AI &rarr;
+        </a>
+      </p>
     </div>
   );
 }

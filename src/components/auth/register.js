@@ -69,7 +69,11 @@ export default function Register() {
 
             if (lr.ok && ld.access) {
               await login(ld.access, ld.roles || []);
-              navigate("/provider-status");
+              if (isProvider || formData.is_for_provider) {
+                navigate("/provider-status");
+              } else {
+                navigate("/plans");
+              }
             } else {
               setTimeout(() => navigate("/login"), 1500);
             }
