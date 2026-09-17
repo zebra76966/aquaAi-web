@@ -18,8 +18,8 @@ export default function BreederOutreachPage() {
 
         <div className="otr-body">
           <p>
-            Here's how most of your online sales work today: someone stumbles across your listing, hopes it suits their tank, and buys on a guess. Half your enquiries are
-            people asking whether your fish will survive alongside what they already keep.
+            Here's how most of your online sales work today: someone stumbles across your listing, hopes it suits their tank, and buys on a guess. Half your enquiries are people asking whether your
+            fish will survive alongside what they already keep.
           </p>
           <p>
             <strong className="otr-highlight">Aqua Providers inverts that.</strong>
@@ -30,13 +30,13 @@ export default function BreederOutreachPage() {
           <h2 className="otr-h2">We answer the compatibility question before they ever see your stock</h2>
           <div className="otr-body">
             <p>
-              Every Aqua AI user has their habitat mapped — species, water parameters, tank volume, temperature, the lot. When they ask what they can add, our compatibility
-              engine tells them exactly which species will thrive in their water.
+              Every Aqua AI user has their habitat mapped — species, water parameters, tank volume, temperature, the lot. When they ask what they can add, our compatibility engine tells them exactly
+              which species will thrive in their water.
             </p>
             <p>Then it shows them the breeders who have those species in stock — ranked by proximity and star rating.</p>
             <p>
-              That's not a listing sitting in a search index hoping to be found. That's a buyer who has just been told, by a system they trust, that your fish is right for
-              their tank. You're not advertising. You're being recommended.
+              That's not a listing sitting in a search index hoping to be found. That's a buyer who has just been told, by a system they trust, that your fish is right for their tank. You're not
+              advertising. You're being recommended.
             </p>
           </div>
         </div>
@@ -89,15 +89,14 @@ export default function BreederOutreachPage() {
             <li>
               <FiCheck />
               <span>
-                <strong>Restock before you sell out.</strong> We track demand velocity across the platform and tell you which species to restock, ranked by how fast they're
-                moving.
+                <strong>Restock before you sell out.</strong> We track demand velocity across the platform and tell you which species to restock, ranked by how fast they're moving.
               </span>
             </li>
             <li>
               <FiCheck />
               <span>
-                <strong>Know your buyer before you ship.</strong> Every buyer carries a reliability score. If someone has a history of cancellations, no-shows or disputes,
-                you'll know before you pack the box.
+                <strong>Know your buyer before you ship.</strong> Every buyer carries a reliability score. If someone has a history of cancellations, no-shows or disputes, you'll know before you pack
+                the box.
               </span>
             </li>
             <li>
@@ -126,10 +125,7 @@ export default function BreederOutreachPage() {
             </li>
           </ul>
           <div className="otr-body">
-            <p>
-              Plus dispatch performance, dispute rates, revenue, cancellation analysis and stock alerts — the kind of MI/BI a wholesaler pays four figures a month for. It's
-              included.
-            </p>
+            <p>Plus dispatch performance, dispute rates, revenue, cancellation analysis and stock alerts — the kind of MI/BI a wholesaler pays four figures a month for. It's included.</p>
           </div>
         </div>
 
@@ -148,9 +144,8 @@ export default function BreederOutreachPage() {
           </ul>
           <div className="otr-body">
             <p>
-              Badges are earned on evidence, not self-declared. Dispatch inside 24 hours consistently and it shows. Keep your dispute rate under 2% and it shows. Trust tiers
-              run Bronze → Silver → Gold → Platinum, recalculated nightly, with a buyer-facing trust card carrying signals like "This breeder typically dispatches within 24
-              hours."
+              Badges are earned on evidence, not self-declared. Dispatch inside 24 hours consistently and it shows. Keep your dispute rate under 2% and it shows. Trust tiers run Bronze → Silver → Gold
+              → Platinum, recalculated nightly, with a buyer-facing trust card carrying signals like "This breeder typically dispatches within 24 hours."
             </p>
             <p>Good breeders have spent years being indistinguishable from bad ones online. That ends here.</p>
           </div>
@@ -175,8 +170,7 @@ export default function BreederOutreachPage() {
             </div>
           </div>
           <p className="otr-fineprint">
-            Card processing is included. Our actual platform fee is around 5% — for qualified buyers, delivered to you, with the fulfilment, dispute handling and payouts run
-            for you.
+            Card processing is included. Our actual platform fee is around 5% — for qualified buyers, delivered to you, with the fulfilment, dispute handling and payouts run for you.
           </p>
 
           <div className="otr-body">
@@ -190,7 +184,7 @@ export default function BreederOutreachPage() {
         </p>
 
         <div className="otr-cta-wrap">
-          <button className="otr-cta-btn" onClick={() => navigate("/register")}>
+          <button className="otr-cta-btn" onClick={() => navigate("/register/?isprovider=true")}>
             Apply as a Breeder
           </button>
         </div>

@@ -18,8 +18,8 @@ export default function ConsultantOutreachPage() {
 
         <div className="otr-body">
           <p>
-            The hardest part of aquatic consultancy isn't the work. It's being found by the right person at the right time — usually after they've already tried three things
-            off YouTube and lost half a tank.
+            The hardest part of aquatic consultancy isn't the work. It's being found by the right person at the right time — usually after they've already tried three things off YouTube and lost half
+            a tank.
           </p>
           <p>
             <strong className="otr-highlight">Aqua Providers changes when the customer finds you.</strong>
@@ -30,12 +30,11 @@ export default function ConsultantOutreachPage() {
           <h2 className="otr-h2">We escalate to you at the moment of crisis</h2>
           <div className="otr-body">
             <p>
-              Aqua AI monitors users' tanks continuously — water chemistry across a dozen parameters, AI-driven disease detection from photo and video, health scoring, and
-              trend analysis over time.
+              Aqua AI monitors users' tanks continuously — water chemistry across a dozen parameters, AI-driven disease detection from photo and video, health scoring, and trend analysis over time.
             </p>
             <p>
-              When the system detects something severe or critical — a disease it can identify, parameters heading somewhere dangerous, a health score falling off a cliff —
-              it recommends escalating to a consultant. Then it shows them the consultants nearest to them, with their ratings, services and live availability.
+              When the system detects something severe or critical — a disease it can identify, parameters heading somewhere dangerous, a health score falling off a cliff — it recommends escalating to
+              a consultant. Then it shows them the consultants nearest to them, with their ratings, services and live availability.
             </p>
             <p>That's not a lead. That's a customer who has just been told by an intelligent system that they need professional help, right now.</p>
           </div>
@@ -45,8 +44,8 @@ export default function ConsultantOutreachPage() {
           <h2 className="otr-h2">You arrive already knowing what you're walking into</h2>
           <div className="otr-body">
             <p>
-              Before you set off, you can see the tank's history: water parameters over time, the AI's health analysis, the species involved, the photographs. No forty
-              minutes of diagnosis before you can quote.
+              Before you set off, you can see the tank's history: water parameters over time, the AI's health analysis, the species involved, the photographs. No forty minutes of diagnosis before you
+              can quote.
             </p>
             <p>You turn up informed, diagnose faster, and look exactly like the expert you are.</p>
           </div>
@@ -82,8 +81,8 @@ export default function ConsultantOutreachPage() {
             <li>
               <FiCheck />
               <span>
-                <strong>Protection from time-wasters</strong> — late cancellations and no-shows are tracked and penalised at the user's end. Repeat offenders lose booking
-                privileges. Your diary is protected.
+                <strong>Protection from time-wasters</strong> — late cancellations and no-shows are tracked and penalised at the user's end. Repeat offenders lose booking privileges. Your diary is
+                protected.
               </span>
             </li>
           </ul>
@@ -124,20 +123,14 @@ export default function ConsultantOutreachPage() {
             </li>
           </ul>
           <div className="otr-body">
-            <p>
-              Plus booking volume and trends, completion rate, earnings, rating trends and trust progression — an operating picture most independent consultants have never
-              had.
-            </p>
+            <p>Plus booking volume and trends, completion rate, earnings, rating trends and trust progression — an operating picture most independent consultants have never had.</p>
           </div>
         </div>
 
         <div className="otr-block">
           <h2 className="otr-h2">Reputation that's earned and visible</h2>
           <div className="otr-body">
-            <p>
-              Trust scores and badges built on evidence — response speed, completion rate, review history — displayed publicly, recalculated nightly, running Bronze →
-              Silver → Gold → Platinum.
-            </p>
+            <p>Trust scores and badges built on evidence — response speed, completion rate, review history — displayed publicly, recalculated nightly, running Bronze → Silver → Gold → Platinum.</p>
             <p>Reviews and star ratings come from verified, completed bookings only. No anonymous drive-by ratings from people who never hired you.</p>
           </div>
         </div>
@@ -165,8 +158,8 @@ export default function ConsultantOutreachPage() {
 
           <div className="otr-body">
             <p>
-              When a customer books you, they pay a 10% deposit through the app to secure the slot — that deposit is our fee. You collect the remaining balance directly, in
-              person, however you normally take payment.
+              When a customer books you, they pay a 10% deposit through the app to secure the slot — that deposit is our fee. You collect the remaining balance directly, in person, however you
+              normally take payment.
             </p>
             <p>You never write us a cheque. Ever. If you don't get booked, we don't get paid. Our incentive is identical to yours.</p>
           </div>
@@ -178,7 +171,7 @@ export default function ConsultantOutreachPage() {
         </p>
 
         <div className="otr-cta-wrap">
-          <button className="otr-cta-btn" onClick={() => navigate("/register")}>
+          <button className="otr-cta-btn" onClick={() => navigate("/register/?isprovider=true")}>
             Apply as a Consultant
           </button>
         </div>
