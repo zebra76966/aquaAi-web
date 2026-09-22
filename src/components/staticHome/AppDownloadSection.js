@@ -169,31 +169,31 @@ export default function AppDownloadSection() {
 
                 <div className="app-dl-heading-store">Download AQUA AI® Now</div>
                 <div className="app-dl-badges">
-                  {/* Apple badge — AQUA AI (consumer) */}
-                  <a href="#" data-store="aqua-ai-ios" className="app-badge">
+                  {/* Apple badge — not live yet */}
+                  <div className="app-badge app-badge--soon" aria-disabled="true">
                     <svg viewBox="0 0 24 24" fill="currentColor" className="app-badge-icon">
                       <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
                     </svg>
                     <div>
-                      <span className="app-badge-sub">Download on the</span>
-                      <span className="app-badge-store">App Store</span>
+                      <span className="app-badge-sub">App Store</span>
+                      <span className="app-badge-soon-tag">Coming Soon</span>
                     </div>
-                  </a>
+                  </div>
 
-                  {/* Google Play badge — AQUA AI (consumer) */}
-                  <a href="#" data-store="aqua-ai-android" className="app-badge">
+                  {/* Google Play badge — not live yet */}
+                  <div className="app-badge app-badge--soon" aria-disabled="true">
                     <IoLogoGooglePlaystore className="app-badge-icon app-badge-icon--play" />
                     <div>
-                      <span className="app-badge-sub">GET IT ON</span>
-                      <span className="app-badge-store">Google Play</span>
+                      <span className="app-badge-sub">Google Play</span>
+                      <span className="app-badge-soon-tag">Coming Soon</span>
                     </div>
-                  </a>
+                  </div>
                 </div>
 
                 <div className="app-dl-heading-store app-dl-heading-store--providers">Download AQUA Providers Now</div>
                 <div className="app-dl-badges">
-                  {/* Apple badge — AQUA Providers */}
-                  <a href="#" data-store="aqua-providers-ios" className="app-badge">
+                  {/* Apple badge — AQUA Providers, live */}
+                  <a href="https://apps.apple.com/us/app/aquaproviders/id6760295122" target="_blank" rel="noopener noreferrer" className="app-badge">
                     <svg viewBox="0 0 24 24" fill="currentColor" className="app-badge-icon">
                       <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
                     </svg>
@@ -203,8 +203,8 @@ export default function AppDownloadSection() {
                     </div>
                   </a>
 
-                  {/* Google Play badge — AQUA Providers */}
-                  <a href="#" data-store="aqua-providers-android" className="app-badge">
+                  {/* Google Play badge — AQUA Providers, live */}
+                  <a href="https://play.google.com/store/apps/details?id=com.zebra76966.aquaproviders" target="_blank" rel="noopener noreferrer" className="app-badge">
                     <IoLogoGooglePlaystore className="app-badge-icon app-badge-icon--play" />
                     <div>
                       <span className="app-badge-sub">GET IT ON</span>
