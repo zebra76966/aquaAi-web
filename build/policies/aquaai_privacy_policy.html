@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AQUA AI® — Privacy Policy</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --aqua: #00b4d8;
+        --aqua-dark: #0077a8;
+        --navy: #0a1628;
+        --ink: #1c2b3a;
+        --muted: #5a7080;
+        --rule: #d4e8f0;
+        --bg: #f4f9fc;
+        --card: #ffffff;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.7;
+        font-size: 15px;
+        padding: 48px 16px 80px;
+      }
+
+      .page {
+        max-width: 740px;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        padding-bottom: 40px;
+        border-bottom: 2px solid var(--rule);
+        margin-bottom: 40px;
+      }
+
+      .brand {
+        font-family: "DM Serif Display", serif;
+        font-size: 2.6rem;
+        color: var(--navy);
+        letter-spacing: -0.5px;
+      }
+
+      .brand span {
+        color: var(--aqua);
+      }
+
+      .header-sub {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-top: 6px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+
+      .meta-block {
+        margin-top: 20px;
+        display: inline-block;
+        text-align: left;
+        font-size: 0.88rem;
+        color: var(--muted);
+        background: var(--card);
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        padding: 14px 22px;
+        line-height: 1.9;
+      }
+
+      .meta-block strong {
+        color: var(--navy);
+        font-weight: 500;
+      }
+
+      a {
+        color: var(--aqua-dark);
+        text-decoration: none;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      a:hover {
+        border-color: var(--aqua);
+        color: var(--aqua);
+      }
+
+      /* Sections */
+      .section {
+        background: var(--card);
+        border-radius: 10px;
+        border: 1px solid var(--rule);
+        padding: 28px 32px;
+        margin-bottom: 20px;
+      }
+
+      .section-title {
+        font-family: "DM Serif Display", serif;
+        font-size: 1.2rem;
+        color: var(--aqua-dark);
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .sub-title {
+        font-weight: 500;
+        color: var(--navy);
+        font-size: 0.95rem;
+        margin: 16px 0 6px;
+      }
+
+      .sub-title:first-of-type {
+        margin-top: 0;
+      }
+
+      p {
+        color: var(--ink);
+        margin-bottom: 10px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Bullet lists */
+      .bullet-list {
+        list-style: none;
+        padding: 0;
+        margin: 6px 0 10px;
+      }
+
+      .bullet-list li {
+        padding: 5px 0 5px 18px;
+        position: relative;
+        font-size: 0.93rem;
+        border-bottom: 1px solid var(--rule);
+        color: var(--ink);
+      }
+
+      .bullet-list li:last-child {
+        border-bottom: none;
+      }
+
+      .bullet-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 13px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--aqua);
+      }
+
+      .bullet-list li strong {
+        color: var(--navy);
+        font-weight: 500;
+      }
+
+      /* Retention table */
+      .retention-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.91rem;
+        margin-top: 4px;
+      }
+
+      .retention-table th {
+        text-align: left;
+        padding: 8px 10px;
+        background: #edf6fa;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--navy);
+      }
+
+      .retention-table td {
+        padding: 8px 10px;
+        border-top: 1px solid var(--rule);
+        color: var(--ink);
+        vertical-align: top;
+      }
+
+      .retention-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .retention-table .data-type {
+        font-weight: 500;
+        color: var(--navy);
+      }
+
+      /* Contact grid */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 24px;
+        font-size: 0.92rem;
+      }
+
+      .contact-item strong {
+        color: var(--navy);
+        display: block;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        margin-bottom: 2px;
+        font-weight: 500;
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 0.82rem;
+        color: var(--muted);
+        letter-spacing: 0.03em;
+      }
+
+      @media (max-width: 560px) {
+        .section {
+          padding: 20px 18px;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .brand {
+          font-size: 2rem;
+        }
+        .retention-table {
+          font-size: 0.83rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-sub">Privacy Policy</div>
+        <div class="meta-block">
+          <strong>Version:</strong> 3.0<br />
+          <strong>Last Updated:</strong> May 2026<br />
+          <strong>Classification:</strong> Public<br />
+          <strong>Operated by:</strong> Humara Ltd, Registered in England and Wales
+        </div>
+      </header>
+
+      <!-- 1. Introduction -->
+      <section class="section">
+        <h2 class="section-title">1. Introduction</h2>
+        <p>
+          1.1. This Privacy Policy explains how Humara Ltd, trading as AQUA AI®, collects, uses, stores, shares, and protects your personal data when you use the AQUA AI® and Aqua Providers mobile
+          applications and the website at <a href="https://www.aquaai.uk">www.aquaai.uk</a>.
+        </p>
+        <p>1.2. We comply with the UK GDPR, the Data Protection Act 2018, and the Privacy and Electronic Communications Regulations 2003.</p>
+        <p>1.3. For data protection purposes, Humara Ltd is the data controller.</p>
+      </section>
+
+      <!-- 2. Information We Collect -->
+      <section class="section">
+        <h2 class="section-title">2. Information We Collect</h2>
+
+        <div class="sub-title">2.1. Information You Provide</div>
+        <ul class="bullet-list">
+          <li><strong>Account information:</strong> name, email address, password, and authentication data (Google, Apple, Facebook)</li>
+          <li><strong>Profile information:</strong> display name, profile image, bio, address, contact preferences, and profile visibility settings</li>
+          <li>
+            <strong>Aquarium data:</strong> habitat configurations (name, type, volume, water type), species, equipment details (type, brand, wattage, model number), water parameters (standard and
+            saltwater), care schedules, and maintenance logs
+          </li>
+          <li><strong>Product data:</strong> tank products, dosing records (dosage amounts, schedules, completion history), and reorder preferences</li>
+          <li><strong>Images and video:</strong> photographs and recordings for species identification, disease detection, tank scanning, and marketplace listings</li>
+          <li><strong>Voice data:</strong> voice queries submitted to AquaBot</li>
+          <li><strong>Marketplace content:</strong> listing descriptions, images, pricing, categories, and location</li>
+          <li><strong>Booking information:</strong> service requirements, scheduling, consultation descriptions, and booking-scoped messages</li>
+          <li><strong>Breeder contact:</strong> species enquiries, purchase requests, and follow-up communications</li>
+          <li>
+            <strong>Provider data:</strong> business profiles, service listings, stock levels, pricing, availability schedules, health/mortality data (entered manually), and business AI assistant
+            interactions
+          </li>
+        </ul>
+
+        <div class="sub-title">2.2. Information Collected Automatically</div>
+        <ul class="bullet-list">
+          <li><strong>Device information:</strong> model, OS, unique identifiers, mobile network, browser type</li>
+          <li><strong>Usage data:</strong> features accessed, session duration, interactions, navigation paths, AquaBot query frequency</li>
+          <li><strong>Performance data:</strong> crash reports, error logs, diagnostics</li>
+          <li><strong>Location data:</strong> approximate and precise (with permission) for marketplace, consultants, and breeders</li>
+          <li><strong>AI interaction data:</strong> queries, responses, confidence scores, care plan generation events, health score calculations</li>
+        </ul>
+      </section>
+
+      <!-- 3. How We Use Your Information -->
+      <section class="section">
+        <h2 class="section-title">3. How We Use Your Information</h2>
+        <ul class="bullet-list">
+          <li>
+            <strong>AI services:</strong> species identification, disease detection, water analysis, AI Water Intelligence, compatibility assessment, care plans, product recommendations with dosage
+            calculations, health scoring, preventative alerts, comparative species tracking, and AquaBot assistance
+          </li>
+          <li>To operate consultant bookings, including sharing pre-diagnosis data with booked consultants</li>
+          <li>To operate the breeder directory and facilitate species search and contact</li>
+          <li>To operate the marketplace and purchase request/email confirmation flow</li>
+          <li>To process payments and manage subscriptions via Stripe</li>
+          <li>
+            <strong>Breeder commerce data:</strong> in-app order details, shipping/collection preferences, and follow-up communications. For Breeders, identity and bank details submitted directly to
+            Stripe Connect for payout processing
+          </li>
+          <li><strong>Transaction metadata:</strong> order amounts, 7-day hold status, commission calculations, and payout routing</li>
+          <li>To calculate and maintain trust scores, badges, and incident records</li>
+          <li>To power provider tools: Analytics, Trust Intelligence, Research, and Provider AI Business Assistant</li>
+          <li>To improve AI accuracy through aggregated, anonymised data analysis</li>
+          <li>To comply with legal obligations</li>
+        </ul>
+      </section>
+
+      <!-- 4. Legal Basis for Processing -->
+      <section class="section">
+        <h2 class="section-title">4. Legal Basis for Processing</h2>
+        <ul class="bullet-list">
+          <li><strong>Contract performance:</strong> services you have subscribed to</li>
+          <li><strong>Legitimate interests:</strong> improving the Platform, fraud prevention, trust scoring, aggregated analytics</li>
+          <li><strong>Consent:</strong> location data, marketing, voice data processing</li>
+          <li><strong>Legal obligation:</strong> where required by law</li>
+        </ul>
+      </section>
+
+      <!-- 5. Intelligence Layer and AI Processing -->
+      <section class="section">
+        <h2 class="section-title">5. Intelligence Layer and AI Processing</h2>
+        <p>5.1. AQUA AI® operates a three-layer intelligence architecture:</p>
+        <ul class="bullet-list">
+          <li><strong>Layer 1 (Operational):</strong> raw inputs — tank parameters, species, readings, bookings. Never overwritten by AI</li>
+          <li><strong>Layer 2 (Analytical):</strong> AI-generated insights, recommendations, dosage calculations, health scores. Probabilistic, logged, auditable</li>
+          <li><strong>Layer 3 (MI/BI):</strong> aggregated anonymised analytics for platform improvement. No personal data</li>
+        </ul>
+        <p>
+          5.2. Provider AI tools (Business Assistant, Research, Trust Intelligence) process your provider data to generate personalised business insights. This is based on your activity, listings, and
+          performance.
+        </p>
+      </section>
+
+      <!-- 6. Data Sharing -->
+      <section class="section">
+        <h2 class="section-title">6. Data Sharing</h2>
+        <p>6.1. We do not sell your personal data. We share data only as follows:</p>
+        <ul class="bullet-list">
+          <li><strong>With consultants:</strong> pre-diagnosis data for booked services (ceases on completion/cancellation)</li>
+          <li><strong>With marketplace buyers/sellers:</strong> confirmation emails with contact details for completed transactions</li>
+          <li><strong>With Breeders:</strong> order details, shipping addresses, and contact information for fulfilling in-app purchases</li>
+          <li>
+            <strong>With service providers:</strong> Stripe (payments), Supabase (hosting), AWS (infrastructure), OpenAI (AI processing), Expo (notifications), Geoapify (geolocation)
+          </li>
+          <li><strong>With other users:</strong> public profile, trust score, badges, and marketplace listings</li>
+          <li>Legal requirements and business transfers as required</li>
+        </ul>
+      </section>
+
+      <!-- 7. Data Storage and Security -->
+      <section class="section">
+        <h2 class="section-title">7. Data Storage and Security</h2>
+        <p>7.1. Primary database: Supabase (PostgreSQL). Object storage: AWS S3. AI inference: secure API connections.</p>
+        <p>
+          7.2. Security: TLS/HTTPS, AES-256 at rest, JWT authentication (5-minute access tokens), backend ACL, Row Level Security, audit logging, MFA on operational accounts, PBKDF2 password hashing,
+          Redis rate limiting.
+        </p>
+      </section>
+
+      <!-- 8. Data Retention -->
+      <section class="section">
+        <h2 class="section-title">8. Data Retention</h2>
+        <table class="retention-table">
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Retention Period</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="data-type">Account data</td>
+              <td>Active account duration plus 30 days</td>
+            </tr>
+            <tr>
+              <td class="data-type">Tank, species, equipment, and product data</td>
+              <td>Duration of active account</td>
+            </tr>
+            <tr>
+              <td class="data-type">AI interaction and voice logs</td>
+              <td>24 months, then anonymised</td>
+            </tr>
+            <tr>
+              <td class="data-type">Booking records</td>
+              <td>36 months</td>
+            </tr>
+            <tr>
+              <td class="data-type">Trust score and badge history</td>
+              <td>Account lifetime plus 12 months</td>
+            </tr>
+            <tr>
+              <td class="data-type">Payment records</td>
+              <td>7 years (UK financial obligations)</td>
+            </tr>
+            <tr>
+              <td class="data-type">Anonymised analytics</td>
+              <td>Retained indefinitely</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 9. Your Rights -->
+      <section class="section">
+        <h2 class="section-title">9. Your Rights (UK GDPR)</h2>
+        <p>
+          You have the right to access, rectification, erasure, restriction, portability, objection, and withdrawal of consent. Contact <a href="mailto:info@aquaai.uk">info@aquaai.uk</a>. We aim to
+          respond within 30 days. You may also complain to the ICO at <a href="https://ico.org.uk">ico.org.uk</a>.
+        </p>
+      </section>
+
+      <!-- 10. International Transfers -->
+      <section class="section">
+        <h2 class="section-title">10. International Transfers</h2>
+        <p>We apply appropriate safeguards (UK Standard Contractual Clauses, adequacy decisions) for transfers outside the UK.</p>
+      </section>
+
+      <!-- 11. Children's Privacy -->
+      <section class="section">
+        <h2 class="section-title">11. Children's Privacy</h2>
+        <p>AQUA AI® is not directed at users under 13. Parental consent is required. Data is deleted promptly if collected without consent.</p>
+      </section>
+
+      <!-- 12. Changes -->
+      <section class="section">
+        <h2 class="section-title">12. Changes</h2>
+        <p>Material changes to this policy will be notified through the Apps or by email.</p>
+      </section>
+
+      <!-- 13. Community Showcase and Referrals -->
+      <section class="section">
+        <h2 class="section-title">13. Community Showcase &amp; Referrals</h2>
+        <div class="sub-title">Community Showcase Data</div>
+        <p>
+          If you opt in to the Community Showcase, we collect and display data related to your showcased tanks, including images, descriptions, likes received, and engagement metrics. Direct messaging
+          initiated through the showcase is processed securely to facilitate user-to-user communication.
+        </p>
+        <div class="sub-title">Referral Data</div>
+        <p>
+          When participating in the Referral Programme, we process referral codes and link referrer–referee accounts to calculate and apply platform credits. To comply with data minimisation
+          principles, only the username of the referred individual and the current reward value are displayed in the referrer's dashboard; specific subscribed plans and billing intervals are not
+          disclosed.
+        </p>
+      </section>
+
+      <!-- 14. Contact -->
+      <section class="section">
+        <h2 class="section-title">14. Contact</h2>
+        <p style="margin-bottom: 16px">AQUA AI® (operated by Humara Ltd)</p>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <strong>Website</strong>
+            <a href="https://www.aquaai.uk">www.aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>General Enquiries</strong>
+            <a href="mailto:info@aquaai.uk">info@aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>Support</strong>
+            <a href="mailto:support@aquaai.uk">support@aquaai.uk</a>
+          </div>
+          <div class="contact-item">
+            <strong>WhatsApp / Signal</strong>
+            <a href="tel:+447586576323">+44 7586 576323</a>
+          </div>
+          <div class="contact-item">
+            <strong>SMS</strong>
+            <a href="tel:+447782207333">+44 7782 207333</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">AQUA AI® is operated by Humara Ltd, Registered in England and Wales &middot; May 2026</footer>
+    </div>
+  </body>
+</html>
