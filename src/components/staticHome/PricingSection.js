@@ -239,14 +239,15 @@ function BreederPlan({ plans, annual }) {
   if (!plan) return null;
   return (
     <div className="pricing-single-wrap">
-      <div className="pricing-card pricing-card--highlight pricing-card--wide">
-        <PlanCard plan={plan} annual={annual} highlight popularLabel="Breeder Plan" />
-      </div>
       <p style={{ textAlign: "center", marginTop: 16 }}>
         <a href="/why-sell-with-us" style={{ color: "#00e5ff", fontWeight: 600, textDecoration: "none" }}>
           Why breeders sell with Aqua AI &rarr;
         </a>
       </p>
+
+      <div className="pricing-card pricing-card--highlight pricing-card--wide">
+        <PlanCard plan={plan} annual={annual} highlight popularLabel="Breeder Plan" />
+      </div>
     </div>
   );
 }
@@ -256,6 +257,11 @@ function ConsultantPlan() {
   const features = ["Service listing", "Calendar management", "Booking management", "Client data access", "Analytics dashboard", "Trust intelligence", "10% commission on bookings"];
   return (
     <div className="pricing-single-wrap">
+      <p style={{ textAlign: "center", marginTop: 16 }}>
+        <a href="/why-partner-with-us" style={{ color: "#00e5ff", fontWeight: 600, textDecoration: "none" }}>
+          Why consultants partner with Aqua AI &rarr;
+        </a>
+      </p>
       <div className="pricing-card pricing-card--highlight pricing-card--wide">
         <div className="pricing-popular">Consultant Plan</div>
         <h3 className="pricing-plan-name">Aquatic Professionals</h3>
@@ -280,11 +286,6 @@ function ConsultantPlan() {
           Apply as Consultant
         </button>
       </div>
-      <p style={{ textAlign: "center", marginTop: 16 }}>
-        <a href="/why-partner-with-us" style={{ color: "#00e5ff", fontWeight: 600, textDecoration: "none" }}>
-          Why consultants partner with Aqua AI &rarr;
-        </a>
-      </p>
     </div>
   );
 }
