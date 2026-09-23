@@ -49,6 +49,7 @@ import VerifyEmail from "./components/auth/VerifyEmail";
 import PricingPage from "./components/staticHome/PricingPage";
 import BreederOutreachPage from "./components/staticHome/BreederOutreachPage";
 import ConsultantOutreachPage from "./components/staticHome/ConsultantOutreachPage";
+import PrivacyPolicyPage from "./components/staticHome/PrivacyPolicyPage";
 
 function RoleRedirect() {
   const { token, roles, loading } = useContext(AuthContext);
@@ -107,7 +108,7 @@ function AppContent() {
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/why-sell-with-us" element={<BreederOutreachPage />} />
         <Route path="/why-partner-with-us" element={<ConsultantOutreachPage />} />
-
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/role-redirect" element={<RoleRedirect />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
