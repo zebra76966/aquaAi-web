@@ -40,7 +40,7 @@ const FAQ_CATEGORIES = [
     items: [
       {
         q: "What are the subscription tiers?",
-        a: "AQUA AI® operates a three-tier model:\n\nFree (£0): 1 habitat, species identification (image), basic water parameter tracking, basic care plan, peer-to-peer marketplace.\n\nPremium (£14.99/month or £139.99/year): Up to 3 habitats, disease detection, AquaBot (100 queries/month), marketplace selling, consultant booking, breeder purchasing, growth tracking, and full water intelligence.\n\nPro (£24.99/month or £239.99/year): Unlimited habitats including ponds, full AI capabilities, AquaBot (500 queries/month), preventative alerts, data export, and priority features.",
+        a: "AQUA AI® operates a three-tier model:\n\nFree (£0): 1 habitat, species identification (image), basic water parameter tracking, basic care plan, peer-to-peer marketplace.\n\nPremium (£14.99/month or £144.99/year): Up to 3 habitats, disease detection, AquaBot (100 queries/month), marketplace selling, consultant booking, breeder purchasing, growth tracking, and full water intelligence.\n\nPro (£24.99/month or £239.99/year): Unlimited habitats including ponds, full AI capabilities, AquaBot (500 queries/month), preventative alerts, data export, and priority features.",
       },
       {
         q: "Is there a promotional launch price?",
