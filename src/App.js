@@ -89,7 +89,7 @@ function ScrollToTop() {
 function AppContent() {
   const location = useLocation();
 
-  const navbarPatterns = [/^\/$/, /^\/faqs$/, /^\/features$/, /^\/pricing$/, /^\/how-it-works$/, /^\/about$/, /^\/contact$/, /^\/download$/, /^\/privacy-policy$/, /^\/blog(\/.*)?$/];
+  const navbarPatterns = [/^\/$/, /^\/faqs$/, /^\/features$/, /^\/pricing$/, /^\/how-it-works$/, /^\/about$/, /^\/contact$/, /^\/download$/, /^\/blog(\/.*)?$/];
 
   const showNavbar = navbarPatterns.some((regex) => regex.test(location.pathname));
 
