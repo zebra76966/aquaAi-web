@@ -1,525 +1,181 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AQUA AI® — Marketplace Policy</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-    <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      :root {
-        --aqua: #00b4d8;
-        --aqua-dark: #0077a8;
-        --navy: #0a1628;
-        --ink: #1c2b3a;
-        --muted: #5a7080;
-        --rule: #d4e8f0;
-        --bg: #f4f9fc;
-        --card: #ffffff;
-      }
-
-      body {
-        font-family: "DM Sans", sans-serif;
-        background: var(--bg);
-        color: var(--ink);
-        line-height: 1.7;
-        font-size: 15px;
-        padding: 48px 16px 80px;
-      }
-
-      .page {
-        max-width: 740px;
-        margin: 0 auto;
-      }
-
-      /* Header */
-      .header {
-        text-align: center;
-        padding-bottom: 40px;
-        border-bottom: 2px solid var(--rule);
-        margin-bottom: 40px;
-      }
-
-      .brand {
-        font-family: "DM Serif Display", serif;
-        font-size: 2.6rem;
-        color: var(--navy);
-        letter-spacing: -0.5px;
-      }
-
-      .brand span {
-        color: var(--aqua);
-      }
-
-      .header-sub {
-        font-size: 0.85rem;
-        color: var(--muted);
-        margin-top: 6px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        font-weight: 500;
-      }
-
-      .meta-block {
-        margin-top: 20px;
-        display: inline-block;
-        text-align: left;
-        font-size: 0.88rem;
-        color: var(--muted);
-        background: var(--card);
-        border: 1px solid var(--rule);
-        border-radius: 8px;
-        padding: 14px 22px;
-        line-height: 1.9;
-      }
-
-      .meta-block strong {
-        color: var(--navy);
-        font-weight: 500;
-      }
-
-      a {
-        color: var(--aqua-dark);
-        text-decoration: none;
-        border-bottom: 1px solid var(--rule);
-      }
-
-      a:hover {
-        border-color: var(--aqua);
-        color: var(--aqua);
-      }
-
-      /* Sections */
-      .section {
-        background: var(--card);
-        border-radius: 10px;
-        border: 1px solid var(--rule);
-        padding: 28px 32px;
-        margin-bottom: 20px;
-      }
-
-      .section-title {
-        font-family: "DM Serif Display", serif;
-        font-size: 1.2rem;
-        color: var(--aqua-dark);
-        margin-bottom: 14px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid var(--rule);
-      }
-
-      .sub-title {
-        font-weight: 500;
-        color: var(--navy);
-        font-size: 0.95rem;
-        margin: 18px 0 6px;
-      }
-
-      .sub-title:first-of-type {
-        margin-top: 0;
-      }
-
-      p {
-        color: var(--ink);
-        margin-bottom: 10px;
-      }
-
-      p:last-child {
-        margin-bottom: 0;
-      }
-
-      /* Bullet lists */
-      .bullet-list {
-        list-style: none;
-        padding: 0;
-        margin: 6px 0 10px;
-      }
-
-      .bullet-list li {
-        padding: 5px 0 5px 18px;
-        position: relative;
-        font-size: 0.93rem;
-        border-bottom: 1px solid var(--rule);
-        color: var(--ink);
-      }
-
-      .bullet-list li:last-child {
-        border-bottom: none;
-      }
-
-      .bullet-list li::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 13px;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--aqua);
-      }
-
-      /* Prohibited bullet list — red dots */
-      .prohibited-list {
-        list-style: none;
-        padding: 0;
-        margin: 6px 0 10px;
-      }
-
-      .prohibited-list li {
-        padding: 5px 0 5px 18px;
-        position: relative;
-        font-size: 0.93rem;
-        border-bottom: 1px solid var(--rule);
-        color: var(--ink);
-      }
-
-      .prohibited-list li:last-child {
-        border-bottom: none;
-      }
-
-      .prohibited-list li::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 13px;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: #e05c5c;
-      }
-
-      /* Listing type cards */
-      .listing-types {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-        margin-top: 4px;
-      }
-
-      .listing-card {
-        background: #edf6fa;
-        border: 1px solid var(--rule);
-        border-radius: 8px;
-        padding: 16px 18px;
-      }
-
-      .listing-card-title {
-        font-weight: 500;
-        color: var(--navy);
-        margin-bottom: 6px;
-        font-size: 0.95rem;
-      }
-
-      .listing-card p {
-        font-size: 0.9rem;
-        margin: 0;
-        color: var(--muted);
-      }
-
-      /* Breeder commerce rule list */
-      .rule-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .rule-list li {
-        display: flex;
-        gap: 12px;
-        padding: 9px 0;
-        border-bottom: 1px solid var(--rule);
-        font-size: 0.93rem;
-      }
-
-      .rule-list li:last-child {
-        border-bottom: none;
-      }
-
-      .rule-label {
-        font-weight: 500;
-        color: var(--navy);
-        min-width: 190px;
-        flex-shrink: 0;
-      }
-
-      /* Contact grid */
-      .contact-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px 24px;
-        font-size: 0.92rem;
-      }
-
-      .contact-item strong {
-        color: var(--navy);
-        display: block;
-        font-size: 0.78rem;
-        text-transform: uppercase;
-        letter-spacing: 0.07em;
-        margin-bottom: 2px;
-        font-weight: 500;
-      }
-
-      /* Footer */
-      .footer {
-        text-align: center;
-        margin-top: 40px;
-        font-size: 0.82rem;
-        color: var(--muted);
-        letter-spacing: 0.03em;
-      }
-
-      @media (max-width: 560px) {
-        .section {
-          padding: 20px 18px;
-        }
-        .contact-grid {
-          grid-template-columns: 1fr;
-        }
-        .listing-types {
-          grid-template-columns: 1fr;
-        }
-        .brand {
-          font-size: 2rem;
-        }
-        .rule-label {
-          min-width: 140px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="page">
-      <!-- Header -->
-      <header class="header">
-        <div class="header-sub">Marketplace Policy</div>
-        <div class="meta-block">
-          <strong>Version:</strong> 3.0<br />
-          <strong>Last Updated:</strong> May 2026<br />
-          <strong>Classification:</strong> Public<br />
-          <strong>Operated by:</strong> Humara Ltd, Registered in England and Wales
-        </div>
-      </header>
-
-      <!-- 1. Introduction -->
-      <section class="section">
-        <h2 class="section-title">1. Introduction</h2>
-        <p>1.1. This Marketplace Policy governs the peer-to-peer marketplace within the AQUA AI® platform. It applies to all users who browse, buy, sell, or bid on marketplace listings.</p>
-        <p>
-          1.2. The AQUA AI® marketplace is a platform for connecting buyers and sellers of aquatic goods. AQUA AI® does not sell goods directly and does not process payments for marketplace
-          transactions.
-        </p>
-      </section>
-
-      <!-- 2. Eligibility -->
-      <section class="section">
-        <h2 class="section-title">2. Eligibility</h2>
-        <p>2.1. All registered users may browse the marketplace and make purchases (including Free tier).</p>
-        <p>2.2. Only Premium and Pro subscribers may create marketplace listings.</p>
-        <p>2.3. Breeder providers may list species stock directly from their managed inventory.</p>
-      </section>
-
-      <!-- 3. Listing Standards -->
-      <section class="section">
-        <h2 class="section-title">3. Listing Standards</h2>
-        <div class="sub-title">3.1. All listings must include:</div>
-        <ul class="bullet-list">
-          <li>Accurate title and description</li>
-          <li>Accurate pricing in British Pounds Sterling (£)</li>
-          <li>Truthful condition information</li>
-          <li>Clear photographs (original, not stock images)</li>
-          <li>Correct category selection</li>
-        </ul>
-        <div class="sub-title">3.2. Listings must not contain:</div>
-        <ul class="prohibited-list">
-          <li>False, misleading, or exaggerated descriptions</li>
-          <li>Someone else's images without permission</li>
-          <li>Contact information intended to facilitate off-platform transactions</li>
-          <li>Any content that violates the Acceptable Use Policy</li>
-        </ul>
-      </section>
-
-      <!-- 4. Listing Types -->
-      <section class="section">
-        <h2 class="section-title">4. Listing Types</h2>
-        <div class="listing-types">
-          <div class="listing-card">
-            <div class="listing-card-title">4.1. Fixed Price</div>
-            <p>
-              Sellers set a fixed price. Buyers submit a purchase request by tapping "Buy Now." The seller receives a notification and may accept, reject, or request more information. Once accepted,
-              the transaction proceeds directly between buyer and seller.
-            </p>
-          </div>
-          <div class="listing-card">
-            <div class="listing-card-title">4.2. Bidding (Auction)</div>
-            <p>
-              Sellers set a base price. Buyers submit bids at or above the base price. Multiple bids are permitted. The seller selects the winning bid. The transaction proceeds directly between buyer
-              and seller.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- 5. Permitted Categories -->
-      <section class="section">
-        <h2 class="section-title">5. Permitted Categories</h2>
-        <ul class="bullet-list">
-          <li><strong>Fish:</strong> live aquatic fish species (must comply with UK law)</li>
-          <li><strong>Plants:</strong> aquatic plants and pond plants</li>
-          <li><strong>Equipment:</strong> filters, heaters, lights, pumps, tanks, and related hardware</li>
-          <li><strong>Accessories:</strong> decorations, substrates, water treatments, and aquascaping materials</li>
-        </ul>
-      </section>
-
-      <!-- 6. Prohibited Items -->
-      <section class="section">
-        <h2 class="section-title">6. Prohibited Items</h2>
-        <ul class="prohibited-list">
-          <li>Protected, endangered, or CITES-listed species without appropriate documentation</li>
-          <li>Illegally caught, imported, or smuggled specimens</li>
-          <li>Diseased, injured, or distressed animals</li>
-          <li>Controlled substances or medications</li>
-          <li>Counterfeit or stolen goods</li>
-          <li>Weapons, explosives, or hazardous materials</li>
-          <li>Any item prohibited by UK law</li>
-        </ul>
-      </section>
-
-      <!-- 7. Location and Radius -->
-      <section class="section">
-        <h2 class="section-title">7. Location and Radius</h2>
-        <p>7.1. Listings are visible to users within a 200km radius of the seller's location.</p>
-        <p>7.2. Location permission is required to create or browse marketplace listings.</p>
-        <p>7.3. Sellers must not misrepresent their location.</p>
-      </section>
-
-      <!-- 8. Communication -->
-      <section class="section">
-        <h2 class="section-title">8. Communication</h2>
-        <p>8.1. Buyers and sellers may communicate through the marketplace chat feature attached to each listing.</p>
-        <p>8.2. Communications must be professional and relevant to the transaction.</p>
-        <p>8.3. Sharing external contact information to circumvent platform oversight is prohibited.</p>
-      </section>
-
-      <!-- 9. Transaction Responsibility -->
-      <section class="section">
-        <h2 class="section-title">9. Transaction Responsibility</h2>
-        <p>9.1. AQUA AI® does not process payments for marketplace transactions. All payments are arranged directly between buyer and seller.</p>
-        <p>9.2. AQUA AI® is not responsible for the quality, condition, legality, or delivery of any item listed on the marketplace.</p>
-        <p>9.3. Buyers and sellers enter into transactions at their own risk. We strongly recommend meeting in person for livestock transactions and inspecting goods before payment.</p>
-      </section>
-
-      <!-- 10. Trust and Reputation -->
-      <section class="section">
-        <h2 class="section-title">10. Trust and Reputation</h2>
-        <p>10.1. Trust scores and badges are displayed on all marketplace profiles. Higher trust scores indicate sustained positive platform activity.</p>
-        <p>10.2. Marketplace-specific badges include: Trusted Trader, Fast Payer, Reliable Seller, and Fair Dealer.</p>
-        <p>10.3. Users may leave reviews for marketplace transactions, contributing to the seller's overall trust profile.</p>
-      </section>
-
-      <!-- 11. Enforcement -->
-      <section class="section">
-        <h2 class="section-title">11. Enforcement</h2>
-        <p>11.1. Listings that violate this policy will be removed without notice.</p>
-        <p>
-          11.2. Repeat violations or serious offences (prohibited items, fraud, animal welfare concerns) will trigger trust score penalties and potential account action under the Regulatory Framework.
-        </p>
-        <p>11.3. Reports of policy violations can be submitted through the in-app reporting function or by emailing <a href="mailto:info@aquaai.uk">info@aquaai.uk</a>.</p>
-      </section>
-
-      <!-- 12. Animal Welfare -->
-      <section class="section">
-        <h2 class="section-title">12. Animal Welfare</h2>
-        <p>12.1. All livestock listings must comply with UK animal welfare legislation.</p>
-        <p>12.2. Sellers are responsible for ensuring live animals are healthy, humanely housed, and transported in accordance with applicable regulations.</p>
-        <p>12.3. Any evidence of animal cruelty, neglect, or illegal trading is treated as an L4 (Critical) incident.</p>
-      </section>
-
-      <!-- Breeder In-App Commerce -->
-      <section class="section">
-        <h2 class="section-title">Breeder In-App Commerce</h2>
-        <p>In addition to the peer-to-peer marketplace, verified Breeders may sell live livestock and aquatic goods directly through the Platform using in-app purchasing powered by Stripe.</p>
-        <ul class="rule-list">
-          <li>
-            <span class="rule-label">Payment Processing</span
-            ><span>All Breeder commerce transactions are processed securely via Stripe. Buyers pay at the point of order. Funds are held in escrow for a mandatory 7-day period.</span>
-          </li>
-          <li>
-            <span class="rule-label">Fulfilment Options</span
-            ><span>Buyers may choose to collect in-store (free) or opt for delivery at an additional cost set by the Breeder. The 7-day hold allows sufficient time for either fulfilment method.</span>
-          </li>
-          <li>
-            <span class="rule-label">Payout</span><span>Upon expiry of the 7-day hold, funds are released automatically to the Breeder's Stripe Connect account, less the 7% platform commission.</span>
-          </li>
-          <li>
-            <span class="rule-label">Breeder Obligations</span
-            ><span>Breeders must ensure stock accuracy, provide timely fulfilment, package livestock appropriately for transport, and comply with all applicable animal welfare legislation.</span>
-          </li>
-          <li>
-            <span class="rule-label">Prohibited Conduct</span
-            ><span
-              >Circumventing the Stripe payment integration, directing buyers to pay off-platform, or misrepresenting stock availability constitutes a serious policy violation subject to trust score
-              penalties and potential account termination.</span
-            >
-          </li>
-          <li>
-            <span class="rule-label">Distinction from P2P</span
-            ><span
-              >Breeder commerce is a separate transaction flow from the peer-to-peer marketplace. P2P marketplace transactions are arranged directly between users without AQUA AI® payment processing.
-              Breeder commerce transactions are fully processed, held, and settled through the Platform.</span
-            >
-          </li>
-        </ul>
-      </section>
-
-      <!-- Tier-Gated Selling and Community Features -->
-      <section class="section">
-        <h2 class="section-title">Tier-Gated Selling and Community Features</h2>
-        <div class="sub-title">Marketplace Selling</div>
-        <p>Selling items on the AQUA AI® Marketplace is restricted to users with an active Premium, Pro, or Breeder subscription. Users on the Free tier are restricted to purchasing only.</p>
-        <div class="sub-title">Community Showcase</div>
-        <p>
-          Users may list their tanks in the Community Showcase. Transactions or direct sales should be conducted through official Marketplace listings rather than circumventing the platform via
-          Community Showcase messaging. Off-platform transaction attempts detected by our systems may result in trust score penalties and badge revocation.
-        </p>
-      </section>
-
-      <!-- 13. Contact -->
-      <section class="section">
-        <h2 class="section-title">13. Contact</h2>
-        <p style="margin-bottom: 16px">AQUA AI® (operated by Humara Ltd) | Email: <a href="mailto:info@aquaai.uk">info@aquaai.uk</a> | Website: <a href="https://www.aquaai.uk">www.aquaai.uk</a></p>
-        <div class="contact-grid">
-          <div class="contact-item">
-            <strong>Website</strong>
-            <a href="https://www.aquaai.uk">www.aquaai.uk</a>
-          </div>
-          <div class="contact-item">
-            <strong>General Enquiries</strong>
-            <a href="mailto:info@aquaai.uk">info@aquaai.uk</a>
-          </div>
-          <div class="contact-item">
-            <strong>Support</strong>
-            <a href="mailto:support@aquaai.uk">support@aquaai.uk</a>
-          </div>
-          <div class="contact-item">
-            <strong>WhatsApp / Signal</strong>
-            <a href="tel:+447586576323">+44 7586 576323</a>
-          </div>
-          <div class="contact-item">
-            <strong>SMS</strong>
-            <a href="tel:+447782207333">+44 7782 207333</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <footer class="footer">AQUA AI® is operated by Humara Ltd, Registered in England and Wales &middot; May 2026</footer>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Marketplace Policy · AQUA AI®</title>
+<meta name="description" content="Marketplace Policy for Aqua AI. Rules for buying, selling and listing in the marketplace." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/policies/assets/legal.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/">AQUA AI<sup>®</sup></a>
+    <nav class="topbar-links">
+      <a href="/policies/index.html">All policies</a>
+      <a class="topbar-cta" href="/contact">Contact</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="hero-inner">
+    <a class="crumb" href="/policies/index.html">Legal</a>
+    <h1>Marketplace Policy</h1>
+    <p class="hero-sub">Rules for buying, selling and listing in the marketplace.</p>
+    <div class="chips"><span class="chip"><b>Version</b> 3.2</span><span class="chip"><b>Updated</b> October 2026</span><span class="chip"><b>Classification</b> Public</span></div>
+    
+    <p class="hero-company">AQUAAI LTD (trading as Aqua AI) · Company Number 16455928 · Registered in England and Wales · Registered office: 71–75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom</p>
+    <div class="hero-actions">
+      <button type="button" class="btn-ghost" data-print>Print or save as PDF</button>
     </div>
-  </body>
+  </div>
+</section>
+
+<div class="layout">
+  <aside class="toc" aria-label="On this page">
+    <details class="toc-box" open>
+      <summary>On this page</summary>
+      <ol><li><a href="#s1"><span>1</span>Introduction</a></li>
+<li><a href="#s2"><span>2</span>Eligibility</a></li>
+<li><a href="#s3"><span>3</span>Listing Standards</a></li>
+<li><a href="#s4"><span>4</span>Listing Types</a></li>
+<li><a href="#s5"><span>5</span>Permitted Categories</a></li>
+<li><a href="#s6"><span>6</span>Prohibited Items</a></li>
+<li><a href="#s7"><span>7</span>Location and Radius</a></li>
+<li><a href="#s8"><span>8</span>Communication</a></li>
+<li><a href="#s9"><span>9</span>Transaction Responsibility (Peer-to-Peer)</a></li>
+<li><a href="#s10"><span>10</span>Trust and Reputation</a></li>
+<li><a href="#s11"><span>11</span>Enforcement</a></li>
+<li><a href="#s12"><span>12</span>Animal Welfare</a></li>
+<li><a href="#s13"><span>13</span>Breeder Commerce</a></li>
+<li><a href="#s14"><span>14</span>Community Showcase</a></li>
+<li><a href="#s15"><span>15</span>Contact</a></li></ol>
+    </details>
+  </aside>
+  <article class="doc">
+<section class="section" id="s1">
+<h2 class="section-title"><span class="sec-num">1</span><span>Introduction</span></h2>
+<p class="clause" id="c1.1"><span class="clause-no">1.1</span><span class="clause-body">This Marketplace Policy governs buying and selling on the Aqua AI platform. It covers two separate transaction flows:</span></p>
+<ul class="bullet-list">
+<li><strong>Peer-to-peer marketplace:</strong> users buy and sell aquatic goods directly with each other. Aqua AI connects buyers and sellers but does not sell goods or process payments.</li>
+<li><strong>Breeder commerce:</strong> verified breeders sell livestock and aquatic goods in the app. Aqua AI processes, holds, and settles these payments through Stripe (Section 13).</li>
+</ul>
+<p class="clause" id="c1.2"><span class="clause-no">1.2</span><span class="clause-body">This policy forms part of our <a class="doc-link" href="aquaai_terms_and_conditions.html">Terms and Conditions</a>. You must be 18 or over to use the marketplace.</span></p>
+</section>
+<section class="section" id="s2">
+<h2 class="section-title"><span class="sec-num">2</span><span>Eligibility</span></h2>
+<p class="clause" id="c2.1"><span class="clause-no">2.1</span><span class="clause-body">All registered users, including the Free tier, may browse and buy.</span></p>
+<p class="clause" id="c2.2"><span class="clause-no">2.2</span><span class="clause-body">Only users with an active Premium or Pro subscription may create peer-to-peer listings.</span></p>
+<p class="clause" id="c2.3"><span class="clause-no">2.3</span><span class="clause-body">Breeder providers may list species stock directly from their managed inventory.</span></p>
+</section>
+<section class="section" id="s3">
+<h2 class="section-title"><span class="sec-num">3</span><span>Listing Standards</span></h2>
+<p class="clause" id="c3.1"><span class="clause-no">3.1</span><span class="clause-body">Every listing must include an accurate title and description, accurate pricing in British Pounds Sterling (£), truthful condition information, clear original photographs (not stock images), and the correct category.</span></p>
+<p class="clause" id="c3.2"><span class="clause-no">3.2</span><span class="clause-body">Listings must not contain false, misleading, or exaggerated descriptions; other people’s images without permission; contact details intended to move the transaction off-platform; objectionable content; or anything else that breaches the <a class="doc-link" href="aquaai_acceptable_use_policy.html">Acceptable Use Policy</a>.</span></p>
+</section>
+<section class="section" id="s4">
+<h2 class="section-title"><span class="sec-num">4</span><span>Listing Types</span></h2>
+<p class="clause" id="c4.1"><span class="clause-no">4.1</span><span class="clause-body"><strong>Fixed Price.</strong> The seller sets a price. Buyers tap “Buy Now” to send a purchase request. The seller can accept, reject, or ask for more information. Once accepted, the transaction is completed directly between buyer and seller.</span></p>
+<p class="clause" id="c4.2"><span class="clause-no">4.2</span><span class="clause-body"><strong>Bidding (Auction).</strong> The seller sets a base price. Buyers bid at or above it, and multiple bids are allowed. The seller chooses the winning bid, and the transaction is completed directly between buyer and seller.</span></p>
+</section>
+<section class="section" id="s5">
+<h2 class="section-title"><span class="sec-num">5</span><span>Permitted Categories</span></h2>
+<ul class="bullet-list">
+<li>Fish: live aquatic fish species (must comply with UK law)</li>
+<li>Plants: aquatic and pond plants</li>
+<li>Equipment: filters, heaters, lights, pumps, tanks, and related hardware</li>
+<li>Accessories: decorations, substrates, water treatments, and aquascaping materials</li>
+</ul>
+</section>
+<section class="section" id="s6">
+<h2 class="section-title"><span class="sec-num">6</span><span>Prohibited Items</span></h2>
+<ul class="bullet-list">
+<li>Protected, endangered, or CITES-listed species without the required documentation</li>
+<li>Illegally caught, imported, or smuggled specimens</li>
+<li>Diseased, injured, or distressed animals</li>
+<li>Controlled substances or medications</li>
+<li>Counterfeit or stolen goods</li>
+<li>Weapons, explosives, or hazardous materials</li>
+<li>Any item prohibited by UK law</li>
+</ul>
+</section>
+<section class="section" id="s7">
+<h2 class="section-title"><span class="sec-num">7</span><span>Location and Radius</span></h2>
+<p class="clause" id="c7.1"><span class="clause-no">7.1</span><span class="clause-body">Listings are visible to users within 200 km of the seller’s location.</span></p>
+<p class="clause" id="c7.2"><span class="clause-no">7.2</span><span class="clause-body">Location permission is required to create or browse listings.</span></p>
+<p class="clause" id="c7.3"><span class="clause-no">7.3</span><span class="clause-body">Sellers must not misrepresent their location.</span></p>
+</section>
+<section class="section" id="s8">
+<h2 class="section-title"><span class="sec-num">8</span><span>Communication</span></h2>
+<p class="clause" id="c8.1"><span class="clause-no">8.1</span><span class="clause-body">Buyers and sellers communicate through the chat attached to each listing. Aqua AI does not share either party’s email address.</span></p>
+<p class="clause" id="c8.2"><span class="clause-no">8.2</span><span class="clause-body">Communications must be professional and relevant to the transaction. The zero-tolerance standards in the <a class="doc-link" href="aquaai_acceptable_use_policy.html">Acceptable Use Policy</a> apply to all marketplace messages.</span></p>
+<p class="clause" id="c8.3"><span class="clause-no">8.3</span><span class="clause-body">Sharing external contact details to get around platform oversight is prohibited.</span></p>
+<p class="clause" id="c8.4"><span class="clause-no">8.4</span><span class="clause-body">You can report a listing or message, or block a user, at any time. We act on reports within 24 hours, removing breaching content and the user who posted it.</span></p>
+</section>
+<section class="section" id="s9">
+<h2 class="section-title"><span class="sec-num">9</span><span>Transaction Responsibility (Peer-to-Peer)</span></h2>
+<p class="clause" id="c9.1"><span class="clause-no">9.1</span><span class="clause-body">Aqua AI does not process payments for peer-to-peer transactions. Buyers and sellers arrange payment directly.</span></p>
+<p class="clause" id="c9.2"><span class="clause-no">9.2</span><span class="clause-body">Aqua AI is not responsible for the quality, condition, legality, or delivery of any peer-to-peer item.</span></p>
+<p class="clause" id="c9.3"><span class="clause-no">9.3</span><span class="clause-body">Buyers and sellers transact at their own risk. For livestock, we strongly recommend meeting in person and inspecting goods before paying.</span></p>
+<p class="clause" id="c9.4"><span class="clause-no">9.4</span><span class="clause-body">Peer-to-peer sellers are usually private individuals, not traders. Consumer rights that apply when you buy from a business may not apply to a purchase from a private seller.</span></p>
+<p class="clause" id="c9.5"><span class="clause-no">9.5</span><span class="clause-body">Breeders sell to you as traders. Nothing in this policy affects your statutory rights when buying from a breeder.</span></p>
+</section>
+<section class="section" id="s10">
+<h2 class="section-title"><span class="sec-num">10</span><span>Trust and Reputation</span></h2>
+<p class="clause" id="c10.1"><span class="clause-no">10.1</span><span class="clause-body">Trust scores and badges are shown on all marketplace profiles. Higher scores reflect sustained positive platform activity.</span></p>
+<p class="clause" id="c10.2"><span class="clause-no">10.2</span><span class="clause-body">Marketplace badges include Trusted Trader, Fast Payer, Reliable Seller, and Fair Dealer.</span></p>
+<p class="clause" id="c10.3"><span class="clause-no">10.3</span><span class="clause-body">Users may leave reviews for marketplace transactions, which contribute to the seller’s trust profile.</span></p>
+</section>
+<section class="section" id="s11">
+<h2 class="section-title"><span class="sec-num">11</span><span>Enforcement</span></h2>
+<p class="clause" id="c11.1"><span class="clause-no">11.1</span><span class="clause-body">Listings that breach this policy are removed without notice.</span></p>
+<p class="clause" id="c11.2"><span class="clause-no">11.2</span><span class="clause-body">Repeat or serious breaches (prohibited items, fraud, animal welfare concerns) lead to trust score penalties and account action under the Regulatory Framework, up to removal from the Platform. Objectionable content and abuse of other users lead to immediate removal from the Platform under our zero-tolerance policy.</span></p>
+<p class="clause" id="c11.3"><span class="clause-no">11.3</span><span class="clause-body">Report breaches in the app or by emailing <a href="mailto:support@aquaai.uk">support@aquaai.uk</a>.</span></p>
+</section>
+<section class="section" id="s12">
+<h2 class="section-title"><span class="sec-num">12</span><span>Animal Welfare</span></h2>
+<p class="clause" id="c12.1"><span class="clause-no">12.1</span><span class="clause-body">All livestock listings must comply with UK animal welfare law.</span></p>
+<p class="clause" id="c12.2"><span class="clause-no">12.2</span><span class="clause-body">Sellers must ensure live animals are healthy, humanely housed, and transported in line with applicable regulations.</span></p>
+<p class="clause" id="c12.3"><span class="clause-no">12.3</span><span class="clause-body">Any evidence of animal cruelty, neglect, or illegal trading is treated as an L4 (Critical) incident.</span></p>
+</section>
+<section class="section" id="s13">
+<h2 class="section-title"><span class="sec-num">13</span><span>Breeder Commerce</span></h2>
+<p class="clause" id="c13.1"><span class="clause-no">13.1</span><span class="clause-body"><strong>Payment.</strong> All breeder commerce transactions are processed through Stripe. Buyers pay when they order. Funds for delivery orders are held for 7 days. Funds for collection orders are held until the buyer collects.</span></p>
+<p class="clause" id="c13.2"><span class="clause-no">13.2</span><span class="clause-body"><strong>Fulfilment.</strong> Buyers choose in-store collection (free) or delivery at a cost set by the breeder. Delivery is available only from breeders whose local council licence for selling animals as pets has been approved by Aqua AI and is in date; if a licence expires or an approval is withdrawn, delivery pauses until a current licence is approved, and collection is unaffected. For collection, the buyer receives a collection code when the order is ready and collects within 7 days; the breeder enters the code to confirm the handover. If the buyer does not collect within 7 days, the breeder may mark the order as not collected: the buyer is refunded in full, the breeder’s stock is restored, and the missed collection is recorded against the buyer’s trust score, not the breeder’s.</span></p>
+<p class="clause" id="c13.3"><span class="clause-no">13.3</span><span class="clause-body"><strong>Payout.</strong> Funds are released automatically to the breeder’s Stripe Connect account, less the 7% platform commission: for collection orders, as soon as the collection code is entered; for delivery orders, when the 7-day hold ends.</span></p>
+<p class="clause" id="c13.4"><span class="clause-no">13.4</span><span class="clause-body"><strong>Platform credit.</strong> Buyers may use referral platform credit towards any breeder purchase, with no cap. The breeder still receives their full payout, calculated on the full purchase value. If a credit-funded purchase is refunded, the credit portion is returned as credit, not cash.</span></p>
+<p class="clause" id="c13.5"><span class="clause-no">13.5</span><span class="clause-body"><strong>Breeder obligations.</strong> Breeders must keep stock accurate, fulfil orders on time, package livestock properly for transport, and comply with all applicable animal welfare law.</span></p>
+<p class="clause" id="c13.6"><span class="clause-no">13.6</span><span class="clause-body"><strong>Prohibited conduct.</strong> Getting around the Stripe payment integration, directing buyers to pay off-platform, or misrepresenting stock availability is a serious breach, subject to trust score penalties and possible account termination.</span></p>
+</section>
+<section class="section" id="s14">
+<h2 class="section-title"><span class="sec-num">14</span><span>Community Showcase</span></h2>
+<p class="clause" id="c14.1"><span class="clause-no">14.1</span><span class="clause-body">Users may display their tanks in the Community Showcase. Sales must go through marketplace listings or breeder commerce, not Showcase messaging. Attempts to move transactions off-platform may lead to trust score penalties and badge revocation.</span></p>
+</section>
+<section class="section section--contact" id="s15">
+<h2 class="section-title"><span class="sec-num">15</span><span>Contact</span></h2>
+<p>AQUAAI LTD (trading as Aqua AI) · Company Number 16455928 · Registered in England and Wales</p>
+<p>Registered office: 71–75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom</p>
+<p>Support: <a href="mailto:support@aquaai.uk">support@aquaai.uk</a> · Website: <a href="https://www.aquaai.uk">www.aquaai.uk</a></p>
+<p>WhatsApp / Signal: <a href="tel:+447586576323">+44 7586 576323</a> · SMS: <a href="tel:+447782207333">+44 7782 207333</a></p>
+</section>
+    <section class="related">
+      <h2>Related documents</h2>
+      <div class="related-grid"><a class="related-card" href="aquaai_terms_and_conditions.html"><span>Terms and Conditions</span><small>The agreement between you and Aqua AI for using the apps and website.</small></a><a class="related-card" href="aquaai_privacy_policy.html"><span>Privacy Policy</span><small>What personal data we collect, why, and the rights you have over it.</small></a><a class="related-card" href="cookies_and_data_policy.html"><span>Cookies and Data Policy</span><small>How the apps and website store and process data, including cookies and similar technologies.</small></a><a class="related-card" href="aquaai_acceptable_use_policy.html"><span>Acceptable Use Policy</span><small>The rules for content and behaviour across Aqua AI.</small></a><a class="related-card" href="aquaai_refund_policy.html"><span>Refund Policy</span><small>When subscriptions, bookings and purchases can be refunded.</small></a><a class="related-card" href="aquaai_service_level_agreement.html"><span>Service Level Agreement</span><small>Our commitments on availability, performance, safety and support, and what happens if we fall short.</small></a></div>
+    </section>
+  </article>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <p>AQUAAI LTD (trading as Aqua AI) · Company Number 16455928 · Registered in England and Wales · Registered office: 71–75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom</p>
+    <p>Questions about this document? <a href="mailto:support@aquaai.uk">support@aquaai.uk</a> · <a href="#top" data-top>Back to top ↑</a></p>
+  </div>
+</footer>
+<script src="/policies/assets/legal.js" defer></script>
+</body>
 </html>
