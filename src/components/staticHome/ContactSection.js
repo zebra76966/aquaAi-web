@@ -258,9 +258,10 @@ export default function ContactSection() {
 
             <div className="ci-note">
               <p>
-                Operated by <strong>Humara Ltd</strong>
+                Operated by <strong>AQUAAI LTD</strong> (trading as Aqua AI)
               </p>
-              <p>Registered in England and Wales</p>
+              <p>Company Number 16455928 · Registered in England and Wales</p>
+              <p>71–75 Shelton Street, Covent Garden, London, WC2H 9JQ</p>
             </div>
           </div>
         </div>

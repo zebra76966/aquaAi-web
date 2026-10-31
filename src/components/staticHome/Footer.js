@@ -22,21 +22,21 @@ const NAV_COLS = [
       { label: "Blog", href: "#" },
       { label: "Guides", href: "#", internal: true, link: "/guides" },
       { label: "FAQs", href: "#", internal: true, link: "/faqs" },
-      { label: "Support", href: "#", internal: true, link: "/contact" },
+      { label: "Contact & Support", href: "#", internal: true, link: "/contact" },
     ],
   },
   {
-    heading: "Company",
+    heading: "Legal",
     links: [
-      // { label: "About Us", href: "#" },
+      { label: "Terms and Conditions", href: "/policies/aquaai_terms_and_conditions.html", external: true },
       { label: "Privacy Policy", href: "/policies/aquaai_privacy_policy.html", external: true },
-      { label: "Terms of Service", href: "/policies/aquaai_terms_and_conditions.html", external: true },
-      { label: "Provider Policy", href: "/policies/aquaai_provider_policy.html", external: true },
+      { label: "Cookies & Data Policy", href: "/policies/cookies_and_data_policy.html", external: true },
+      { label: "Acceptable Use Policy", href: "/policies/aquaai_acceptable_use_policy.html", external: true },
       { label: "Refund Policy", href: "/policies/aquaai_refund_policy.html", external: true },
       { label: "Marketplace Policy", href: "/policies/aquaai_marketplace_policy.html", external: true },
-      { label: "Cookies & Data Policy", href: "/policies/cookies_and_data_policy.html", external: true },
-      // { label: "Data Processing Agreement", href: "/policies/aquaai_data_processing_agreement.html", external: true },
-      { label: "Contact", href: "/contact", internal: true, link: "/contact" },
+      { label: "Provider Policy", href: "/policies/aquaai_provider_policy.html", external: true },
+      { label: "Pricing & Promotions", href: "/policies/aquaai_pricing_and_promotions.html", external: true },
+      { label: "All policies →", href: "/policies/index.html", external: true },
     ],
   },
 ];
@@ -129,7 +129,7 @@ export default function Footer() {
 
         {/* ── Bottom bar ── */}
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} AQUA AI®. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} AQUAAI LTD (trading as AQUA AI®). All rights reserved.</p>
         </div>
       </Container>
     </footer>

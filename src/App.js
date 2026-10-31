@@ -50,6 +50,16 @@ import PricingPage from "./components/staticHome/PricingPage";
 import BreederOutreachPage from "./components/staticHome/BreederOutreachPage";
 import ConsultantOutreachPage from "./components/staticHome/ConsultantOutreachPage";
 
+// Legal documents are static pages in public/policies/. These SPA routes just
+// hand over to them, so old or short links (/privacy-policy, /terms, /legal…)
+// still work when the app is already loaded.
+function StaticRedirect({ to }) {
+  useEffect(() => {
+    window.location.replace(to);
+  }, [to]);
+  return null;
+}
+
 function RoleRedirect() {
   const { token, roles, loading } = useContext(AuthContext);
 
@@ -107,6 +117,11 @@ function AppContent() {
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/why-sell-with-us" element={<BreederOutreachPage />} />
         <Route path="/why-partner-with-us" element={<ConsultantOutreachPage />} />
+        <Route path="/privacy-policy" element={<StaticRedirect to="/policies/aquaai_privacy_policy.html" />} />
+        <Route path="/terms" element={<StaticRedirect to="/policies/aquaai_terms_and_conditions.html" />} />
+        <Route path="/legal" element={<StaticRedirect to="/policies/index.html" />} />
+        <Route path="/policies" element={<StaticRedirect to="/policies/index.html" />} />
+        <Route path="/provider-outreach-privacy" element={<StaticRedirect to="/policies/aquaai_provider_outreach_privacy_notice.html" />} />
         <Route path="/role-redirect" element={<RoleRedirect />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

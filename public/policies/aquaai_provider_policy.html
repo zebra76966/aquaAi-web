@@ -1,576 +1,171 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AQUA AI® — Provider Policy</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-    <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      :root {
-        --aqua: #00b4d8;
-        --aqua-dark: #0077a8;
-        --navy: #0a1628;
-        --ink: #1c2b3a;
-        --muted: #5a7080;
-        --rule: #d4e8f0;
-        --bg: #f4f9fc;
-        --card: #ffffff;
-      }
-
-      body {
-        font-family: "DM Sans", sans-serif;
-        background: var(--bg);
-        color: var(--ink);
-        line-height: 1.7;
-        font-size: 15px;
-        padding: 48px 16px 80px;
-      }
-
-      .page {
-        max-width: 740px;
-        margin: 0 auto;
-      }
-
-      .header {
-        text-align: center;
-        padding-bottom: 40px;
-        border-bottom: 2px solid var(--rule);
-        margin-bottom: 40px;
-      }
-
-      .header-sub {
-        font-size: 0.85rem;
-        color: var(--muted);
-        margin-top: 6px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        font-weight: 500;
-      }
-
-      .meta-block {
-        margin-top: 20px;
-        display: inline-block;
-        text-align: left;
-        font-size: 0.88rem;
-        color: var(--muted);
-        background: var(--card);
-        border: 1px solid var(--rule);
-        border-radius: 8px;
-        padding: 14px 22px;
-        line-height: 1.9;
-      }
-
-      .meta-block strong {
-        color: var(--navy);
-        font-weight: 500;
-      }
-
-      a {
-        color: var(--aqua-dark);
-        text-decoration: none;
-        border-bottom: 1px solid var(--rule);
-      }
-
-      a:hover {
-        border-color: var(--aqua);
-        color: var(--aqua);
-      }
-
-      .section {
-        background: var(--card);
-        border-radius: 10px;
-        border: 1px solid var(--rule);
-        padding: 28px 32px;
-        margin-bottom: 20px;
-      }
-
-      .section-title {
-        font-family: "DM Serif Display", serif;
-        font-size: 1.2rem;
-        color: var(--aqua-dark);
-        margin-bottom: 14px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid var(--rule);
-      }
-
-      .sub-title {
-        font-weight: 500;
-        color: var(--navy);
-        font-size: 0.95rem;
-        margin: 16px 0 6px;
-      }
-
-      .sub-title:first-of-type {
-        margin-top: 0;
-      }
-
-      p {
-        color: var(--ink);
-        margin-bottom: 10px;
-      }
-
-      p:last-child {
-        margin-bottom: 0;
-      }
-
-      .bullet-list {
-        list-style: none;
-        padding: 0;
-        margin: 6px 0 10px;
-      }
-
-      .bullet-list li {
-        padding: 5px 0 5px 18px;
-        position: relative;
-        font-size: 0.93rem;
-        border-bottom: 1px solid var(--rule);
-        color: var(--ink);
-      }
-
-      .bullet-list li:last-child {
-        border-bottom: none;
-      }
-
-      .bullet-list li::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 13px;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--aqua);
-      }
-
-      .bullet-list li strong {
-        color: var(--navy);
-        font-weight: 500;
-      }
-
-      .rule-list {
-        list-style: none;
-        padding: 0;
-        margin: 6px 0 10px;
-      }
-
-      .rule-list li {
-        display: flex;
-        gap: 12px;
-        padding: 8px 0;
-        border-bottom: 1px solid var(--rule);
-        font-size: 0.93rem;
-      }
-
-      .rule-list li:last-child {
-        border-bottom: none;
-      }
-
-      .rule-label {
-        font-weight: 500;
-        color: var(--navy);
-        min-width: 200px;
-        flex-shrink: 0;
-      }
-
-      .tier-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.91rem;
-        margin-top: 4px;
-      }
-
-      .tier-table th {
-        text-align: left;
-        font-weight: 500;
-        color: var(--navy);
-        padding: 8px 10px;
-        background: #edf6fa;
-        font-size: 0.82rem;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-      }
-
-      .tier-table td {
-        padding: 9px 10px;
-        border-top: 1px solid var(--rule);
-        color: var(--ink);
-        vertical-align: top;
-      }
-
-      .tier-table tr:last-child td {
-        border-bottom: none;
-      }
-
-      .tier-name {
-        font-weight: 500;
-        color: var(--navy);
-        white-space: nowrap;
-      }
-
-      .tier-price {
-        color: var(--aqua-dark);
-        font-weight: 500;
-        white-space: nowrap;
-      }
-
-      .promo-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.9rem;
-        margin-top: 12px;
-      }
-
-      .promo-table th {
-        text-align: left;
-        padding: 8px 10px;
-        background: #edf6fa;
-        font-size: 0.8rem;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: var(--navy);
-      }
-
-      .promo-table td {
-        padding: 8px 10px;
-        border-top: 1px solid var(--rule);
-        color: var(--ink);
-      }
-
-      .promo-table tr:last-child td {
-        border-bottom: none;
-      }
-
-      .promo-table .plan {
-        font-weight: 500;
-        color: var(--navy);
-      }
-
-      .contact-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px 24px;
-        font-size: 0.92rem;
-      }
-
-      .contact-item strong {
-        color: var(--navy);
-        display: block;
-        font-size: 0.78rem;
-        text-transform: uppercase;
-        letter-spacing: 0.07em;
-        margin-bottom: 2px;
-        font-weight: 500;
-      }
-
-      .footer {
-        text-align: center;
-        margin-top: 40px;
-        font-size: 0.82rem;
-        color: var(--muted);
-        letter-spacing: 0.03em;
-      }
-
-      @media (max-width: 560px) {
-        .section {
-          padding: 20px 18px;
-        }
-        .rule-label {
-          min-width: 140px;
-          font-size: 0.88rem;
-        }
-        .contact-grid {
-          grid-template-columns: 1fr;
-        }
-        .tier-table,
-        .promo-table {
-          font-size: 0.83rem;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="page">
-      <!-- Header -->
-      <header class="header">
-        <div class="header-sub">Provider Policy &middot; Consultants and Breeders</div>
-        <div class="meta-block">
-          <strong>Version:</strong> 3.0<br />
-          <strong>Last Updated:</strong> May 2026<br />
-          <strong>Applies to:</strong> Consultants and Breeders<br />
-          <strong>Company Number:</strong> 16455928<br />
-          <strong>Registered in:</strong> England and Wales
-        </div>
-      </header>
-
-      <!-- 1. Introduction -->
-      <section class="section">
-        <h2 class="section-title">1. Introduction</h2>
-        <p>
-          1.1. This Provider Policy governs the relationship between Aqua AI (Company Number: 16455928) and professional service providers who operate through the Aqua Providers mobile application.
-        </p>
-        <p>1.2. Providers include Consultants and Breeders. Both roles can be held simultaneously within the same account.</p>
-      </section>
-
-      <!-- 2. Provider Registration -->
-      <section class="section">
-        <h2 class="section-title">2. Provider Registration</h2>
-        <p>2.1. Applications are submitted through the Aqua Providers app and include: business/personal details, service or species information, qualifications/experience, and social/web presence.</p>
-        <p>2.2. Approval is handled by head office and typically takes 24–48 hours. There is no in-app waiting screen. Once approved, log in to access your provider dashboard.</p>
-        <p>2.3. You may apply for the other role at any time.</p>
-      </section>
-
-      <!-- 3. Provider Subscriptions -->
-      <section class="section">
-        <h2 class="section-title">3. Provider Subscriptions</h2>
-        <table class="tier-table">
-          <thead>
-            <tr>
-              <th>Role</th>
-              <th>Fee</th>
-              <th>Commission</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="tier-name">Consultant</td>
-              <td class="tier-price">Free/month</td>
-              <td>10% booking commission, deducted at payment processing via Stripe.</td>
-            </tr>
-            <tr>
-              <td class="tier-name">Breeder</td>
-              <td class="tier-price">£24.99/month</td>
-              <td>7% sales commission (inclusive of processing fees of 2%).</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="sub-title" style="margin-top: 20px">3.3. Breeder Certification (Optional)</div>
-        <p style="margin-bottom: 6px">Evidence-based, earned through verified activity, not self-declared.</p>
-        <ul class="bullet-list">
-          <li>Aqua Certified &mdash; £250/year</li>
-          <li>Professional &mdash; £699/year</li>
-          <li>Master Breeder &mdash; £1,499/year</li>
-        </ul>
-      </section>
-
-      <!-- 4. Consultant Obligations -->
-      <section class="section">
-        <h2 class="section-title">4. Consultant Obligations</h2>
-        <ul class="bullet-list">
-          <li>Maintain accurate service listings, pricing, and availability</li>
-          <li>Respond to booking requests within 72 hours</li>
-          <li>Honour confirmed bookings and provide services as described</li>
-          <li>Maintain professional standards in all interactions</li>
-          <li>Comply with applicable laws and professional standards</li>
-          <li>Keep all communication within platform booking-scoped messaging</li>
-        </ul>
-
-        <div class="sub-title">4.1. Cancellation and Rescheduling</div>
-        <p>
-          Reschedule rather than cancel. Cancel button redirects to reschedule first. Over 48 hours: no penalty. Under 48 hours: trust score incident recorded. Over 48 hours: silent pattern counting,
-          alert at every 3 occurrences. Consultant cancellation: full user refund, AQUA AI® absorbs Stripe fee.
-        </p>
-
-        <div class="sub-title">4.2. Availability</div>
-        <p>Set weekly availability (default: weekdays). Block time for temporary unavailability. Maintain accurate schedules.</p>
-      </section>
-
-      <!-- 5. Breeder Obligations -->
-      <section class="section">
-        <h2 class="section-title">5. Breeder Obligations</h2>
-        <ul class="bullet-list">
-          <li>Maintain accurate species stock levels, pricing (min/max), and availability</li>
-          <li>Provide truthful descriptions of species health, lineage, and provenance</li>
-          <li>Comply with UK legislation regarding sale and transport of live aquatic animals</li>
-          <li>Respond to enquiries in a timely manner</li>
-          <li>Update stock promptly when sold or unavailable (stock auto-reduces on sale)</li>
-          <li>Not list protected, endangered, or illegally sourced species</li>
-          <li>Enter health and mortality data manually and accurately</li>
-        </ul>
-
-        <div class="sub-title">5.1. Species and Stock Management</div>
-        <p>
-          Breeders manage species by type (Freshwater, Saltwater, Pond fish, Inverts). Stock control includes: increase, reduce, mark sold out, and restock. Size variations and listing duplication are
-          supported. When stock reaches zero, the marketplace listing can be removed while the species record is retained for future restocking.
-        </p>
-
-        <div class="sub-title">5.2. Marketplace Listings</div>
-        <p>Species can be listed on the Marketplace directly from the species inventory. Minimum one image required. Listings do not expire automatically. Breeders are responsible for removing listings when stock is unavailable.</p>
-      </section>
-
-      <!-- 6. Provider Tools -->
-      <section class="section">
-        <h2 class="section-title">6. Provider Tools</h2>
-
-        <div class="sub-title">6.1. Analytics</div>
-        <p>
-          Read-only dashboards: sales, stock, species, ratings, health, mortality, response timing, trust score, tier comparison, inventory status, seasonal forecast, rating distribution. AI-generated
-          insights included.
-        </p>
-
-        <div class="sub-title">6.2. Trust Intelligence</div>
-        <p>
-          AI-powered performance review: scores, trajectory, marketing benchmark, rank, weekly digest, risk breakdown, target rate, retention scores, seasonal demand forecasting, performance
-          forecasting, badge progress.
-        </p>
-
-        <div class="sub-title">6.3. Provider AI Business Assistant</div>
-        <p>
-          Floating AI assistant (text and voice). Provides prompts, reports, business guidance, profile improvement suggestions, growth support, and stock/sales thinking. Links directly to your
-          provider profile for personalised responses.
-        </p>
-
-        <div class="sub-title">6.4. Research Tool</div>
-        <p>Market research, competitor review, recommended products/species, intelligence reports with key findings and competitiveness opportunities.</p>
-      </section>
-
-      <!-- 7. Trust Score and Badges -->
-      <section class="section">
-        <h2 class="section-title">7. Trust Score and Badges</h2>
-        <p>7.1. Same system as users. Provider badges: Verified Consultant, Specialist, Fast Responder, Verified Breeder, Healthy Stock Signal, Certified Lineage.</p>
-        <p>7.2. Trust scores visible to users, influence discovery and priority.</p>
-      </section>
-
-      <!-- 8. Provider Conduct -->
-      <section class="section">
-        <h2 class="section-title">8. Provider Conduct</h2>
-        <ul class="bullet-list">
-          <li>Do not solicit off-platform transactions</li>
-          <li>Do not misrepresent qualifications or credentials</li>
-          <li>Do not share client data outside service delivery</li>
-          <li>Do not engage in anti-competitive behaviour</li>
-          <li>Do not engage in animal cruelty or neglect</li>
-        </ul>
-      </section>
-
-      <!-- 9. Ratings and Reviews -->
-      <section class="section">
-        <h2 class="section-title">9. Ratings and Reviews</h2>
-        <p>9.1. Providers receive ratings and reviews from users. At present, providers cannot reply to reviews through the app. This capability may be added in future updates.</p>
-      </section>
-
-      <!-- 10. Orders and Fulfilment (Breeders) -->
-      <section class="section">
-        <h2 class="section-title">10. Orders and Fulfilment (Breeders)</h2>
-        <p>10.1. After a purchase or enquiry, follow-up is handled directly between breeder and buyer via email. Extra contact details (phone, WhatsApp) can be shared after initial contact.</p>
-        <p>10.2. The app does not currently support collection/delivery/shipping option settings. These arrangements are made directly between parties.</p>
-      </section>
-
-      <!-- 11. Suspension and Termination -->
-      <section class="section">
-        <h2 class="section-title">11. Suspension and Termination</h2>
-        <p>
-          11.1. L4 violations result in immediate termination. Upon termination: bookings cancelled with full refunds, listings deactivated, trust history retained, subscription charges cease.
-        </p>
-        <p>11.2. Voluntary closure: fulfil/cancel pending bookings, deactivate listings, notify active clients.</p>
-      </section>
-
-      <!-- 12. Contact -->
-      <section class="section">
-        <h2 class="section-title">12. Contact</h2>
-        <p style="margin-bottom: 16px">Aqua AI (Company Number: 16455928)</p>
-        <div class="contact-grid">
-          <div class="contact-item">
-            <strong>Website</strong>
-            <a href="https://www.aquaai.uk">www.aquaai.uk</a>
-          </div>
-          <div class="contact-item">
-            <strong>Support</strong>
-            <a href="mailto:support@aquaai.uk">support@aquaai.uk</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Promotional Pricing and Grandfathering for Breeders -->
-      <section class="section">
-        <h2 class="section-title">Promotional Pricing and Grandfathering for Breeders</h2>
-        <table class="promo-table">
-          <thead>
-            <tr>
-              <th>Plan</th>
-              <th>Promotional</th>
-              <th>Standard</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="plan">Breeder</td>
-              <td>£19.99/mo or £189.99/yr</td>
-              <td>£24.99/mo or £239.99/yr</td>
-            </tr>
-          </tbody>
-        </table>
-        <p style="margin-top: 14px">
-          The first 100 qualifying breeders to successfully complete a paid checkout receive this promotional rate, grandfathered for the duration of the continuous subscription. A 30-day grace
-          period applies upon cancellation, during which re-subscribing will restore the promotional rate. After 30 days, the standard base rate applies.
-        </p>
-      </section>
-
-      <!-- Provider Badges and Trust Tiers -->
-      <section class="section">
-        <h2 class="section-title">Provider Badges and Trust Tiers</h2>
-        <p>
-          Providers (Consultants and Breeders) are evaluated through our Trust Score system (Bronze, Silver, Gold, Platinum). Badges such as "Verified Breeder," "Certified Lineage," "Consistent
-          Performer," and "Fast Responder" are awarded based on verifiable metrics including booking completion rates, response times, review authenticity, and stock health signals. These badges
-          enhance visibility and ranking within the platform.
-        </p>
-      </section>
-
-      <!-- Breeder Commerce Obligations -->
-      <section class="section">
-        <h2 class="section-title">Breeder Commerce Obligations</h2>
-        <p>Breeders who opt into in-app commerce must maintain a valid Stripe Connect account. Identity verification and bank account details are submitted directly to Stripe during onboarding.</p>
-        <p>
-          Stock listed for in-app purchase must be accurate and available. Auto-stock reduction applies upon confirmed sale. Breeders must not list stock they cannot fulfil within the 7-day hold
-          window.
-        </p>
-        <p>
-          Fulfilment: Breeders must make stock available for collection or dispatch delivery within the 7-day hold period. Failure to fulfil within this window may result in automatic refund to the
-          buyer and trust score penalties.
-        </p>
-        <p>
-          Commission: A 7% platform commission is deducted from all Breeder commerce transactions at the point of payout. This is in addition to the monthly subscription fee of £24.99.
-        </p>
-        <p style="margin-bottom: 0">
-          <strong style="color: var(--navy); font-weight: 500">Prohibited:</strong> Directing buyers to pay off-platform, inflating delivery charges to circumvent commission, or listing stock that is
-          not genuinely available for sale.
-        </p>
-      </section>
-
-      <!-- Contact Us -->
-      <section class="section">
-        <h2 class="section-title">Contact Us</h2>
-        <div class="contact-grid">
-          <div class="contact-item">
-            <strong>Website</strong>
-            <a href="https://www.aquaai.uk">www.aquaai.uk</a>
-          </div>
-          <div class="contact-item">
-            <strong>Support</strong>
-            <a href="mailto:support@aquaai.uk">support@aquaai.uk</a>
-          </div>
-          <div class="contact-item">
-            <strong>WhatsApp / Signal</strong>
-            <a href="tel:+447586576323">+44 7586 576323</a>
-          </div>
-          <div class="contact-item">
-            <strong>SMS</strong>
-            <a href="tel:+447782207333">+44 7782 207333</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <footer class="footer">AQUA AI® is Company Number: 16455928, Registered in England and Wales &middot; May 2026</footer>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Provider Policy · AQUA AI®</title>
+<meta name="description" content="Provider Policy for Aqua AI. Terms for consultants and breeders using the Aqua Providers app." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/policies/assets/legal.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/">AQUA AI<sup>®</sup></a>
+    <nav class="topbar-links">
+      <a href="/policies/index.html">All policies</a>
+      <a class="topbar-cta" href="/contact">Contact</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="hero-inner">
+    <a class="crumb" href="/policies/index.html">Legal</a>
+    <h1>Provider Policy</h1>
+    <p class="hero-sub">Consultants and Breeders</p>
+    <div class="chips"><span class="chip"><b>Version</b> 3.2</span><span class="chip"><b>Updated</b> October 2026</span><span class="chip"><b>Classification</b> Public</span></div>
+    
+    <p class="hero-company">AQUAAI LTD (trading as Aqua AI) · Company Number 16455928 · Registered in England and Wales · Registered office: 71–75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom</p>
+    <div class="hero-actions">
+      <button type="button" class="btn-ghost" data-print>Print or save as PDF</button>
     </div>
-  </body>
+  </div>
+</section>
+
+<div class="layout">
+  <aside class="toc" aria-label="On this page">
+    <details class="toc-box" open>
+      <summary>On this page</summary>
+      <ol><li><a href="#s1"><span>1</span>Introduction</a></li>
+<li><a href="#s2"><span>2</span>Registration and Approval</a></li>
+<li><a href="#s3"><span>3</span>Fees and Commission</a></li>
+<li><a href="#s4"><span>4</span>Consultant Obligations</a></li>
+<li><a href="#s5"><span>5</span>Breeder Obligations</a></li>
+<li><a href="#s6"><span>6</span>Breeder Commerce</a></li>
+<li><a href="#s7"><span>7</span>Provider Tools</a></li>
+<li><a href="#s8"><span>8</span>Trust Score and Badges</a></li>
+<li><a href="#s9"><span>9</span>Provider Conduct</a></li>
+<li><a href="#s10"><span>10</span>Ratings and Reviews</a></li>
+<li><a href="#s11"><span>11</span>Suspension, Termination, and Closure</a></li>
+<li><a href="#s12"><span>12</span>Contact</a></li></ol>
+    </details>
+  </aside>
+  <article class="doc">
+<section class="section" id="s1">
+<h2 class="section-title"><span class="sec-num">1</span><span>Introduction</span></h2>
+<p class="clause" id="c1.1"><span class="clause-no">1.1</span><span class="clause-body">This Provider Policy governs the relationship between AQUAAI LTD, trading as Aqua AI, and the professional providers who operate through the Aqua Providers app. It forms part of our <a class="doc-link" href="aquaai_terms_and_conditions.html">Terms and Conditions</a>, which also apply to you.</span></p>
+<p class="clause" id="c1.2"><span class="clause-no">1.2</span><span class="clause-body">Providers are Consultants and Breeders. You can hold both roles in the same account.</span></p>
+<p class="clause" id="c1.3"><span class="clause-no">1.3</span><span class="clause-body">You must be 18 or over, and you must accept this policy before your provider account is activated.</span></p>
+</section>
+<section class="section" id="s2">
+<h2 class="section-title"><span class="sec-num">2</span><span>Registration and Approval</span></h2>
+<p class="clause" id="c2.1"><span class="clause-no">2.1</span><span class="clause-body">You apply at <a href="https://www.aquaai.uk">www.aquaai.uk</a>, including when the application is opened from the Aqua Providers app. Your application includes business or personal details, service or species information, qualifications or experience, and social or web presence.</span></p>
+<p class="clause" id="c2.2"><span class="clause-no">2.2</span><span class="clause-body">Head office reviews applications, usually within 24–48 hours. Once approved, sign in to the Aqua Providers app to access your dashboard.</span></p>
+<p class="clause" id="c2.3"><span class="clause-no">2.3</span><span class="clause-body">You can apply for the other role at any time.</span></p>
+</section>
+<section class="section" id="s3">
+<h2 class="section-title"><span class="sec-num">3</span><span>Fees and Commission</span></h2>
+<p class="clause" id="c3.1"><span class="clause-no">3.1</span><span class="clause-body"><strong>Consultants</strong> pay no subscription. Aqua AI’s booking fee is 10% of your service price, taken from it and paid by the user in the app (by card or platform credit) to confirm the booking. The user pays the remaining 90% to you directly, in cash or by bank transfer as you agree with them. Aqua AI does not collect or hold your 90%.</span></p>
+<p class="clause" id="c3.2"><span class="clause-no">3.2</span><span class="clause-body"><strong>Breeders</strong> pay a subscription and a 7% platform commission on in-app sales, deducted at payout. The commission includes payment processing fees, and you keep 93% of each sale. Subscription fees are shown when you subscribe.</span></p>
+<p class="clause" id="c3.3"><span class="clause-no">3.3</span><span class="clause-body"><strong>Breeder certification</strong> (optional): Aqua Certified, Professional, and Master Breeder tiers are evidence-based and earned through verified activity, not self-declared. Certification fees are shown when you apply.</span></p>
+<p class="clause" id="c3.4"><span class="clause-no">3.4</span><span class="clause-body"><strong>Platform credit.</strong> Users can use referral platform credit only for Aqua AI’s booking fee on consultant bookings, and towards breeder purchases. When credit is used on a breeder purchase, the breeder still receives their full 93%, as though the user had paid in full by card.</span></p>
+</section>
+<section class="section" id="s4">
+<h2 class="section-title"><span class="sec-num">4</span><span>Consultant Obligations</span></h2>
+<p class="clause" id="c4.1"><span class="clause-no">4.1</span><span class="clause-body">You must:</span></p>
+<ul class="bullet-list">
+<li>keep service listings, pricing, and availability accurate</li>
+<li>respond to booking requests within 72 hours</li>
+<li>honour confirmed bookings and provide services as described</li>
+<li>maintain professional standards in all interactions</li>
+<li>comply with applicable laws and professional standards</li>
+<li>keep communication about a booking in the booking’s messaging thread</li>
+</ul>
+<h3 class="sub-title" id="c4.2"><span class="clause-no">4.2</span>Cancellation and Rescheduling</h3>
+<ul class="bullet-list">
+<li>Reschedule rather than cancel. The cancel button offers rescheduling first.</li>
+<li>If you cannot keep a booking, you may offer the user an alternative time. It applies only if the user agrees.</li>
+<li>If you cancel or do not attend, the user’s booking fee is refunded. Aqua AI absorbs the Stripe fee. Not attending is also recorded against your trust score.</li>
+<li>Any payment the user has made to you directly is a matter between you and the user.</li>
+<li>Cancelling with less than 48 hours’ notice is recorded as a trust score incident (L1–L4 escalation based on pattern). Cancellations with more notice are counted, with an alert at every third occurrence.</li>
+</ul>
+<p class="clause" id="c4.3"><span class="clause-no">4.3</span><span class="clause-body"><strong>Availability.</strong> Set your weekly availability (default: weekdays) and block time when you are unavailable.</span></p>
+</section>
+<section class="section" id="s5">
+<h2 class="section-title"><span class="sec-num">5</span><span>Breeder Obligations</span></h2>
+<p class="clause" id="c5.1"><span class="clause-no">5.1</span><span class="clause-body">You must:</span></p>
+<ul class="bullet-list">
+<li>keep species stock levels, pricing, and availability accurate</li>
+<li>describe species health, lineage, and provenance truthfully</li>
+<li>comply with UK law on the sale and transport of live aquatic animals</li>
+<li>respond to enquiries promptly</li>
+<li>update stock when sold or unavailable (stock reduces automatically on sale)</li>
+<li>never list protected, endangered, or illegally sourced species</li>
+<li>enter health and mortality data accurately</li>
+</ul>
+<p class="clause" id="c5.2"><span class="clause-no">5.2</span><span class="clause-body"><strong>Species and Stock Management.</strong> Manage species by type (Freshwater, Saltwater, Pond fish, Inverts). Increase, reduce, mark sold out, or restock. Size variations and listing duplication are supported. When stock reaches zero, the listing can be removed while the species record is kept for restocking.</span></p>
+<p class="clause" id="c5.3"><span class="clause-no">5.3</span><span class="clause-body"><strong>Listings.</strong> List species directly from your inventory. Each listing needs at least one image. Listings do not expire automatically; remove them when stock is unavailable.</span></p>
+</section>
+<section class="section" id="s6">
+<h2 class="section-title"><span class="sec-num">6</span><span>Breeder Commerce</span></h2>
+<p class="clause" id="c6.1"><span class="clause-no">6.1</span><span class="clause-body"><strong>Stripe Connect.</strong> To sell in the app you need a valid Stripe Connect account. You submit identity and bank details directly to Stripe; Aqua AI does not store them.</span></p>
+<p class="clause" id="c6.2"><span class="clause-no">6.2</span><span class="clause-body"><strong>Orders and payment.</strong> Buyers order and pay in the app. Funds are released automatically to your Stripe account, less the 7% commission: for collection orders, as soon as you enter the buyer’s collection code at handover; for delivery orders, after a 7-day hold.</span></p>
+<p class="clause" id="c6.3"><span class="clause-no">6.3</span><span class="clause-body"><strong>Fulfilment.</strong> Buyers choose collection or delivery, using the collection and delivery settings you configure. You must make stock available for collection, or dispatch it, within 7 days of the order. Failure to fulfil may lead to an automatic refund to the buyer and a trust score penalty. If a buyer does not collect within 7 days, mark the order as not collected: the buyer is refunded in full, your stock is restored, and your trust score is not affected.</span></p>
+<p class="clause" id="c6.4"><span class="clause-no">6.4</span><span class="clause-body"><strong>Licence for delivery.</strong> To offer delivery you must hold a current licence for selling animals as pets, issued by your local council, and upload it in the Providers app for approval. Aqua AI checks it against the council’s public register before approving it. Delivery is available only while an approved licence is in date: if it expires or an approval is withdrawn, delivery pauses until a current licence is approved. Collection does not need a licence. You are responsible for holding any licence the law requires for your activity, whether or not you offer delivery.</span></p>
+<p class="clause" id="c6.5"><span class="clause-no">6.5</span><span class="clause-body"><strong>Buyer contact details.</strong> Use the buyer details you receive only to fulfil that order.</span></p>
+<p class="clause" id="c6.6"><span class="clause-no">6.6</span><span class="clause-body"><strong>Prohibited.</strong> Directing buyers to pay off-platform, inflating delivery charges to avoid commission, or listing stock that is not genuinely available.</span></p>
+</section>
+<section class="section" id="s7">
+<h2 class="section-title"><span class="sec-num">7</span><span>Provider Tools</span></h2>
+<p class="clause" id="c7.1"><span class="clause-no">7.1</span><span class="clause-body"><strong>Analytics:</strong> read-only dashboards covering sales, stock, species, ratings, health, mortality, response times, trust score, tier comparison, inventory, seasonal forecasts, and rating distribution, with AI-generated insights.</span></p>
+<p class="clause" id="c7.2"><span class="clause-no">7.2</span><span class="clause-body"><strong>Trust Intelligence:</strong> AI-powered performance review covering scores, trajectory, benchmarks, rank, weekly digest, risk breakdown, retention, demand and performance forecasting, and badge progress.</span></p>
+<p class="clause" id="c7.3"><span class="clause-no">7.3</span><span class="clause-body"><strong>Provider AI Business Assistant:</strong> an AI assistant (text and voice, voice where available on your device) for prompts, reports, business guidance, profile improvement, growth support, and stock and sales planning, personalised to your provider profile.</span></p>
+<p class="clause" id="c7.4"><span class="clause-no">7.4</span><span class="clause-body"><strong>Research Tool:</strong> market research, competitor review, recommended products and species, and intelligence reports.</span></p>
+<p class="clause" id="c7.5"><span class="clause-no">7.5</span><span class="clause-body">All AI output is advisory and is not financial advice.</span></p>
+</section>
+<section class="section" id="s8">
+<h2 class="section-title"><span class="sec-num">8</span><span>Trust Score and Badges</span></h2>
+<p class="clause" id="c8.1"><span class="clause-no">8.1</span><span class="clause-body">Providers use the same trust score system as users (Bronze, Silver, Gold, Platinum). Provider badges include Verified Consultant, Specialist, Fast Responder, Verified Breeder, Healthy Stock Signal, Certified Lineage, and Consistent Performer.</span></p>
+<p class="clause" id="c8.2"><span class="clause-no">8.2</span><span class="clause-body">Badges are awarded on verifiable metrics such as booking completion, response times, review authenticity, and stock health signals. Trust scores are visible to users and affect discovery, ranking, and priority.</span></p>
+</section>
+<section class="section" id="s9">
+<h2 class="section-title"><span class="sec-num">9</span><span>Provider Conduct</span></h2>
+<p class="clause" id="c9.1"><span class="clause-no">9.1</span><span class="clause-body">You must not solicit off-platform transactions, misrepresent qualifications or credentials, share client data outside service delivery, engage in anti-competitive behaviour, or engage in animal cruelty or neglect.</span></p>
+<p class="clause" id="c9.2"><span class="clause-no">9.2</span><span class="clause-body">Our zero-tolerance policy on objectionable content and abusive behaviour (Terms Section 12 and the <a class="doc-link" href="aquaai_acceptable_use_policy.html">Acceptable Use Policy</a>) applies to everything you post or send, including listings, profiles, and messages.</span></p>
+</section>
+<section class="section" id="s10">
+<h2 class="section-title"><span class="sec-num">10</span><span>Ratings and Reviews</span></h2>
+<p class="clause" id="c10.1"><span class="clause-no">10.1</span><span class="clause-body">Users can rate and review you. Providers cannot currently reply to reviews in the app; this may be added later.</span></p>
+</section>
+<section class="section" id="s11">
+<h2 class="section-title"><span class="sec-num">11</span><span>Suspension, Termination, and Closure</span></h2>
+<p class="clause" id="c11.1"><span class="clause-no">11.1</span><span class="clause-body">L4 breaches, and breaches of our zero-tolerance policy, result in immediate removal. On removal, we will cancel and refund your open bookings and orders, deactivate your listings, and stop subscription charges.</span></p>
+<p class="clause" id="c11.2"><span class="clause-no">11.2</span><span class="clause-body">To close your provider account, first fulfil or cancel pending bookings and orders, deactivate your listings, and tell active clients. You can then delete your account in the app or at <a href="https://www.aquaai.uk/profile/delete/">www.aquaai.uk/profile/delete/</a>.</span></p>
+</section>
+<section class="section section--contact" id="s12">
+<h2 class="section-title"><span class="sec-num">12</span><span>Contact</span></h2>
+<p>AQUAAI LTD (trading as Aqua AI) · Company Number 16455928 · Registered in England and Wales</p>
+<p>Registered office: 71–75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom</p>
+<p>Support: <a href="mailto:support@aquaai.uk">support@aquaai.uk</a> · Website: <a href="https://www.aquaai.uk">www.aquaai.uk</a></p>
+<p>WhatsApp / Signal: <a href="tel:+447586576323">+44 7586 576323</a> · SMS: <a href="tel:+447782207333">+44 7782 207333</a></p>
+</section>
+    <section class="related">
+      <h2>Related documents</h2>
+      <div class="related-grid"><a class="related-card" href="aquaai_terms_and_conditions.html"><span>Terms and Conditions</span><small>The agreement between you and Aqua AI for using the apps and website.</small></a><a class="related-card" href="aquaai_privacy_policy.html"><span>Privacy Policy</span><small>What personal data we collect, why, and the rights you have over it.</small></a><a class="related-card" href="cookies_and_data_policy.html"><span>Cookies and Data Policy</span><small>How the apps and website store and process data, including cookies and similar technologies.</small></a><a class="related-card" href="aquaai_acceptable_use_policy.html"><span>Acceptable Use Policy</span><small>The rules for content and behaviour across Aqua AI.</small></a><a class="related-card" href="aquaai_refund_policy.html"><span>Refund Policy</span><small>When subscriptions, bookings and purchases can be refunded.</small></a><a class="related-card" href="aquaai_marketplace_policy.html"><span>Marketplace Policy</span><small>Rules for buying, selling and listing in the marketplace.</small></a></div>
+    </section>
+  </article>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <p>AQUAAI LTD (trading as Aqua AI) · Company Number 16455928 · Registered in England and Wales · Registered office: 71–75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom</p>
+    <p>Questions about this document? <a href="mailto:support@aquaai.uk">support@aquaai.uk</a> · <a href="#top" data-top>Back to top ↑</a></p>
+  </div>
+</footer>
+<script src="/policies/assets/legal.js" defer></script>
+</body>
 </html>

@@ -879,7 +879,8 @@ export default function BreederApply() {
               </div>
               <h3 className="br-modal-title">Certificate not uploaded</h3>
               <p className="br-modal-body">
-                You will be restricted from selling livestock in the app until a valid certification has been uploaded and verified. You can upload your certificate now, or later from your Profile.
+                You will be restricted from offering delivery for livestock in the app until a valid certification has been uploaded and verified. You can upload your certificate now, or later from
+                your Profile.{" "}
               </p>
 
               <div className="br-modal-actions">

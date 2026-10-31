@@ -1,749 +1,308 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AQUA AI® — Terms and Conditions</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-    <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      :root {
-        --aqua: #00b4d8;
-        --aqua-dark: #0077a8;
-        --navy: #0a1628;
-        --ink: #1c2b3a;
-        --muted: #5a7080;
-        --rule: #d4e8f0;
-        --bg: #f4f9fc;
-        --card: #ffffff;
-      }
-
-      body {
-        font-family: "DM Sans", sans-serif;
-        background: var(--bg);
-        color: var(--ink);
-        line-height: 1.7;
-        font-size: 15px;
-        padding: 48px 16px 80px;
-      }
-
-      .page {
-        max-width: 740px;
-        margin: 0 auto;
-      }
-
-      /* Header */
-      .header {
-        text-align: center;
-        padding-bottom: 40px;
-        border-bottom: 2px solid var(--rule);
-        margin-bottom: 40px;
-      }
-
-      .header-sub {
-        font-size: 0.85rem;
-        color: var(--muted);
-        margin-top: 6px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        font-weight: 500;
-      }
-
-      .meta-block {
-        margin-top: 20px;
-        display: inline-block;
-        text-align: left;
-        font-size: 0.88rem;
-        color: var(--muted);
-        background: var(--card);
-        border: 1px solid var(--rule);
-        border-radius: 8px;
-        padding: 14px 22px;
-        line-height: 1.9;
-      }
-
-      .meta-block strong {
-        color: var(--navy);
-        font-weight: 500;
-      }
-
-      a {
-        color: var(--aqua-dark);
-        text-decoration: none;
-        border-bottom: 1px solid var(--rule);
-      }
-
-      a:hover {
-        border-color: var(--aqua);
-        color: var(--aqua);
-      }
-
-      /* Sections */
-      .section {
-        background: var(--card);
-        border-radius: 10px;
-        border: 1px solid var(--rule);
-        padding: 28px 32px;
-        margin-bottom: 20px;
-      }
-
-      .section-title {
-        font-family: "DM Serif Display", serif;
-        font-size: 1.2rem;
-        color: var(--aqua-dark);
-        margin-bottom: 14px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid var(--rule);
-      }
-
-      .sub-title {
-        font-weight: 500;
-        color: var(--navy);
-        font-size: 0.95rem;
-        margin: 16px 0 6px;
-      }
-
-      .sub-title:first-of-type {
-        margin-top: 0;
-      }
-
-      p {
-        color: var(--ink);
-        margin-bottom: 10px;
-      }
-
-      p:last-child {
-        margin-bottom: 0;
-      }
-
-      /* Bullet lists */
-      .bullet-list {
-        list-style: none;
-        padding: 0;
-        margin: 6px 0 10px;
-      }
-
-      .bullet-list li {
-        padding: 5px 0 5px 18px;
-        position: relative;
-        font-size: 0.93rem;
-        border-bottom: 1px solid var(--rule);
-        color: var(--ink);
-      }
-
-      .bullet-list li:last-child {
-        border-bottom: none;
-      }
-
-      .bullet-list li::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 13px;
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--aqua);
-      }
-
-      .bullet-list li strong {
-        color: var(--navy);
-        font-weight: 500;
-      }
-
-      /* Rule list (label + value rows) */
-      .rule-list {
-        list-style: none;
-        padding: 0;
-        margin: 6px 0 10px;
-      }
-
-      .rule-list li {
-        display: flex;
-        gap: 12px;
-        padding: 8px 0;
-        border-bottom: 1px solid var(--rule);
-        font-size: 0.93rem;
-      }
-
-      .rule-list li:last-child {
-        border-bottom: none;
-      }
-
-      .rule-label {
-        font-weight: 500;
-        color: var(--navy);
-        min-width: 200px;
-        flex-shrink: 0;
-      }
-
-      /* Tier table */
-      .tier-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.91rem;
-        margin-top: 4px;
-      }
-
-      .tier-table th {
-        text-align: left;
-        font-weight: 500;
-        color: var(--navy);
-        padding: 8px 10px;
-        background: #edf6fa;
-        font-size: 0.82rem;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-      }
-
-      .tier-table td {
-        padding: 9px 10px;
-        border-top: 1px solid var(--rule);
-        color: var(--ink);
-        vertical-align: top;
-      }
-
-      .tier-table tr:last-child td {
-        border-bottom: none;
-      }
-
-      .tier-name {
-        font-weight: 500;
-        color: var(--navy);
-        white-space: nowrap;
-      }
-
-      .tier-price {
-        color: var(--aqua-dark);
-        font-weight: 500;
-        white-space: nowrap;
-      }
-
-      /* Promo pricing table */
-      .promo-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.9rem;
-        margin-top: 12px;
-      }
-
-      .promo-table th {
-        text-align: left;
-        padding: 8px 10px;
-        background: #edf6fa;
-        font-size: 0.8rem;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: var(--navy);
-      }
-
-      .promo-table td {
-        padding: 8px 10px;
-        border-top: 1px solid var(--rule);
-        color: var(--ink);
-      }
-
-      .promo-table tr:last-child td {
-        border-bottom: none;
-      }
-
-      .promo-table .plan {
-        font-weight: 500;
-        color: var(--navy);
-      }
-
-      /* Contact grid */
-      .contact-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px 24px;
-        font-size: 0.92rem;
-      }
-
-      .contact-item strong {
-        color: var(--navy);
-        display: block;
-        font-size: 0.78rem;
-        text-transform: uppercase;
-        letter-spacing: 0.07em;
-        margin-bottom: 2px;
-        font-weight: 500;
-      }
-
-      /* Footer */
-      .footer {
-        text-align: center;
-        margin-top: 40px;
-        font-size: 0.82rem;
-        color: var(--muted);
-        letter-spacing: 0.03em;
-      }
-
-      @media (max-width: 560px) {
-        .section {
-          padding: 20px 18px;
-        }
-        .rule-label {
-          min-width: 140px;
-          font-size: 0.88rem;
-        }
-        .contact-grid {
-          grid-template-columns: 1fr;
-        }
-        .tier-table,
-        .promo-table {
-          font-size: 0.83rem;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="page">
-      <!-- Header -->
-      <header class="header">
-        <div class="header-sub">Terms and Conditions</div>
-        <div class="meta-block">
-          <strong>Version:</strong> 3.0<br />
-          <strong>Last Updated:</strong> May 2026<br />
-          <strong>Classification:</strong> Public<br />
-          <strong>Company Number:</strong> 16455928<br />
-          <strong>Registered in:</strong> England and Wales
-        </div>
-      </header>
-
-      <!-- 1. Agreement to Terms -->
-      <section class="section">
-        <h2 class="section-title">1. Agreement to Terms</h2>
-        <p>
-          1.1. By downloading, installing, accessing, or using the AQUA AI® mobile application or the Aqua Providers mobile application (together, the "Apps"), or by accessing the AQUA AI® website at
-          <a href="https://www.aquaai.uk">www.aquaai.uk</a> (the "Website"), you agree to be bound by these Terms and Conditions ("Terms"). If you do not agree to these Terms, you must not access or
-          use the Apps or Website.
-        </p>
-        <p>
-          1.2. These Terms constitute a legally binding agreement between you and Aqua AI (Company Number: 16455928) ("we," "our," or "us"), trading as AQUA AI®. References to the "Platform" mean the
-          Apps and the Website collectively.
-        </p>
-        <p>
-          1.3. These Terms should be read alongside our Privacy Policy, Cookies and Data Policy, Acceptable Use Policy, Refund Policy, and where applicable, the Provider Policy and Marketplace Policy,
-          all of which form part of this agreement.
-        </p>
-        <p>1.4. We may update these Terms at any time. Material changes will be notified via the Apps or email. Continued use after notification constitutes acceptance.</p>
-      </section>
-
-      <!-- 2. Description of Service -->
-      <section class="section">
-        <h2 class="section-title">2. Description of Service</h2>
-        <p>2.1. AQUA AI® is an AI-powered aquatic intelligence platform. The AQUA AI® app ("Users App") provides:</p>
-        <ul class="bullet-list">
-          <li>AI-driven fish species identification via image, video, and live video analysis</li>
-          <li>Disease detection through computer vision and symptom analysis</li>
-          <li>
-            Water parameter analysis via test strip photo upload and manual entry (standard and saltwater parameters including pH, ammonia, nitrite, nitrate, oxygen, temperature, magnesium,
-            alkalinity, calcium, and phosphates)
-          </li>
-          <li>AI Water Intelligence that interprets test results into practical guidance</li>
-          <li>Dynamic species compatibility assessment with local availability data</li>
-          <li>Comparative species tracking for monitoring fish growth over time</li>
-          <li>AI-generated care plans, maintenance schedules, and custom task creation</li>
-          <li>Tank health scoring with visible health scale</li>
-          <li>Product recommendations with dosage calculations, tracking, and reorder alerts</li>
-          <li>Equipment management with detailed tracking per habitat</li>
-          <li>AquaBot — a floating AI assistant supporting text and voice queries</li>
-          <li>Peer-to-peer marketplace for aquatic goods with purchase request and email confirmation flow</li>
-          <li>Consultant discovery, booking, and payment across three service categories (Consultancy, Pond, Tank) with over 20 service types</li>
-          <li>Breeder directory with species search, water type filtering, and direct contact</li>
-        </ul>
-
-        <div class="sub-title">2.2. Aqua Providers App</div>
-        <p>The Aqua Providers app enables professional service providers to manage operations:</p>
-        <ul class="bullet-list">
-          <li>
-            <strong>Breeders:</strong> species stock management with auto-stock reduction, size variations, duplicate listings, marketplace integration, analytics, Trust Intelligence, Research tools,
-            and Provider AI Business Assistant
-          </li>
-          <li><strong>Consultants:</strong> service listings, availability calendar, booking management, earnings tracking, and performance analytics</li>
-        </ul>
-
-        <p>
-          2.3. All AI outputs are probabilistic and advisory. While we strive for accuracy, AI-generated insights do not constitute professional veterinary, scientific, or medical advice. Users
-          should consult qualified aquatic specialists for critical health concerns.
-        </p>
-      </section>
-
-      <!-- 3. Account Registration and Security -->
-      <section class="section">
-        <h2 class="section-title">3. Account Registration and Security</h2>
-        <p>
-          3.1. To access the Platform, you must create an account through the AQUA AI® domain using a valid email address, or sign in via third-party authentication services (Google, Apple, or
-          Facebook). Password resets are handled through the same domain.
-        </p>
-        <p>3.2. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.</p>
-        <p>3.3. You must provide accurate, current, and complete information during registration and keep it updated.</p>
-        <p>3.4. You must not create multiple accounts, share account credentials, or transfer your account to another person without our written consent.</p>
-        <p>3.5. We reserve the right to suspend or terminate accounts that we reasonably believe are compromised, fraudulent, or in violation of these Terms.</p>
-      </section>
-
-      <!-- 4. Subscription Tiers and Pricing -->
-      <section class="section">
-        <h2 class="section-title">4. Subscription Tiers and Pricing</h2>
-        <p>4.1. AQUA AI® operates a tiered subscription model:</p>
-        <table class="tier-table">
-          <thead>
-            <tr>
-              <th>Plan</th>
-              <th>Price</th>
-              <th>Features</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="tier-name">Free</td>
-              <td class="tier-price">£0</td>
-              <td>1 habitat, species identification (image), basic water parameter tracking, basic care plan, marketplace browse and buy only, consultant booking, breeder directory access.</td>
-            </tr>
-            <tr>
-              <td class="tier-name">Premium</td>
-              <td class="tier-price">£14.99/mo or £144.99/yr</td>
-              <td>Up to 3 habitats, disease detection, AquaBot (100 queries/mo), AI maintenance plans, marketplace buy and sell, consultant booking, breeder directory access.</td>
-            </tr>
-            <tr>
-              <td class="tier-name">Pro</td>
-              <td class="tier-price">£24.99/mo or £24.99/yr</td>
-              <td>
-                Unlimited habitats incl. pond, full AI capabilities, AquaBot (500 queries/mo), advanced analytics, preventative alerts, data export (JSON/CSV), full marketplace access, consultant
-                booking, breeder directory access.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <p style="margin-top: 14px">4.2. Feature availability is gated by subscription tier. Attempting to access features outside your tier will prompt an upgrade invitation.</p>
-        <p>4.3. We reserve the right to modify pricing with 30 days' written notice. Existing subscribers retain current pricing until the end of their active billing period.</p>
-        <p>4.4. Annual subscriptions represent a discounted rate and are non-refundable once the billing period has commenced, except as required by applicable law.</p>
-      </section>
-
-      <!-- 5. Payment Terms -->
-      <section class="section">
-        <h2 class="section-title">5. Payment Terms</h2>
-        <p>5.1. Subscription payments are processed through the AQUA AI® domain. Supported payment methods include Apple Pay, Google Pay, and credit/debit cards.</p>
-        <p>5.2. Subscriptions renew automatically at the end of each billing period unless cancelled at least 24 hours before the renewal date.</p>
-        <p>5.3. Failed payments will be retried in accordance with standard retry schedules. If payment cannot be collected, your account will be downgraded to the Free tier.</p>
-        <p>5.4. All prices are stated in British Pounds Sterling (£) and are inclusive of VAT where applicable.</p>
-        <p>
-          5.5. <strong style="color: var(--navy); font-weight: 500">Breeder Commerce Payments:</strong> In-app purchases of Breeder stock are processed via Stripe. Funds are held in escrow for 7 days
-          before release to the Breeder. The platform commission of 7% is deducted automatically at the point of payout.
-        </p>
-      </section>
-
-      <!-- 6. Consultant Booking and Service Terms -->
-      <section class="section">
-        <h2 class="section-title">6. Consultant Booking and Service Terms</h2>
-        <p>
-          6.1. The Platform enables users to discover, book, and pay for professional aquatic consultancy services across three categories: Consultancy (coaching, education, one-off advice, testing,
-          urgent support, water quality), Pond (construction, equipment, filtration, fish health, maintenance, seasonal, water quality), and Tank (design, breakdown, disease, equipment, maintenance,
-          setup, stocking, water assessments). Bookings are available to all subscription tiers, including Free.
-        </p>
-        <p>6.2. A 10% platform commission is applied to all bookings, deducted from the user (as per the booking confirmation charge).</p>
-        <p>6.3. Messaging between users and consultants is scoped exclusively to active bookings. Message threads open upon booking confirmation and close upon completion or cancellation.</p>
-        <p>6.4. Consultants have 72 hours to accept or decline a booking request. If no response is received, the request expires automatically.</p>
-
-        <div class="sub-title">6.5. Cancellation Policy</div>
-        <ul class="rule-list">
-          <li><span class="rule-label">Over 48 hours' notice</span><span>No penalty. Consultant cancellation triggers full refund to user's original payment method.</span></li>
-          <li><span class="rule-label">Under 48 hours' notice</span><span>Subject to trust score accountability (L1–L4 escalation based on pattern).</span></li>
-          <li><span class="rule-label">User cancellation</span><span>No refund. Users are encouraged to reschedule rather than cancel.</span></li>
-        </ul>
-
-        <div class="sub-title">6.6. Rescheduling</div>
-        <p>Rescheduling is a booking record update only. No payment processing is triggered. Both parties may reschedule by mutual agreement.</p>
-
-        <div class="sub-title">6.7. Consultant Cancellation and Refunds</div>
-        <p>Full refund to original payment method via Stripe. AQUA AI® absorbs the processing fee. Accountability is handled through trust scores, not financial penalties.</p>
-      </section>
-
-      <!-- 7. Marketplace Terms -->
-      <section class="section">
-        <h2 class="section-title">7. Marketplace Terms</h2>
-        <p>7.1. The marketplace is a peer-to-peer platform for aquatic goods, equipment, plants, and accessories. AQUA AI® does not process marketplace payments.</p>
-        <p>7.2. Free tier users may browse and buy. Premium and Pro users may buy and sell. Breeder providers may list species directly from their managed inventory.</p>
-        <p>7.3. Listings are visible within a 200km radius. Location permission is required. Listing types: fixed price and bidding.</p>
-        <p>7.4. Marketplace purchase flow: browse listing, send purchase request, receive confirmation email with seller details and seller's email address, contact seller directly, arrange payment.</p>
-        <p>7.5. Marketplace listings do not expire automatically. Sellers are responsible for removing listings when stock is unavailable.</p>
-        <p>7.6. All listings require a minimum of one image and must comply with our Acceptable Use Policy and Marketplace Policy.</p>
-        <p>7.7. AQUA AI® does not guarantee the quality, safety, legality, or accuracy of any listing. Buyers and sellers transact at their own risk.</p>
-
-        <div class="sub-title">7.8. Breeder Commerce</div>
-        <ul class="bullet-list">
-          <li>7.8.1. Verified Breeders may sell live livestock and aquatic goods directly through the Platform via in-app purchasing. All Breeder commerce transactions are processed securely through Stripe.</li>
-          <li>
-            7.8.2. Payments for Breeder stock are held for a mandatory 7-day period following purchase to allow sufficient time for the buyer to collect in-store (free) or receive delivery (at
-            additional delivery cost charged by the Breeder).
-          </li>
-          <li>7.8.3. Upon expiry of the 7-day hold period, funds are automatically released to the Breeder's connected Stripe account, less the applicable platform commission of 7%.</li>
-          <li>7.8.4. Breeders must maintain a valid Stripe Connect account to receive payouts. Identity verification and bank account details are submitted directly to Stripe and are not stored by AQUA AI®.</li>
-          <li>7.8.5. Breeders are responsible for accurate stock listings, timely fulfilment, and compliance with all applicable animal welfare and shipping regulations.</li>
-          <li>
-            7.8.6. Circumventing the in-app payment system for Breeder commerce transactions (including directing buyers to pay off-platform) is strictly prohibited and constitutes a Level 3 trust
-            violation.
-          </li>
-        </ul>
-      </section>
-
-      <!-- 8. Breeder Directory -->
-      <section class="section">
-        <h2 class="section-title">8. Breeder Directory</h2>
-        <p>8.1. All users may browse breeders, search by water type (freshwater, saltwater, pond fish, marine), filter by species, and check local availability.</p>
-        <p>
-          8.2. Purchases are conducted directly between user and breeder after email communication. Payment is typically arranged via PayPal or bank transfer and is outside the AQUA AI® payment
-          system.
-        </p>
-        <p>8.3. Breeder certification tiers indicate platform compliance but do not constitute a warranty on livestock health, quality, or genetic integrity.</p>
-      </section>
-
-      <!-- 9. Referral Programme -->
-      <section class="section">
-        <h2 class="section-title">9. Referral Programme</h2>
-        <p>9.1. 10% recurring platform credit for referrals across all paid tiers. Credits capped at the referrer's own subscription cost per billing period.</p>
-        <p>9.2. Platform credits only, never withdrawable as cash. Auto-adjust on referee cancellation or downgrade.</p>
-        <p>9.3. Abuse (self-referral, fraudulent accounts, credit manipulation) results in credit forfeiture and potential account suspension.</p>
-      </section>
-
-      <!-- 10. Trust Score and Badge System -->
-      <section class="section">
-        <h2 class="section-title">10. Trust Score and Badge System</h2>
-        <p>10.1. Trust scores are calculated from verified platform activity: water testing, maintenance completion, marketplace conduct, booking behaviour, and general engagement. Scores are not self-declared.</p>
-        <p>10.2. Badges are earned through evidence-based criteria with deterministic thresholds. Badge point values contribute to trust tiers: Bronze (0–39), Silver (40–79), Gold (80–119), Platinum (120+).</p>
-        <p>10.3. Incidents are classified L1 (-5 points) through L4 (-30 to -40 points). L1–L3 decay over 180–365 days. L4 may persist permanently.</p>
-        <p>10.4. Trust scores recompute nightly. All changes are logged in an immutable audit trail.</p>
-        <p>10.5. Trust score affects user ranking, badge progress, marketplace visibility, and consultant/breeder search priority.</p>
-      </section>
-
-      <!-- 11. AI Services and Disclaimer -->
-      <section class="section">
-        <h2 class="section-title">11. AI Services and Disclaimer</h2>
-        <p>
-          11.1. AI capabilities include: species identification (image, video, live video), disease detection, water parameter analysis and AI Water Intelligence, compatibility assessment, care plan
-          generation, product recommendations with dosage calculations, health scoring, preventative alerts, comparative species growth tracking, and AquaBot conversational assistant (text and
-          voice).
-        </p>
-        <p>11.2. All AI outputs are probabilistic and advisory. They do not constitute veterinary, scientific, or professional advice.</p>
-        <p>11.3. AI accuracy improves over time through platform usage. We do not guarantee specific accuracy rates.</p>
-        <p>
-          11.4. Provider-facing AI includes the Provider AI Business Assistant and Research tool (market research, competitor analysis, intelligence reports). These provide business intelligence and
-          do not constitute financial advice.
-        </p>
-        <p>11.5. We reserve the right to modify AI models and providers at any time without notice, provided core functionality is maintained.</p>
-      </section>
-
-      <!-- 12. User Content and Licence -->
-      <section class="section">
-        <h2 class="section-title">12. User Content and Licence</h2>
-        <p>
-          12.1. You retain all intellectual property rights in your User Content. By submitting content, you grant AQUA AI® a non-exclusive, royalty-free, worldwide, sublicensable licence to use,
-          reproduce, modify, display, and distribute your content solely for operating, improving, and promoting the Platform.
-        </p>
-        <p>12.2. We reserve the right to remove content that violates these Terms or our policies without prior notice.</p>
-      </section>
-
-      <!-- 13. Intellectual Property -->
-      <section class="section">
-        <h2 class="section-title">13. Intellectual Property</h2>
-        <p>
-          13.1. The Platform, including AI models, species database (20,000+ species), algorithms, trust scoring engine, AquaBot, Research tools, and all associated intellectual property, is owned by
-          Aqua AI (Company Number: 16455928).
-        </p>
-        <p>13.2. You are granted a limited, non-exclusive, non-transferable, revocable licence for personal use in accordance with your subscription tier.</p>
-      </section>
-
-      <!-- 14. Data Protection -->
-      <section class="section">
-        <h2 class="section-title">14. Data Protection</h2>
-        <p>14.1. We process personal data in accordance with the UK GDPR, the Data Protection Act 2018, and our Privacy Policy.</p>
-        <p>14.2. Data is stored on secure infrastructure including Supabase and AWS. All transfers encrypted.</p>
-        <p>14.3. For full details, refer to our Privacy Policy and Cookies and Data Policy.</p>
-      </section>
-
-      <!-- 15. Acceptable Use -->
-      <section class="section">
-        <h2 class="section-title">15. Acceptable Use</h2>
-        <p>15.1. You must use the Platform lawfully. Full rules in our Acceptable Use Policy.</p>
-        <p>15.2. Prohibited: fraud, harassment, multi-accounting, scraping, reverse engineering, off-platform arrangements, listing prohibited goods, trust score manipulation.</p>
-      </section>
-
-      <!-- 16. Limitation of Liability -->
-      <section class="section">
-        <h2 class="section-title">16. Limitation of Liability</h2>
-        <p>16.1. Maximum aggregate liability capped at 12 months' subscription fees.</p>
-        <p>16.2. We do not accept liability for AI accuracy, consultant/breeder conduct, marketplace transactions, or service interruptions beyond our reasonable control.</p>
-        <p>16.3. Nothing excludes liability for death or personal injury caused by negligence, fraud, or any liability that cannot be excluded under applicable law.</p>
-      </section>
-
-      <!-- 17. Disclaimers -->
-      <section class="section">
-        <h2 class="section-title">17. Disclaimers</h2>
-        <p>17.1. The Platform is provided "as is" and "as available" without warranties of any kind.</p>
-        <p>17.2. We do not endorse or guarantee any User Content, listing, consultant service, or breeder stock.</p>
-      </section>
-
-      <!-- 18. Termination -->
-      <section class="section">
-        <h2 class="section-title">18. Termination</h2>
-        <p>18.1. You may terminate your account at any time via <a href="mailto:support@aquaai.uk">support@aquaai.uk</a> or in-app settings.</p>
-        <p>18.2. We may suspend or terminate for Terms violations. L4 violations trigger immediate termination.</p>
-        <p>18.3. Upon termination: access ceases, outstanding fees remain payable, trust score history retained for audit.</p>
-      </section>
-
-      <!-- 19. Provider Terms -->
-      <section class="section">
-        <h2 class="section-title">19. Provider Terms</h2>
-        <p>19.1. Consultants and breeders are subject to these Terms plus the Provider Policy.</p>
-        <p>
-          19.2. Provider subscriptions: Consultants Free/month + 10% booking commission. Breeders £24.99/month + 7% platform commission. Optional certification tiers: Aqua Certified £250/year,
-          Professional £699/year, Master Breeder £1,499/year.
-        </p>
-        <p>19.3. Provider approval is handled by head office (24–48 hours). Providers may hold both roles simultaneously.</p>
-        <p>19.4. Providers must maintain accurate profiles, pricing, stock levels, and availability.</p>
-      </section>
-
-      <!-- 20. Governing Law -->
-      <section class="section">
-        <h2 class="section-title">20. Governing Law</h2>
-        <p>20.1. These Terms are governed by the laws of England and Wales.</p>
-        <p>20.2. Disputes: good faith negotiation first, then exclusive jurisdiction of the courts of England and Wales.</p>
-      </section>
-
-      <!-- 21. Age Restrictions -->
-      <section class="section">
-        <h2 class="section-title">21. Age Restrictions</h2>
-        <p>21.1. Not directed at children under 13. Parental consent required for users under 13. Users 13–18 require parental consent.</p>
-      </section>
-
-      <!-- 22. General Provisions -->
-      <section class="section">
-        <h2 class="section-title">22. General Provisions</h2>
-        <ul class="rule-list">
-          <li><span class="rule-label">22.1. Entire Agreement</span><span>These Terms plus all referenced policies constitute the entire agreement.</span></li>
-          <li><span class="rule-label">22.2. Severability</span><span>Unenforceable provisions do not affect remaining Terms.</span></li>
-          <li><span class="rule-label">22.3. Assignment</span><span>You may not assign without written consent. We may assign without restriction.</span></li>
-          <li><span class="rule-label">22.4. Force Majeure</span><span>Not liable for delays beyond reasonable control.</span></li>
-          <li><span class="rule-label">22.5. Third-Party Rights</span><span>No third-party rights under the Contracts (Rights of Third Parties) Act 1999.</span></li>
-        </ul>
-      </section>
-
-      <!-- 23. Contact -->
-      <section class="section">
-        <h2 class="section-title">23. Contact</h2>
-        <p style="margin-bottom: 16px">Aqua AI (Company Number: 16455928)</p>
-        <div class="contact-grid">
-          <div class="contact-item">
-            <strong>Website</strong>
-            <a href="https://www.aquaai.uk">www.aquaai.uk</a>
-          </div>
-          <div class="contact-item">
-            <strong>Support</strong>
-            <a href="mailto:support@aquaai.uk">support@aquaai.uk</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Promotional Pricing and Grandfathering -->
-      <section class="section">
-        <h2 class="section-title">Promotional Pricing and Grandfathering</h2>
-        <p>Promotional pricing is available for the first 1,000 qualifying users (Premium and Pro) and the first 100 qualifying breeders.</p>
-        <table class="promo-table">
-          <thead>
-            <tr>
-              <th>Plan</th>
-              <th>Promotional</th>
-              <th>Standard</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="plan">Premium</td>
-              <td>£11.99/mo or £114.99/yr</td>
-              <td>£14.99/mo or £144.99/yr</td>
-            </tr>
-            <tr>
-              <td class="plan">Pro</td>
-              <td>£19.99/mo or £189.99/yr</td>
-              <td>£24.99/mo or £239.99/yr</td>
-            </tr>
-            <tr>
-              <td class="plan">Breeder</td>
-              <td>£19.99/mo or £189.99/yr</td>
-              <td>£24.99/mo or £239.99/yr</td>
-            </tr>
-          </tbody>
-        </table>
-        <p style="margin-top: 14px">
-          Grandfathering: Qualifying users retain their promotional launch pricing for the lifetime of their continuous subscription. If a subscription is cancelled, a 30-day grace period applies.
-          Re-subscribing within this 30-day window restores the promotional pricing entitlement. If the grace period expires without re-subscription, the promotional entitlement is lost permanently
-          and standard public pricing will apply upon return.
-        </p>
-      </section>
-
-      <!-- Badges, Tiers, and Rewards -->
-      <section class="section">
-        <h2 class="section-title">Badges, Tiers, and Rewards</h2>
-        <p>
-          AQUA AI® employs a Trust Score system that categorises users into Bronze, Silver, Gold, and Platinum tiers. Users can earn badges (e.g., Responsible Keeper, Trusted Trader, Verified
-          Consultant) through consistent positive engagement, reliable marketplace transactions, and adherence to care schedules. Badges and Trust Scores are dynamic and may decay or be revoked if
-          performance drops or incidents occur. These metrics serve as a transparent recognition and rewards system within the community.
-        </p>
-      </section>
-
-      <!-- Referral Programme (addendum) -->
-      <section class="section">
-        <h2 class="section-title">Referral Programme</h2>
-        <p>
-          Users can participate in the AQUA AI® Referral Programme. Referrers earn a 10% recurring platform credit based on the base price of the referee's plan. For users on the Free tier, earned
-          credits accrue in a held balance and become available for use only upon upgrading to a paid subscription. Credits are applied automatically to Stripe invoices with a floor of £0 and cannot
-          be withdrawn as cash.
-        </p>
-      </section>
-
-      <!-- Community Showcase -->
-      <section class="section">
-        <h2 class="section-title">Community Showcase</h2>
-        <p>
-          Users may opt in to the Community Showcase to publicly display their tanks, receive likes, and engage in direct messaging with other users. Participation is voluntary, and visibility can be
-          toggled at any time. Engagement in the Community Showcase contributes to community rank badges.
-        </p>
-      </section>
-
-      <!-- Contact Us -->
-      <section class="section">
-        <h2 class="section-title">Contact Us</h2>
-        <div class="contact-grid">
-          <div class="contact-item">
-            <strong>Website</strong>
-            <a href="https://www.aquaai.uk">www.aquaai.uk</a>
-          </div>
-          <div class="contact-item">
-            <strong>Support</strong>
-            <a href="mailto:support@aquaai.uk">support@aquaai.uk</a>
-          </div>
-          <div class="contact-item">
-            <strong>WhatsApp / Signal</strong>
-            <a href="tel:+447586576323">+44 7586 576323</a>
-          </div>
-          <div class="contact-item">
-            <strong>SMS</strong>
-            <a href="tel:+447782207333">+44 7782 207333</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <footer class="footer">AQUA AI® is Company Number: 16455928, Registered in England and Wales &middot; May 2026</footer>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terms and Conditions · AQUA AI®</title>
+<meta name="description" content="Terms and Conditions for Aqua AI. The agreement between you and Aqua AI for using the apps and website." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/policies/assets/legal.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="/">AQUA AI<sup>®</sup></a>
+    <nav class="topbar-links">
+      <a href="/policies/index.html">All policies</a>
+      <a class="topbar-cta" href="/contact">Contact</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="hero-inner">
+    <a class="crumb" href="/policies/index.html">Legal</a>
+    <h1>Terms and Conditions</h1>
+    <p class="hero-sub">The agreement between you and Aqua AI for using the apps and website.</p>
+    <div class="chips"><span class="chip"><b>Version</b> 3.2</span><span class="chip"><b>Updated</b> October 2026</span><span class="chip"><b>Classification</b> Public</span></div>
+    
+    <p class="hero-company">AQUAAI LTD (trading as Aqua AI) · Company Number 16455928 · Registered in England and Wales · Registered office: 71–75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom</p>
+    <div class="hero-actions">
+      <button type="button" class="btn-ghost" data-print>Print or save as PDF</button>
     </div>
-  </body>
+  </div>
+</section>
+
+<div class="layout">
+  <aside class="toc" aria-label="On this page">
+    <details class="toc-box" open>
+      <summary>On this page</summary>
+      <ol><li><a href="#s1"><span>1</span>Agreement to Terms</a></li>
+<li><a href="#s2"><span>2</span>Description of Service</a></li>
+<li><a href="#s3"><span>3</span>Account Registration and Security</a></li>
+<li><a href="#s4"><span>4</span>Subscription Tiers and Pricing</a></li>
+<li><a href="#s5"><span>5</span>Payment Terms</a></li>
+<li><a href="#s6"><span>6</span>Consultant Booking and Service Terms</a></li>
+<li><a href="#s7"><span>7</span>Marketplace Terms</a></li>
+<li><a href="#s8"><span>8</span>Breeder Directory</a></li>
+<li><a href="#s9"><span>9</span>Referral Programme</a></li>
+<li><a href="#s10"><span>10</span>Trust Score and Badge System</a></li>
+<li><a href="#s11"><span>11</span>AI Services and Disclaimer</a></li>
+<li><a href="#s12"><span>12</span>User Content, Community Standards and Moderation</a></li>
+<li><a href="#s13"><span>13</span>Intellectual Property</a></li>
+<li><a href="#s14"><span>14</span>Data Protection</a></li>
+<li><a href="#s15"><span>15</span>Acceptable Use</a></li>
+<li><a href="#s16"><span>16</span>Limitation of Liability</a></li>
+<li><a href="#s17"><span>17</span>Disclaimers</a></li>
+<li><a href="#s18"><span>18</span>Termination and Account Deletion</a></li>
+<li><a href="#s19"><span>19</span>Provider Terms</a></li>
+<li><a href="#s20"><span>20</span>Governing Law</a></li>
+<li><a href="#s21"><span>21</span>Age Restriction</a></li>
+<li><a href="#s22"><span>22</span>App Store Terms</a></li>
+<li><a href="#s23"><span>23</span>General Provisions</a></li>
+<li><a href="#s24"><span>24</span>Contact</a></li></ol>
+    </details>
+  </aside>
+  <article class="doc">
+<section class="section" id="s1">
+<h2 class="section-title"><span class="sec-num">1</span><span>Agreement to Terms</span></h2>
+<p class="clause" id="c1.1"><span class="clause-no">1.1</span><span class="clause-body">By creating an account, signing in, or otherwise accessing or using the Aqua AI mobile application or the Aqua Providers mobile application (together, the “Apps”), or the Aqua AI website at <a href="https://www.aquaai.uk">www.aquaai.uk</a> (the “Website”), you agree to be bound by these Terms and Conditions (“Terms”). If you do not agree to these Terms, you must not create an account, sign in, or use the Apps or Website.</span></p>
+<p class="clause" id="c1.2"><span class="clause-no">1.2</span><span class="clause-body">These Terms are a legally binding agreement between you and AQUAAI LTD, trading as Aqua AI (Company Number 16455928) (“Aqua AI”, “we”, “our”, or “us”). References to the “Platform” mean the Apps and the Website collectively.</span></p>
+<p class="clause" id="c1.3"><span class="clause-no">1.3</span><span class="clause-body">These Terms must be read alongside our <a class="doc-link" href="aquaai_privacy_policy.html">Privacy Policy</a>, <a class="doc-link" href="cookies_and_data_policy.html">Cookies and Data Policy</a>, <a class="doc-link" href="aquaai_acceptable_use_policy.html">Acceptable Use Policy</a>, <a class="doc-link" href="aquaai_refund_policy.html">Refund Policy</a>, and, where applicable, the <a class="doc-link" href="aquaai_provider_policy.html">Provider Policy</a> and <a class="doc-link" href="aquaai_marketplace_policy.html">Marketplace Policy</a>, all of which form part of this agreement.</span></p>
+<p class="clause" id="c1.4"><span class="clause-no">1.4</span><span class="clause-body">You must be at least 18 years old to create an account or use the Platform (see Section 21).</span></p>
+<p class="clause" id="c1.5"><span class="clause-no">1.5</span><span class="clause-body">You accept these Terms when you create your account. If your account was created before this version of the Terms, you will be asked to accept it once before you continue to use the Platform.</span></p>
+<p class="clause" id="c1.6"><span class="clause-no">1.6</span><span class="clause-body">We may update these Terms from time to time. Material changes will be notified through the Apps or by email.</span></p>
+</section>
+<section class="section" id="s2">
+<h2 class="section-title"><span class="sec-num">2</span><span>Description of Service</span></h2>
+<p class="clause" id="c2.1"><span class="clause-no">2.1</span><span class="clause-body">Aqua AI is an AI-powered aquatic intelligence platform. The Aqua AI app (“Users App”) provides:</span></p>
+<ul class="bullet-list">
+<li>AI-driven fish species identification via image, video, and live video analysis</li>
+<li>Disease detection through computer vision and symptom analysis</li>
+<li>Water parameter analysis via test strip photo upload and manual entry (standard and saltwater parameters including pH, ammonia, nitrite, nitrate, oxygen, temperature, magnesium, alkalinity, calcium, and phosphates)</li>
+<li>AI Water Intelligence that interprets test results into practical guidance</li>
+<li>Dynamic species compatibility assessment with local availability data</li>
+<li>Comparative species tracking for monitoring fish growth over time</li>
+<li>AI-generated care plans, maintenance schedules, and custom task creation</li>
+<li>Tank health scoring with a visible health scale</li>
+<li>Product recommendations with dosage calculations, tracking, and reorder alerts</li>
+<li>Equipment management with detailed tracking per habitat</li>
+<li>AquaBot — an AI assistant for text and voice queries (voice where available on your device)</li>
+<li>A peer-to-peer marketplace for aquatic goods</li>
+<li>Consultant discovery, booking, and payment across three service categories (Consultancy, Pond, Tank) with over 20 service types</li>
+<li>Breeder directory and in-app purchasing of breeder stock</li>
+<li>Community Showcase, where users can choose to display their tanks, receive likes, and message other users</li>
+</ul>
+<p class="clause" id="c2.2"><span class="clause-no">2.2</span><span class="clause-body">The Aqua Providers app enables verified professional service providers to manage their operations:</span></p>
+<ul class="bullet-list">
+<li>Breeders: species stock management with auto-stock reduction, size variations, duplicate listings, marketplace integration, analytics, Trust Intelligence, Research tools, and the Provider AI Business Assistant</li>
+<li>Consultants: service listings, availability calendar, booking management, earnings tracking, and performance analytics</li>
+</ul>
+<p class="clause" id="c2.3"><span class="clause-no">2.3</span><span class="clause-body">All AI outputs are probabilistic and advisory. AI-generated insights do not constitute professional veterinary, scientific, or medical advice. Consult a qualified aquatic specialist for critical health concerns.</span></p>
+</section>
+<section class="section" id="s3">
+<h2 class="section-title"><span class="sec-num">3</span><span>Account Registration and Security</span></h2>
+<p class="clause" id="c3.1"><span class="clause-no">3.1</span><span class="clause-body">You can create an account at <a href="https://www.aquaai.uk">www.aquaai.uk</a> (including when registration is opened from within an App), or by signing in with Google, Apple, or Facebook. Password resets are handled through the website.</span></p>
+<p class="clause" id="c3.2"><span class="clause-no">3.2</span><span class="clause-body">You are responsible for keeping your account credentials confidential and for all activity under your account.</span></p>
+<p class="clause" id="c3.3"><span class="clause-no">3.3</span><span class="clause-body">You must provide accurate, current, and complete information when registering and keep it up to date.</span></p>
+<p class="clause" id="c3.4"><span class="clause-no">3.4</span><span class="clause-body">You must not create multiple accounts, share account credentials, or transfer your account to another person without our written consent.</span></p>
+<p class="clause" id="c3.5"><span class="clause-no">3.5</span><span class="clause-body">We may suspend or terminate accounts that we reasonably believe are compromised, fraudulent, or in breach of these Terms.</span></p>
+</section>
+<section class="section" id="s4">
+<h2 class="section-title"><span class="sec-num">4</span><span>Subscription Tiers and Pricing</span></h2>
+<p class="clause" id="c4.1"><span class="clause-no">4.1</span><span class="clause-body">Aqua AI operates a tiered subscription model. Standard prices:</span></p>
+<p><strong>Free (£0):</strong> 1 habitat, species identification (image), basic water parameter tracking, basic care plan, marketplace browse and buy only, consultant booking, breeder directory access.</p>
+<p><strong>Premium (£14.99/month or £144.99/year):</strong> Up to 3 habitats, disease detection, AquaBot (100 queries/month), AI maintenance plans, marketplace buy and sell, consultant booking, breeder directory access.</p>
+<p><strong>Pro (£24.99/month or £239.99/year):</strong> Unlimited habitats including pond, full AI capabilities, AquaBot (500 queries/month), advanced analytics, preventative alerts, data export (JSON/CSV), full marketplace access, consultant booking, breeder directory access.</p>
+<p class="clause" id="c4.2"><span class="clause-no">4.2</span><span class="clause-body">Feature availability depends on your subscription tier. Attempting to use a feature outside your tier will show an upgrade option.</span></p>
+<p class="clause" id="c4.3"><span class="clause-no">4.3</span><span class="clause-body">We may change pricing on 30 days’ written notice. Existing subscribers keep their current price until the end of their active billing period. Price changes for App Store subscriptions are notified by Apple.</span></p>
+<p class="clause" id="c4.4"><span class="clause-no">4.4</span><span class="clause-body">Annual subscriptions are charged at a discounted rate and are non-refundable once the billing period has started, except as required by law or as set out in our <a class="doc-link" href="aquaai_refund_policy.html">Refund Policy</a>.</span></p>
+</section>
+<section class="section" id="s5">
+<h2 class="section-title"><span class="sec-num">5</span><span>Payment Terms</span></h2>
+<p class="clause" id="c5.1"><span class="clause-no">5.1</span><span class="clause-body"><strong>Purchases made directly from Aqua AI</strong> (on the Website) are processed by Stripe. Supported payment methods include Apple Pay, Google Pay, and credit/debit cards. These subscriptions renew automatically at the end of each billing period unless cancelled at least 24 hours before the renewal date, and can be managed in your account on the Website.</span></p>
+<p class="clause" id="c5.2"><span class="clause-no">5.2</span><span class="clause-body"><strong>Purchases made in the Aqua AI iOS app</strong> are made through Apple In-App Purchase and are billed by Apple to your Apple Account. Payment is charged at confirmation of purchase. Subscriptions renew automatically unless auto-renew is turned off at least 24 hours before the end of the current period, and your account is charged for renewal within 24 hours before the end of the current period. You can manage or cancel App Store subscriptions in your Apple Account settings. Refunds for App Store purchases are handled by Apple under Apple’s terms. A “Restore Purchases” option is available in Settings.</span></p>
+<p class="clause" id="c5.3"><span class="clause-no">5.3</span><span class="clause-body">A subscription is linked to your Aqua AI account. Whether purchased on the Website or through the App Store, it applies when you sign in to the Platform.</span></p>
+<p class="clause" id="c5.4"><span class="clause-no">5.4</span><span class="clause-body">If a Website subscription payment fails, we will retry it according to standard retry schedules. If payment cannot be collected, your account will be moved to the Free tier.</span></p>
+<p class="clause" id="c5.5"><span class="clause-no">5.5</span><span class="clause-body">All prices are in British Pounds Sterling (£) and include any applicable VAT.</span></p>
+<p class="clause" id="c5.6"><span class="clause-no">5.6</span><span class="clause-body"><strong>Breeder Commerce Payments.</strong> In-app purchases of breeder stock are processed through Stripe. For collection orders, funds are released to the breeder when the buyer’s collection code is entered at handover. For delivery orders, funds are held for 7 days before being released to the breeder. The platform commission of 7% is deducted automatically at payout.</span></p>
+</section>
+<section class="section" id="s6">
+<h2 class="section-title"><span class="sec-num">6</span><span>Consultant Booking and Service Terms</span></h2>
+<p class="clause" id="c6.1"><span class="clause-no">6.1</span><span class="clause-body">The Platform lets users find, book, and pay for professional aquatic consultancy services in three categories: Consultancy (coaching, education, one-off advice, testing, urgent support, water quality), Pond (construction, equipment, filtration, fish health, maintenance, seasonal, water quality), and Tank (design, breakdown, disease, equipment, maintenance, setup, stocking, water assessments). Bookings are available on all tiers, including Free.</span></p>
+<p class="clause" id="c6.2"><span class="clause-no">6.2</span><span class="clause-body"><strong>How bookings are paid.</strong> Aqua AI’s booking fee is 10% of the service price and is taken from it, not added to it. For example, for a £100 service you pay £10 in the app to confirm the booking, and pay the remaining £90 to the consultant directly (for example in cash or by bank transfer, as agreed with the consultant). The booking fee can be paid by card, with platform credit, or both. Platform credit can only be used for the booking fee, so no more than 10% of the service price can be paid with credit on any booking.</span></p>
+<p class="clause" id="c6.3"><span class="clause-no">6.3</span><span class="clause-body">Booking messages between users and consultants are limited to active bookings. A booking thread opens when the booking is confirmed and closes on completion or cancellation.</span></p>
+<p class="clause" id="c6.4"><span class="clause-no">6.4</span><span class="clause-body">Consultants have 72 hours to accept or decline a booking request. Requests with no response expire automatically.</span></p>
+<h3 class="sub-title" id="c6.5"><span class="clause-no">6.5</span>Cancellation Policy</h3>
+<ul class="bullet-list">
+<li>Cancellation by the user with 48 hours’ notice or more: the booking fee is not refunded, whether paid by card or with credit.</li>
+<li>Cancellation by the user with less than 48 hours’ notice, or the user does not attend: no refund.</li>
+<li>Cancellation by the consultant, or the consultant does not attend: the booking fee is refunded, to your card or as credit if you paid with credit (see 6.7). A consultant no-show is also recorded against the consultant’s trust score. Instead of cancelling, the consultant may offer an alternative time, which applies only if you agree.</li>
+<li>Any amount you paid directly to the consultant is a matter between you and the consultant.</li>
+<li>Cancelling with less than 48 hours’ notice is also subject to trust score accountability (L1–L4 escalation based on pattern), for whichever party cancels. Users are encouraged to reschedule rather than cancel.</li>
+</ul>
+<p class="clause" id="c6.6"><span class="clause-no">6.6</span><span class="clause-body"><strong>Rescheduling.</strong> Rescheduling only updates the booking record. No payment is processed. Both parties may reschedule by mutual agreement.</span></p>
+<p class="clause" id="c6.7"><span class="clause-no">6.7</span><span class="clause-body"><strong>Consultant Cancellation and Refunds.</strong> The booking fee is refunded to the original payment method via Stripe, or returned as credit if paid with credit. Aqua AI absorbs the processing fee. Consultant accountability is handled through trust scores, not financial penalties.</span></p>
+</section>
+<section class="section" id="s7">
+<h2 class="section-title"><span class="sec-num">7</span><span>Marketplace Terms</span></h2>
+<p class="clause" id="c7.1"><span class="clause-no">7.1</span><span class="clause-body">The marketplace is a peer-to-peer platform for aquatic goods, equipment, plants, and accessories. Aqua AI does not process payments for peer-to-peer marketplace transactions.</span></p>
+<p class="clause" id="c7.2"><span class="clause-no">7.2</span><span class="clause-body">Free tier users may browse and buy. Premium and Pro users may buy and sell. Breeder providers may list species directly from their managed inventory.</span></p>
+<p class="clause" id="c7.3"><span class="clause-no">7.3</span><span class="clause-body">Listings are visible within a 200 km radius. Location permission is required. Listing types are fixed price and bidding.</span></p>
+<p class="clause" id="c7.4"><span class="clause-no">7.4</span><span class="clause-body">Marketplace purchase flow: browse a listing, send a purchase request or bid, agree the details with the seller in the listing chat, and arrange payment directly with the seller.</span></p>
+<p class="clause" id="c7.5"><span class="clause-no">7.5</span><span class="clause-body">Marketplace listings do not expire automatically. Sellers must remove listings when stock is no longer available.</span></p>
+<p class="clause" id="c7.6"><span class="clause-no">7.6</span><span class="clause-body">Every listing needs at least one image and must comply with our <a class="doc-link" href="aquaai_acceptable_use_policy.html">Acceptable Use Policy</a> and <a class="doc-link" href="aquaai_marketplace_policy.html">Marketplace Policy</a>.</span></p>
+<p class="clause" id="c7.7"><span class="clause-no">7.7</span><span class="clause-body">Aqua AI does not guarantee the quality, safety, legality, or accuracy of any listing. Buyers and sellers transact at their own risk.</span></p>
+<h3 class="sub-title" id="c7.8"><span class="clause-no">7.8</span>Breeder Commerce</h3>
+<p class="clause" id="c7.8.1"><span class="clause-no">7.8.1</span><span class="clause-body">Verified breeders may sell live livestock and aquatic goods directly through the Platform using in-app purchasing. All breeder commerce transactions are processed through Stripe.</span></p>
+<p class="clause" id="c7.8.2"><span class="clause-no">7.8.2</span><span class="clause-body">Buyers choose in-store collection (free) or delivery (at a delivery cost set by the breeder). Delivery is available only from breeders whose local council licence for selling animals as pets has been approved by Aqua AI and is in date. For collection, the buyer receives a collection code and collects within 7 days; the breeder enters the code to confirm the handover. If the buyer does not collect within 7 days, the breeder may mark the order as not collected, the buyer is refunded in full (any platform credit used is returned as credit), and the missed collection is recorded against the buyer’s trust score.</span></p>
+<p class="clause" id="c7.8.3"><span class="clause-no">7.8.3</span><span class="clause-body">Funds are released automatically to the breeder’s connected Stripe account, less the 7% platform commission: for collection orders, when the collection code is entered; for delivery orders, when the 7-day hold ends.</span></p>
+<p class="clause" id="c7.8.4"><span class="clause-no">7.8.4</span><span class="clause-body">Breeders must maintain a valid Stripe Connect account to receive payouts. Identity verification and bank details are submitted directly to Stripe and are not stored by Aqua AI.</span></p>
+<p class="clause" id="c7.8.5"><span class="clause-no">7.8.5</span><span class="clause-body">Breeders are responsible for accurate stock listings, timely fulfilment, and compliance with all applicable animal welfare and shipping regulations.</span></p>
+<p class="clause" id="c7.8.6"><span class="clause-no">7.8.6</span><span class="clause-body">Circumventing the in-app payment system for breeder commerce (including directing buyers to pay off-platform) is prohibited and is a Level 3 trust violation.</span></p>
+</section>
+<section class="section" id="s8">
+<h2 class="section-title"><span class="sec-num">8</span><span>Breeder Directory</span></h2>
+<p class="clause" id="c8.1"><span class="clause-no">8.1</span><span class="clause-body">All users may browse breeders, search by water type (freshwater, saltwater, pond fish, marine), filter by species, and check local availability.</span></p>
+<p class="clause" id="c8.2"><span class="clause-no">8.2</span><span class="clause-body">Purchases of breeder stock are made in the app through breeder commerce (Section 7.8). Paying a breeder outside the Platform for stock listed on the Platform is not permitted.</span></p>
+<p class="clause" id="c8.3"><span class="clause-no">8.3</span><span class="clause-body">Breeder certification tiers indicate platform compliance. They are not a warranty of livestock health, quality, or genetic integrity.</span></p>
+</section>
+<section class="section" id="s9">
+<h2 class="section-title"><span class="sec-num">9</span><span>Referral Programme</span></h2>
+<p class="clause" id="c9.1"><span class="clause-no">9.1</span><span class="clause-body">Referrers earn a recurring platform credit equal to 10% of the standard (base) price of each referred user’s paid plan. Credit accrues on referred subscriptions purchased on the Website or through the App Store. Annual subscriptions earn the full annual credit when the annual payment succeeds.</span></p>
+<p class="clause" id="c9.2"><span class="clause-no">9.2</span><span class="clause-body">Platform credit can only be used against provider services: the booking fee on consultant bookings (up to 10% of the service price per booking) and breeder stock purchases (no cap).</span></p>
+<p class="clause" id="c9.3"><span class="clause-no">9.3</span><span class="clause-body">Platform credit cannot be used for any subscription, whether purchased on the Website or through the App Store.</span></p>
+<p class="clause" id="c9.4"><span class="clause-no">9.4</span><span class="clause-body">Platform credit has no cash value and cannot be withdrawn or transferred. If a purchase paid wholly or partly with credit is refunded, the credit portion is returned as credit, never as cash.</span></p>
+<p class="clause" id="c9.5"><span class="clause-no">9.5</span><span class="clause-body">Credit adjusts automatically if a referred user cancels or downgrades.</span></p>
+<p class="clause" id="c9.6"><span class="clause-no">9.6</span><span class="clause-body">Your referral dashboard shows each referred user’s display username and the reward value only.</span></p>
+<p class="clause" id="c9.7"><span class="clause-no">9.7</span><span class="clause-body">Abuse of the programme (including self-referral, fraudulent accounts, or credit manipulation) results in forfeiture of credit and may lead to account suspension.</span></p>
+</section>
+<section class="section" id="s10">
+<h2 class="section-title"><span class="sec-num">10</span><span>Trust Score and Badge System</span></h2>
+<p class="clause" id="c10.1"><span class="clause-no">10.1</span><span class="clause-body">Trust scores are calculated from verified platform activity: water testing, maintenance completion, marketplace conduct, booking behaviour, community participation, and general engagement. Scores are not self-declared.</span></p>
+<p class="clause" id="c10.2"><span class="clause-no">10.2</span><span class="clause-body">Badges (for example, Responsible Keeper, Trusted Trader, Verified Consultant) are earned through evidence-based criteria with deterministic thresholds. Badge points contribute to trust tiers: Bronze (0–39), Silver (40–79), Gold (80–119), Platinum (120+).</span></p>
+<p class="clause" id="c10.3"><span class="clause-no">10.3</span><span class="clause-body">Incidents are classified L1 (-5 points) to L4 (-30 to -40 points). L1–L3 decay over 180–365 days. L4 may persist permanently.</span></p>
+<p class="clause" id="c10.4"><span class="clause-no">10.4</span><span class="clause-body">Trust scores are recalculated automatically. Trust score and badge changes are recorded in a tamper-evident (hash-chained) audit log.</span></p>
+<p class="clause" id="c10.5"><span class="clause-no">10.5</span><span class="clause-body">Trust score affects user ranking, badge progress, marketplace visibility, and consultant/breeder search priority. Badges and trust scores may decay or be revoked if standards are not maintained.</span></p>
+</section>
+<section class="section" id="s11">
+<h2 class="section-title"><span class="sec-num">11</span><span>AI Services and Disclaimer</span></h2>
+<p class="clause" id="c11.1"><span class="clause-no">11.1</span><span class="clause-body">AI capabilities include species identification (image, video, live video), disease detection, water parameter analysis and AI Water Intelligence, compatibility assessment, care plan generation, product recommendations with dosage calculations, health scoring, preventative alerts, comparative species growth tracking, and the AquaBot assistant (text and voice, voice where available on your device).</span></p>
+<p class="clause" id="c11.2"><span class="clause-no">11.2</span><span class="clause-body">All AI outputs are probabilistic and advisory. They are not veterinary, scientific, or professional advice.</span></p>
+<p class="clause" id="c11.3"><span class="clause-no">11.3</span><span class="clause-body">AI accuracy improves over time through platform use. We do not guarantee specific accuracy rates.</span></p>
+<p class="clause" id="c11.4"><span class="clause-no">11.4</span><span class="clause-body">Provider-facing AI includes the Provider AI Business Assistant and Research tool (market research, competitor analysis, intelligence reports). These provide business intelligence and are not financial advice.</span></p>
+<p class="clause" id="c11.5"><span class="clause-no">11.5</span><span class="clause-body">We may change AI models and providers at any time without notice, provided core functionality is maintained.</span></p>
+</section>
+<section class="section" id="s12">
+<h2 class="section-title"><span class="sec-num">12</span><span>User Content, Community Standards and Moderation</span></h2>
+<p class="clause" id="c12.1"><span class="clause-no">12.1</span><span class="clause-body"><strong>Zero tolerance.</strong> Aqua AI has zero tolerance for objectionable content and abusive users. By accepting these Terms you agree not to post, upload, send, or share objectionable content, and not to harass or abuse any user, provider, or member of staff.</span></p>
+<p class="clause" id="c12.2"><span class="clause-no">12.2</span><span class="clause-body">“Objectionable content” includes content that is sexually explicit, pornographic, hateful, discriminatory, harassing, bullying, threatening, violent, defamatory, or illegal; content that promotes animal cruelty or illegal wildlife trade; spam or scams; and content that infringes anyone else’s rights. The <a class="doc-link" href="aquaai_acceptable_use_policy.html">Acceptable Use Policy</a> sets out the full standards.</span></p>
+<p class="clause" id="c12.3"><span class="clause-no">12.3</span><span class="clause-body">These standards apply to all user content: Community Showcase posts, images and comments, marketplace listings, profile content, reviews, and all messages.</span></p>
+<p class="clause" id="c12.4"><span class="clause-no">12.4</span><span class="clause-body"><strong>Filtering.</strong> We use automated filtering and human review to detect and prevent objectionable content from being posted.</span></p>
+<p class="clause" id="c12.5"><span class="clause-no">12.5</span><span class="clause-body"><strong>Reporting.</strong> You can report any content or user from within the Apps, or by emailing <a href="mailto:support@aquaai.uk">support@aquaai.uk</a>.</span></p>
+<p class="clause" id="c12.6"><span class="clause-no">12.6</span><span class="clause-body"><strong>Blocking.</strong> You can block any user. Content from a blocked user is removed from your view immediately, and we are notified so we can review it.</span></p>
+<p class="clause" id="c12.7"><span class="clause-no">12.7</span><span class="clause-body"><strong>Our response.</strong> We act on reports of objectionable content within 24 hours: where content breaches these Terms, we remove it and remove the user who posted it from the Platform. We may also remove content or suspend accounts without notice where we find a breach ourselves.</span></p>
+<p class="clause" id="c12.8"><span class="clause-no">12.8</span><span class="clause-body"><strong>Your licence to us.</strong> You keep all intellectual property rights in your content. By submitting content, you grant Aqua AI a non-exclusive, royalty-free, worldwide, sublicensable licence to use, reproduce, modify, display, and distribute it solely to operate, improve, and promote the Platform.</span></p>
+<p class="clause" id="c12.9"><span class="clause-no">12.9</span><span class="clause-body"><strong>Community Showcase.</strong> Taking part is voluntary and you can turn your visibility on or off at any time. Showcase messaging must not be used to arrange transactions off-platform.</span></p>
+</section>
+<section class="section" id="s13">
+<h2 class="section-title"><span class="sec-num">13</span><span>Intellectual Property</span></h2>
+<p class="clause" id="c13.1"><span class="clause-no">13.1</span><span class="clause-body">The Platform, including AI models, the species database (20,000+ species), algorithms, the trust scoring engine, AquaBot, Research tools, and all associated intellectual property, is owned by AQUAAI LTD.</span></p>
+<p class="clause" id="c13.2"><span class="clause-no">13.2</span><span class="clause-body">You are granted a limited, non-exclusive, non-transferable, revocable licence to use the Platform for your personal use in line with your subscription tier or, if you are a provider, for your business in line with the <a class="doc-link" href="aquaai_provider_policy.html">Provider Policy</a>.</span></p>
+</section>
+<section class="section" id="s14">
+<h2 class="section-title"><span class="sec-num">14</span><span>Data Protection</span></h2>
+<p class="clause" id="c14.1"><span class="clause-no">14.1</span><span class="clause-body">We process personal data in accordance with the UK GDPR, the Data Protection Act 2018, and our <a class="doc-link" href="aquaai_privacy_policy.html">Privacy Policy</a>.</span></p>
+<p class="clause" id="c14.2"><span class="clause-no">14.2</span><span class="clause-body">For full details, see our <a class="doc-link" href="aquaai_privacy_policy.html">Privacy Policy</a> and <a class="doc-link" href="cookies_and_data_policy.html">Cookies and Data Policy</a>.</span></p>
+</section>
+<section class="section" id="s15">
+<h2 class="section-title"><span class="sec-num">15</span><span>Acceptable Use</span></h2>
+<p class="clause" id="c15.1"><span class="clause-no">15.1</span><span class="clause-body">You must use the Platform lawfully. The full rules are in our <a class="doc-link" href="aquaai_acceptable_use_policy.html">Acceptable Use Policy</a>.</span></p>
+<p class="clause" id="c15.2"><span class="clause-no">15.2</span><span class="clause-body">Prohibited: objectionable content, harassment, fraud, multi-accounting, scraping, reverse engineering, off-platform arrangements, listing prohibited goods, and trust score manipulation.</span></p>
+</section>
+<section class="section" id="s16">
+<h2 class="section-title"><span class="sec-num">16</span><span>Limitation of Liability</span></h2>
+<p class="clause" id="c16.1"><span class="clause-no">16.1</span><span class="clause-body">Our maximum aggregate liability is limited to the subscription fees you paid us in the 12 months before the claim.</span></p>
+<p class="clause" id="c16.2"><span class="clause-no">16.2</span><span class="clause-body">We do not accept liability for AI accuracy, consultant or breeder conduct, peer-to-peer marketplace transactions, or service interruptions beyond our reasonable control.</span></p>
+<p class="clause" id="c16.3"><span class="clause-no">16.3</span><span class="clause-body">Nothing in these Terms excludes or limits liability for death or personal injury caused by negligence, for fraud, or for any liability that cannot be excluded under applicable law.</span></p>
+<p class="clause" id="c16.4"><span class="clause-no">16.4</span><span class="clause-body">Nothing in these Terms affects your statutory rights as a consumer.</span></p>
+</section>
+<section class="section" id="s17">
+<h2 class="section-title"><span class="sec-num">17</span><span>Disclaimers</span></h2>
+<p class="clause" id="c17.1"><span class="clause-no">17.1</span><span class="clause-body">The Platform is provided “as is” and “as available” without warranties of any kind, to the extent permitted by law.</span></p>
+<p class="clause" id="c17.2"><span class="clause-no">17.2</span><span class="clause-body">We do not endorse or guarantee any user content, listing, consultant service, or breeder stock.</span></p>
+</section>
+<section class="section" id="s18">
+<h2 class="section-title"><span class="sec-num">18</span><span>Termination and Account Deletion</span></h2>
+<p class="clause" id="c18.1"><span class="clause-no">18.1</span><span class="clause-body">You can delete your account at any time from within the Apps (Profile/Settings → Delete account) or at <a href="https://www.aquaai.uk/profile/delete/">www.aquaai.uk/profile/delete/</a>.</span></p>
+<p class="clause" id="c18.2"><span class="clause-no">18.2</span><span class="clause-body">Account deletion is permanent and cannot be undone. Your personal data is deleted or irreversibly anonymised as described in our <a class="doc-link" href="aquaai_privacy_policy.html">Privacy Policy</a>.</span></p>
+<p class="clause" id="c18.3"><span class="clause-no">18.3</span><span class="clause-body">Deleting your account does not cancel an App Store subscription. Cancel it in your Apple Account settings to stop future charges.</span></p>
+<p class="clause" id="c18.4"><span class="clause-no">18.4</span><span class="clause-body">We may suspend or terminate your account for breach of these Terms. L4 violations and breaches of Section 12 lead to immediate removal.</span></p>
+<p class="clause" id="c18.5"><span class="clause-no">18.5</span><span class="clause-body">On termination, your access ends and any outstanding fees remain payable. Records we must keep for legal, tax, or accounting purposes are kept in anonymised form only.</span></p>
+</section>
+<section class="section" id="s19">
+<h2 class="section-title"><span class="sec-num">19</span><span>Provider Terms</span></h2>
+<p class="clause" id="c19.1"><span class="clause-no">19.1</span><span class="clause-body">Consultants and breeders are bound by these Terms and the <a class="doc-link" href="aquaai_provider_policy.html">Provider Policy</a>.</span></p>
+<p class="clause" id="c19.2"><span class="clause-no">19.2</span><span class="clause-body"><strong>Consultants</strong> pay no subscription. Aqua AI’s 10% booking fee is taken from the service price, and the user pays the remaining 90% to the consultant directly (Section 6.2).</span></p>
+<p class="clause" id="c19.3"><span class="clause-no">19.3</span><span class="clause-body"><strong>Breeders</strong> pay a monthly or annual subscription, plus a 7% platform commission on in-app sales, and keep 93% of each in-app sale. Breeder subscription fees are shown when you subscribe.</span></p>
+<p class="clause" id="c19.4"><span class="clause-no">19.4</span><span class="clause-body">Optional breeder certification tiers are available. Certification fees are shown when you apply.</span></p>
+<p class="clause" id="c19.5"><span class="clause-no">19.5</span><span class="clause-body">Provider approval is handled by head office (24–48 hours). Providers may hold both roles at the same time.</span></p>
+<p class="clause" id="c19.6"><span class="clause-no">19.6</span><span class="clause-body">Providers must keep their profiles, pricing, stock levels, and availability accurate.</span></p>
+</section>
+<section class="section" id="s20">
+<h2 class="section-title"><span class="sec-num">20</span><span>Governing Law</span></h2>
+<p class="clause" id="c20.1"><span class="clause-no">20.1</span><span class="clause-body">These Terms are governed by the laws of England and Wales.</span></p>
+<p class="clause" id="c20.2"><span class="clause-no">20.2</span><span class="clause-body">Disputes will first be addressed through good-faith negotiation, then the courts of England and Wales will have exclusive jurisdiction. If you are a consumer living elsewhere in the UK, you may also bring proceedings in your local courts.</span></p>
+</section>
+<section class="section" id="s21">
+<h2 class="section-title"><span class="sec-num">21</span><span>Age Restriction</span></h2>
+<p class="clause" id="c21.1"><span class="clause-no">21.1</span><span class="clause-body">The Platform is only for people aged 18 and over. By creating an account, you confirm that you are at least 18. We will close any account we find belongs to someone under 18.</span></p>
+</section>
+<section class="section" id="s22">
+<h2 class="section-title"><span class="sec-num">22</span><span>App Store Terms</span></h2>
+<p class="clause" id="c22.1"><span class="clause-no">22.1</span><span class="clause-body">This section applies when you download an App from the Apple App Store.</span></p>
+<p class="clause" id="c22.2"><span class="clause-no">22.2</span><span class="clause-body">These Terms are between you and Aqua AI only, not Apple. Aqua AI, not Apple, is solely responsible for the Apps and their content.</span></p>
+<p class="clause" id="c22.3"><span class="clause-no">22.3</span><span class="clause-body">Your licence to use the Apps is non-transferable and limited to Apple-branded products that you own or control, as permitted by the Usage Rules in the Apple Media Services Terms and Conditions.</span></p>
+<p class="clause" id="c22.4"><span class="clause-no">22.4</span><span class="clause-body">Aqua AI is solely responsible for maintenance and support of the Apps. Apple has no obligation to provide any maintenance or support.</span></p>
+<p class="clause" id="c22.5"><span class="clause-no">22.5</span><span class="clause-body">If an App fails to conform to any applicable warranty, you may notify Apple, and Apple will refund the purchase price (if any) of that App. To the maximum extent permitted by law, Apple has no other warranty obligation for the Apps. Any other claims, losses, liabilities, damages, costs, or expenses arising from a failure to conform to a warranty are Aqua AI’s responsibility.</span></p>
+<p class="clause" id="c22.6"><span class="clause-no">22.6</span><span class="clause-body">Aqua AI, not Apple, is responsible for addressing any claims by you or a third party relating to the Apps or your use of them, including product liability claims, claims that an App fails to meet legal or regulatory requirements, and claims under consumer protection, privacy, or similar laws.</span></p>
+<p class="clause" id="c22.7"><span class="clause-no">22.7</span><span class="clause-body">If a third party claims that an App or your use of it infringes their intellectual property rights, Aqua AI, not Apple, is solely responsible for investigating, defending, settling, and discharging that claim.</span></p>
+<p class="clause" id="c22.8"><span class="clause-no">22.8</span><span class="clause-body">You confirm that you are not located in a country subject to a UK or US Government embargo, or designated as a “terrorist supporting” country, and that you are not on any UK or US Government list of prohibited or restricted parties.</span></p>
+<p class="clause" id="c22.9"><span class="clause-no">22.9</span><span class="clause-body">Questions, complaints, or claims about the Apps should be directed to AQUAAI LTD, 71–75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom · <a href="mailto:support@aquaai.uk">support@aquaai.uk</a> · <a href="tel:+447782207333">+44 7782 207333</a>.</span></p>
+<p class="clause" id="c22.10"><span class="clause-no">22.10</span><span class="clause-body">You must comply with applicable third-party terms when using the Apps.</span></p>
+<p class="clause" id="c22.11"><span class="clause-no">22.11</span><span class="clause-body">Apple and its subsidiaries are third-party beneficiaries of these Terms. Once you accept these Terms, Apple has the right (and is deemed to have accepted the right) to enforce them against you as a third-party beneficiary.</span></p>
+</section>
+<section class="section" id="s23">
+<h2 class="section-title"><span class="sec-num">23</span><span>General Provisions</span></h2>
+<p class="clause" id="c23.1"><span class="clause-no">23.1</span><span class="clause-body"><strong>Entire Agreement.</strong> These Terms and all referenced policies make up the entire agreement between you and us.</span></p>
+<p class="clause" id="c23.2"><span class="clause-no">23.2</span><span class="clause-body"><strong>Severability.</strong> If any provision is unenforceable, the rest of these Terms still apply.</span></p>
+<p class="clause" id="c23.3"><span class="clause-no">23.3</span><span class="clause-body"><strong>Assignment.</strong> You may not assign these Terms without our written consent. We may assign them without restriction.</span></p>
+<p class="clause" id="c23.4"><span class="clause-no">23.4</span><span class="clause-body"><strong>Force Majeure.</strong> We are not liable for delays beyond our reasonable control.</span></p>
+<p class="clause" id="c23.5"><span class="clause-no">23.5</span><span class="clause-body"><strong>Third-Party Rights.</strong> Except as set out in Section 22.11, no one else has rights under the Contracts (Rights of Third Parties) Act 1999 to enforce any term of these Terms.</span></p>
+</section>
+<section class="section section--contact" id="s24">
+<h2 class="section-title"><span class="sec-num">24</span><span>Contact</span></h2>
+<p>AQUAAI LTD (trading as Aqua AI) · Company Number 16455928 · Registered in England and Wales</p>
+<p>Registered office: 71–75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom</p>
+<p>Support: <a href="mailto:support@aquaai.uk">support@aquaai.uk</a> · Website: <a href="https://www.aquaai.uk">www.aquaai.uk</a></p>
+<p>WhatsApp / Signal: <a href="tel:+447586576323">+44 7586 576323</a> · SMS: <a href="tel:+447782207333">+44 7782 207333</a></p>
+</section>
+    <section class="related">
+      <h2>Related documents</h2>
+      <div class="related-grid"><a class="related-card" href="aquaai_privacy_policy.html"><span>Privacy Policy</span><small>What personal data we collect, why, and the rights you have over it.</small></a><a class="related-card" href="cookies_and_data_policy.html"><span>Cookies and Data Policy</span><small>How the apps and website store and process data, including cookies and similar technologies.</small></a><a class="related-card" href="aquaai_acceptable_use_policy.html"><span>Acceptable Use Policy</span><small>The rules for content and behaviour across Aqua AI.</small></a><a class="related-card" href="aquaai_refund_policy.html"><span>Refund Policy</span><small>When subscriptions, bookings and purchases can be refunded.</small></a><a class="related-card" href="aquaai_marketplace_policy.html"><span>Marketplace Policy</span><small>Rules for buying, selling and listing in the marketplace.</small></a><a class="related-card" href="aquaai_service_level_agreement.html"><span>Service Level Agreement</span><small>Our commitments on availability, performance, safety and support, and what happens if we fall short.</small></a></div>
+    </section>
+  </article>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <p>AQUAAI LTD (trading as Aqua AI) · Company Number 16455928 · Registered in England and Wales · Registered office: 71–75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom</p>
+    <p>Questions about this document? <a href="mailto:support@aquaai.uk">support@aquaai.uk</a> · <a href="#top" data-top>Back to top ↑</a></p>
+  </div>
+</footer>
+<script src="/policies/assets/legal.js" defer></script>
+</body>
 </html>

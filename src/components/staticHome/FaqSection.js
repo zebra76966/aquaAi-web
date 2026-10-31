@@ -40,7 +40,7 @@ const FAQ_CATEGORIES = [
     items: [
       {
         q: "What are the subscription tiers?",
-        a: "AQUA AI® operates a three-tier model:\n\nFree (£0): 1 habitat, species identification (image), basic water parameter tracking, basic care plan, peer-to-peer marketplace.\n\nPremium (£14.99/month or £144.99/year): Up to 3 habitats, disease detection, AquaBot (100 queries/month), marketplace selling, consultant booking, breeder purchasing, growth tracking, and full water intelligence.\n\nPro (£24.99/month or £239.99/year): Unlimited habitats including ponds, full AI capabilities, AquaBot (500 queries/month), preventative alerts, data export, and priority features.",
+        a: "AQUA AI® operates a three-tier model:\n\nFree (£0): 1 habitat, species identification (image), basic water parameter tracking, basic care plan, peer-to-peer marketplace.\n\nPremium (£14.99/month or £139.99/year): Up to 3 habitats, disease detection, AquaBot (100 queries/month), marketplace selling, consultant booking, breeder purchasing, growth tracking, and full water intelligence.\n\nPro (£24.99/month or £239.99/year): Unlimited habitats including ponds, full AI capabilities, AquaBot (500 queries/month), preventative alerts, data export, and priority features.",
       },
       {
         q: "Is there a promotional launch price?",
@@ -279,7 +279,7 @@ const FAQ_CATEGORIES = [
         q: "What are the support response times?",
         a: "Critical (platform outage, data loss, security incident): within 4 hours\nHigh priority (payment/payout, booking failures, account access): within 24 hours\nStandard (feature questions, feedback): within 48 hours\nLow priority (suggestions, non-urgent feedback): within 5 business days",
       },
-      { q: "Who operates AQUA AI®?", a: "AQUA AI® is operated by Humara Ltd, registered in England and Wales. The platform is governed by the laws of England and Wales." },
+      { q: "Who operates AQUA AI®?", a: "AQUA AI® is operated by AQUAAI LTD (trading as Aqua AI), Company Number 16455928, registered in England and Wales. The platform is governed by the laws of England and Wales." },
       {
         q: "Does AQUA AI® endorse listings or providers?",
         a: "No. AQUA AI® does not endorse or guarantee any user content, listing, consultant service, or breeder stock. Users and providers are independent, and all transactions are conducted at the parties' own risk.",
