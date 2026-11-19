@@ -2,7 +2,7 @@
  * AccountDangerZone.js
  * Drop into any ProfileTab — handles:
  *   - Reset Password (sends email with link)
- *   - Delete Account (DELETE /user/account/delete/)
+ *   - Delete Account (POST /user/account/delete/  { password })
  *     with a 10-second countdown confirm step, followed by a
  *     password confirmation step, then logs the user out.
  */
@@ -45,14 +45,19 @@ function DeleteAccountModal({ onClose, token, onDeleted }) {
     setConfirming(true);
     setError("");
     try {
-      const res = await fetch(`${baseUrl}/user/account/delete/`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ password }),
-      });
+      // The backend takes POST here (same as the mobile app). DELETE returns
+      // 405 "Method DELETE not allowed". Retry with DELETE only if POST is refused.
+      const send = (method) =>
+        fetch(`${baseUrl}/user/account/delete/`, {
+          method,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ password }),
+        });
+      let res = await send("POST");
+      if (res.status === 405) res = await send("DELETE");
       const json = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(json.message || json.detail || "Failed to delete account. Please check your password and try again.");
       onDeleted();
